@@ -132,6 +132,7 @@ set t_Co=256
 set cursorline
 colorscheme onehalflight
 let g:airline_theme='onehalfdark'
+colorscheme tokyonight-storm
 " ==================== Terminal Colors ====================
 
 "set background=dark
