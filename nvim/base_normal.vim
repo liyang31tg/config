@@ -117,7 +117,6 @@ nnoremap <c-b> :Buffers<cr>
 inoremap <c-b> <esc>:Buffers<cr>
 
 "nmap <silent> f :Format<cr>
-set background=light
 
 "colorscheme nord
 "colorscheme gruvbox-material
@@ -130,9 +129,11 @@ set background=light
 "colorscheme solarized8
 set t_Co=256
 set cursorline
+syntax enable
+set background=light
 colorscheme onehalflight
 let g:airline_theme='onehalfdark'
-colorscheme tokyonight-storm
+"colorscheme tokyonight-storm
 " ==================== Terminal Colors ====================
 
 "set background=dark
