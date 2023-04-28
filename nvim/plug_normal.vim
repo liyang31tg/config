@@ -205,3 +205,5 @@ let g:fzf_colors =
    \ 'spinner': ['fg', 'Label'],                                                            
    \ 'header':  ['fg', 'Comment'] }
 
+
+  au FileType vue let b:coc_root_patterns = ['.git', '.env', 'package.json', 'tsconfig.json', 'jsconfig.json', 'vite.config.ts', 'vite.config.js', 'vue.config.js', 'nuxt.config.ts']
