@@ -117,7 +117,6 @@ nnoremap <c-b> :Buffers<cr>
 inoremap <c-b> <esc>:Buffers<cr>
 
 "nmap <silent> f :Format<cr>
-set background=light
 
 "colorscheme nord
 "colorscheme gruvbox-material
@@ -130,13 +129,15 @@ set background=light
 "colorscheme solarized8
 set t_Co=256
 set cursorline
-colorscheme onehalflight
-let g:airline_theme='onehalfdark'
+syntax enable
+set background=light
+"colorscheme onehalflight
+"let g:airline_theme='onehalfdark'
 set termguicolors     " enable true colors support
-"let ayucolor="light"  " for light version of theme
-"let ayucolor="mirage" " for mirage version of theme
-"let ayucolor="dark"   " for dark version of theme
-" ==================== Terminal Colors ====================
+"colorscheme tokyonight-storm
+colorscheme snow
+set background=light
+let g:airline_theme='snow_light'
 
 "set background=dark
 "windows

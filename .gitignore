@@ -13,4 +13,12 @@ efm-langserver
 configstore
 coc
 .DS_Store
-iterm2
+NuGet
+gdlv
+gdlv.star
+gtk-2.0
+karabiner
+kitty_bck
+nvim_bck
+stetic
+vim-colors-solarized

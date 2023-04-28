@@ -47,6 +47,8 @@ Plug 'vim-airline/vim-airline-themes'
 "Plug 'lifepillar/vim-solarized8'
 "Plug 'sainnhe/gruvbox-material'
 Plug 'sonph/onehalf', { 'rtp': 'vim' }
+Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
+Plug 'nightsense/snow'
 "配色方案结束
 call plug#end()
 
