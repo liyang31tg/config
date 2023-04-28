@@ -132,6 +132,10 @@ set t_Co=256
 set cursorline
 colorscheme onehalflight
 let g:airline_theme='onehalfdark'
+set termguicolors     " enable true colors support
+"let ayucolor="light"  " for light version of theme
+"let ayucolor="mirage" " for mirage version of theme
+"let ayucolor="dark"   " for dark version of theme
 " ==================== Terminal Colors ====================
 
 "set background=dark
