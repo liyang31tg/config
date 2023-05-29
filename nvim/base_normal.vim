@@ -142,21 +142,18 @@ let g:airline_theme='snow_light'
 "set background=dark
 "windows
 nnoremap <leader>q  :q<cr>
-nnoremap <c-d>  :q<cr>
-inoremap <c-d>  <esc>:q<cr>
 
 " Better Navigation
 " Meta 桥接
-" ,这类事件需要在iterm快捷键里映射下,<c-数字>vim不支持
+" ,这类事件需要在iterm快捷键里映射下,<c-数字>vim不支持 ,<c-数字> nvim支持
 " 以下是对应的不支持映射的桥接关系大幅阿斯蒂芬
 " <c-0> <M-f>
 " <cmd-s> <M-s>
-map <M-f> :NERDTreeFocus<cr>
 noremap <F2> :NERDTreeFind<cr>
-map <M-s> :w<cr>
-map <D-s> :w<cr>
+"map <M-s> :w<cr>
+noremap <D-s> :w<cr>
 inoremap <D-s> <esc>:w<cr>a
-map <A-s> :w<cr>
+"map <A-s> :w<cr>
 
 
 hi comment ctermfg =darkyellow
