@@ -107,8 +107,6 @@ map th :-tabnext<cr>
 "placeholder
 map <space><space> <esc>/<cr>:nohlsearch<cr>c4l
 nnoremap <c-t> :term<cr>a
-nnoremap <c-f> :Ag 
-inoremap <c-f> <esc>:Ag 
 
 nnoremap <c-p> :Files<cr>
 "inoremap <c-p> <esc>:Files<cr> "选择输入的时候，提示ctrl+n ctrl+p 冲突
@@ -143,17 +141,19 @@ let g:airline_theme='snow_light'
 "windows
 nnoremap <leader>q  :q<cr>
 
+"<c-数字> vim9.0已经支持，nvim自然也支持测试了，保证不是通过meta桥接
+"<c-m-字母> 在nvim可使用 <ctrl+option+>
 " Better Navigation
 " Meta 桥接
 " ,这类事件需要在iterm快捷键里映射下,<c-数字>vim不支持 ,<c-数字> nvim支持
+" <D->
 " 以下是对应的不支持映射的桥接关系大幅阿斯蒂芬
-" <c-0> <M-f>
+" <c-0> <M-f> 删除，因为已经支持映射<c-数字
 " <cmd-s> <M-s>
 noremap <F2> :NERDTreeFind<cr>
-"map <M-s> :w<cr>
-noremap <D-s> :w<cr>
-inoremap <D-s> <esc>:w<cr>a
-"map <A-s> :w<cr>
+noremap <silent> <M-s> :w<cr>
+noremap  <M-f> :Ag 
+map <silent> <c-8>  :echo "88dd8d8"<cr>
 
 
 hi comment ctermfg =darkyellow
