@@ -80,10 +80,10 @@ nnoremap <leader>l <c-w>l
 nnoremap <leader>j <c-w>j
 nnoremap <leader>k <c-w>k
 "move  window
-nnoremap ,h <c-w>H
-nnoremap ,l <c-w>L
-nnoremap ,j <c-w>J
-nnoremap ,k <c-w>K
+nnoremap <leader>mh <c-w>H
+nnoremap <leader>ml <c-w>L
+nnoremap <leader>mj <c-w>J
+nnoremap <leader>mk <c-w>K
 "split
 nnoremap sl :set splitright<cr>:vsplit<cr>
 nnoremap sh :set nosplitright<cr>:vsplit<cr>:set splitright<cr>
@@ -96,8 +96,6 @@ noremap sv <C-w>t<C-w>H
 " Rotate screens
 noremap srh <C-w>b<C-w>K
 noremap srv <C-w>b<C-w>H
-" Press <SPACE> + q to close the window below the current window
-noremap <LEADER>q <C-w>j:q<CR>
 
 
 "本来是水平分屏的改成垂直分屏
@@ -112,13 +110,51 @@ map <up> :res +5<cr>
 map <down> :res -5<cr>
 map <left> :vertical resize-5<cr>
 map <right> :vertical resize+5<cr>
-"tab
-map tn :tabe<cr>
-map tl :+tabnext<cr>
-map th :-tabnext<cr>
 
-"placeholder
-nnoremap <c-t> :term<cr>a
+"tab
+":tabe 新建一个空白标签，暂时不需要
+noremap tn :tab split<cr>
+noremap tl :+tabnext<cr>
+noremap th :-tabnext<cr>
+noremap tml :+tabmove<CR>
+noremap tmh :-tabmove<CR>
+
+
+"term
+let g:neoterm_autoscroll = 1
+autocmd TermOpen term://* startinsert
+tnoremap <esc> <C-\><C-n> :q<cr>
+tnoremap <c-n> <C-\><C-n>
+nnoremap <c-t> :set splitbelow<cr>:split<cr>:term<cr>
+inoremap <c-t> <esc>:term<cr>
+
+
+
+nnoremap <silent><nowait> <leader>d :CocList diagnostics<cr>
+nmap <silent> <leader>- <Plug>(coc-diagnostic-prev)
+nmap <silent> <leader>= <Plug>(coc-diagnostic-next)
+
+
+" Text Objects 不知道杂用
+xmap kf <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap kf <Plug>(coc-funcobj-i)
+omap af <Plug>(coc-funcobj-a)
+xmap kc <Plug>(coc-classobj-i)
+omap kc <Plug>(coc-classobj-i)
+xmap ac <Plug>(coc-classobj-a)
+omap ac <Plug>(coc-classobj-a)
+
+
+
+" GoTo code navigation
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gD :tab sp<CR><Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+nmap <leader>rn <Plug>(coc-rename)
+nmap ts <Plug>(coc-translator-p)
 
 nnoremap <c-p> :Files<cr>
 "inoremap <c-p> <esc>:Files<cr> "选择输入的时候，提示ctrl+n ctrl+p 冲突

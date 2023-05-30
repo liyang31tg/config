@@ -15,6 +15,3 @@ endif
 
 source $HOME/.config/nvim/base_comm.vim
 
-map <M-y> :write MM<cr>
-map <A-y> :write AA<cr>
-map <D-y> :write DD<cr>
