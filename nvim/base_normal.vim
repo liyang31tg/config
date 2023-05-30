@@ -48,52 +48,65 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 
 set encoding=UTF-8
 set nu rnu
-"exec "set nu rnu"
 set ts=4
 set expandtab
 set autoindent
 set cursorline
 set clipboard+=unnamedplus "支持系统粘贴板
 
-" highlght 主要是用来配色的，包括语法高亮等个性化的配置。可以通过:h highlight，查看详细信息
+nnoremap Q :q<CR>
+nnoremap S :w<CR>
+nnoremap <leader>rc :e $HOME/.config/nvim/init.vim<cr>
+nnoremap <leader>so :source $MYVIMRC<cr>  "没用
+augroup NVIMRC
+    autocmd!
+    autocmd BufWritePost *.nvimrc exec ":so %"
+augroup END
+" Ctrl + U or E will move up/down the view port without moving the cursor
+noremap <C-j> 5<C-y>
+noremap <C-k> 5<C-e>
+" Folding
+noremap <silent> <leader>o za "折叠代码
+"快速插入没{}
+inoremap <c-y> <ESC>A {}<ESC>i<CR><ESC>ko
 
-"CursorLine 和 CursorColumn 分别表示当前所在的行列
 
-"cterm 表示为原生vim设置样式，设置为NONE表示可以自定义设置。
 
-"ctermbg 设置终端vim的背景色
 
-"ctermfg 设置终端vim的前景色
-
-"guibg 和 guifg 分别是设置gvim的背景色和前景色，本人平时都是使用终端打开vim，所以只是设置终端下的样式
-
-"set cursorline  "高亮显示当前行
-"autocmd WinEnter * highlight CursorLine guibg=#000050 guifg=fg
-"autocmd WinLeave * highlight CursorLine guibg=#004000 guifg=fg
-"set cursorcolumn  "高亮显示当前列
-"autocmd BufEnter * highlight CursorColumn ctermfg=fg ctermbg=fg cterm=bold guifg=#FF0000 guibg=#EE82EE gui=bold
-"autocmd BufLeave * highlight CursorColumn ctermfg=NONE  ctermbg=NONE cterm=NONE guifg=NONE guibg=NONE gui=NONE
-"au FileType fzf nnoremap <buffer> <esc> :q<cr>
 "move cursor in window
-nnoremap <c-h> <c-w>h
-nnoremap <c-l> <c-w>l
-nnoremap <c-j> <c-w>j
-nnoremap <c-k> <c-w>k
+nnoremap <leader>w <c-w>w
+nnoremap <leader>h <c-w>h
+nnoremap <leader>l <c-w>l
+nnoremap <leader>j <c-w>j
+nnoremap <leader>k <c-w>k
 "move  window
-nnoremap <leader>h <c-w>H
-nnoremap <leader>l <c-w>L
-nnoremap <leader>j <c-w>J
-nnoremap <leader>k <c-w>K
+nnoremap ,h <c-w>H
+nnoremap ,l <c-w>L
+nnoremap ,j <c-w>J
+nnoremap ,k <c-w>K
 "split
 nnoremap sl :set splitright<cr>:vsplit<cr>
+nnoremap sh :set nosplitright<cr>:vsplit<cr>:set splitright<cr>
 nnoremap sj :set splitbelow<cr>:split<cr>
-nnoremap sk :set nosplitbelow<cr>:split<cr>
-nnoremap sh :set nosplitright<cr>:vsplit<cr>
+nnoremap sk :set nosplitbelow<cr>:split<cr>:set splitbelow<cr>
+" Place the two screens up and down
+noremap sn <C-w>t<C-w>K
+" Place the two screens side by side
+noremap sv <C-w>t<C-w>H
+" Rotate screens
+noremap srh <C-w>b<C-w>K
+noremap srv <C-w>b<C-w>H
+" Press <SPACE> + q to close the window below the current window
+noremap <LEADER>q <C-w>j:q<CR>
+
 
 "本来是水平分屏的改成垂直分屏
 map scv <c-w>t<c-w>H
 "本来是垂直分屏的改成水平分屏
 map sch <c-w>t<c-w>K
+
+
+
 "resize
 map <up> :res +5<cr>
 map <down> :res -5<cr>
@@ -105,7 +118,6 @@ map tl :+tabnext<cr>
 map th :-tabnext<cr>
 
 "placeholder
-map <space><space> <esc>/<cr>:nohlsearch<cr>c4l
 nnoremap <c-t> :term<cr>a
 
 nnoremap <c-p> :Files<cr>
@@ -152,8 +164,7 @@ nnoremap <leader>q  :q<cr>
 " <cmd-s> <M-s>
 noremap <F2> :NERDTreeFind<cr>
 noremap <silent> <M-s> :w<cr>
-noremap  <M-f> :Ag 
-map <silent> <c-8>  :echo "88dd8d8"<cr>
+noremap  <c-f> :Ag 
 
 
 hi comment ctermfg =darkyellow
@@ -162,3 +173,66 @@ highlight LineNr ctermfg=red
 
 autocmd FileType cs nnoremap <leader>r :set splitbelow<cr> :sp <CR> :term dotnet run % <CR>a
 autocmd FileType typescript nnoremap <leader>r :set splitbelow<cr> :sp <CR> :term deno run % <CR>a
+
+
+noremap \p :echo expand('%:p')<CR>
+
+
+" Compile function
+noremap <m-r> :call CompileRunGcc()<CR>
+func! CompileRunGcc()
+	exec "w"
+	if &filetype == 'c'
+		set splitbelow
+		:sp
+		:res -5
+		term gcc % -o %< && time ./%<
+	elseif &filetype == 'cpp'
+		set splitbelow
+		exec "!g++ -std=c++11 % -Wall -o %<"
+		:sp
+		:res -15
+		:term ./%<
+	elseif &filetype == 'cs'
+		set splitbelow
+		silent! exec "!mcs %"
+		:sp
+		:res -5
+		:term mono %<.exe
+	elseif &filetype == 'java'
+		set splitbelow
+		:sp
+		:res -5
+		term javac % && time java %<
+	elseif &filetype == 'sh'
+		:!time bash %
+	elseif &filetype == 'python'
+		set splitbelow
+		:sp
+		:term python3 %
+	elseif &filetype == 'html'
+		silent! exec "!".g:mkdp_browser." % &"
+	elseif &filetype == 'markdown'
+		exec "InstantMarkdownPreview"
+	elseif &filetype == 'tex'
+		silent! exec "VimtexStop"
+		silent! exec "VimtexCompile"
+	elseif &filetype == 'dart'
+		exec "CocCommand flutter.run -d ".g:flutter_default_device." ".g:flutter_run_args
+		silent! exec "CocCommand flutter.dev.openDevLog"
+	elseif &filetype == 'javascript'
+		set splitbelow
+		:sp
+		:term export DEBUG="INFO,ERROR,WARNING"; node --trace-warnings .
+	elseif &filetype == 'racket'
+		set splitbelow
+		:sp
+		:res -5
+		term racket %
+	elseif &filetype == 'go'
+		set splitbelow
+		:sp
+		:term go run .
+	endif
+endfunc
+
