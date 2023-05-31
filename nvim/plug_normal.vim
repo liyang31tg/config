@@ -111,7 +111,8 @@ endif
 
 "format proto
 
-let g:python3_host_prog = '/usr/bin/python3'
+"let g:python3_host_prog = '/usr/bin/python3'
+let g:python3_host_prog = "/usr/local/bin/python3"
 
 "function! Formatonsave()
   "let l:formatdiff = 1
