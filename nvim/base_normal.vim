@@ -124,12 +124,11 @@ noremap th :-tabnext<cr>
 noremap tml :+tabmove<CR>
 noremap tmh :-tabmove<CR>
 
-
 "term
 let g:neoterm_autoscroll = 1
 autocmd TermOpen term://* startinsert
-tnoremap <esc> <C-\><C-n> :q<cr>
-tnoremap <c-n> <C-\><C-n>
+tnoremap <esc> <C-\><C-n>
+tnoremap <leader>q <C-\><C-n>:q<cr>
 nnoremap <c-t> :set splitbelow<cr>:split<cr>:term<cr>
 inoremap <c-t> <esc>:term<cr>
 noremap <LEADER><LEADER> <Esc>/<++><CR>:nohlsearch<CR>"_c4l
