@@ -15,8 +15,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'} "go lsp 最重要的就是enable
 Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'Shougo/neosnippet.vim'
-Plug 'Shougo/neosnippet-snippets'
+Plug 'liyang31tg/vim-snippets'
 Plug 'mhinz/vim-startify'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 Plug 'mbbill/undotree'
@@ -91,11 +90,6 @@ let g:vimshell_force_overwrite_statusline = 0
 "lightline setting end ===================================
 
 
-"neosnippet setting start ===================================
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
-"neosnippet setting end ===================================
 
 "one dark theme start ==========================
 "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
@@ -207,3 +201,13 @@ let g:fzf_colors =
 
 
   au FileType vue let b:coc_root_patterns = ['.git', '.env', 'package.json', 'tsconfig.json', 'jsconfig.json', 'vite.config.ts', 'vite.config.js', 'vue.config.js', 'nuxt.config.ts']
+
+
+" coc-snippets
+imap <C-l> <Plug>(coc-snippets-expand)
+vmap <C-j> <Plug>(coc-snippets-select)
+let g:coc_snippet_next = '<c-j>'
+let g:coc_snippet_prev = '<c-k>'
+imap <C-j> <Plug>(coc-snippets-expand-jump)
+autocmd BufRead,BufNewFile tsconfig.json set filetype=jsonc
+

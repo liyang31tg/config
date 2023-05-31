@@ -54,8 +54,8 @@ set autoindent
 set cursorline
 set clipboard+=unnamedplus "支持系统粘贴板
 
-nnoremap Q :q<CR>
-nnoremap S :w<CR>
+nnoremap <silent> Q :q<CR>
+nnoremap <silent> S :w<CR>
 nnoremap <leader>rc :e $HOME/.config/nvim/init.vim<cr>
 nnoremap <leader>so :source $MYVIMRC<cr>  "没用
 augroup NVIMRC
@@ -103,6 +103,11 @@ map scv <c-w>t<c-w>H
 "本来是垂直分屏的改成水平分屏
 map sch <c-w>t<c-w>K
 
+"Disable the default key
+noremap s <nop>
+" Press ` to change case (instead of ~)
+noremap ` ~
+noremap \s :<c-u>%s//g<left><left>
 
 
 "resize
@@ -127,7 +132,7 @@ tnoremap <esc> <C-\><C-n> :q<cr>
 tnoremap <c-n> <C-\><C-n>
 nnoremap <c-t> :set splitbelow<cr>:split<cr>:term<cr>
 inoremap <c-t> <esc>:term<cr>
-
+noremap <LEADER><LEADER> <Esc>/<++><CR>:nohlsearch<CR>"_c4l
 
 
 nnoremap <silent><nowait> <leader>d :CocList diagnostics<cr>
@@ -135,15 +140,20 @@ nmap <silent> <leader>- <Plug>(coc-diagnostic-prev)
 nmap <silent> <leader>= <Plug>(coc-diagnostic-next)
 
 
-" Text Objects 不知道杂用
-xmap kf <Plug>(coc-funcobj-i)
+" Text Objects 
+" iw,aw,这些都是TextObject
+" Map function and class text objects
+" NOTE: Requires 'textDocument.documentSymbol' support from the language server
+" x 是试图模式
+" o 是操作准备模式, 前置需要一个操作命令（operator）
+xmap if <Plug>(coc-funcobj-i)
+omap if <Plug>(coc-funcobj-i)
 xmap af <Plug>(coc-funcobj-a)
-omap kf <Plug>(coc-funcobj-i)
 omap af <Plug>(coc-funcobj-a)
-xmap kc <Plug>(coc-classobj-i)
-omap kc <Plug>(coc-classobj-i)
+xmap ic <Plug>(coc-classobj-i)
+omap ic <Plug>(coc-classobj-i)
 xmap ac <Plug>(coc-classobj-a)
-omap ac <Plug>(coc-classobj-a)
+xmap ac <Plug>(coc-classobj-a)
 
 
 
@@ -154,7 +164,7 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 nmap <leader>rn <Plug>(coc-rename)
-nmap ts <Plug>(coc-translator-p)
+nmap fy <Plug>(coc-translator-p)
 
 nnoremap <c-p> :Files<cr>
 "inoremap <c-p> <esc>:Files<cr> "选择输入的时候，提示ctrl+n ctrl+p 冲突
@@ -268,7 +278,22 @@ func! CompileRunGcc()
 	elseif &filetype == 'go'
 		set splitbelow
 		:sp
-		:term go run .
+		:term go run %
 	endif
 endfunc
+
+
+let g:coc_global_extensions = [
+	\ 'coc-snippets',
+	\ 'coc-go',
+	\ 'coc-html',
+	\ 'coc-json',
+	\ 'coc-sh',
+	\ 'coc-toml',
+	\ 'coc-tsserver',
+	\ 'coc-vetur',
+	\ 'coc-yaml',
+	\ 'coc-translator',
+    \ 'coc-copilot',
+    \ '@yaegassy/coc-volar']
 
