@@ -7,19 +7,23 @@ tabspaces: 4
 
 font:
   normal:
-    family: JetBrainsMono Nerd Font
+    #family: JetBrainsMono Nerd Font
+    family: "DroidSansM Nerd Font Mono"
     style: Regular
 
   bold:
-    family: JetBrainsMono Nerd Font
+    #family: JetBrainsMono Nerd Font
+    family: "Hack Nerd Font Mono"
     style: Bold
 
   italic:
-    family: JetBrainsMono Nerd Font
+    #family: JetBrainsMono Nerd Font
+    family: "Hack Nerd Font Mono"
     style: Italic
 
   bold_italic:
-    family: JetBrainsMono Nerd Font
+    #family: JetBrainsMono Nerd Font
+    family: "Hack Nerd Font Mono"
     style: Bold Italic
 
   size: 17
@@ -101,6 +105,7 @@ key_bindings:
   - { key: I,           mods: Command|Shift, chars: "\x1c,"    } # rename tab
   - { key: Semicolon,   mods: Command,       chars: "\x1c:"    } # input tmux command
   - { key: S,           mods: Command,       chars: "\x1b:w\x0a"} # Type <escape>:w<enter> to save vim
+  - { key: Key0,        mods: Control,       chars: "\x1b:NERDTreeFocus\x0a"} # Type <escape>:w<enter> to save vim
     #下面的不知道有什么意义
   - { key: I,           mods: Command|Shift, chars: "\x1cI"    } # synchronize panes in the current window
   - { key: R,           mods: Command,       chars: "\x1cR"    } # run command with commands menu

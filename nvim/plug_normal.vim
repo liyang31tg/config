@@ -28,6 +28,8 @@ Plug 'majutsushi/tagbar'
 "airline start
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+" Github Copilot
+Plug 'github/copilot.vim'
 "Plug 'itchyny/lightline.vim' "主题
 "airline end
 " 配色方案start
