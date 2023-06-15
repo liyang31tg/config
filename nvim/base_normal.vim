@@ -74,16 +74,16 @@ inoremap <c-y> <ESC>A {}<ESC>i<CR><ESC>ko
 
 
 "move cursor in window
-nnoremap <leader>w <c-w>w
-nnoremap <leader>h <c-w>h
-nnoremap <leader>l <c-w>l
-nnoremap <leader>j <c-w>j
-nnoremap <leader>k <c-w>k
+"nnoremap <leader>w <c-w>w
+nnoremap <c-h> <c-w>h
+nnoremap <c-l> <c-w>l
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
 "move  window
-nnoremap <leader>mh <c-w>H
-nnoremap <leader>ml <c-w>L
-nnoremap <leader>mj <c-w>J
-nnoremap <leader>mk <c-w>K
+nnoremap <C-A-H> <c-w>H
+nnoremap <C-A-L> <c-w>L
+nnoremap <C-A-J> <c-w>J
+nnoremap <C-A-K> <c-w>K
 "split
 nnoremap sl :set splitright<cr>:vsplit<cr>
 nnoremap sh :set nosplitright<cr>:vsplit<cr>:set splitright<cr>
@@ -208,6 +208,7 @@ nnoremap <leader>q  :q<cr>
 " <c-0> <M-f> 删除，因为已经支持映射<c-数字
 " <cmd-s> <M-s>
 noremap <F2> :NERDTreeFind<cr>
+noremap <c-0> <esc>:NERDTreeFocus<cr>
 noremap <silent> <M-s> :w<cr>
 noremap  <c-f> :Ag 
 
