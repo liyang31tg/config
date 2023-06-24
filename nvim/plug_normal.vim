@@ -213,3 +213,6 @@ let g:coc_snippet_prev = '<c-k>'
 imap <C-j> <Plug>(coc-snippets-expand-jump)
 autocmd BufRead,BufNewFile tsconfig.json set filetype=jsonc
 
+let g:coc_node_path = '/usr/local/bin/node'
+
+
