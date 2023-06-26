@@ -205,7 +205,6 @@ nnoremap <leader>q  :q<cr>
 noremap <F2> :NERDTreeFind<cr>
 noremap <c-0> <esc>:NERDTreeFocus<cr>
 noremap <silent> <M-s> :w<cr>
-noremap  <c-f> :Ag 
 
 
 hi comment ctermfg =darkyellow

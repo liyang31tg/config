@@ -240,5 +240,6 @@ nnoremap <silent> [fzf-p]l     :<C-u>CocCommand fzf-preview.LocationList<CR>
 nmap <c-p> [fzf-p]p
 nmap <c-b> [fzf-p]B 
 imap <c-b> <esc>[fzf-p]B 
+map <c-f> [fzf-p]gr
 "#===========================fzf-preview end================================================
 
