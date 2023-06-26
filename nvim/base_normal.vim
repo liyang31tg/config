@@ -165,11 +165,6 @@ nmap <silent> gr <Plug>(coc-references)
 nmap <leader>rn <Plug>(coc-rename)
 nmap fy <Plug>(coc-translator-p)
 
-nnoremap <c-p> :Files<cr>
-"inoremap <c-p> <esc>:Files<cr> "选择输入的时候，提示ctrl+n ctrl+p 冲突
-
-nnoremap <c-b> :Buffers<cr>
-inoremap <c-b> <esc>:Buffers<cr>
 
 "nmap <silent> f :Format<cr>
 
@@ -294,7 +289,8 @@ let g:coc_global_extensions = [
 	\ 'coc-vetur',
 	\ 'coc-yaml',
 	\ 'coc-translator',
-    \ '@yaegassy/coc-volar']
+    \ '@yaegassy/coc-volar',
+    \ 'coc-fzf-preview']
 
 
 

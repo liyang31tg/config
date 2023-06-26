@@ -12,6 +12,11 @@
 	<true/>
 	<key>Command</key>
 	<string>echo"cc"</string>
+	<key>Coprocess MRU</key>
+	<array>
+		<string>/usr/local/bin/iterm2-send-zmodem.sh</string>
+		<string>/usr/local/bin/iterm2-recv-zmodem.sh</string>
+	</array>
 	<key>Custom Color Presets</key>
 	<dict>
 		<key>3024 Day</key>
@@ -72674,6 +72679,29 @@
 			<integer>66</integer>
 			<key>Transparency</key>
 			<real>0.0</real>
+			<key>Triggers</key>
+			<array>
+				<dict>
+					<key>action</key>
+					<string>MuteCoprocessTrigger</string>
+					<key>parameter</key>
+					<string>/usr/local/bin/iterm2-send-zmodem.sh</string>
+					<key>partial</key>
+					<true/>
+					<key>regex</key>
+					<string>rz waiting to receive.\*\*B0100</string>
+				</dict>
+				<dict>
+					<key>action</key>
+					<string>MuteCoprocessTrigger</string>
+					<key>parameter</key>
+					<string>/usr/local/bin/iterm2-recv-zmodem.sh</string>
+					<key>partial</key>
+					<true/>
+					<key>regex</key>
+					<string>\*\*B00000000000000</string>
+				</dict>
+			</array>
 			<key>Unlimited Scrollback</key>
 			<false/>
 			<key>Use Bold Font</key>
