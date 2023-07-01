@@ -50,6 +50,7 @@ Plug 'sonph/onehalf', { 'rtp': 'vim' }
 Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
 Plug 'nightsense/snow'
 Plug 'fladson/vim-kitty'
+Plug 'https://github.com/rhysd/vim-clang-format.git'
 "配色方案结束
 call plug#end()
 
@@ -243,3 +244,7 @@ imap <c-b> <esc>[fzf-p]B
 map <c-f> [fzf-p]gr
 "#===========================fzf-preview end================================================
 
+"#===========================clang-format start=============================
+"开启自动格式化
+let g:clang_format#auto_format=1 
+"#===========================clang-format end=============================
