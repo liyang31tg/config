@@ -124,7 +124,7 @@ let g:python3_host_prog = "/usr/local/bin/python3"
 "autocmd BufWritePre *.h,*.cc,*.cpp,*.proto call Formatonsave()
 "
 "
-"c#      start =================
+"csharp      start =================
 if has('patch-8.1.1880')
   set completeopt=longest,menuone,popuphidden
   " Highlight the completion documentation popup background/foreground the same as
@@ -140,6 +140,7 @@ endif
 " Tell ALE to use OmniSharp for linting C# files, and no other linters.
 let g:ale_linters = { 'cs': ['OmniSharp'] }
 let g:OmniSharp_server_use_mono = 1
+let g:OmniSharp_server_use_net6 = 1
 
 augroup omnisharp_commands
   autocmd!
@@ -182,7 +183,7 @@ augroup omnisharp_commands
   autocmd FileType cs nmap <silent> <buffer> <Leader>osst <Plug>(omnisharp_start_server)
   autocmd FileType cs nmap <silent> <buffer> <Leader>ossp <Plug>(omnisharp_stop_server)
 augroup END
-"c#      end  ==================
+"csharp      end  ==================
 "tagbar
 nmap <F8> :TagbarToggle<CR>
 "fzf
