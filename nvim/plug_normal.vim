@@ -246,5 +246,5 @@ map <c-f> [fzf-p]gr
 
 "#===========================clang-format start=============================
 "开启自动格式化
-let g:clang_format#auto_format=1 
+autocmd FileType c,proto ClangFormatAutoEnable
 "#===========================clang-format end=============================
