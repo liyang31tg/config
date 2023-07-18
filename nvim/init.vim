@@ -14,3 +14,20 @@ endif
 
 source $HOME/.config/nvim/base_comm.vim
 
+"加载lua
+lua require('base')
+lua require('keybindings')
+lua require('plugins')
+lua require('colorscheme')
+lua require("plugin-config.nvim-tree")
+lua require("plugin-config.bufferline")
+lua require("plugin-config.lualine")
+lua require("plugin-config.telescope")
+lua require("plugin-config.dashboard")
+"lua require("plugin-config.project") 这个插件无法正常切换目录
+lua require("plugin-config.nvim-treesitter")
+lua require("lsp.setup")
+
+
+
+

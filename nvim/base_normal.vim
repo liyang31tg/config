@@ -54,8 +54,8 @@ set autoindent
 set cursorline
 set clipboard+=unnamedplus "支持系统粘贴板
 
-nnoremap <silent> Q :q<CR>
-nnoremap <silent> S :w<CR>
+"nnoremap <silent> Q :q<CR>
+"nnoremap <silent> S :w<CR>
 nnoremap <leader>rc :e $HOME/.config/nvim/init.vim<cr>
 nnoremap <leader>so :source $MYVIMRC<cr>  "没用
 augroup NVIMRC
@@ -75,24 +75,24 @@ inoremap <c-y> <ESC>A {}<ESC>i<CR><ESC>ko
 
 "move cursor in window
 "nnoremap <leader>w <c-w>w
-nnoremap <c-h> <c-w>h
-nnoremap <c-l> <c-w>l
-nnoremap <c-j> <c-w>j
-nnoremap <c-k> <c-w>k
+"nnoremap <c-h> <c-w>h
+"nnoremap <c-l> <c-w>l
+"nnoremap <c-j> <c-w>j
+"nnoremap <c-k> <c-w>k
 "move  window
 nnoremap <C-A-H> <c-w>H
 nnoremap <C-A-L> <c-w>L
 nnoremap <C-A-J> <c-w>J
 nnoremap <C-A-K> <c-w>K
 "split
-nnoremap sl :set splitright<cr>:vsplit<cr>
-nnoremap sh :set nosplitright<cr>:vsplit<cr>:set splitright<cr>
-nnoremap sj :set splitbelow<cr>:split<cr>
-nnoremap sk :set nosplitbelow<cr>:split<cr>:set splitbelow<cr>
+"nnoremap sl :set splitright<cr>:vsplit<cr>
+"nnoremap sh :set nosplitright<cr>:vsplit<cr>:set splitright<cr>
+"nnoremap sj :set splitbelow<cr>:split<cr>
+"nnoremap sk :set nosplitbelow<cr>:split<cr>:set splitbelow<cr>
 " Place the two screens up and down
 noremap sn <C-w>t<C-w>K
 " Place the two screens side by side
-noremap sv <C-w>t<C-w>H
+"noremap sv <C-w>t<C-w>H
 " Rotate screens
 noremap srh <C-w>b<C-w>K
 noremap srv <C-w>b<C-w>H
@@ -185,9 +185,9 @@ set background=light
 "let g:airline_theme='onehalfdark'
 set termguicolors     " enable true colors support
 "colorscheme tokyonight-storm
-colorscheme snow
+"colorscheme snow
 set background=light
-let g:airline_theme='snow_light'
+"let g:airline_theme='snow_light'
 
 "set background=dark
 "windows
@@ -202,8 +202,6 @@ nnoremap <leader>q  :q<cr>
 " 以下是对应的不支持映射的桥接关系大幅阿斯蒂芬
 " <c-0> <M-f> 删除，因为已经支持映射<c-数字
 " <cmd-s> <M-s>
-noremap <F2> :NERDTreeFind<cr>
-noremap <c-0> <esc>:NERDTreeFocus<cr>
 noremap <silent> <M-s> :w<cr>
 
 

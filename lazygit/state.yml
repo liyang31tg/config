@@ -1,10 +1,10 @@
 lastupdatecheck: 0
 recentrepos:
 - /Users/ppll/.config
-- /Users/ppll/Documents/typora
 - /Users/ppll/go/workSpace/gameserver
-- /Users/ppll/go/workSpace/self-pkg/crpc
 - /Users/ppll/go/workSpace/admin_deng
+- /Users/ppll/Documents/typora
+- /Users/ppll/go/workSpace/self-pkg/crpc
 startuppopupversion: 5
 customcommandshistory: []
 hidecommandlog: false

@@ -3,10 +3,10 @@
 " - Avoid using standard Vim directory names like 'plugin'
 call plug#begin('~/.local/share/nvim/plugged')
 " Initialize plugin system
-Plug 'preservim/nerdtree'
+"Plug 'preservim/nerdtree'
 Plug 'preservim/nerdcommenter' "注释用的插件
 Plug 'ryanoasis/vim-devicons'
-Plug 'sheerun/vim-polyglot' "语法高亮的一个补充和onedark主题结合
+"Plug 'sheerun/vim-polyglot' "语法高亮的一个补充和onedark主题结合
 "Plug 'fatih/vim-go', {'tag':'v1.27', 'do': ':GoUpdateBinaries' }
 Plug 'fatih/vim-go', {'do': ':GoUpdateBinaries' }
 Plug 'hexdigest/gounit-vim'
@@ -17,7 +17,7 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 "Plug 'yuki-yano/fzf-preview.vim', { 'branch': 'release/rpc' }
 "Plug 'junegunn/fzf.vim'
 Plug 'liyang31tg/vim-snippets'
-Plug 'mhinz/vim-startify'
+"Plug 'mhinz/vim-startify'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 Plug 'mbbill/undotree'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
@@ -27,66 +27,20 @@ Plug 'OmniSharp/omnisharp-vim' "csharp 专用
 "Plug 'dense-analysis/ale' "csharp 专用
 Plug 'majutsushi/tagbar'
 "airline start
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-"Plug 'itchyny/lightline.vim' "主题
-"airline end
-" 配色方案start
-" colorscheme neodark
-"Plug 'KeitaNakamura/neodark.vim'
-" colorscheme monokai
-"Plug 'crusoexia/vim-monokai'
-" colorscheme one 
-"Plug 'rakr/vim-one'
-"Plug 'https://github.com/joshdick/onedark.vim.git' "主题
-"Plug 'nordtheme/vim' "主题
-"Plug 'hzchirs/vim-material' "主题
-"Plug 'catppuccin/nvim' "主题
-"Plug 'connorholyday/vim-snazzy'
-"Plug 'rose-pine/neovim' 
-"Plug 'lifepillar/vim-solarized8'
-"Plug 'sainnhe/gruvbox-material'
+"Plug 'vim-airline/vim-airline'
+"Plug 'vim-airline/vim-airline-themes'
 Plug 'sonph/onehalf', { 'rtp': 'vim' }
-Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
-Plug 'nightsense/snow'
 Plug 'fladson/vim-kitty'
 Plug 'https://github.com/rhysd/vim-clang-format.git'
 "配色方案结束
 call plug#end()
 
 
-"nerdtree ====================================================== setting
-" Start NERDTree and put the cursor back in the other window.
-"au VimEnter * NERDTree 
-" Exit Vim if NERDTree is the only window remaining in the only tab.
-au BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
-
-"let NERDTreeIgnore=['\~$','\.go1$',"^node_modules$","_test.go$"]
-let NERDTreeIgnore=['\~$','\.go1$',"^node_modules$",'\.meta$','_test.go$','^_.*\.go$']
-map <F3> :NERDTreeToggle<CR>
-map <F2> :NERDTreeFind<CR>
-
-
-let g:NERDCustomDelimiters = {
-        \ 'go': { 'left': '//' }
-    \ }
 
 
 
-"lightline setting start ===================================
-let g:lightline = {
-      \ 'component_function': {
-      \   'filename': 'LightlineFilename',
-      \ },
-      \ }
 
-function! LightlineFilename()
-  return &filetype ==# 'vimfiler' ? vimfiler#get_status_string() :
-        \ &filetype ==# 'unite' ? unite#get_status_string() :
-        \ &filetype ==# 'vimshell' ? vimshell#get_status_string() :
-        \ expand('%:t') !=# '' ? expand('%:t') : '[No Name]'
-endfunction
-"let g:airline_theme='supernova'
+
 let g:unite_force_overwrite_statusline = 0
 let g:vimfiler_force_overwrite_statusline = 0
 let g:vimshell_force_overwrite_statusline = 0
@@ -189,23 +143,6 @@ nmap <F8> :TagbarToggle<CR>
 "fzf
 "export FZF_DEFAULT_OPTS='--color=bg+:#3c3836,bg:#32302f,spinner:#fb4934,hl:#928374,fg:#ebdbb2,header:#928374,info:#8ec07c,pointer:#fb4934,marker:#fb4934,fg+:#ebdbb2,prompt:#fb4934,hl+:#fb4934'
 "自定义fzf弹窗颜色，这个配置是全局设置在.zshrc里面，下面这个配置同上，下面这个配置是使用主题色
-let g:fzf_colors =                                                                         
-   \ { 'fg':      ['fg', 'Normal'],                                                           
-   \ 'bg':      ['bg', 'Normal'],                                                           
-   \ 'hl':      ['fg', 'Comment'],                                                          
-   \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],                             
-   \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],                                       
-   \ 'hl+':     ['fg', 'Statement'],                                                        
-   \ 'info':    ['fg', 'PreProc'],                                                          
-   \ 'border':  ['fg', 'Ignore'],                                                           
-   \ 'prompt':  ['fg', 'Conditional'],                                                      
-   \ 'pointer': ['fg', 'Exception'],                                                        
-   \ 'marker':  ['fg', 'Keyword'],                                                          
-   \ 'spinner': ['fg', 'Label'],                                                            
-   \ 'header':  ['fg', 'Comment'] }
-
-
-  au FileType vue let b:coc_root_patterns = ['.git', '.env', 'package.json', 'tsconfig.json', 'jsconfig.json', 'vite.config.ts', 'vite.config.js', 'vue.config.js', 'nuxt.config.ts']
 
 
 " coc-snippets
@@ -239,10 +176,10 @@ nnoremap <silent> [fzf-p]t     :<C-u>CocCommand fzf-preview.BufferTags<CR>
 nnoremap <silent> [fzf-p]q     :<C-u>CocCommand fzf-preview.QuickFix<CR>
 nnoremap <silent> [fzf-p]l     :<C-u>CocCommand fzf-preview.LocationList<CR>
 
-nmap <c-p> [fzf-p]p
+"nmap <c-p> [fzf-p]p
 nmap <c-b> [fzf-p]B 
 imap <c-b> <esc>[fzf-p]B 
-map <c-f> [fzf-p]gr
+"map <c-f> [fzf-p]gr
 "#===========================fzf-preview end================================================
 
 "#===========================clang-format start=============================
