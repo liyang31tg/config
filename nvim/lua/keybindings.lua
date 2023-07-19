@@ -38,10 +38,10 @@ map("n", "s=", "<C-w>=", opt)
 map("n", "<leader>t", ":sp | terminal<CR>", opt)
 map("n", "<leader>vt", ":vsp | terminal<CR>", opt)
 map("t", "<Esc>", "<C-\\><C-n>", opt)
-map("t", "<A-h>", [[ <C-\><C-N><C-w>h ]], opt)
-map("t", "<A-j>", [[ <C-\><C-N><C-w>j ]], opt)
-map("t", "<A-k>", [[ <C-\><C-N><C-w>k ]], opt)
-map("t", "<A-l>", [[ <C-\><C-N><C-w>l ]], opt)
+map("t", "<c-h>", [[ <C-\><C-N><C-w>h ]], opt)
+map("t", "<c-j>", [[ <C-\><C-N><C-w>j ]], opt)
+map("t", "<c-k>", [[ <C-\><C-N><C-w>k ]], opt)
+map("t", "<c-l>", [[ <C-\><C-N><C-w>l ]], opt)
 
 
 -- visual模式下缩进代码
@@ -61,15 +61,14 @@ map("n", "qq", ":q!<CR>", opt)
 map("n", "Q", ":qa!<CR>", opt)
 
 -- insert 模式下，跳到行首行尾
-map("i", "<C-h>", "<ESC>I", opt)
-map("i", "<C-l>", "<ESC>A", opt)
+map("i", "<C-i>", "<ESC>I", opt)
+map("i", "<C-a>", "<ESC>A", opt)
 
 --第三方插件的快捷键银蛇如下
 local pluginKeys = {}
 --nvim-tree
 map("n","<F3>",":NvimTreeToggle<CR>",opt)
 map("n","<F2>",":NvimTreeFocus<CR>",opt)
---noremap <c-0> <esc>:NERDTreeFocus<cr>
 map("n","<c-0>",":NvimTreeFindFile<CR>",opt)
 map("i","<c-0>",":NvimTreeFindFile<CR>",opt)
 map("v","<c-0>",":NvimTreeFindFile<CR>",opt)
@@ -78,11 +77,11 @@ map("c","<c-0>",":NvimTreeFindFile<CR>",opt)
 
 -- bufferline
 -- 左右Tab切换
-map("n", "<A-h>", ":BufferLineCyclePrev<CR>", opt)
-map("n", "<A-l>", ":BufferLineCycleNext<CR>", opt)
+map("n", "th", ":BufferLineCyclePrev<CR>", opt)
+map("n", "tl", ":BufferLineCycleNext<CR>", opt)
 -- 关闭
 --"moll/vim-bbye"
-map("n", "<C-w>", ":Bdelete!<CR>", opt)
+map("n", "tc", ":Bdelete!<CR>", opt)
 map("n", "<leader>bl", ":BufferLineCloseRight<CR>", opt)
 map("n", "<leader>bh", ":BufferLineCloseLeft<CR>", opt)
 map("n", "<leader>bc", ":BufferLinePickClose<CR>", opt)
@@ -115,23 +114,22 @@ pluginKeys.telescopeList = {
 
 
 
--- lsp 回调函数快捷键设置
-pluginKeys.mapLSP = function(mapbuf)
+-- lsp 
   -- rename
-  mapbuf("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opt)
+  map("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opt)
   -- code action
-  mapbuf("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opt)
+  map("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opt)
   -- go xx
-  mapbuf("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opt)
-  mapbuf("n", "gh", "<cmd>lua vim.lsp.buf.hover()<CR>", opt)
-  mapbuf("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opt)
-  mapbuf("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opt)
-  mapbuf("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opt)
+  map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opt)
+  map("n", "gh", "<cmd>lua vim.lsp.buf.hover()<CR>", opt)
+  map("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opt)
+  map("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opt)
+  map("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opt)
   -- diagnostic
-  mapbuf("n", "gp", "<cmd>lua vim.diagnostic.open_float()<CR>", opt)
-  mapbuf("n", "gk", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opt)
-  mapbuf("n", "gj", "<cmd>lua vim.diagnostic.goto_next()<CR>", opt)
-  mapbuf("n", "<leader>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opt)
+  map("n", "gp", "<cmd>lua vim.diagnostic.open_float()<CR>", opt)
+  map("n", "gk", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opt)
+  map("n", "gj", "<cmd>lua vim.diagnostic.goto_next()<CR>", opt)
+  map("n", "<leader>f", "<cmd>lua vim.lsp.buf.format({async = true})<CR>", opt)
   -- 没用到
   -- mapbuf('n', '<leader>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opt)
   -- mapbuf("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opt)
@@ -139,22 +137,23 @@ pluginKeys.mapLSP = function(mapbuf)
   -- mapbuf('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opt)
   -- mapbuf('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opt)
   -- mapbuf('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opt)
-end
 
 -- nvim-cmp 自动补全
 pluginKeys.cmp = function(cmp)
     return {
         -- 出现补全
-        ["<A-.>"] = cmp.mapping(cmp.mapping.complete(), {"i", "c"}),
+        ["<c-.>"] = cmp.mapping(cmp.mapping.complete(), {"i", "c"}),
         -- 取消
-        ["<A-,>"] = cmp.mapping({
+        ["<c-,>"] = cmp.mapping({
             i = cmp.mapping.abort(),
             c = cmp.mapping.close()
         }),
         -- 上一个
         ["<C-k>"] = cmp.mapping.select_prev_item(),
+        ["<C-p>"] = cmp.mapping.select_prev_item(),
         -- 下一个
         ["<C-j>"] = cmp.mapping.select_next_item(),
+        ["<C-n>"] = cmp.mapping.select_next_item(),
         -- 确认
         ["<CR>"] = cmp.mapping.confirm({
             select = true,

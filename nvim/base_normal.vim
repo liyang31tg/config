@@ -2,8 +2,7 @@
 "作者 https://www.bilibili.com/video/BV1e4411V7AA?spm_id_from=333.1007.top_right_bar_window_history.content.click
 "start 
 syntax on
-set number
-set norelativenumber
+set nu rnu
 set cursorline
 set wrap
 set showcmd
