@@ -111,10 +111,10 @@ noremap \s :<c-u>%s//g<left><left>
 
 
 "resize
-map <up> :res +5<cr>
-map <down> :res -5<cr>
-map <left> :vertical resize-5<cr>
-map <right> :vertical resize+5<cr>
+"map <up> :res +5<cr>
+"map <down> :res -5<cr>
+"map <left> :vertical resize-5<cr>
+"map <right> :vertical resize+5<cr>
 
 "tab
 ":tabe 新建一个空白标签，暂时不需要
@@ -157,37 +157,11 @@ xmap ac <Plug>(coc-classobj-a)
 
 
 " GoTo code navigation
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gD :tab sp<CR><Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-nmap <leader>rn <Plug>(coc-rename)
 nmap fy <Plug>(coc-translator-p)
 
 
-"nmap <silent> f :Format<cr>
-
-"colorscheme nord
-"colorscheme gruvbox-material
-"colorscheme vim-material
-"colorscheme onedark
-"colorscheme snazzy
-"colorscheme rose-pine
-"colorscheme lightline
-"colorscheme solarized
-"colorscheme solarized8
-set t_Co=256
 set cursorline
 syntax enable
-set background=light
-"colorscheme onehalflight
-"let g:airline_theme='onehalfdark'
-set termguicolors     " enable true colors support
-"colorscheme tokyonight-storm
-"colorscheme snow
-set background=light
-"let g:airline_theme='snow_light'
 
 "set background=dark
 "windows
@@ -216,78 +190,6 @@ autocmd FileType typescript nnoremap <leader>r :set splitbelow<cr> :sp <CR> :ter
 noremap \p :echo expand('%:p')<CR>
 
 
-" Compile function
-noremap <m-r> :call CompileRunGcc()<CR>
-func! CompileRunGcc()
-	exec "w"
-	if &filetype == 'c'
-		set splitbelow
-		:sp
-		:res -5
-		term gcc % -o %< && time ./%<
-	elseif &filetype == 'cpp'
-		set splitbelow
-		exec "!g++ -std=c++11 % -Wall -o %<"
-		:sp
-		:res -15
-		:term ./%<
-	elseif &filetype == 'cs'
-		set splitbelow
-		silent! exec "!mcs %"
-		:sp
-		:res -5
-		:term mono %<.exe
-	elseif &filetype == 'java'
-		set splitbelow
-		:sp
-		:res -5
-		term javac % && time java %<
-	elseif &filetype == 'sh'
-		:!time bash %
-	elseif &filetype == 'python'
-		set splitbelow
-		:sp
-		:term python3 %
-	elseif &filetype == 'html'
-		silent! exec "!".g:mkdp_browser." % &"
-	elseif &filetype == 'markdown'
-		exec "InstantMarkdownPreview"
-	elseif &filetype == 'tex'
-		silent! exec "VimtexStop"
-		silent! exec "VimtexCompile"
-	elseif &filetype == 'dart'
-		exec "CocCommand flutter.run -d ".g:flutter_default_device." ".g:flutter_run_args
-		silent! exec "CocCommand flutter.dev.openDevLog"
-	elseif &filetype == 'javascript'
-		set splitbelow
-		:sp
-		:term export DEBUG="INFO,ERROR,WARNING"; node --trace-warnings .
-	elseif &filetype == 'racket'
-		set splitbelow
-		:sp
-		:res -5
-		term racket %
-	elseif &filetype == 'go'
-		set splitbelow
-		:sp
-		:term go run %
-	endif
-endfunc
-
-
-let g:coc_global_extensions = [
-	\ 'coc-snippets',
-	\ 'coc-go',
-	\ 'coc-html',
-	\ 'coc-json',
-	\ 'coc-sh',
-	\ 'coc-toml',
-	\ 'coc-tsserver',
-	\ 'coc-vetur',
-	\ 'coc-yaml',
-	\ 'coc-translator',
-    \ '@yaegassy/coc-volar',
-    \ 'coc-fzf-preview']
 
 
 

@@ -1,3 +1,8 @@
+-- vim.o 设置普通属性
+-- vim.g 设置全局属性
+-- vim.bo 设置buffer属性
+-- vim.wo 设置窗口属性
+-- vim.opt 上面的所有域全设置
 -- utf8
 vim.g.encoding = "UTF-8"
 vim.o.fileencoding = 'utf-8'
@@ -14,9 +19,9 @@ vim.wo.signcolumn = "yes"
 -- 右侧参考线，超过表示代码太长了，考虑换行
 --vim.wo.colorcolumn = "80"
 -- 缩进2个空格等于一个Tab
-vim.o.tabstop = 2
-vim.bo.tabstop = 2
-vim.o.softtabstop = 2
+vim.o.tabstop = 4
+vim.bo.tabstop = 4
+vim.o.softtabstop = 4
 vim.o.shiftround = true
 -- >> << 时移动长度
 vim.o.shiftwidth = 2

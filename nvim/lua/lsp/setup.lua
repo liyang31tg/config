@@ -1,32 +1,31 @@
-local lsp_installer = require("nvim-lsp-installer")
+local lspconfig = require('lspconfig') --这个模块相当于是neovim提供的lsp接口，mason这个提供具体的server来实现
 
--- 安装列表
--- { key: 语言 value: 配置文件 }
--- key 必须为下列网址列出的名称
--- https://github.com/williamboman/nvim-lsp-installer#available-lsps
-local servers = {
-  sumneko_lua = require("lsp.config.lua"), -- lua/lsp/config/lua.lua
-}
--- 自动安装 Language Servers
-for name, _ in pairs(servers) do
-  local server_is_found, server = lsp_installer.get_server(name)
-  if server_is_found then
-    if not server:is_installed() then
-      print("Installing " .. name)
-      server:install()
-    end
+--https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
+require("mason-lspconfig").setup_handlers({
+  function (server_name)
+    require("lspconfig")[server_name].setup{}
+  end,
+  -- Next, you can provide targeted overrides for specific servers.
+  ["lua_ls"] = function ()
+    lspconfig.lua_ls.setup {
+      settings = {
+        Lua = {
+          diagnostics = {
+            globals = { "vim" }
+          }
+        }
+    }
+  }
+  end,
+  ["clangd"] = function ()
+    lspconfig.clangd.setup {
+      cmd = {
+        "clangd",
+        "--header-insertion=never",
+        "--query-driver=/opt/homebrew/opt/llvm/bin/clang",
+        "--all-scopes-completion",
+        "--completion-style=detailed",
+      }
+    }
   end
-end
-
-lsp_installer.on_server_ready(function(server)
-    local config = servers[server.name]
-    if config == nil then
-        return
-    end
-    if config.on_setup then
-        config.on_setup(server)
-    else
-        server:setup({})
-    end
-end)
-
+})
