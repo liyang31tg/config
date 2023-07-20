@@ -17,7 +17,7 @@ null_ls.setup({
 		-- StyLua
 		formatting.stylua,
 
-        formatting.clang_format,--{ "c", "cpp", "cs", "java", "cuda", "proto" }
+		formatting.clang_format, --{ "c", "cpp", "cs", "java", "cuda", "proto" }
 		--go
 		formatting.gofmt,
 		formatting.goimports,
@@ -26,7 +26,11 @@ null_ls.setup({
 		--YAML, JSON, XML, CSV
 		formatting.yq,
 		-- frontend
-		formatting.prettier.with({ -- 只比默认配置少了 markdown
+		-- yarn global add @fsouza/prettierd
+		formatting.prettierd.with({
+			env = {
+				PRETTIERD_DEFAULT_CONFIG = vim.fn.expand("~/.config/nvim/lua/utils/linter-config/.prettierrc.json"),
+			},
 			filetypes = {
 				"javascript",
 				"javascriptreact",
@@ -38,10 +42,13 @@ null_ls.setup({
 				"less",
 				"html",
 				"json",
+				"jsonc",
 				"yaml",
+				"markdown",
+				"markdown.mdx",
 				"graphql",
+				"handlebars",
 			},
-			prefer_local = "node_modules/.bin", --npm install -D prettier eslint 表示本地依赖
 		}),
 		-- Diagnostics  ---------------------
 		diagnostics.eslint.with({

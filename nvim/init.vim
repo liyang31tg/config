@@ -1,10 +1,8 @@
-"后面需要用这个判断条件
-source $HOME/.config/nvim/init_nomal.vim
-source $HOME/.config/nvim/base_comm.vim
 "加载lua
 lua require('base')
 lua require('keybindings')
 lua require('plugins')
+lua require('autocmd')
 lua require('colorscheme')
 lua require("plugin-config.nvim-tree")
 lua require("plugin-config.bufferline")
@@ -22,6 +20,9 @@ lua require("lsp.cmp")
 lua require("lsp.null-ls")
 lua require("dap.nvim-dap")
 lua require("dap.nvim-dap.go")
+
+"覆盖前面的
+source $HOME/.config/nvim/init_nomal.vim
 
 
 
