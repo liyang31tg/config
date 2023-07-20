@@ -16,6 +16,8 @@ null_ls.setup({
 		formatting.shfmt,
 		-- StyLua
 		formatting.stylua,
+
+        formatting.clang_format,--{ "c", "cpp", "cs", "java", "cuda", "proto" }
 		--go
 		formatting.gofmt,
 		formatting.goimports,

@@ -167,9 +167,6 @@ end
 
 -- nvim-dap
 pluginKeys.mapDAP = function()
-  -- 开始
-  map("n", "<leader>dd", ":RustDebuggables<CR>", opt)
-  -- 结束 (dapui无法自动关闭可能是bug，手动关闭能想到的一切)
   map(
     "n",
     "<leader>de",
@@ -184,8 +181,8 @@ pluginKeys.mapDAP = function()
   -- 继续
   map("n", "<leader>dc", ":lua require'dap'.continue()<CR>", opt)
   -- 设置断点
-  map("n", "<leader>dt", ":lua require('dap').toggle_breakpoint()<CR>", opt)
-  map("n", "<leader>dT", ":lua require('dap').clear_breakpoints()<CR>", opt)
+  map("n", "<leader>dd", ":lua require('dap').toggle_breakpoint()<CR>", opt)
+  map("n", "<leader>dD", ":lua require('dap').clear_breakpoints()<CR>", opt)
   --  stepOver, stepOut, stepInto
   map("n", "<leader>dj", ":lua require'dap'.step_over()<CR>", opt)
   map("n", "<leader>dk", ":lua require'dap'.step_out()<CR>", opt)

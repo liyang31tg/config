@@ -5,6 +5,6 @@ if not status then
 end
 
 masonlspconfig.setup({
-      ensure_installed = { "lua_ls","gopls","golangci_lint_ls","html","bashls","jsonls","tsserver","volar","yamlls" },
+      ensure_installed = { "lua_ls","gopls","golangci_lint_ls","html","bashls","jsonls","tsserver","yamlls","vuels" },--,"volar"
 })
 
