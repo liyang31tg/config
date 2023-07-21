@@ -2,7 +2,7 @@ local dap = require('dap')
 dap.adapters.go = {
   type = 'executable';
   command = 'node';
-  args = {os.getenv('HOME') .. '/vscode-go/dist/debugAdapter.js'};
+  args = {os.getenv('HOME') .. '/.config/nvim/lua/dap/nvim-dap/ui/debugAdapter.js'};
 }
 dap.configurations.go = {
   {

@@ -3,13 +3,9 @@
 " - Avoid using standard Vim directory names like 'plugin'
 call plug#begin('~/.local/share/nvim/plugged')
 " Initialize plugin system
-"Plug 'fatih/vim-go', {'tag':'v1.27', 'do': ':GoUpdateBinaries' }
 Plug 'fatih/vim-go', {'do': ':GoUpdateBinaries' }
-"Plug 'hexdigest/gounit-vim'
-Plug 'jiangmiao/auto-pairs'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'gcmt/wildfire.vim'
-Plug 'tpope/vim-surround'
 "Plug 'OmniSharp/omnisharp-vim' "csharp 专用
 "Plug 'dense-analysis/ale' "csharp 专用
 Plug 'fladson/vim-kitty'

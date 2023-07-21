@@ -15,8 +15,6 @@ packer.startup({
 		-- telescope，类似于fzf
 		use({ "nvim-telescope/telescope.nvim", requires = { "nvim-lua/plenary.nvim" } })
 
-		-- dashboard-nvim (欢迎页面)
-		use("glepnir/dashboard-nvim")
 		-- project
 		use("ahmedkhalf/project.nvim")
 
@@ -54,8 +52,21 @@ packer.startup({
 		use("theHamsta/nvim-dap-virtual-text")
 		use("rcarriga/nvim-dap-ui")
 
-		--注释
-		use("numToStr/Comment.nvim")
+
+		--类似于之前的vim-surround + 注释
+		use({ "echasnovski/mini.nvim", branch = "stable" })
+
+		--美化ui
+		use("stevearc/dressing.nvim")
+
+        --欢迎页面
+		use({
+			"goolord/alpha-nvim",
+			requires = { "nvim-tree/nvim-web-devicons" },
+			config = function()
+				require("alpha").setup(require("alpha.themes.theta").config)
+			end,
+		})
 	end,
 	config = {
 		-- 并发数限制

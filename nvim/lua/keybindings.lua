@@ -127,7 +127,7 @@ map("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opt)
 map("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opt)
 -- go xx
 map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opt)
-map('n', 'gD', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opt)
+map("n", "gD", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opt)
 map("n", "gh", "<cmd>lua vim.lsp.buf.hover()<CR>", opt)
 map("n", "<space>D", "<cmd>lua vim.lsp.buf.declaration()<CR>", opt)
 map("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opt)
@@ -173,6 +173,7 @@ end
 
 -- nvim-dap
 pluginKeys.mapDAP = function()
+	--结束调试
 	map(
 		"n",
 		"<leader>de",
@@ -184,15 +185,15 @@ pluginKeys.mapDAP = function()
 			.. "<C-w>o<CR>",
 		opt
 	)
-	-- 继续
-	map("n", "<leader>dc", ":lua require'dap'.continue()<CR>", opt)
+	-- 开始调试
+	map("n", "<F5>", ":lua require'dap'.continue()<CR>", opt)
+	--  stepOver, stepOut, stepInto
+	map("n", "<F9>", ":lua require'dap'.step_over()<CR>", opt)
+	map("n", "<F10>", ":lua require'dap'.step_into()<CR>", opt)
+	map("n", "<F12>", ":lua require'dap'.step_out()<CR>", opt)
 	-- 设置断点
 	map("n", "<leader>dd", ":lua require('dap').toggle_breakpoint()<CR>", opt)
-	map("n", "<leader>dD", ":lua require('dap').clear_breakpoints()<CR>", opt)
-	--  stepOver, stepOut, stepInto
-	map("n", "<leader>dj", ":lua require'dap'.step_over()<CR>", opt)
-	map("n", "<leader>dk", ":lua require'dap'.step_out()<CR>", opt)
-	map("n", "<leader>dl", ":lua require'dap'.step_into()<CR>", opt)
+	map("n", "<leader>dc", ":lua require('dap').clear_breakpoints()<CR>", opt)
 	-- 弹窗
 	map("n", "<leader>dh", ":lua require'dapui'.eval()<CR>", opt)
 end
