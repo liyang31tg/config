@@ -10,8 +10,8 @@ au FileType go nmap tc :GoRemoveTags <cr>
 
 au FileType go nnoremap <leader>r <Plug>(go-run)
 au FileType go nmap <leader>b <Plug>(go-build)
-au FileType go nmap <leader>tt <Plug>(go-test)
-au FileType go nmap <Leader>tf <Plug>(go-test-func)
+" au FileType go nmap <leader>tt <Plug>(go-test)
+" au FileType go nmap <Leader>tf <Plug>(go-test-func)
 au FileType go nmap <Leader>i <Plug>(go-info)
 au FileType go nnoremap <leader>gt :normal vaf<cr>:GoUnit<cr>
 

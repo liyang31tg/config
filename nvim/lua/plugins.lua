@@ -52,14 +52,13 @@ packer.startup({
 		use("theHamsta/nvim-dap-virtual-text")
 		use("rcarriga/nvim-dap-ui")
 
-
 		--类似于之前的vim-surround + 注释
 		use({ "echasnovski/mini.nvim", branch = "stable" })
 
 		--美化ui
 		use("stevearc/dressing.nvim")
 
-        --欢迎页面
+		--欢迎页面
 		use({
 			"goolord/alpha-nvim",
 			requires = { "nvim-tree/nvim-web-devicons" },
@@ -67,6 +66,18 @@ packer.startup({
 				require("alpha").setup(require("alpha.themes.theta").config)
 			end,
 		})
+
+        --测试模块
+		use({
+			"nvim-neotest/neotest",
+			requires = {
+				"nvim-lua/plenary.nvim",
+				"nvim-treesitter/nvim-treesitter",
+				"antoinemadec/FixCursorHold.nvim",
+                "nvim-neotest/neotest-go", --可以添加其他的测试适配器，这个是go的
+			},
+		})
+
 	end,
 	config = {
 		-- 并发数限制

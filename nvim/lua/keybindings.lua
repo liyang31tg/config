@@ -40,7 +40,7 @@ map("n", "<Up>", ":resize -2<CR>", opt)
 map("n", "s=", "<C-w>=", opt)
 
 -- Terminal相关
-map("n", "<leader>t", ":sp | terminal<CR>", opt)
+map("n", "<c-t>", ":sp | terminal<CR>", opt)
 map("n", "<leader>vt", ":vsp | terminal<CR>", opt)
 map("t", "<Esc>", "<C-\\><C-n>", opt)
 map("t", "<c-h>", [[ <C-\><C-N><C-w>h ]], opt)
@@ -196,6 +196,15 @@ pluginKeys.mapDAP = function()
 	map("n", "<leader>dc", ":lua require('dap').clear_breakpoints()<CR>", opt)
 	-- 弹窗
 	map("n", "<leader>dh", ":lua require'dapui'.eval()<CR>", opt)
+end
+-- map  test
+pluginKeys.mapTEST = function()
+	map(
+		"n",
+		"<leader>tf",
+		":lua require('neotest').run.run(vim.fn.getcwd())<CR>" .. ":lua require('neotest').output_panel.open()<cr>",
+		opt
+	)
 end
 
 return pluginKeys
