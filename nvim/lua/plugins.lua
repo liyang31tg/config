@@ -7,7 +7,7 @@ packer.startup({
 		use("folke/tokyonight.nvim")
 		--侧栏目录结构
 		use({ "kyazdani42/nvim-tree.lua", requires = "kyazdani42/nvim-web-devicons" })
-
+        --tab自定义的那个标签页,本质就是buffer，只是之前无地方显示提现
 		use({ "akinsho/bufferline.nvim", requires = { "kyazdani42/nvim-web-devicons", "moll/vim-bbye" } })
 		--lualine
 		use({ "nvim-lualine/lualine.nvim", requires = { "kyazdani42/nvim-web-devicons" } })

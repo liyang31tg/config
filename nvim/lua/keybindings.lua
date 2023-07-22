@@ -3,6 +3,12 @@ vim.g.maplocalleader = " "
 local map = vim.api.nvim_set_keymap
 local opt = { noremap = true, silent = true }
 
+local function opts(desc)
+	return { noremap = true, silent = true, desc = desc }
+end
+
+-- kitty 首先在mac环境中需要将option改成alt ，macos_option_as_alt yes
+-- vim 可以识别alt+shelft+anykey ，不能识别ctrl+shelft+anykey
 map("n", "H", "^", opt)
 map("n", "J", "10j", opt)
 map("n", "K", "10k", opt)
@@ -14,7 +20,9 @@ map("n", "`", "~", opt)
 map("n", "\\s", [[  :<c-u>%s\/\/g<left><left> ]], opt)
 -- windows 分屏快捷键
 map("n", "sl", ":vsp<CR>", opt)
+map("n", "s|", ":vsp<CR>", opt)
 map("n", "sj", ":sp<CR>", opt)
+map("n", "s-", ":sp<CR>", opt)
 -- 关闭当前
 map("n", "sc", "<C-w>c", opt)
 -- 关闭其他
@@ -25,6 +33,64 @@ map("n", "<c-h>", "<C-w>h", opt)
 map("n", "<c-j>", "<C-w>j", opt)
 map("n", "<c-k>", "<C-w>k", opt)
 map("n", "<c-l>", "<C-w>l", opt)
+
+-- Move Lines
+map("n", "<A-j>", "<cmd>m .+1<cr>==", opts("Move down"))
+map("n", "<A-k>", "<cmd>m .-2<cr>==", opts("Move up"))
+map("i", "<A-j>", "<esc><cmd>m .+1<cr>==gi", opts("Move down"))
+map("i", "<A-k>", "<esc><cmd>m .-2<cr>==gi", opts("Move up"))
+map("v", "<A-j>", ":m '>+1<cr>gv=gv", opts("Move down"))
+map("v", "<A-k>", ":m '<-2<cr>gv=gv", opts("Move up"))
+map("v", "<", "<gv", opt)
+map("v", ">", ">gv", opt)
+
+--tab 原生
+map("n", "tn", ":tab split<cr>", opt)
+map("n", "gt", ":+tabnext<cr>", opt) --默认值也是这个，写在这里只是方便记忆
+map("n", "gT", ":-tabnext<cr>", opt) --默认值也是这个，写在这里只是方便记忆
+map("n", "t.", ":+tabmove<cr>", opt)
+map("n", "t,", ":-tabmove<cr>", opt)
+
+-- bufferline
+-- 左右Tab切换
+map("n", "[b", ":BufferLineCyclePrev<CR>", opt)
+map("n", "]b", ":BufferLineCycleNext<CR>", opt)
+-- 关闭
+--"moll/vim-bbye"
+map("n", "tc", ":Bdelete!<CR>", opt)
+map("n", "<leader>bl", ":BufferLineCloseRight<CR>", opt)
+map("n", "<leader>bh", ":BufferLineCloseLeft<CR>", opt)
+map("n", "<leader>bo", ":BufferLineCloseOthers<CR>", opt)
+map("n", "<leader>bc", ":BufferLinePickClose<CR>", opt)
+map("n", "<leader>bp", ":BufferLinePick<CR>", opt)
+map("n", "<leader>b,", ":BufferLineMovePrev<CR>", opt)
+map("n", "<leader>b.", ":BufferLineMoveNext<CR>", opt)
+map("n", "<leader>bb", "<cmd>e #<cr>", opts("与上一个buffer切换"))
+
+map(
+	"n",
+	"<leader>ur",
+	"<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>",
+	opts("Redraw / clear hlsearch / diff update")
+)
+
+map("n", "gw", "*N", opts("查询这个单词"))
+map("x", "gw", "*N", opts("查询这个单词"))
+
+-- copy from lazygit 不知道具体什么功能
+map("n", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
+map("x", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
+map("o", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
+map("n", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev search result" })
+map("x", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev search result" })
+map("o", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev search result" })
+
+map("n", "<leader>K", "<cmd>norm! K<cr>", { desc = "Keywordprg" })
+-- new file
+map("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" })
+
+map("n", "<leader>xl", "<cmd>lopen<cr>", { desc = "Location List" })
+map("n", "<leader>xq", "<cmd>copen<cr>", { desc = "Quickfix List" })
 
 -- 左右比例控制
 map("n", "<Left>", ":vertical resize -2<CR>", opt)
@@ -48,13 +114,6 @@ map("t", "<c-j>", [[ <C-\><C-N><C-w>j ]], opt)
 map("t", "<c-k>", [[ <C-\><C-N><C-w>k ]], opt)
 map("t", "<c-l>", [[ <C-\><C-N><C-w>l ]], opt)
 
--- visual模式下缩进代码
--- 上下移动选中文本
-map("v", "<", "<gv", opt)
-map("v", ">", ">gv", opt)
-map("v", "J", ":move '>+1<CR>gv-gv", opt)
-map("v", "K", ":move '<-2<CR>gv-gv", opt)
-
 -- 在visual 模式里粘贴不要复制
 map("v", "p", '"_dP', opt)
 
@@ -77,23 +136,6 @@ map("i", "<c-0>", ":NvimTreeFindFile<CR>", opt)
 map("v", "<c-0>", ":NvimTreeFindFile<CR>", opt)
 map("t", "<c-0>", ":NvimTreeFindFile<CR>", opt)
 map("c", "<c-0>", ":NvimTreeFindFile<CR>", opt)
---tab 原生
-map("n", "tn", ":tab split<cr>", opt)
-map("n", "t]", ":+tabnext<cr>", opt)
-map("n", "t[", ":-tabnext<cr>", opt)
-map("n", "tml", ":+tabmove<cr>", opt)
-map("n", "tmh", ":-tabmove<cr>", opt)
-
--- bufferline
--- 左右Tab切换
-map("n", "th", ":BufferLineCyclePrev<CR>", opt)
-map("n", "tl", ":BufferLineCycleNext<CR>", opt)
--- 关闭
---"moll/vim-bbye"
-map("n", "tc", ":Bdelete!<CR>", opt)
-map("n", "<leader>bl", ":BufferLineCloseRight<CR>", opt)
-map("n", "<leader>bh", ":BufferLineCloseLeft<CR>", opt)
-map("n", "<leader>bc", ":BufferLinePickClose<CR>", opt)
 
 -- Telescope
 -- 查找文件
@@ -129,7 +171,7 @@ map("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opt)
 map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opt)
 map("n", "gD", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opt)
 map("n", "gh", "<cmd>lua vim.lsp.buf.hover()<CR>", opt)
-map("n", "<space>D", "<cmd>lua vim.lsp.buf.declaration()<CR>", opt)
+map("n", "<space>D", "<cmd>lua vim.lsp.buf.declaraion()<CR>", opt)
 map("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opt)
 map("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opt)
 -- diagnostic
