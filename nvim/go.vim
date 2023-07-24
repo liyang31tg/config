@@ -1,12 +1,13 @@
 " neocomplete like '来源:https://github.com/deoplete-plugins/deoplete-go
 "set completeopt+=noinsert
 "set completeopt+=noselect
-au FileType go nmap tb :GoAddTags bson<cr>
-au FileType go nmap tj :GoAddTags json<cr>
-au FileType go nmap tt :GoAddTags toml<cr>
-au FileType go nmap ty :GoAddTags yaml<cr>
-au FileType go nmap tx :GoAddTags xml<cr>
-au FileType go nmap tc :GoRemoveTags <cr>
+"因为t有直到的意思，用于跳转
+au FileType go nmap <leader>tb :GoAddTags bson<cr>
+au FileType go nmap <leader>tj :GoAddTags json<cr>
+au FileType go nmap <leader>tt :GoAddTags toml<cr>
+au FileType go nmap <leader>ty :GoAddTags yaml<cr>
+au FileType go nmap <leader>tx :GoAddTags xml<cr>
+au FileType go nmap <leader>tc :GoRemoveTags <cr>
 
 au FileType go nnoremap <leader>r <Plug>(go-run)
 au FileType go nmap <leader>b <Plug>(go-build)

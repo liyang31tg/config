@@ -77,7 +77,6 @@ packer.startup({
                 "nvim-neotest/neotest-go", --可以添加其他的测试适配器，这个是go的
 			},
 		})
-
 	end,
 	config = {
 		-- 并发数限制

@@ -9,10 +9,7 @@ end
 
 -- kitty 首先在mac环境中需要将option改成alt ，macos_option_as_alt yes
 -- vim 可以识别alt+shelft+anykey ，不能识别ctrl+shelft+anykey
-map("n", "H", "^", opt)
-map("n", "J", "10j", opt)
-map("n", "K", "10k", opt)
-map("n", "L", "$", opt)
+map("n", ",r", "<c-r>", opt) --kitty中c-r不知道什么情况下被限制了
 -- 取消 s 默认功能
 map("n", "s", "", opt)
 
@@ -23,16 +20,19 @@ map("n", "sl", ":vsp<CR>", opt)
 map("n", "s|", ":vsp<CR>", opt)
 map("n", "sj", ":sp<CR>", opt)
 map("n", "s-", ":sp<CR>", opt)
--- 关闭当前
-map("n", "sc", "<C-w>c", opt)
 -- 关闭其他
-map("n", "so", "<C-w>o", opt)
+map("n", "so", "<c-w>o", opt)
 -- Alt + hjkl  窗口之间跳转
 --map("n", "<A-h>", "<C-w>h", opt)
 map("n", "<c-h>", "<C-w>h", opt)
 map("n", "<c-j>", "<C-w>j", opt)
 map("n", "<c-k>", "<C-w>k", opt)
 map("n", "<c-l>", "<C-w>l", opt)
+-- move window
+map("n", "<leader>wh", "<C-w>H", opt)
+map("n", "<leader>wj", "<C-w>J", opt)
+map("n", "<leader>wk", "<C-w>K", opt)
+map("n", "<leader>wl", "<C-w>L", opt)
 
 -- Move Lines
 map("n", "<A-j>", "<cmd>m .+1<cr>==", opts("Move down"))
@@ -45,11 +45,12 @@ map("v", "<", "<gv", opt)
 map("v", ">", ">gv", opt)
 
 --tab 原生
-map("n", "tn", ":tab split<cr>", opt)
+map("n", "<leader>tn", ":tab split<cr>", opt)
 map("n", "gt", ":+tabnext<cr>", opt) --默认值也是这个，写在这里只是方便记忆
 map("n", "gT", ":-tabnext<cr>", opt) --默认值也是这个，写在这里只是方便记忆
-map("n", "t.", ":+tabmove<cr>", opt)
-map("n", "t,", ":-tabmove<cr>", opt)
+map("n", ".t", ":+tabmove<cr>", opt)
+map("n", ",t", ":-tabmove<cr>", opt)
+map("n", "<leader>tq", "<cmd>tabclose<cr>", opt)
 
 -- bufferline
 -- 左右Tab切换
@@ -57,7 +58,7 @@ map("n", "[b", ":BufferLineCyclePrev<CR>", opt)
 map("n", "]b", ":BufferLineCycleNext<CR>", opt)
 -- 关闭
 --"moll/vim-bbye"
-map("n", "tc", ":Bdelete!<CR>", opt)
+map("n", "<leader>bq", ":Bdelete!<CR>", opt)
 map("n", "<leader>bl", ":BufferLineCloseRight<CR>", opt)
 map("n", "<leader>bh", ":BufferLineCloseLeft<CR>", opt)
 map("n", "<leader>bo", ":BufferLineCloseOthers<CR>", opt)
@@ -118,8 +119,8 @@ map("t", "<c-l>", [[ <C-\><C-N><C-w>l ]], opt)
 map("v", "p", '"_dP', opt)
 
 -- 退出
-map("n", "q", ":q<CR>", opt)
-map("n", "qq", ":q!<CR>", opt)
+map("n", "<leader>q", ":q<CR>", opt)
+map("n", ",q", ":q!<CR>", opt)
 map("n", "Q", ":qa!<CR>", opt)
 
 -- insert 模式下，跳到行首行尾
@@ -247,6 +248,10 @@ pluginKeys.mapTEST = function()
 		":lua require('neotest').run.run(vim.fn.getcwd())<CR>" .. ":lua require('neotest').output_panel.open()<cr>",
 		opt
 	)
+end
+
+pluginKeys.mapFanYi = function()
+	map("n", "fy", "<cmd>TransToZH<CR>", opt)
 end
 
 return pluginKeys
