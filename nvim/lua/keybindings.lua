@@ -12,6 +12,8 @@ end
 map("n", ",r", "<c-r>", opt) --kitty中c-r不知道什么情况下被限制了
 -- 取消 s 默认功能
 map("n", "s", "", opt)
+map("c", "<c-j>", "<c-n>", {})
+map("c", "<c-k>", "<c-p>", {})
 
 map("n", "`", "~", opt)
 map("n", "\\s", [[  :<c-u>%s\/\/g<left><left> ]], opt)
@@ -174,7 +176,8 @@ map("n", "gD", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opt)
 map("n", "gh", "<cmd>lua vim.lsp.buf.hover()<CR>", opt)
 map("n", "<space>D", "<cmd>lua vim.lsp.buf.declaraion()<CR>", opt)
 map("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opt)
-map("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opt)
+-- map("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opt)
+map("n", "gr", "<cmd>TroubleToggle lsp_references<cr>", opt)
 -- diagnostic
 map("n", "gp", "<cmd>lua vim.diagnostic.open_float()<CR>", opt)
 map("n", "gk", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opt)
@@ -252,6 +255,23 @@ end
 
 pluginKeys.mapFanYi = function()
 	map("n", "fy", "<cmd>TransToZH<CR>", opt)
+end
+
+pluginKeys.mapGo = function()
+	vim.cmd("au FileType go nmap <buffer> <silent> <Leader>r :GoRun -F %<cr>")
+	vim.cmd("au FileType go nmap <buffer> <Leader>b :GoBuild %:h<cr>")
+	vim.cmd("au FileType go nmap <buffer> <leader>tb :GoAddTag bson<cr>")
+	vim.cmd("au FileType go nmap <buffer> <leader>tj :GoAddTag json<cr>")
+	vim.cmd("au FileType go nmap <buffer> <leader>tt :GoAddTag toml<cr>")
+	vim.cmd("au FileType go nmap <buffer> <leader>ty :GoAddTag yaml<cr>")
+	vim.cmd("au FileType go nmap <buffer> <leader>tx :GoAddTag xml<cr>")
+	vim.cmd("au FileType go nmap <buffer> <leader>tc :GoClearTag <cr>")
+    vim.cmd("au FileType go nmap <buffer> <leader>tf :GoTest -v -n 1 -f<cr>")
+    vim.cmd("au FileType go nmap <buffer> <silent> K :lua vim.lsp.buf.hover()<CR>") --借用了上面的lsp，只是希望这个只在go这个文件生效
+end
+
+pluginKeys.mapTrouble=function ()
+  map("n","<leader>xx", ":lua require('trouble').open()<cr>" ,opt)
 end
 
 return pluginKeys

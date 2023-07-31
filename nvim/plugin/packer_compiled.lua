@@ -125,6 +125,16 @@ _G.packer_plugins = {
     path = "/Users/mac/.local/share/nvim/site/pack/packer/start/friendly-snippets",
     url = "https://github.com/rafamadriz/friendly-snippets"
   },
+  ["go.nvim"] = {
+    loaded = true,
+    path = "/Users/mac/.local/share/nvim/site/pack/packer/start/go.nvim",
+    url = "https://github.com/ray-x/go.nvim"
+  },
+  ["guihua.lua"] = {
+    loaded = true,
+    path = "/Users/mac/.local/share/nvim/site/pack/packer/start/guihua.lua",
+    url = "https://github.com/ray-x/guihua.lua"
+  },
   ["lualine-lsp-progress"] = {
     loaded = true,
     path = "/Users/mac/.local/share/nvim/site/pack/packer/start/lualine-lsp-progress",
@@ -235,10 +245,10 @@ _G.packer_plugins = {
     path = "/Users/mac/.local/share/nvim/site/pack/packer/start/tokyonight.nvim",
     url = "https://github.com/folke/tokyonight.nvim"
   },
-  ["translate.nvim"] = {
+  ["trouble.nvim"] = {
     loaded = true,
-    path = "/Users/mac/.local/share/nvim/site/pack/packer/start/translate.nvim",
-    url = "https://github.com/niuiic/translate.nvim"
+    path = "/Users/mac/.local/share/nvim/site/pack/packer/start/trouble.nvim",
+    url = "https://github.com/folke/trouble.nvim"
   },
   ["vim-bbye"] = {
     loaded = true,

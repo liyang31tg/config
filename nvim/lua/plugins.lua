@@ -7,7 +7,7 @@ packer.startup({
 		use("folke/tokyonight.nvim")
 		--侧栏目录结构
 		use({ "kyazdani42/nvim-tree.lua", requires = "kyazdani42/nvim-web-devicons" })
-        --tab自定义的那个标签页,本质就是buffer，只是之前无地方显示提现
+		--tab自定义的那个标签页,本质就是buffer，只是之前无地方显示提现
 		use({ "akinsho/bufferline.nvim", requires = { "kyazdani42/nvim-web-devicons", "moll/vim-bbye" } })
 		--lualine
 		use({ "nvim-lualine/lualine.nvim", requires = { "kyazdani42/nvim-web-devicons" } })
@@ -67,14 +67,33 @@ packer.startup({
 			end,
 		})
 
-        --测试模块
+		--测试模块
 		use({
 			"nvim-neotest/neotest",
 			requires = {
 				"nvim-lua/plenary.nvim",
 				"nvim-treesitter/nvim-treesitter",
 				"antoinemadec/FixCursorHold.nvim",
-                "nvim-neotest/neotest-go", --可以添加其他的测试适配器，这个是go的
+				"nvim-neotest/neotest-go", --可以添加其他的测试适配器，这个是go的
+			},
+		})
+		--golang
+		use({
+			"ray-x/go.nvim",
+			requires = {
+				"ray-x/guihua.lua",
+				"neovim/nvim-lspconfig",
+				"nvim-treesitter/nvim-treesitter",
+			},
+		})
+
+		use({
+			"folke/trouble.nvim",
+			dependencies = { "nvim-tree/nvim-web-devicons" },
+			opts = {
+				-- your configuration comes here
+				-- or leave it empty to use the default settings
+				-- refer to the configuration section below
 			},
 		})
 	end,
