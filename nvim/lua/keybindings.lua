@@ -278,4 +278,8 @@ pluginKeys.mapTrouble = function()
 	map("n", "<LocalLeader>xl", ":lua require('trouble').open('loclist')<cr>", opt)
 end
 
+pluginKeys.mapJavascript = function()
+	vim.cmd("au FileType javascript nmap <buffer> <silent> <LocalLeader>r :!node  %<cr>")
+end
+
 return pluginKeys
