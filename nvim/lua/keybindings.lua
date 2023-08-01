@@ -1,5 +1,5 @@
 vim.g.mapleader = " "
-vim.g.maplocalleader = " "
+vim.g.maplocalleader = ","
 local map = vim.api.nvim_set_keymap
 local opt = { noremap = true, silent = true }
 
@@ -258,20 +258,24 @@ pluginKeys.mapFanYi = function()
 end
 
 pluginKeys.mapGo = function()
-	vim.cmd("au FileType go nmap <buffer> <silent> <Leader>r :GoRun -F %<cr>")
-	vim.cmd("au FileType go nmap <buffer> <Leader>b :GoBuild %:h<cr>")
-	vim.cmd("au FileType go nmap <buffer> <leader>tb :GoAddTag bson<cr>")
-	vim.cmd("au FileType go nmap <buffer> <leader>tj :GoAddTag json<cr>")
-	vim.cmd("au FileType go nmap <buffer> <leader>tt :GoAddTag toml<cr>")
-	vim.cmd("au FileType go nmap <buffer> <leader>ty :GoAddTag yaml<cr>")
-	vim.cmd("au FileType go nmap <buffer> <leader>tx :GoAddTag xml<cr>")
-	vim.cmd("au FileType go nmap <buffer> <leader>tc :GoClearTag <cr>")
-    vim.cmd("au FileType go nmap <buffer> <leader>tf :GoTest -v -n 1 -f<cr>")
-    vim.cmd("au FileType go nmap <buffer> <silent> K :lua vim.lsp.buf.hover()<CR>") --借用了上面的lsp，只是希望这个只在go这个文件生效
+	vim.cmd("au FileType go nmap <buffer> <silent> <LocalLeader>r :GoRun -F %:p:h<cr>")
+	vim.cmd("au FileType go nmap <buffer> <LocalLeader>b :GoBuild %:p:h<cr>")
+	vim.cmd("au FileType go nmap <buffer> <LocalLeader>tb :GoAddTag bson<cr>")
+	vim.cmd("au FileType go nmap <buffer> <LocalLeader>tj :GoAddTag json<cr>")
+	vim.cmd("au FileType go nmap <buffer> <LocalLeader>tt :GoAddTag toml<cr>")
+	vim.cmd("au FileType go nmap <buffer> <LocalLeader>ty :GoAddTag yaml<cr>")
+	vim.cmd("au FileType go nmap <buffer> <LocalLeader>tx :GoAddTag xml<cr>")
+	vim.cmd("au FileType go nmap <buffer> <LocalLeader>tc :GoClearTag <cr>")
+	vim.cmd("au FileType go nmap <buffer> <LocalLeader>tf :GoTest -v -n 1 -f<cr>")
+	vim.cmd("au FileType go nmap <buffer> <silent> K :lua vim.lsp.buf.hover()<CR>") --借用了上面的lsp，只是希望这个只在go这个文件生效
 end
 
-pluginKeys.mapTrouble=function ()
-  map("n","<leader>xx", ":lua require('trouble').open()<cr>" ,opt)
+pluginKeys.mapTrouble = function()
+	map("n", "<LocalLeader>xx", ":lua require('trouble').open()<cr>", opt)
+	map("n", "<LocalLeader>xw", ":lua require('trouble').open('workspace_diagnostics')<cr>", opt)
+	map("n", "<LocalLeader>xd", ":lua require('trouble').open('document_diagnostics')<cr>", opt)
+	map("n", "<LocalLeader>xq", ":lua require('trouble').open('quickfix')<cr>", opt)
+	map("n", "<LocalLeader>xl", ":lua require('trouble').open('loclist')<cr>", opt)
 end
 
 return pluginKeys

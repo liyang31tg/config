@@ -10,6 +10,8 @@ go.setup({
 	run_in_floaterm = true,
 	dap_debug = false, --不用这一套
 	dap_debug_keymap = false,
+    lsp_keymaps=false,
+    lsp_codelens=false,
 })
 
 require("keybindings").mapGo()
