@@ -96,6 +96,8 @@ packer.startup({
 				-- refer to the configuration section below
 			},
 		})
+        --copilot
+        use { "zbirenbaum/copilot.lua" }
 	end,
 	config = {
 		-- 并发数限制
