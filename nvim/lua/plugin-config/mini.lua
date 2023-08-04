@@ -28,11 +28,11 @@ minicomment.setup({
   mappings = {
     -- Toggle comment (like `gcip` - comment inner paragraph) for both
     -- Normal and Visual modes
-    comment = 'gc',
+    comment = ',c',
     -- Toggle comment on current line
-    comment_line = 'gcc',
+    comment_line = ',cc',
     -- Define 'comment' textobject (like `dgc` - delete whole comment block)
-    textobject = 'gc',
+    textobject = ',c',
   },
 })
 
