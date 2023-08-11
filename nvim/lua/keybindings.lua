@@ -145,6 +145,7 @@ map("c", "<c-0>", ":NvimTreeFindFile<CR>", opt)
 map("n", "<C-p>", ":Telescope find_files<CR>", opt)
 -- 全局搜索
 map("n", "<C-f>", ":Telescope live_grep<CR>", opt)
+map("n", "<Leader>/", ":lua require('telescope.builtin').current_buffer_fuzzy_find() <cr>", opt)
 
 -- Telescope 列表中 插入模式快捷键
 pluginKeys.telescopeList = {
@@ -219,6 +220,39 @@ end
 
 -- nvim-dap
 pluginKeys.mapDAP = function()
+	vim.keymap.set("n", "<F5>", function()
+		require("dap").continue()
+	end)
+	vim.keymap.set("n", "<F9>", function()
+		require("dap").step_into() --进入断点函数
+	end)
+	vim.keymap.set("n", "<F10>", function()
+		require("dap").step_over() -- 单步
+	end)
+	vim.keymap.set("n", "<F12>", function()
+		require("dap").step_out() --下一个断点
+	end)
+	vim.keymap.set("n", "<Leader>dd", function()
+		require("dap").toggle_breakpoint()
+	end)
+	vim.keymap.set("n", "<Leader>dl", function()
+		require("dap").set_breakpoint(nil, nil, vim.fn.input("Log point message: "))
+	end)
+	vim.keymap.set({ "n", "v" }, "<Leader>dh", function()
+		require("dap.ui.widgets").hover()
+	end)
+	vim.keymap.set({ "n", "v" }, "<Leader>dp", function()
+		require("dap.ui.widgets").preview()
+	end)
+	vim.keymap.set("n", "<Leader>df", function()
+		local widgets = require("dap.ui.widgets")
+		widgets.centered_float(widgets.frames)
+	end)
+	vim.keymap.set("n", "<Leader>ds", function()
+		local widgets = require("dap.ui.widgets")
+		widgets.centered_float(widgets.scopes)
+	end)
+
 	--结束调试
 	map(
 		"n",
@@ -232,16 +266,16 @@ pluginKeys.mapDAP = function()
 		opt
 	)
 	-- 开始调试
-	map("n", "<F5>", ":lua require'dap'.continue()<CR>", opt)
-	--  stepOver, stepOut, stepInto
-	map("n", "<F9>", ":lua require'dap'.step_over()<CR>", opt)
-	map("n", "<F10>", ":lua require'dap'.step_into()<CR>", opt)
-	map("n", "<F12>", ":lua require'dap'.step_out()<CR>", opt)
-	-- 设置断点
-	map("n", "<leader>dd", ":lua require('dap').toggle_breakpoint()<CR>", opt)
-	map("n", "<leader>dc", ":lua require('dap').clear_breakpoints()<CR>", opt)
-	-- 弹窗
-	map("n", "<leader>dh", ":lua require'dapui'.eval()<CR>", opt)
+	-- map("n", "<F5>", ":lua require'dap'.continue()<CR>", opt)
+	-- --  stepOver, stepOut, stepInto
+	-- map("n", "<F9>", ":lua require'dap'.step_over()<CR>", opt)
+	-- map("n", "<F10>", ":lua require'dap'.step_into()<CR>", opt)
+	-- map("n", "<F12>", ":lua require'dap'.step_out()<CR>", opt)
+	-- -- 设置断点
+	-- map("n", "<leader>dd", ":lua require('dap').toggle_breakpoint()<CR>", opt)
+	-- map("n", "<leader>dc", ":lua require('dap').clear_breakpoints()<CR>", opt)
+	-- -- 弹窗
+	-- map("n", "<leader>dh", ":lua require'dapui'.eval()<CR>", opt)
 end
 -- map  test
 pluginKeys.mapTEST = function()
