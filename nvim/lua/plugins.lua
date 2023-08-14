@@ -47,6 +47,16 @@ packer.startup({
 		-- 代码格式化
 		use({ "jose-elias-alvarez/null-ls.nvim", requires = "nvim-lua/plenary.nvim" })
 
+		--golang
+		use({
+			"ray-x/go.nvim",
+			requires = {
+				"ray-x/guihua.lua",
+				"neovim/nvim-lspconfig",
+				"nvim-treesitter/nvim-treesitter",
+			},
+		})
+
 		-- 调试
 		use("mfussenegger/nvim-dap")
 		use("theHamsta/nvim-dap-virtual-text")
@@ -75,15 +85,6 @@ packer.startup({
 				"nvim-treesitter/nvim-treesitter",
 				"antoinemadec/FixCursorHold.nvim",
 				"nvim-neotest/neotest-go", --可以添加其他的测试适配器，这个是go的
-			},
-		})
-		--golang
-		use({
-			"ray-x/go.nvim",
-			requires = {
-				"ray-x/guihua.lua",
-				"neovim/nvim-lspconfig",
-				"nvim-treesitter/nvim-treesitter",
 			},
 		})
 

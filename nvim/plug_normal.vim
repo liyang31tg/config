@@ -15,5 +15,5 @@ call plug#end()
 let g:python3_host_prog = "/usr/local/bin/python3"
 "#===========================clang-format start=============================
 "开启自动格式化
-autocmd FileType c,proto ClangFormatAutoEnable
+" autocmd FileType c,proto ClangFormatAutoEnable
 "#===========================clang-format end=============================
