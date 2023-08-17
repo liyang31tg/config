@@ -71747,6 +71747,10 @@
 	<true/>
 	<key>MaxVertically</key>
 	<false/>
+	<key>NeverWarnAboutShortLivedSessions_67002FA7-1CCA-4693-8CE2-3EFD6181D1C5</key>
+	<true/>
+	<key>NeverWarnAboutShortLivedSessions_67002FA7-1CCA-4693-8CE2-3EFD6181D1C5_selection</key>
+	<integer>0</integer>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>

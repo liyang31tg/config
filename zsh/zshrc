@@ -1,1 +1,129 @@
-alias vim nvim
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+
+# 插件目录 .local/share/zsh/plugins
+# 插件开始
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+PLUGINS_PATH=$HOME/.local/share/zsh/plugins
+source ${PLUGINS_PATH}/powerlevel10k/powerlevel10k.zsh-theme
+source ${PLUGINS_PATH}/zsh-autosuggestions/zsh-autosuggestions.zsh
+source ${PLUGINS_PATH}/fzf-tab/fzf-tab.plugin.zsh
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+source ${PLUGINS_PATH}/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh #命令高亮
+# brew install autojump 这个插件不需要注入到这个文件里
+# 插件END
+
+export PATH=$PATH:$HOME/bin
+export PATH=$PATH:$HOME/go/bin
+GOPATH="$HOME/go"
+export PATH="$PATH:/usr/local/mysql/bin"
+export GO111MODULE=on
+export GOPROXY="https://goproxy.cn"
+export LC_ALL=en_US.UTF-8
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk-18.0.1.1.jdk/Contents/Home
+export PATH="$PATH:$HOME/.rvm/bin"
+export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
+function fg() {
+  if [[ $# -eq 1 && $1 = - ]]; then
+		builtin fg %-
+	else
+	  builtin fg %"$@"
+	fi
+}
+# alias start
+alias vi=nvim
+alias vim=nvim
+# alias ls="ls --color=auto"
+alias r="source $HOME/.zshrc"
+alias d="kitty +kitten diff"
+alias w="cd ~/go/workSpace"
+alias c="cd ~/.config"
+alias g="gitui"
+alias uf="cd ~/go/workSpace/jinguf && nvim"
+alias hy="cd ~/go/workSpace/jinghy && nvim"
+alias dot=dotnet
+# alias end
+# 命令替换start
+# https://github.com/sigoden/aichat #ai工具
+eval "$(zoxide init zsh)"
+alias ls="lsd"
+alias ll="ls -lah"
+alias du="dust"
+alias top="btmbrew install bat" #brew install bottom
+alias cat="bat"
+alias grep="rg"
+alias diff="delta"
+alias sed="sd"
+alias df="duf"
+alias t="tldr" #brew install tealdeer #命令的常用语法
+alias ps="procs"
+alias find="fd"
+# 命令替换end
+
+
+
+
+function lg() {
+	export LAZYGIT_NEW_DIR_FILE=~/.lazygit/newdir
+	lazygit "$@"
+	if [ -f $LAZYGIT_NEW_DIR_FILE ]; then
+		cd "$(cat $LAZYGIT_NEW_DIR_FILE)"
+		rm -f $LAZYGIT_NEW_DIR_FILE >/dev/null
+	fi
+}
+
+#function ssh() {
+#c=$(curl -s cip.cc | grep 成都 | wc -l)
+#if [ $c -gt 0 ];then
+#echo "请先开启代理"
+#return
+#fi
+#/usr/bin/ssh $1
+#}
+
+LC_ALL=zh_CN.UTF-8
+HOMEBREW_BOTTLE_DOMAIN=
+export PATH="$PATH:$HOME/Library/Android/sdk/build-tools/30.0.3"
+export PATH="$PATH:$HOME/Library/Android/sdk/platform-tools:/usr/local/bin"
+export FZF_DEFAULT_COMMAND="fd --exclude={.git,.idea,.sass-cache,node_modules,build} --type f"
+fd1() {
+	local dir
+	dir=$(find ${1:-.} -path '*/\.*' -prune \
+		-o -type d -print 2>/dev/null | fzf +m) &&
+		cd "$dir"
+}
+
+export LC_ALL=zh_CN.UTF-8
+export LANG=zh_CN.UTF-8
+export DENO_INSTALL="/Users/mac/.deno"
+export PATH="$DENO_INSTALL/bin:$PATH"
+
+# pnpm
+export PNPM_HOME="/Users/mac/Library/pnpm"
+export PATH="$PATH:/Users/mac/.dotnet/tools"
+export PATH="$PNPM_HOME:$PATH"
+# pnpm end
+# kitty start
+alias icat="kitty +kitten icat"
+alias d="kitty +kitten diff"
+alias ts=ts-node
+# kitty end
+
+export FZF_DEFAULT_OPTS='--color=bg+:#3c3836,bg:#32302f,spinner:#fb4934,hl:#928374,fg:#ebdbb2,header:#928374,info:#8ec07c,pointer:#fb4934,marker:#fb4934,fg+:#ebdbb2,prompt:#fb4934,hl+:#fb4934'
+
+export TZ='Asia/Bangkok'
+
+alias ts="ts-node-dev --respawn "
+if [[ -e $HOME/.zshrc_local ]]; then
+	source $HOME/.zshrc_local
+fi
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+
