@@ -51,8 +51,6 @@ alias dot=dotnet
 # 命令替换start
 # https://github.com/sigoden/aichat #ai工具
 eval "$(zoxide init zsh)"
-zoxide import --from=autojump $HOME/Library/autojump/autojump.txt
-alias cd="zoxide"
 alias ls="lsd"
 alias ll="ls -lah"
 alias du="dust"
