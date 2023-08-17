@@ -11,8 +11,8 @@ PLUGINS_PATH=$HOME/.local/share/zsh/plugins
 source ${PLUGINS_PATH}/powerlevel10k/powerlevel10k.zsh-theme
 source ${PLUGINS_PATH}/zsh-autosuggestions/zsh-autosuggestions.zsh
 # do this in terminal when fzf-tab not working
-# autoload -U compinit
-# compinit
+autoload -U compinit
+compinit
 source ${PLUGINS_PATH}/fzf-tab/fzf-tab.plugin.zsh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 source ${PLUGINS_PATH}/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh #命令高亮
