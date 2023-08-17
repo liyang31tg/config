@@ -67,7 +67,8 @@ noremap \s :<c-u>%s//g<left><left>
 " 以下是对应的不支持映射的桥接关系大幅阿斯蒂芬
 " <c-0> <M-f> 删除，因为已经支持映射<c-数字
 " <cmd-s> <M-s>
-noremap <silent> <M-s> :w<cr>
+" noremap <silent> <M-s> :w<cr>
+noremap <M-s> <esc>:<c-u>w<cr>
 autocmd FileType cs nnoremap <leader>r :set splitbelow<cr> :sp <CR> :term dotnet run % <CR>a
 autocmd FileType typescript nnoremap <leader>r :set splitbelow<cr> :sp <CR> :term deno run % <CR>a
 noremap \p :echo expand('%:p')<CR>
