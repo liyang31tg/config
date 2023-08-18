@@ -4,7 +4,7 @@ local map = vim.api.nvim_set_keymap
 local opt = { noremap = true, silent = true }
 
 local function opts(desc)
-	return { noremap = true, silent = true, desc = desc }
+  return { noremap = true, silent = true, desc = desc }
 end
 
 -- kitty 首先在mac环境中需要将option改成alt ，macos_option_as_alt yes
@@ -71,10 +71,10 @@ map("n", "<leader>b.", ":BufferLineMoveNext<CR>", opt)
 map("n", "<leader>bb", "<cmd>e #<cr>", opts("与上一个buffer切换"))
 
 map(
-	"n",
-	"<leader>ur",
-	"<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>",
-	opts("Redraw / clear hlsearch / diff update")
+  "n",
+  "<leader>ur",
+  "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>",
+  opts("Redraw / clear hlsearch / diff update")
 )
 
 map("n", "gw", "*N", opts("查询这个单词"))
@@ -149,21 +149,21 @@ map("n", "<Leader>/", ":lua require('telescope.builtin').current_buffer_fuzzy_fi
 
 -- Telescope 列表中 插入模式快捷键
 pluginKeys.telescopeList = {
-	i = {
-		-- 上下移动
-		["<C-j>"] = "move_selection_next",
-		["<C-k>"] = "move_selection_previous",
-		["<Down>"] = "move_selection_next",
-		["<Up>"] = "move_selection_previous",
-		-- 历史记录
-		["<C-n>"] = "cycle_history_next",
-		["<C-p>"] = "cycle_history_prev",
-		-- 关闭窗口
-		["<C-c>"] = "close",
-		-- 预览窗口上下滚动
-		["<C-u>"] = "preview_scrolling_up",
-		["<C-d>"] = "preview_scrolling_down",
-	},
+  i = {
+    -- 上下移动
+    ["<C-j>"] = "move_selection_next",
+    ["<C-k>"] = "move_selection_previous",
+    ["<Down>"] = "move_selection_next",
+    ["<Up>"] = "move_selection_previous",
+    -- 历史记录
+    ["<C-n>"] = "cycle_history_next",
+    ["<C-p>"] = "cycle_history_prev",
+    -- 关闭窗口
+    ["<C-c>"] = "close",
+    -- 预览窗口上下滚动
+    ["<C-u>"] = "preview_scrolling_up",
+    ["<C-d>"] = "preview_scrolling_down",
+  },
 }
 
 -- lsp
@@ -193,127 +193,127 @@ map("n", "<leader>f", "<cmd>lua vim.lsp.buf.format({async = true})<CR>", opt)
 
 -- nvim-cmp 自动补全
 pluginKeys.cmp = function(cmp)
-	return {
-		-- 出现补全
-		["<c-.>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
-		-- 取消
-		["<c-,>"] = cmp.mapping({
-			i = cmp.mapping.abort(),
-			c = cmp.mapping.close(),
-		}),
-		-- 上一个
-		["<C-k>"] = cmp.mapping.select_prev_item(),
-		["<C-p>"] = cmp.mapping.select_prev_item(),
-		-- 下一个
-		["<C-j>"] = cmp.mapping.select_next_item(),
-		["<C-n>"] = cmp.mapping.select_next_item(),
-		-- 确认
-		["<CR>"] = cmp.mapping.confirm({
-			select = true,
-			behavior = cmp.ConfirmBehavior.Replace,
-		}),
-		-- 如果窗口内容太多，可以滚动
-		["<C-u>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
-		["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
-	}
+  return {
+    -- 出现补全
+    ["<c-.>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
+    -- 取消
+    ["<c-,>"] = cmp.mapping({
+      i = cmp.mapping.abort(),
+      c = cmp.mapping.close(),
+    }),
+    -- 上一个
+    ["<C-k>"] = cmp.mapping.select_prev_item(),
+    ["<C-p>"] = cmp.mapping.select_prev_item(),
+    -- 下一个
+    ["<C-j>"] = cmp.mapping.select_next_item(),
+    ["<C-n>"] = cmp.mapping.select_next_item(),
+    -- 确认
+    ["<CR>"] = cmp.mapping.confirm({
+      select = true,
+      behavior = cmp.ConfirmBehavior.Replace,
+    }),
+    -- 如果窗口内容太多，可以滚动
+    ["<C-u>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
+    ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
+  }
 end
 
 -- nvim-dap
 pluginKeys.mapDAP = function()
-	vim.keymap.set("n", "<F5>", function()
-		require("dap").continue()
-	end)
-	vim.keymap.set("n", "<F9>", function()
-		require("dap").step_into() --进入断点函数
-	end)
-	vim.keymap.set("n", "<F10>", function()
-		require("dap").step_over() -- 单步
-	end)
-	vim.keymap.set("n", "<F12>", function()
-		require("dap").step_out() --下一个断点
-	end)
-	vim.keymap.set("n", "<Leader>dd", function()
-		require("dap").toggle_breakpoint()
-	end)
-	vim.keymap.set("n", "<Leader>dl", function()
-		require("dap").set_breakpoint(nil, nil, vim.fn.input("Log point message: "))
-	end)
-	vim.keymap.set({ "n", "v" }, "<Leader>dh", function()
-		require("dap.ui.widgets").hover()
-	end)
-	vim.keymap.set({ "n", "v" }, "<Leader>dp", function()
-		require("dap.ui.widgets").preview()
-	end)
-	vim.keymap.set("n", "<Leader>df", function()
-		local widgets = require("dap.ui.widgets")
-		widgets.centered_float(widgets.frames)
-	end)
-	vim.keymap.set("n", "<Leader>ds", function()
-		local widgets = require("dap.ui.widgets")
-		widgets.centered_float(widgets.scopes)
-	end)
+  vim.keymap.set("n", "<F5>", function()
+    require("dap").continue()
+  end)
+  vim.keymap.set("n", "<F9>", function()
+    require("dap").step_into() --进入断点函数
+  end)
+  vim.keymap.set("n", "<F10>", function()
+    require("dap").step_over() -- 单步
+  end)
+  vim.keymap.set("n", "<F12>", function()
+    require("dap").step_out() --下一个断点
+  end)
+  vim.keymap.set("n", "<Leader>dd", function()
+    require("dap").toggle_breakpoint()
+  end)
+  vim.keymap.set("n", "<Leader>dl", function()
+    require("dap").set_breakpoint(nil, nil, vim.fn.input("Log point message: "))
+  end)
+  vim.keymap.set({ "n", "v" }, "<Leader>dh", function()
+    require("dap.ui.widgets").hover()
+  end)
+  vim.keymap.set({ "n", "v" }, "<Leader>dp", function()
+    require("dap.ui.widgets").preview()
+  end)
+  vim.keymap.set("n", "<Leader>df", function()
+    local widgets = require("dap.ui.widgets")
+    widgets.centered_float(widgets.frames)
+  end)
+  vim.keymap.set("n", "<Leader>ds", function()
+    local widgets = require("dap.ui.widgets")
+    widgets.centered_float(widgets.scopes)
+  end)
 
-	--结束调试
-	map(
-		"n",
-		"<leader>de",
-		":lua require'dap'.close()<CR>"
-			.. ":lua require'dap'.terminate()<CR>"
-			.. ":lua require'dap.repl'.close()<CR>"
-			.. ":lua require'dapui'.close()<CR>"
-			.. ":lua require('dap').clear_breakpoints()<CR>"
-			.. "<C-w>o<CR>",
-		opt
-	)
-	-- 开始调试
-	-- map("n", "<F5>", ":lua require'dap'.continue()<CR>", opt)
-	-- --  stepOver, stepOut, stepInto
-	-- map("n", "<F9>", ":lua require'dap'.step_over()<CR>", opt)
-	-- map("n", "<F10>", ":lua require'dap'.step_into()<CR>", opt)
-	-- map("n", "<F12>", ":lua require'dap'.step_out()<CR>", opt)
-	-- -- 设置断点
-	-- map("n", "<leader>dd", ":lua require('dap').toggle_breakpoint()<CR>", opt)
-	-- map("n", "<leader>dc", ":lua require('dap').clear_breakpoints()<CR>", opt)
-	-- -- 弹窗
-	-- map("n", "<leader>dh", ":lua require'dapui'.eval()<CR>", opt)
+  --结束调试
+  map(
+    "n",
+    "<leader>de",
+    ":lua require'dap'.close()<CR>"
+    .. ":lua require'dap'.terminate()<CR>"
+    .. ":lua require'dap.repl'.close()<CR>"
+    .. ":lua require'dapui'.close()<CR>"
+    .. ":lua require('dap').clear_breakpoints()<CR>"
+    .. "<C-w>o<CR>",
+    opt
+  )
+  -- 开始调试
+  -- map("n", "<F5>", ":lua require'dap'.continue()<CR>", opt)
+  -- --  stepOver, stepOut, stepInto
+  -- map("n", "<F9>", ":lua require'dap'.step_over()<CR>", opt)
+  -- map("n", "<F10>", ":lua require'dap'.step_into()<CR>", opt)
+  -- map("n", "<F12>", ":lua require'dap'.step_out()<CR>", opt)
+  -- -- 设置断点
+  -- map("n", "<leader>dd", ":lua require('dap').toggle_breakpoint()<CR>", opt)
+  -- map("n", "<leader>dc", ":lua require('dap').clear_breakpoints()<CR>", opt)
+  -- -- 弹窗
+  -- map("n", "<leader>dh", ":lua require'dapui'.eval()<CR>", opt)
 end
 -- map  test
 pluginKeys.mapTEST = function()
-	map(
-		"n",
-		"<leader>tf",
-		":lua require('neotest').run.run(vim.fn.getcwd())<CR>" .. ":lua require('neotest').output_panel.open()<cr>",
-		opt
-	)
+  map(
+    "n",
+    "<leader>tf",
+    ":lua require('neotest').run.run(vim.fn.getcwd())<CR>" .. ":lua require('neotest').output_panel.open()<cr>",
+    opt
+  )
 end
 
 pluginKeys.mapFanYi = function()
-	map("n", "fy", "<cmd>TransToZH<CR>", opt)
+  map("n", "fy", "<cmd>TransToZH<CR>", opt)
 end
 
 pluginKeys.mapGo = function()
-	vim.cmd("au FileType go nmap <buffer> <silent> <LocalLeader>r :GoRun -F %:p:h<cr>")
-	vim.cmd("au FileType go nmap <buffer> <LocalLeader>b :GoBuild %:p:h<cr>")
-	vim.cmd("au FileType go nmap <buffer> <LocalLeader>tb :GoAddTag bson<cr>")
-	vim.cmd("au FileType go nmap <buffer> <LocalLeader>tj :GoAddTag json<cr>")
-	vim.cmd("au FileType go nmap <buffer> <LocalLeader>tt :GoAddTag toml<cr>")
-	vim.cmd("au FileType go nmap <buffer> <LocalLeader>ty :GoAddTag yaml<cr>")
-	vim.cmd("au FileType go nmap <buffer> <LocalLeader>tx :GoAddTag xml<cr>")
-	vim.cmd("au FileType go nmap <buffer> <LocalLeader>tc :GoClearTag <cr>")
-	vim.cmd("au FileType go nmap <buffer> <LocalLeader>tf :GoTest -v -n 1 -f<cr>")
-	vim.cmd("au FileType go nmap <buffer> <silent> K :lua vim.lsp.buf.hover()<CR>") --借用了上面的lsp，只是希望这个只在go这个文件生效
+  vim.cmd("au FileType go nmap <buffer> <silent> <LocalLeader>r :GoRun -F %:p:h<cr>")
+  vim.cmd("au FileType go nmap <buffer> <LocalLeader>b :GoBuild %:p:h<cr>")
+  vim.cmd("au FileType go nmap <buffer> <LocalLeader>tb :GoAddTag bson<cr>")
+  vim.cmd("au FileType go nmap <buffer> <LocalLeader>tj :GoAddTag json<cr>")
+  vim.cmd("au FileType go nmap <buffer> <LocalLeader>tt :GoAddTag toml<cr>")
+  vim.cmd("au FileType go nmap <buffer> <LocalLeader>ty :GoAddTag yaml<cr>")
+  vim.cmd("au FileType go nmap <buffer> <LocalLeader>tx :GoAddTag xml<cr>")
+  vim.cmd("au FileType go nmap <buffer> <LocalLeader>tc :GoClearTag <cr>")
+  vim.cmd("au FileType go nmap <buffer> <LocalLeader>tf :GoTest -v -n 1 -f<cr>")
+  vim.cmd("au FileType go nmap <buffer> <silent> K :lua vim.lsp.buf.hover()<CR>") --借用了上面的lsp，只是希望这个只在go这个文件生效
 end
 
 pluginKeys.mapTrouble = function()
-	map("n", "<LocalLeader>xx", ":lua require('trouble').open()<cr>", opt)
-	map("n", "<LocalLeader>xw", ":lua require('trouble').open('workspace_diagnostics')<cr>", opt)
-	map("n", "<LocalLeader>xd", ":lua require('trouble').open('document_diagnostics')<cr>", opt)
-	map("n", "<LocalLeader>xq", ":lua require('trouble').open('quickfix')<cr>", opt)
-	map("n", "<LocalLeader>xl", ":lua require('trouble').open('loclist')<cr>", opt)
+  map("n", "<LocalLeader>xx", ":lua require('trouble').open()<cr>", opt)
+  map("n", "<LocalLeader>xw", ":lua require('trouble').open('workspace_diagnostics')<cr>", opt)
+  map("n", "<LocalLeader>xd", ":lua require('trouble').open('document_diagnostics')<cr>", opt)
+  map("n", "<LocalLeader>xq", ":lua require('trouble').open('quickfix')<cr>", opt)
+  map("n", "<LocalLeader>xl", ":lua require('trouble').open('loclist')<cr>", opt)
 end
 
 pluginKeys.mapJavascript = function()
-	vim.cmd("au FileType javascript nmap <buffer> <silent> <LocalLeader>r :!node  %<cr>")
+  vim.cmd("au FileType javascript nmap <buffer> <silent> <LocalLeader>r :!node  %<cr>")
 end
 
 return pluginKeys

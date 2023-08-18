@@ -14,10 +14,13 @@ source ${PLUGINS_PATH}/zsh-autosuggestions/zsh-autosuggestions.zsh
 autoload -U compinit
 compinit
 source ${PLUGINS_PATH}/fzf-tab/fzf-tab.plugin.zsh
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+source $HOME/.config/zsh/fzf-tab.sh # 针对fzf-tab一些独立的配置
+[ -f $HOME/.fzf.zsh ] && source $HOME/.fzf.zsh
+
+
 source ${PLUGINS_PATH}/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh #命令高亮
 # brew install autojump 这个插件不需要注入到这个文件里
-# 插件END
+# 插件end
 
 export PATH=$PATH:$HOME/bin
 export PATH=$PATH:$HOME/go/bin
@@ -98,7 +101,6 @@ LC_ALL=zh_CN.UTF-8
 HOMEBREW_BOTTLE_DOMAIN=
 export PATH="$PATH:$HOME/Library/Android/sdk/build-tools/30.0.3"
 export PATH="$PATH:$HOME/Library/Android/sdk/platform-tools:/usr/local/bin"
-export FZF_DEFAULT_COMMAND="fd --exclude={.git,.idea,.sass-cache,node_modules,build} --type f"
 fd1() {
 	local dir
 	dir=$(find ${1:-.} -path '*/\.*' -prune \
@@ -122,7 +124,8 @@ alias d="kitty +kitten diff"
 alias ts=ts-node
 # kitty end
 
-# export FZF_DEFAULT_OPTS='--color=bg+:#3c3836,bg:#32302f,spinner:#fb4934,hl:#928374,fg:#ebdbb2,header:#928374,info:#8ec07c,pointer:#fb4934,marker:#fb4934,fg+:#ebdbb2,prompt:#fb4934,hl+:#fb4934'
+export FZF_DEFAULT_COMMAND="fd --exclude={.git,.idea,.vscode,.sass-cache,node_modules,build,dist,vendor} --type f"
+export FZF_DEFAULT_OPTS='--color=bg+:#3c3836,bg:#32302f,spinner:#fb4934,hl:#928374,fg:#ebdbb2,header:#928374,info:#8ec07c,pointer:#fb4934,marker:#fb4934,fg+:#ebdbb2,prompt:#fb4934,hl+:#fb4934'
 
 export TZ='Asia/Bangkok'
 

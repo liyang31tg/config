@@ -1,46 +1,38 @@
 #window:
-  #startup_mode: SimpleFullscreen
-  #decorations: none
+#startup_mode: SimpleFullscreen
+#decorations: none
 
 # Display tabs using this many cells
 tabspaces: 4
-
 font:
-  normal:
-    #family: JetBrainsMono Nerd Font
-    family: "DroidSansM Nerd Font Mono"
-    style: Regular
-
-  bold:
-    #family: JetBrainsMono Nerd Font
-    family: "Hack Nerd Font Mono"
-    style: Bold
-
-  italic:
-    #family: JetBrainsMono Nerd Font
-    family: "Hack Nerd Font Mono"
-    style: Italic
-
-  bold_italic:
-    #family: JetBrainsMono Nerd Font
-    family: "Hack Nerd Font Mono"
-    style: Bold Italic
-
-  size: 17
-
+    normal:
+        #family: JetBrainsMono Nerd Font
+        family: 'DroidSansM Nerd Font Mono'
+        style: Regular
+    bold:
+        #family: JetBrainsMono Nerd Font
+        family: 'Hack Nerd Font Mono'
+        style: Bold
+    italic:
+        #family: JetBrainsMono Nerd Font
+        family: 'Hack Nerd Font Mono'
+        style: Italic
+    bold_italic:
+        #family: JetBrainsMono Nerd Font
+        family: 'Hack Nerd Font Mono'
+        style: Bold Italic
+    size: 17
 env:
-  TERM: xterm-256color
-
+    TERM: xterm-256color
 shell:
-  #program: /usr/local/bin/fish
-  program: /bin/zsh
-  args:
-    #- --login
-    #- --command
-    - -l
-    - -c 
-    - "tmux new-session -A -D -s main"
-
+    #program: /usr/local/bin/fish
+    program: /bin/zsh
+    args:
+        #- --login
+        #- --command
+        - -l
+        - -c
+        - 'tmux new-session -A -D -s main'
 # Key bindings
 # A list with all available `key` names can be found here:
 # https://docs.rs/glutin/*/glutin/enum.VirtualKeyCode.html#variants
@@ -52,190 +44,170 @@ shell:
 #   `\x1b` is `Esc`
 #   `Option` is mapped to `Esc`
 key_bindings:
-  # ----- change font size ----
-  - { key: Key0,     mods: Command,       action: ResetFontSize    }
-  - { key: Equals,   mods: Command,       action: IncreaseFontSize }
-  - { key: Minus,    mods: Command,       action: DecreaseFontSize }
+    # ----- change font size ----
+    - { key: Key0, mods: Command, action: ResetFontSize }
+    - { key: Equals, mods: Command, action: IncreaseFontSize }
+    - { key: Minus, mods: Command, action: DecreaseFontSize }
+    # ----- new pane/tab/window -----
+    - { key: D, mods: Command, chars: "\x1C%" } # new vertical pane with default shell
+    - { key: D, mods: Command|Shift, chars: "\x1C\"" } # new horizontal pane with default shell
+    - { key: T, mods: Command, chars: "\x1Cc" } # new tab with default shell
+    #- { key: N,        mods: Command|Shift, command: { program: "/Applications/Alacritty.app/Contents/MacOS/alacritty", args: ["msg", "create-window", "-e", "/bin/zsh", "-l", "-c", "tmux-sessions --all"] } } # open session in new window with all sessions menu across servers
 
-  # ----- new pane/tab/window -----
-  - { key: D,        mods: Command,       chars: "\x1c%"   } # new vertical pane with default shell
-  - { key: D,        mods: Command|Shift, chars: "\x1c\""    } # new horizontal pane with default shell
-  - { key: T,        mods: Command,       chars: "\x1cc"    } # new tab with default shell
-  #- { key: N,        mods: Command|Shift, command: { program: "/Applications/Alacritty.app/Contents/MacOS/alacritty", args: ["msg", "create-window", "-e", "/bin/zsh", "-l", "-c", "tmux-sessions --all"] } } # open session in new window with all sessions menu across servers
-
-  # ----- popup window -----
-  - { key: P,        mods: Command,       chars: "\x1cP"    } # close the pane
-
-  # ----- close pane/tab/window -----
-  - { key: W,        mods: Command,       chars: "\x1cx"    } # close the pane,可以结合<c-d>来更快关闭，这个是linux特性
-  - { key: W,        mods: Command|Shift, chars: "\x1c&"    } # close the window 需要确定
-  - { key: Q,        mods: Command,       chars: "\x1cd"    } # detach session 
-
-  # ----- navigate panes -----
-  - { key: H,        mods: Command,       chars: "\x1c\x1b[D"    } # go to the pane left后面的数字可以通过showkey -a的这个命令获得
-  - { key: J,        mods: Command,       chars: "\x1c\x1b[B"    } # go to the pane above
-  - { key: K,        mods: Command,       chars: "\x1c\x1b[A"    } # go to the pane below
-  - { key: L,        mods: Command,       chars: "\x1c\x1b[C"    } # go to the pane right
-
-  # ----- resize panes -----
-  - { key: Left,     mods: Command, chars: "\x1c\x1b\x1b[D"    }
-  - { key: Down,     mods: Command, chars: "\x1c\x1b\x1b[B"    }
-  - { key: Up,       mods: Command, chars: "\x1c\x1b\x1b[A"    }
-  - { key: Right,    mods: Command, chars: "\x1c\x1b\x1b[C"    }
-
-  # ----- navigate tabs -----
-  - { key: B,        mods: Command,       chars: "\x1cl"    } # back to last tab
-  - { key: LBracket, mods: Command|Shift, chars: "\x1cp"    } # go to previous tab
-  - { key: RBracket, mods: Command|Shift, chars: "\x1cn"    } # go to next tab
-  - { key: Key1,     mods: Command,       chars: "\x1c1"    } # go to tab 1..9
-  - { key: Key2,     mods: Command,       chars: "\x1c2"    }
-  - { key: Key3,     mods: Command,       chars: "\x1c3"    }
-  - { key: Key4,     mods: Command,       chars: "\x1c4"    }
-  - { key: Key5,     mods: Command,       chars: "\x1c5"    }
-  - { key: Key6,     mods: Command,       chars: "\x1c6"    }
-  - { key: Key7,     mods: Command,       chars: "\x1c7"    }
-  - { key: Key8,     mods: Command,       chars: "\x1c8"    }
-  - { key: Key9,     mods: Command,       chars: "\x1c9"    }
-
-  # ----- copy mode -----
-  - { key: F,        mods: Command,       chars: "\x1c[/"   } # enter vi copy mode, and search from up to down
-  - { key: F,        mods: Command|Shift, chars: "\x1c[?"   } # enter vi copy mode, seaaction: CreateNewWindowrch from down to up
-
-  # ----- misc shortcuts -----
-  - { key: I,           mods: Command|Shift, chars: "\x1c,"    } # rename tab
-  - { key: Semicolon,   mods: Command,       chars: "\x1c:"    } # input tmux command
-  - { key: S,           mods: Command,       chars: "\x1b:w\x0a"} # Type <escape>:w<enter> to save vim
-  - { key: Key0,        mods: Control,       chars: "\x1b:NERDTreeFocus\x0a"} # Type <escape>:w<enter> to save vim
+    # ----- popup window -----
+    - { key: P, mods: Command, chars: "\x1CP" } # close the pane
+    # ----- close pane/tab/window -----
+    - { key: W, mods: Command, chars: "\x1Cx" } # close the pane,可以结合<c-d>来更快关闭，这个是linux特性
+    - { key: W, mods: Command|Shift, chars: "\x1C&" } # close the window 需要确定
+    - { key: Q, mods: Command, chars: "\x1Cd" } # detach session
+    # ----- navigate panes -----
+    - { key: H, mods: Command, chars: "\x1C\e[D" } # go to the pane left后面的数字可以通过showkey -a的这个命令获得
+    - { key: J, mods: Command, chars: "\x1C\e[B" } # go to the pane above
+    - { key: K, mods: Command, chars: "\x1C\e[A" } # go to the pane below
+    - { key: L, mods: Command, chars: "\x1C\e[C" } # go to the pane right
+    # ----- resize panes -----
+    - { key: Left, mods: Command, chars: "\x1C\e\e[D" }
+    - { key: Down, mods: Command, chars: "\x1C\e\e[B" }
+    - { key: Up, mods: Command, chars: "\x1C\e\e[A" }
+    - { key: Right, mods: Command, chars: "\x1C\e\e[C" }
+    # ----- navigate tabs -----
+    - { key: B, mods: Command, chars: "\x1Cl" } # back to last tab
+    - { key: LBracket, mods: Command|Shift, chars: "\x1Cp" } # go to previous tab
+    - { key: RBracket, mods: Command|Shift, chars: "\x1Cn" } # go to next tab
+    - { key: Key1, mods: Command, chars: "\x1C1" } # go to tab 1..9
+    - { key: Key2, mods: Command, chars: "\x1C2" }
+    - { key: Key3, mods: Command, chars: "\x1C3" }
+    - { key: Key4, mods: Command, chars: "\x1C4" }
+    - { key: Key5, mods: Command, chars: "\x1C5" }
+    - { key: Key6, mods: Command, chars: "\x1C6" }
+    - { key: Key7, mods: Command, chars: "\x1C7" }
+    - { key: Key8, mods: Command, chars: "\x1C8" }
+    - { key: Key9, mods: Command, chars: "\x1C9" }
+    # ----- copy mode -----
+    - { key: F, mods: Command, chars: "\x1C[/" } # enter vi copy mode, and search from up to down
+    - { key: F, mods: Command|Shift, chars: "\x1C[?" } # enter vi copy mode, seaaction: CreateNewWindowrch from down to up
+    # ----- misc shortcuts -----
+    - { key: I, mods: Command|Shift, chars: "\x1C," } # rename tab
+    - { key: Semicolon, mods: Command, chars: "\x1C:" } # input tmux command
+    - { key: S, mods: Command, chars: "\e:w\n" } # Type <escape>:w<enter> to save vim
+    - { key: Key0, mods: Control, chars: "\e:NERDTreeFocus\n" } # Type <escape>:w<enter> to save vim
     #下面的不知道有什么意义
-  - { key: I,           mods: Command|Shift, chars: "\x1cI"    } # synchronize panes in the current window
-  - { key: R,           mods: Command,       chars: "\x1cR"    } # run command with commands menu
-  - { key: Z,           mods: Command,       chars: "\x1cz"    } # zoom toggle of the current pane.
-  - { key: Z,           mods: Command|Shift, chars: "\x1c "    } # retile panes in the current window with preset layouts
+    - { key: I, mods: Command|Shift, chars: "\x1CI" } # synchronize panes in the current window
+    - { key: R, mods: Command, chars: "\x1CR" } # run command with commands menu
+    - { key: Z, mods: Command, chars: "\x1Cz" } # zoom toggle of the current pane.
+    - { key: Z, mods: Command|Shift, chars: "\x1C " } # retile panes in the current window with preset layouts
+    # ----- move panes -----
+    - { key: Key1, mods: Command|Shift, chars: "\x1C\e1" } # move the current pane to tab 1..9
+    - { key: Key2, mods: Command|Shift, chars: "\x1C\e2" }
+    - { key: Key3, mods: Command|Shift, chars: "\x1C\e3" }
+    - { key: Key4, mods: Command|Shift, chars: "\x1C\e4" }
+    - { key: Key5, mods: Command|Shift, chars: "\x1C\e5" }
+    - { key: Key6, mods: Command|Shift, chars: "\x1C\e6" }
+    - { key: Key7, mods: Command|Shift, chars: "\x1C\e7" }
+    - { key: Key8, mods: Command|Shift, chars: "\x1C\e8" }
+    - { key: Key9, mods: Command|Shift, chars: "\x1C\e9" }
+    # ----- Fix problem in IM -----
+    - { key: Back, action: ReceiveChar }
+    # Support Option keys for macOS:
+    # https://github.com/alexherbo2/alacritty-extended-keys/blob/master/keys.yml
 
-
-  # ----- move panes -----
-  - { key: Key1,     mods: Command|Shift, chars: "\x1c\x1b1"} # move the current pane to tab 1..9
-  - { key: Key2,     mods: Command|Shift, chars: "\x1c\x1b2"}
-  - { key: Key3,     mods: Command|Shift, chars: "\x1c\x1b3"}
-  - { key: Key4,     mods: Command|Shift, chars: "\x1c\x1b4"}
-  - { key: Key5,     mods: Command|Shift, chars: "\x1c\x1b5"}
-  - { key: Key6,     mods: Command|Shift, chars: "\x1c\x1b6"}
-  - { key: Key7,     mods: Command|Shift, chars: "\x1c\x1b7"}
-  - { key: Key8,     mods: Command|Shift, chars: "\x1c\x1b8"}
-  - { key: Key9,     mods: Command|Shift, chars: "\x1c\x1b9"}
-
-  # ----- Fix problem in IM -----
-  - { key: Back,                          action: ReceiveChar }
-
-  # Support Option keys for macOS:
-  # https://github.com/alexherbo2/alacritty-extended-keys/blob/master/keys.yml
-
-  # 下面的就是展示一下快捷键的key而已，没有实际的意义
-  # Option + <letter> ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
-
-  - { key: A, mods: Option, chars: "\x1ba" }
-  - { key: B, mods: Option, chars: "\x1bb" }
-  - { key: C, mods: Option, chars: "\x1bc" }
-  - { key: D, mods: Option, chars: "\x1bd" }
-  - { key: E, mods: Option, chars: "\x1be" }
-  - { key: F, mods: Option, chars: "\x1bf" }
-  - { key: G, mods: Option, chars: "\x1bg" }
-  - { key: H, mods: Option, chars: "\x1bh" }
-  - { key: I, mods: Option, chars: "\x1bi" }
-  - { key: J, mods: Option, chars: "\x1bj" }
-  - { key: K, mods: Option, chars: "\x1bk" }
-  - { key: L, mods: Option, chars: "\x1bl" }
-  - { key: M, mods: Option, chars: "\x1bm" }
-  - { key: N, mods: Option, chars: "\x1bn" }
-  - { key: O, mods: Option, chars: "\x1bo" }
-  - { key: P, mods: Option, chars: "\x1bp" }
-  - { key: Q, mods: Option, chars: "\x1bq" }
-  - { key: R, mods: Option, chars: "\x1br" }
-  - { key: S, mods: Option, chars: "\x1bs" }
-  - { key: T, mods: Option, chars: "\x1bt" }
-  - { key: U, mods: Option, chars: "\x1bu" }
-  - { key: V, mods: Option, chars: "\x1bv" }
-  - { key: W, mods: Option, chars: "\x1bw" }
-  - { key: X, mods: Option, chars: "\x1bx" }
-  - { key: Y, mods: Option, chars: "\x1by" }
-  - { key: Z, mods: Option, chars: "\x1bz" }
-
-  # Option + Shift + <letter> ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
-
-  - { key: A, mods: Option|Shift, chars: "\x1bA" }
-  - { key: B, mods: Option|Shift, chars: "\x1bB" }
-  - { key: C, mods: Option|Shift, chars: "\x1bC" }
-  - { key: D, mods: Option|Shift, chars: "\x1bD" }
-  - { key: E, mods: Option|Shift, chars: "\x1bE" }
-  - { key: F, mods: Option|Shift, chars: "\x1bF" }
-  - { key: G, mods: Option|Shift, chars: "\x1bG" }
-  - { key: H, mods: Option|Shift, chars: "\x1bH" }
-  - { key: I, mods: Option|Shift, chars: "\x1bI" }
-  - { key: J, mods: Option|Shift, chars: "\x1bJ" }
-  - { key: K, mods: Option|Shift, chars: "\x1bK" }
-  - { key: L, mods: Option|Shift, chars: "\x1bL" }
-  - { key: M, mods: Option|Shift, chars: "\x1bM" }
-  - { key: N, mods: Option|Shift, chars: "\x1bN" }
-  - { key: O, mods: Option|Shift, chars: "\x1bO" }
-  - { key: P, mods: Option|Shift, chars: "\x1bP" }
-  - { key: Q, mods: Option|Shift, chars: "\x1bQ" }
-  - { key: R, mods: Option|Shift, chars: "\x1bR" }
-  - { key: S, mods: Option|Shift, chars: "\x1bS" }
-  - { key: T, mods: Option|Shift, chars: "\x1bT" }
-  - { key: U, mods: Option|Shift, chars: "\x1bU" }
-  - { key: V, mods: Option|Shift, chars: "\x1bV" }
-  - { key: W, mods: Option|Shift, chars: "\x1bW" }
-  - { key: X, mods: Option|Shift, chars: "\x1bX" }
-  - { key: Y, mods: Option|Shift, chars: "\x1bY" }
-  - { key: Z, mods: Option|Shift, chars: "\x1bZ" }
-
-  # Option + <number> ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
-
-  - { key: Key0, mods: Option, chars: "\x1b0" }
-  - { key: Key1, mods: Option, chars: "\x1b1" }
-  - { key: Key2, mods: Option, chars: "\x1b2" }
-  - { key: Key3, mods: Option, chars: "\x1b3" }
-  - { key: Key4, mods: Option, chars: "\x1b4" }
-  - { key: Key5, mods: Option, chars: "\x1b5" }
-  - { key: Key6, mods: Option, chars: "\x1b6" }
-  - { key: Key7, mods: Option, chars: "\x1b7" }
-  - { key: Key8, mods: Option, chars: "\x1b8" }
-  - { key: Key9, mods: Option, chars: "\x1b9" }
-
-  # Option + <character> ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
-
-  - { key: Grave, mods: Option, chars: "\x1b`" }
-  - { key: Minus, mods: Option, chars: "\x1b-" }
-  - { key: Equals, mods: Option, chars: "\x1b=" }
-  - { key: LBracket, mods: Option, chars: "\x1b[" }
-  - { key: RBracket, mods: Option, chars: "\x1b]" }
-  - { key: Backslash, mods: Option, chars: "\x1b\\" }
-  - { key: Semicolon, mods: Option, chars: "\x1b;" }
-  - { key: Apostrophe, mods: Option, chars: "\x1b'" }
-  - { key: Comma, mods: Option, chars: "\x1b," }
-  - { key: Period, mods: Option, chars: "\x1b." }
-  - { key: Slash, mods: Option, chars: "\x1b/" }
-
-  # Option + Shift + <character> ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
-
-  - { key: Grave, mods: Option|Shift, chars: "\x1b~" }
-  - { key: Key1, mods: Option|Shift, chars: "\x1b!" }
-  - { key: Key2, mods: Option|Shift, chars: "\x1b@" }
-  - { key: Key3, mods: Option|Shift, chars: "\x1b#" }
-  - { key: Key4, mods: Option|Shift, chars: "\x1b$" }
-  - { key: Key5, mods: Option|Shift, chars: "\x1b%" }
-  - { key: Key6, mods: Option|Shift, chars: "\x1b^" }
-  - { key: Key7, mods: Option|Shift, chars: "\x1b&" }
-  - { key: Key8, mods: Option|Shift, chars: "\x1b*" }
-  - { key: Key9, mods: Option|Shift, chars: "\x1b(" }
-  - { key: Key0, mods: Option|Shift, chars: "\x1b)" }
-  - { key: Minus, mods: Option|Shift, chars: "\x1b_" }
-  - { key: Equals, mods: Option|Shift, chars: "\x1b+" }
-  - { key: LBracket, mods: Option|Shift, chars: "\x1b{" }
-  - { key: RBracket, mods: Option|Shift, chars: "\x1b}" }
-  - { key: Backslash, mods: Option|Shift, chars: "\x1b|" }
-  - { key: Semicolon, mods: Option|Shift, chars: "\x1b:" }
-  - { key: Apostrophe, mods: Option|Shift, chars: "\x1b\"" }
-  - { key: Comma, mods: Option|Shift, chars: "\x1b<" }
-  - { key: Period, mods: Option|Shift, chars: "\x1b>" }
-  - { key: Slash, mods: Option|Shift, chars: "\x1b?" }
+    # 下面的就是展示一下快捷键的key而已，没有实际的意义
+    # Option + <letter> ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
+    - { key: A, mods: Option, chars: "\ea" }
+    - { key: B, mods: Option, chars: "\eb" }
+    - { key: C, mods: Option, chars: "\ec" }
+    - { key: D, mods: Option, chars: "\ed" }
+    - { key: E, mods: Option, chars: "\ee" }
+    - { key: F, mods: Option, chars: "\ef" }
+    - { key: G, mods: Option, chars: "\eg" }
+    - { key: H, mods: Option, chars: "\eh" }
+    - { key: I, mods: Option, chars: "\ei" }
+    - { key: J, mods: Option, chars: "\ej" }
+    - { key: K, mods: Option, chars: "\ek" }
+    - { key: L, mods: Option, chars: "\el" }
+    - { key: M, mods: Option, chars: "\em" }
+    - { key: N, mods: Option, chars: "\en" }
+    - { key: O, mods: Option, chars: "\eo" }
+    - { key: P, mods: Option, chars: "\ep" }
+    - { key: Q, mods: Option, chars: "\eq" }
+    - { key: R, mods: Option, chars: "\er" }
+    - { key: S, mods: Option, chars: "\es" }
+    - { key: T, mods: Option, chars: "\et" }
+    - { key: U, mods: Option, chars: "\eu" }
+    - { key: V, mods: Option, chars: "\ev" }
+    - { key: W, mods: Option, chars: "\ew" }
+    - { key: X, mods: Option, chars: "\ex" }
+    - { key: Y, mods: Option, chars: "\ey" }
+    - { key: Z, mods: Option, chars: "\ez" }
+    # Option + Shift + <letter> ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
+    - { key: A, mods: Option|Shift, chars: "\eA" }
+    - { key: B, mods: Option|Shift, chars: "\eB" }
+    - { key: C, mods: Option|Shift, chars: "\eC" }
+    - { key: D, mods: Option|Shift, chars: "\eD" }
+    - { key: E, mods: Option|Shift, chars: "\eE" }
+    - { key: F, mods: Option|Shift, chars: "\eF" }
+    - { key: G, mods: Option|Shift, chars: "\eG" }
+    - { key: H, mods: Option|Shift, chars: "\eH" }
+    - { key: I, mods: Option|Shift, chars: "\eI" }
+    - { key: J, mods: Option|Shift, chars: "\eJ" }
+    - { key: K, mods: Option|Shift, chars: "\eK" }
+    - { key: L, mods: Option|Shift, chars: "\eL" }
+    - { key: M, mods: Option|Shift, chars: "\eM" }
+    - { key: N, mods: Option|Shift, chars: "\eN" }
+    - { key: O, mods: Option|Shift, chars: "\eO" }
+    - { key: P, mods: Option|Shift, chars: "\eP" }
+    - { key: Q, mods: Option|Shift, chars: "\eQ" }
+    - { key: R, mods: Option|Shift, chars: "\eR" }
+    - { key: S, mods: Option|Shift, chars: "\eS" }
+    - { key: T, mods: Option|Shift, chars: "\eT" }
+    - { key: U, mods: Option|Shift, chars: "\eU" }
+    - { key: V, mods: Option|Shift, chars: "\eV" }
+    - { key: W, mods: Option|Shift, chars: "\eW" }
+    - { key: X, mods: Option|Shift, chars: "\eX" }
+    - { key: Y, mods: Option|Shift, chars: "\eY" }
+    - { key: Z, mods: Option|Shift, chars: "\eZ" }
+    # Option + <number> ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
+    - { key: Key0, mods: Option, chars: "\e0" }
+    - { key: Key1, mods: Option, chars: "\e1" }
+    - { key: Key2, mods: Option, chars: "\e2" }
+    - { key: Key3, mods: Option, chars: "\e3" }
+    - { key: Key4, mods: Option, chars: "\e4" }
+    - { key: Key5, mods: Option, chars: "\e5" }
+    - { key: Key6, mods: Option, chars: "\e6" }
+    - { key: Key7, mods: Option, chars: "\e7" }
+    - { key: Key8, mods: Option, chars: "\e8" }
+    - { key: Key9, mods: Option, chars: "\e9" }
+    # Option + <character> ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
+    - { key: Grave, mods: Option, chars: "\e`" }
+    - { key: Minus, mods: Option, chars: "\e-" }
+    - { key: Equals, mods: Option, chars: "\e=" }
+    - { key: LBracket, mods: Option, chars: "\e[" }
+    - { key: RBracket, mods: Option, chars: "\e]" }
+    - { key: Backslash, mods: Option, chars: "\e\\" }
+    - { key: Semicolon, mods: Option, chars: "\e;" }
+    - { key: Apostrophe, mods: Option, chars: "\e'" }
+    - { key: Comma, mods: Option, chars: "\e," }
+    - { key: Period, mods: Option, chars: "\e." }
+    - { key: Slash, mods: Option, chars: "\e/" }
+    # Option + Shift + <character> ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
+    - { key: Grave, mods: Option|Shift, chars: "\e~" }
+    - { key: Key1, mods: Option|Shift, chars: "\e!" }
+    - { key: Key2, mods: Option|Shift, chars: "\e@" }
+    - { key: Key3, mods: Option|Shift, chars: "\e#" }
+    - { key: Key4, mods: Option|Shift, chars: "\e$" }
+    - { key: Key5, mods: Option|Shift, chars: "\e%" }
+    - { key: Key6, mods: Option|Shift, chars: "\e^" }
+    - { key: Key7, mods: Option|Shift, chars: "\e&" }
+    - { key: Key8, mods: Option|Shift, chars: "\e*" }
+    - { key: Key9, mods: Option|Shift, chars: "\e(" }
+    - { key: Key0, mods: Option|Shift, chars: "\e)" }
+    - { key: Minus, mods: Option|Shift, chars: "\e_" }
+    - { key: Equals, mods: Option|Shift, chars: "\e+" }
+    - { key: LBracket, mods: Option|Shift, chars: "\e{" }
+    - { key: RBracket, mods: Option|Shift, chars: "\e}" }
+    - { key: Backslash, mods: Option|Shift, chars: "\e|" }
+    - { key: Semicolon, mods: Option|Shift, chars: "\e:" }
+    - { key: Apostrophe, mods: Option|Shift, chars: "\e\"" }
+    - { key: Comma, mods: Option|Shift, chars: "\e<" }
+    - { key: Period, mods: Option|Shift, chars: "\e>" }
+    - { key: Slash, mods: Option|Shift, chars: "\e?" }
