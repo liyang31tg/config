@@ -5,7 +5,7 @@ vim.cmd([[
 ]])
 
 vim.api.nvim_create_autocmd({ "BufWritePre" }, {
-	pattern = { "*" },
+	pattern = { "*.go" },
 	command = "silent! Format",
 	nested = true,
 })
