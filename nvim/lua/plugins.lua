@@ -3,8 +3,6 @@ packer.startup({
 	function(use)
 		-- Packer 可以管理自己本身
 		use("wbthomason/packer.nvim")
-		--主题
-		use("folke/tokyonight.nvim")
 		--侧栏目录结构
 		use({ "kyazdani42/nvim-tree.lua", requires = "kyazdani42/nvim-web-devicons" })
 		--tab自定义的那个标签页,本质就是buffer，只是之前无地方显示提现
@@ -97,8 +95,30 @@ packer.startup({
 				-- refer to the configuration section below
 			},
 		})
-        --copilot
-        use { "zbirenbaum/copilot.lua" }
+		--copilot
+		-- use({ "zbirenbaum/copilot.lua" })
+
+		--markdown
+		use({
+			"iamcco/markdown-preview.nvim",
+			run = function()
+				vim.fn["mkdp#util#install"]()
+			end,
+		})
+
+		use({
+			"iamcco/markdown-preview.nvim",
+			run = "cd app && npm install",
+			setup = function()
+				vim.g.mkdp_filetypes = { "markdown" }
+			end,
+			ft = { "markdown" },
+		})
+
+		-- colorschema start
+		use("shaunsingh/nord.nvim")
+		use("folke/tokyonight.nvim")
+		-- colorschema end
 	end,
 	config = {
 		-- 并发数限制
