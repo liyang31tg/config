@@ -15,8 +15,6 @@ masonlspconfig.setup({
 		"tsserver",
 		"yamlls",
 		"vuels",
-		"omnisharp_mono",
-		"omnisharp",
 		"denols",
 		"dockerls",
 		"docker_compose_language_service",

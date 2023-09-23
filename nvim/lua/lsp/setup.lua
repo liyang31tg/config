@@ -29,12 +29,4 @@ require("mason-lspconfig").setup_handlers({
 			},
 		})
 	end,
-	["omnisharp_mono"] = function()
-		lspconfig.omnisharp_mono.setup({
-			cmd = { "omnisharp-mono", "--languageserver", "--hostPID", tostring(pid) },
-		})
-		-- lspconfig.omnisharp_mono.setup({
-		-- use_mono = true,
-		-- })
-	end,
 })
