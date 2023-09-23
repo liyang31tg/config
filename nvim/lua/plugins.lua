@@ -116,8 +116,11 @@ packer.startup({
 		})
 
 		-- colorschema start
-		use("shaunsingh/nord.nvim")
 		use("folke/tokyonight.nvim")
+		use({
+			"glepnir/zephyr-nvim",
+			requires = { "nvim-treesitter/nvim-treesitter", opt = true },
+		})
 		-- colorschema end
 	end,
 	config = {
