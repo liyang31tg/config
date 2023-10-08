@@ -67,7 +67,7 @@ nvim_tree.setup({
 		-- 也可以 'right'
 		side = "left",
 		-- 隐藏根目录
-		hide_root_folder = false,
+		-- hide_root_folder = false,
 		-- 不显示行数
 		number = false,
 		relativenumber = false,
