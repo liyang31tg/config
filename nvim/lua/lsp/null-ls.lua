@@ -25,10 +25,10 @@ null_ls.setup({
 		formatting.clang_format, --{ "c", "cpp", "cs", "java", "cuda", "proto" }
 		--go
 		-- formatting.gofmt,
-		formatting.gofumpt,
 		formatting.goimports,
 		formatting.goimports_reviser,
-		formatting.golines,
+		formatting.gofumpt,
+		-- formatting.golines,
 		--YAML, JSON, XML, CSV
 		formatting.yq,
 		-- frontend
