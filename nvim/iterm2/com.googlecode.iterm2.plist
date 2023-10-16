@@ -71642,6 +71642,8 @@
 	<true/>
 	<key>EnterCopyModeAutomatically</key>
 	<false/>
+	<key>FlashTabBarInFullscreen</key>
+	<false/>
 	<key>FocusFollowsMouse</key>
 	<false/>
 	<key>GlobalKeyMap</key>
@@ -71735,6 +71737,8 @@
 			<integer>1</integer>
 		</dict>
 	</dict>
+	<key>HTMLTabTitles</key>
+	<false/>
 	<key>HapticFeedbackForEsc</key>
 	<false/>
 	<key>HideFromDockAndAppSwitcher</key>
@@ -73532,9 +73536,9 @@
 	<key>SwitchPaneModifier</key>
 	<integer>5</integer>
 	<key>TabStyleWithAutomaticOption</key>
-	<integer>5</integer>
+	<integer>6</integer>
 	<key>TabViewType</key>
-	<integer>0</integer>
+	<integer>2</integer>
 	<key>TabsHaveCloseButton</key>
 	<true/>
 	<key>TerminalMargin</key>
