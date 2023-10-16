@@ -41,6 +41,8 @@ function fg() {
 	  builtin fg %"$@"
 	fi
 }
+
+
 # alias start
 alias vi=nvim
 alias vim=nvim
@@ -57,6 +59,7 @@ alias dot=dotnet
 # 命令替换start
 # https://github.com/sigoden/aichat #ai工具
 eval "$(zoxide init zsh)"
+alias cd="z" #z is zoxide
 alias ls="lsd"
 alias ll="ls -lah"
 alias du="dust"
@@ -138,4 +141,43 @@ fi
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 # enable-fzf-tab
 
+
+# zellij start
+# 自动启动zellij
+# eval "$(zellij setup --generate-auto-start zsh)"
+#
+#打开默认
+function zz() {
+	 zellij attach -c default
+}
+
+#会话列表
+function zl(){
+    zellij list-sessions
+}
+
+#指定名字创建一个会话
+function zc(){
+     session_name=$1
+     if [ -z ${session_name} ];then
+       echo "必须指定一个会话名字"
+       return
+     fi
+	 zellij attach -c ${session_name}
+}
+
+#链接一个现有的会话,大于2个选择，只有一个默认打开，一个都没有就打开default
+function za(){
+    ZJ_SESSIONS=$(zellij list-sessions)
+    NO_SESSIONS=$(echo "${ZJ_SESSIONS}" | wc -l)
+    if [ "${NO_SESSIONS}" -ge 2 ]; then
+      zellij attach \
+      "$(echo "${ZJ_SESSIONS}" | sk)"
+    elif [ "${NO_SESSIONS}" -eq 1 ]; then
+      zellij attach -c
+    else
+      zellij attach -c default
+    fi
+}
+# zellij end
 
