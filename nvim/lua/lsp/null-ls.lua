@@ -57,13 +57,13 @@ null_ls.setup({
 			},
 		}),
 		-- Diagnostics  ---------------------
-		diagnostics.eslint.with({
-			prefer_local = "node_modules/.bin",
-		}),
+		-- diagnostics.eslint.with({
+		-- 	prefer_local = "node_modules/.bin",
+		-- }),
 		-- code actions ---------------------
-		code_actions.eslint.with({
-			prefer_local = "node_modules/.bin",
-		}),
+		-- code_actions.eslint.with({
+		-- 	prefer_local = "node_modules/.bin",
+		-- }),
 		code_actions.gomodifytags,
 		code_actions.impl,
 
