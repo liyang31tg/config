@@ -59,7 +59,7 @@ alias dot=dotnet
 # 命令替换start
 # https://github.com/sigoden/aichat #ai工具
 eval "$(zoxide init zsh)"
-alias cd="z" #z is zoxide
+# alias cd="z" #z is zoxide
 alias ls="lsd"
 alias ll="ls -lah"
 alias du="dust"
@@ -127,6 +127,7 @@ alias d="kitty +kitten diff"
 alias ts=ts-node
 alias tr="ts-node-dev --respawn --transpile-only"
 # kitty end
+#
 
 export FZF_DEFAULT_COMMAND="fd --exclude={.git,.idea,.vscode,.sass-cache,node_modules,build,dist,vendor} --type f"
 export FZF_DEFAULT_OPTS='--color=bg+:#3c3836,bg:#32302f,spinner:#fb4934,hl:#928374,fg:#ebdbb2,header:#928374,info:#8ec07c,pointer:#fb4934,marker:#fb4934,fg+:#ebdbb2,prompt:#fb4934,hl+:#fb4934'
