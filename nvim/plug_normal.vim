@@ -3,7 +3,7 @@
 " - Avoid using standard Vim directory names like 'plugin'
 call plug#begin('~/.local/share/nvim/plugged')
 " Initialize plugin system
-Plug 'fatih/vim-go', {'do': ':GoUpdateBinaries' }
+" Plug 'fatih/vim-go', {'do': ':GoUpdateBinaries' }
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'gcmt/wildfire.vim'
 Plug 'fladson/vim-kitty'
