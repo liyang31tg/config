@@ -16,7 +16,7 @@ masonlspconfig.setup({
 		"yamlls",
         "volar",
 		-- "vuels",
-		"denols",
+		-- "denols",这个不能安装，会强制import以./ ../ 等开头的问题
 		"dockerls",
 		"docker_compose_language_service",
 	}, --,"volar"
