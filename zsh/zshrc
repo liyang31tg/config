@@ -117,15 +117,16 @@ export DENO_INSTALL="/Users/mac/.deno"
 export PATH="$DENO_INSTALL/bin:$PATH"
 
 # pnpm
-export PNPM_HOME="/Users/mac/Library/pnpm"
-export PATH="$PATH:/Users/mac/.dotnet/tools"
+export PNPM_HOME="$HOME/.pnpm"
 export PATH="$PNPM_HOME:$PATH"
 # pnpm end
+# export PATH="$PATH:/Users/mac/.dotnet/tools"
 # kitty start
 alias icat="kitty +kitten icat"
 alias d="kitty +kitten diff"
 alias ts=ts-node
 alias tr="ts-node-dev  -r tsconfig-paths/register  --respawn --transpile-only" #tsconfig-paths/register 是为了解决tsconfig-paths的问题
+alias pn="pnpm"
 # kitty end
 #
 
