@@ -1,43 +1,58 @@
-#window:
-#startup_mode: SimpleFullscreen
-#decorations: none
+window:
+   startup_mode: Maximized
+   decorations: full
+dynamic_title: true
+option_as_alt: None #这个键无效
 
 # Display tabs using this many cells
 tabspaces: 4
 font:
     normal:
         #family: JetBrainsMono Nerd Font
-        family: 'DroidSansM Nerd Font Mono'
+        # family: 'DroidSansM Nerd Font Mono'
+        family: 'MesloLGS NF'
         style: Regular
     bold:
         #family: JetBrainsMono Nerd Font
-        family: 'Hack Nerd Font Mono'
+        family: 'MesloLGS NF'
         style: Bold
     italic:
         #family: JetBrainsMono Nerd Font
-        family: 'Hack Nerd Font Mono'
+        family: 'MesloLGS NF'
         style: Italic
     bold_italic:
         #family: JetBrainsMono Nerd Font
-        family: 'Hack Nerd Font Mono'
+        family: 'MesloLGS NF'
         style: Bold Italic
     size: 17
 env:
-    TERM: xterm-256color
+    TERM: xterm-256color #这个是alacritty默认的,如果不设置的话会报错
+cursor:
+  style:
+    # Values for `shape`:
+    #   - ▇ Block
+    #   - _ Underline
+    #   - | Beam
+    shape: Block
+
+
+live_config_reload: true
+
 shell:
-    #program: /usr/local/bin/fish
+    # program: /usr/local/bin/fish
     program: /bin/zsh
     args:
-        #- --login
+        - --login
         #- --command
-        - -l
+        # - -l
         - -c
-        - 'tmux new-session -A -D -s main'
+        - 'zellij attach -c default' #切换到另外的回话管理工具
+        # - 'tmux new-session -A -D -s main'
 # Key bindings
 # A list with all available `key` names can be found here:
 # https://docs.rs/glutin/*/glutin/enum.VirtualKeyCode.html#variants
 #
-# Run "xxd -psd" to find hex codes of keys.
+# appstore安装Key Codes ,Unicode编码
 #
 # Alacritty + Tmux key integratio
 #   `\x1c` is `C-\` as tmux prefix
@@ -49,7 +64,7 @@ key_bindings:
     - { key: Equals, mods: Command, action: IncreaseFontSize }
     - { key: Minus, mods: Command, action: DecreaseFontSize }
     # ----- new pane/tab/window -----
-    - { key: D, mods: Command, chars: "\x1C%" } # new vertical pane with default shell
+    - { key: D, mods: Command, chars: "\x2d" } # new vertical pane with default shell
     - { key: D, mods: Command|Shift, chars: "\x1C\"" } # new horizontal pane with default shell
     - { key: T, mods: Command, chars: "\x1Cc" } # new tab with default shell
     #- { key: N,        mods: Command|Shift, command: { program: "/Applications/Alacritty.app/Contents/MacOS/alacritty", args: ["msg", "create-window", "-e", "/bin/zsh", "-l", "-c", "tmux-sessions --all"] } } # open session in new window with all sessions menu across servers
