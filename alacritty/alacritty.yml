@@ -4,7 +4,7 @@ window:
    startup_mode: Maximized
    decorations: full
 dynamic_title: true
-option_as_alt: None #这个键无效
+option_as_alt: Both #这个键无效
 
 # Display tabs using this many cells
 tabspaces: 4
@@ -59,76 +59,18 @@ shell:
 # Alacritty + Tmux key integratio
 #   `\x1c` is `C-\` as tmux prefix
 #   `\x1b` is `Esc`
+#   `\x0d` is enter
 #   `Option` is mapped to `Esc`
 key_bindings:
     # ----- change font size ----
     - { key: Key0, mods: Command, action: ResetFontSize }
     - { key: Equals, mods: Command, action: IncreaseFontSize }
     - { key: Minus, mods: Command, action: DecreaseFontSize }
-    # ----- new pane/tab/window -----
-    - { key: D, mods: Command, chars: "\x2d" } # new vertical pane with default shell
-    - { key: D, mods: Command|Shift, chars: "\x1C\"" } # new horizontal pane with default shell
-    - { key: T, mods: Command, chars: "\x1Cc" } # new tab with default shell
-    #- { key: N,        mods: Command|Shift, command: { program: "/Applications/Alacritty.app/Contents/MacOS/alacritty", args: ["msg", "create-window", "-e", "/bin/zsh", "-l", "-c", "tmux-sessions --all"] } } # open session in new window with all sessions menu across servers
+    - { key: S, mods: Command, chars: "\x1b:w\x0d" } # Type <escape>:w<enter> to save vim
+    - { key: Key0, mods: Control, chars: "\x1b:NvimTreeFindFileToggle\x0d" } # Type <escape>:w<enter> to save vim
 
-    # ----- popup window -----
-    - { key: P, mods: Command, chars: "\x1CP" } # close the pane
-    # ----- close pane/tab/window -----
-    - { key: W, mods: Command, chars: "\x1Cx" } # close the pane,可以结合<c-d>来更快关闭，这个是linux特性
-    - { key: W, mods: Command|Shift, chars: "\x1C&" } # close the window 需要确定
-    - { key: Q, mods: Command, chars: "\x1Cd" } # detach session
-    # ----- navigate panes -----
-    - { key: H, mods: Command, chars: "\x1C\e[D" } # go to the pane left后面的数字可以通过showkey -a的这个命令获得
-    - { key: J, mods: Command, chars: "\x1C\e[B" } # go to the pane above
-    - { key: K, mods: Command, chars: "\x1C\e[A" } # go to the pane below
-    - { key: L, mods: Command, chars: "\x1C\e[C" } # go to the pane right
-    # ----- resize panes -----
-    - { key: Left, mods: Command, chars: "\x1C\e\e[D" }
-    - { key: Down, mods: Command, chars: "\x1C\e\e[B" }
-    - { key: Up, mods: Command, chars: "\x1C\e\e[A" }
-    - { key: Right, mods: Command, chars: "\x1C\e\e[C" }
-    # ----- navigate tabs -----
-    - { key: B, mods: Command, chars: "\x1Cl" } # back to last tab
-    - { key: LBracket, mods: Command|Shift, chars: "\x1Cp" } # go to previous tab
-    - { key: RBracket, mods: Command|Shift, chars: "\x1Cn" } # go to next tab
-    - { key: Key1, mods: Command, chars: "\x1C1" } # go to tab 1..9
-    - { key: Key2, mods: Command, chars: "\x1C2" }
-    - { key: Key3, mods: Command, chars: "\x1C3" }
-    - { key: Key4, mods: Command, chars: "\x1C4" }
-    - { key: Key5, mods: Command, chars: "\x1C5" }
-    - { key: Key6, mods: Command, chars: "\x1C6" }
-    - { key: Key7, mods: Command, chars: "\x1C7" }
-    - { key: Key8, mods: Command, chars: "\x1C8" }
-    - { key: Key9, mods: Command, chars: "\x1C9" }
-    # ----- copy mode -----
-    - { key: F, mods: Command, chars: "\x1C[/" } # enter vi copy mode, and search from up to down
-    - { key: F, mods: Command|Shift, chars: "\x1C[?" } # enter vi copy mode, seaaction: CreateNewWindowrch from down to up
-    # ----- misc shortcuts -----
-    - { key: I, mods: Command|Shift, chars: "\x1C," } # rename tab
-    - { key: Semicolon, mods: Command, chars: "\x1C:" } # input tmux command
-    - { key: S, mods: Command, chars: "\e:w\n" } # Type <escape>:w<enter> to save vim
-    - { key: Key0, mods: Control, chars: "\e:NERDTreeFocus\n" } # Type <escape>:w<enter> to save vim
-    #下面的不知道有什么意义
-    - { key: I, mods: Command|Shift, chars: "\x1CI" } # synchronize panes in the current window
-    - { key: R, mods: Command, chars: "\x1CR" } # run command with commands menu
-    - { key: Z, mods: Command, chars: "\x1Cz" } # zoom toggle of the current pane.
-    - { key: Z, mods: Command|Shift, chars: "\x1C " } # retile panes in the current window with preset layouts
-    # ----- move panes -----
-    - { key: Key1, mods: Command|Shift, chars: "\x1C\e1" } # move the current pane to tab 1..9
-    - { key: Key2, mods: Command|Shift, chars: "\x1C\e2" }
-    - { key: Key3, mods: Command|Shift, chars: "\x1C\e3" }
-    - { key: Key4, mods: Command|Shift, chars: "\x1C\e4" }
-    - { key: Key5, mods: Command|Shift, chars: "\x1C\e5" }
-    - { key: Key6, mods: Command|Shift, chars: "\x1C\e6" }
-    - { key: Key7, mods: Command|Shift, chars: "\x1C\e7" }
-    - { key: Key8, mods: Command|Shift, chars: "\x1C\e8" }
-    - { key: Key9, mods: Command|Shift, chars: "\x1C\e9" }
-    # ----- Fix problem in IM -----
-    - { key: Back, action: ReceiveChar }
-    # Support Option keys for macOS:
-    # https://github.com/alexherbo2/alacritty-extended-keys/blob/master/keys.yml
 
-    # 下面的就是展示一下快捷键的key而已，没有实际的意义
+    # 下面的就是展示一下快捷键的key而已，没有实际的意义,下面这些必须有,不然zellij快捷键会失效
     # Option + <letter> ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
     - { key: A, mods: Option, chars: "\ea" }
     - { key: B, mods: Option, chars: "\eb" }
