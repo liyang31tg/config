@@ -10,8 +10,8 @@ option_as_alt: Both #这个键无效
 tabspaces: 4
 font:
     normal:
-        #family: JetBrainsMono Nerd Font
-        # family: 'DroidSansM Nerd Font Mono'
+      #family: JetBrainsMono Nerd Font
+      #family: 'DroidSansM Nerd Font Mono'
         family: 'MesloLGS NF'
         style: Regular
     bold:
@@ -67,7 +67,7 @@ key_bindings:
     - { key: Equals, mods: Command, action: IncreaseFontSize }
     - { key: Minus, mods: Command, action: DecreaseFontSize }
     - { key: S, mods: Command, chars: "\x1b:w\x0d" } # Type <escape>:w<enter> to save vim
-    - { key: Key0, mods: Control, chars: "\x1b:NvimTreeFindFileToggle\x0d" } # Type <escape>:w<enter> to save vim
+    - { key: Key0, mods: Control, chars: "\x1b:NvimTreeFindFile\x0d" } # Type <escape>:w<enter> to save vim
 
 
     # 下面的就是展示一下快捷键的key而已，没有实际的意义,下面这些必须有,不然zellij快捷键会失效
