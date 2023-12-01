@@ -2,12 +2,17 @@
 
 keybinds clear-defaults=true {
     normal {
-        bind "Ctrl z" { Detach; }
+        bind "Ctrl d" { Detach; }
+        bind "Alt Q" { Quit; }
+        bind "Alt q" { CloseTab; }
+        bind "Ctrl q"  { CloseFocus; }
         bind "Alt n" { NewPane; }
         bind "Alt d" { NewPane "Right"; SwitchToMode "Normal"; }
         bind "Alt D" { NewPane "Down"; SwitchToMode "Normal"; }
-        bind "Alt {" { GoToPreviousTab; }
-        bind "Alt }" { GoToNextTab; }
+        bind "Alt {" { MoveFocusOrTab "Left"; }
+        bind "Alt }" { MoveFocusOrTab "Right"; }
+        bind "Alt [" { GoToPreviousTab; }
+        bind "Alt ]" { GoToNextTab; }
         bind "Alt t" { NewTab; SwitchToMode "Normal"; }
         bind "Alt I" { SwitchToMode "RenameTab"; TabNameInput 0; }
         bind "Alt h"  { MoveFocus "Left"; }
@@ -93,17 +98,6 @@ keybinds clear-defaults=true {
         bind "Ctrl c" { SwitchToMode "Normal"; }
         bind "Esc" { UndoRenamePane; SwitchToMode "Pane"; }
     }
-    session {
-        bind "Ctrl o" { SwitchToMode "Normal"; }
-        bind "d" { Detach; }
-        bind "w" {
-            LaunchOrFocusPlugin "zellij:session-manager" {
-                floating true
-                move_to_focused_tab true
-            };
-            SwitchToMode "Normal"
-        }
-    }
 
 
     shared_except "resize" "locked" {
@@ -118,8 +112,8 @@ keybinds clear-defaults=true {
         bind "Ctrl r" { SwitchToMode "Resize"; }
     }
 
-    shared_except "session" "locked" {
-        bind "Ctrl o" { SwitchToMode "Session"; }
+    shared_except "search" "locked" {
+        bind "Ctrl s" { SwitchToMode "Search"; }
     }
 }
 
@@ -137,7 +131,7 @@ plugins {
 //   - detach (Default)
 //   - quit
 //
-// on_force_close "quit"
+on_force_close "detach"
 
 //  Send a request for a simplified ui (without arrow fonts) to plugins
 //  Options:
