@@ -11,7 +11,7 @@ config.keys = {
   {
     key = 's',
     mods = 'CMD',
-    action = wezterm.action.SendKey { key = 'g', mods = 'META' },
+    action = wezterm.action.SendKey { key = '9', mods = 'META' },
   },
 }
 

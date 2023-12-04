@@ -68,7 +68,8 @@ noremap \s :<c-u>%s//g<left><left>
 " <c-0> <M-f> 删除，因为已经支持映射<c-数字
 " <cmd-s> <M-s>
 " noremap <silent> <M-s> :w<cr>
-noremap <M-g> <esc>:<c-u>w<cr> "被zellij占用<m-s>,用于显示会话信息了
+" 被zellij占用<m-s>,用于显示会话信息了
+noremap <M-9> <esc>:<c-u>w<cr>
 autocmd FileType cs nnoremap <leader>r :set splitbelow<cr> :sp <CR> :term dotnet run % <CR>a
 autocmd FileType typescript nnoremap <leader>r :set splitbelow<cr> :sp <CR> :term deno run % <CR>a
 noremap \p :echo expand('%:p')<CR>
