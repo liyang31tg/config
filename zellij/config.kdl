@@ -77,7 +77,7 @@ keybinds clear-defaults=true {
         bind "Tab" { ToggleTab; }
     }
     scroll {
-        //bind "Ctrl s" { SwitchToMode "Normal"; }
+        bind "Ctrl s" { SwitchToMode "Normal"; }
         bind "e" { EditScrollback; SwitchToMode "Normal"; }
         bind "s" { SwitchToMode "EnterSearch"; SearchInput 0; }
         bind "Ctrl c" { ScrollToBottom; SwitchToMode "Normal"; }
@@ -136,12 +136,13 @@ keybinds clear-defaults=true {
         bind "Ctrl r" { SwitchToMode "Resize"; }
     }
 
-    shared_except "search" "locked" {
-        bind "Ctrl s" { SwitchToMode "Search"; }
-    }
 
     shared_except "tab" "locked" {
         bind "Ctrl t" { SwitchToMode "Tab"; }
+    }
+
+    shared_except "scroll" "locked" {
+        bind "Ctrl s" { SwitchToMode "Scroll"; }
     }
 }
 
