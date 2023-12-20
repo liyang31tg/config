@@ -35,6 +35,27 @@ keybinds clear-defaults=true {
 
     locked {
         bind "Ctrl g" { SwitchToMode "Normal"; }
+        //锁定了也可以支持alt快捷键带有的功能
+        bind "Alt n" { NewPane; }
+        bind "Alt d" { NewPane "Right"; SwitchToMode "Normal"; }
+        bind "Alt D" { NewPane "Down"; SwitchToMode "Normal"; }
+        bind "Alt {" { MoveFocusOrTab "Left"; }
+        bind "Alt }" { MoveFocusOrTab "Right"; }
+        bind "Alt [" { GoToPreviousTab; }
+        bind "Alt ]" { GoToNextTab; }
+        bind "Alt t" { NewTab; SwitchToMode "Normal"; }
+        bind "Alt I" { SwitchToMode "RenameTab"; TabNameInput 0; }
+        bind "Alt h"  { MoveFocus "Left"; }
+        bind "Alt l"  { MoveFocus "Right"; }
+        bind "Alt j"  { MoveFocus "Down"; }
+        bind "Alt k"  { MoveFocus "Up"; }
+        bind "Alt H"  { MovePane "Left"; }
+        bind "Alt J"  { MovePane "Down"; }
+        bind "Alt K"  { MovePane "Up"; }
+        bind "Alt L"  { MovePane "Right"; }
+        bind "Alt f" { ToggleFocusFullscreen; SwitchToMode "Normal"; }
+        bind "Alt F" { ToggleFloatingPanes; SwitchToMode "Normal"; }
+
     }
 
     resize {
@@ -77,9 +98,10 @@ keybinds clear-defaults=true {
         bind "Tab" { ToggleTab; }
     }
     scroll {
-        bind "Ctrl s" { SwitchToMode "Normal"; }
+        bind "Esc" { UndoRenamePane; SwitchToMode "Normal"; }
+        bind "Ctrl e" { SwitchToMode "Normal"; }
         bind "e" { EditScrollback; SwitchToMode "Normal"; }
-        bind "s" { SwitchToMode "EnterSearch"; SearchInput 0; }
+        bind "/" { SwitchToMode "EnterSearch"; SearchInput 0; }
         bind "Ctrl c" { ScrollToBottom; SwitchToMode "Normal"; }
         bind "j" "Down" { ScrollDown; }
         bind "k" "Up" { ScrollUp; }
@@ -111,11 +133,11 @@ keybinds clear-defaults=true {
     }
     renametab {
         bind "Ctrl c" { SwitchToMode "Normal"; }
-        bind "Esc" { UndoRenameTab; SwitchToMode "Tab"; }
+        bind "Esc" { UndoRenameTab; SwitchToMode "Normal"; }
     }
     renamepane {
         bind "Ctrl c" { SwitchToMode "Normal"; }
-        bind "Esc" { UndoRenamePane; SwitchToMode "Pane"; }
+        bind "Esc" { UndoRenamePane; SwitchToMode "Normal"; }
     }
 
     shared_except "locked" {
@@ -142,7 +164,7 @@ keybinds clear-defaults=true {
     }
 
     shared_except "scroll" "locked" {
-        bind "Ctrl s" { SwitchToMode "Scroll"; }
+        bind "Ctrl e" { SwitchToMode "Scroll"; }
     }
 }
 
