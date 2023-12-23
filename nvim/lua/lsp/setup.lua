@@ -27,6 +27,18 @@ require("mason-lspconfig").setup_handlers({
 				"--all-scopes-completion",
 				"--completion-style=detailed",
 			},
+			filetypes = { "c", "cpp", "objc", "objcpp", "cuda", "proto" },
+			root_dir = lspconfig.util.root_pattern(
+				"CMakeLists.txt",
+				".clangd",
+				".clang-tidy",
+				".clang-format",
+				"compile_commands.json",
+				"compile_flags.txt",
+				"configure.ac",
+				".git"
+			),
+			single_file_support = true,
 		})
 	end,
 })
