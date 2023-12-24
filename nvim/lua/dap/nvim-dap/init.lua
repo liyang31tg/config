@@ -7,7 +7,7 @@ require("nvim-dap-virtual-text").setup({
 -- 定义各种图标
 
 vim.fn.sign_define("DapBreakpoint", {
-	text = "🛑",
+	text = "🔴",
 	texthl = "LspDiagnosticsSignError",
 	linehl = "",
 	numhl = "",
@@ -21,7 +21,9 @@ vim.fn.sign_define("DapStopped", {
 })
 
 vim.fn.sign_define("DapBreakpointRejected", {
-	text = "",
+	-- text = "",
+	text = "◎",
+	-- text = "",
 	texthl = "LspDiagnosticsSignHint",
 	linehl = "",
 	numhl = "",

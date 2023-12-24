@@ -7,7 +7,8 @@ end
 
 lualine.setup({
   options = {
-    theme = "tokyonight",
+    -- theme = "tokyonight",
+    -- theme = "nord",
     component_separators = { left = "|", right = "|" },
     -- https://github.com/ryanoasis/powerline-extra-symbols
     section_separators = { left = " ", right = "" },

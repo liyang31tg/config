@@ -221,6 +221,10 @@ end
 
 -- nvim-dap
 pluginKeys.mapDAP = function()
+  	vim.keymap.set("n", "<F4>", function()
+		require("dap").terminate()
+	end)
+
 	vim.keymap.set("n", "<F5>", function()
 		require("dap").continue()
 	end)
@@ -236,8 +240,10 @@ pluginKeys.mapDAP = function()
 	vim.keymap.set("n", "<Leader>dd", function()
 		require("dap").toggle_breakpoint()
 	end)
-	vim.keymap.set("n", "<Leader>dl", function()
-		require("dap").set_breakpoint(nil, nil, vim.fn.input("Log point message: "))
+    --设置条件断点
+	vim.keymap.set("n", "<Leader>dc", function()
+		-- require("dap").set_breakpoint(nil, nil, vim.fn.input("Log point message: "))
+		require("dap").set_breakpoint(vim.fn.input("[Condition] > ")) -- 输入条件eg: a>18 
 	end)
 	vim.keymap.set({ "n", "v" }, "<Leader>dh", function()
 		require("dap.ui.widgets").hover()
