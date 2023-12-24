@@ -3,6 +3,10 @@ packer.startup({
 	function(use)
 		-- Packer 可以管理自己本身
 		use("wbthomason/packer.nvim")
+
+        use "rcarriga/nvim-notify" -- notify
+
+
 		--侧栏目录结构
 		use({ "kyazdani42/nvim-tree.lua", requires = "kyazdani42/nvim-web-devicons" })
 		--tab自定义的那个标签页,本质就是buffer，只是之前无地方显示提现
@@ -113,8 +117,8 @@ packer.startup({
 		use("shaunsingh/nord.nvim")
 		use("folke/tokyonight.nvim")
 		use({
-		  "glepnir/zephyr-nvim",
-		  requires = { "nvim-treesitter/nvim-treesitter", opt = true },
+			"glepnir/zephyr-nvim",
+			requires = { "nvim-treesitter/nvim-treesitter", opt = true },
 		})
 		-- colorschema end
 		-- codeium
