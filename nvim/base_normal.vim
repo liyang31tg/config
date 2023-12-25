@@ -75,8 +75,8 @@ autocmd FileType typescript nnoremap <leader>r :set splitbelow<cr> :sp <CR> :ter
 noremap \p :echo expand('%:p')<CR>
 
 hi IlluminatedWordText ctermfg=Cyan guifg=#FF7373 gui=bold
-" hi IlluminatedWordRead ctermfg=Cyan guifg=#FF7373 gui=bold
-" hi IlluminatedWordWrite ctermfg=Cyan guifg=#FF7373 gui=bold
+hi IlluminatedWordRead ctermfg=Cyan guifg=#FF7373 gui=bold
+hi IlluminatedWordWrite ctermfg=Cyan guifg=#FF7373 gui=bold
 
 
 

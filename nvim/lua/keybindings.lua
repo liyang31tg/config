@@ -109,13 +109,16 @@ map("n", "<Up>", ":resize -2<CR>", opt)
 map("n", "s=", "<C-w>=", opt)
 
 -- Terminal相关
-map("n", "<c-t>", ":sp | terminal<CR>", opt)
-map("n", "<leader>vt", ":vsp | terminal<CR>", opt)
-map("t", "<Esc>", "<C-\\><C-n>", opt)
-map("t", "<c-h>", [[ <C-\><C-N><C-w>h ]], opt)
-map("t", "<c-j>", [[ <C-\><C-N><C-w>j ]], opt)
-map("t", "<c-k>", [[ <C-\><C-N><C-w>k ]], opt)
-map("t", "<c-l>", [[ <C-\><C-N><C-w>l ]], opt)
+-- map("n", "<c-t>", ":sp | terminal<CR>", opt)
+-- map("n", "<leader>vt", ":vsp | terminal<CR>", opt)
+-- map("t", "<Esc>", "<C-\\><C-n>", opt)
+-- map("t", "<c-h>", [[ <C-\><C-N><C-w>h ]], opt)
+-- map("t", "<c-j>", [[ <C-\><C-N><C-w>j ]], opt)
+-- map("t", "<c-k>", [[ <C-\><C-N><C-w>k ]], opt)
+-- map("t", "<c-l>", [[ <C-\><C-N><C-w>l ]], opt)
+map("n","<space>t","<cmd>ToggleTerm<cr>",opt)
+
+
 
 -- 在visual 模式里粘贴不要复制
 map("v", "p", '"_dP', opt)
