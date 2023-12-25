@@ -62,9 +62,9 @@ packer.startup({
 		})
 
 		-- 调试
-		use("ravenxrz/DAPInstall.nvim") --DI 用于安装各种语言的debugger
+		-- use("ravenxrz/DAPInstall.nvim") --DI 用于安装各种语言的debugger,mason有安装debugger相关,所以不再需要这个
 		use("mfussenegger/nvim-dap")
-		use("theHamsta/nvim-dap-virtual-text")
+		use("theHamsta/nvim-dap-virtual-text") --显示调试旁边的虚拟字体
 		use("rcarriga/nvim-dap-ui")
 
 		--类似于之前的vim-surround + 注释
