@@ -1,16 +1,38 @@
 local dap = require('dap')
-dap.adapters.go = {
-  type = 'executable';
-  command = 'node';
-  args = {os.getenv('HOME') .. '/.config/nvim/lua/dap/nvim-dap/ui/debugAdapter.js'};
+
+--官方文档copy
+dap.adapters.delve = {
+  type = 'server',
+  port = '${port}',
+  executable = {
+    command = 'dlv',
+    args = { 'dap', '-l', '127.0.0.1:${port}' },
+  }
 }
+
+
+-- https://github.com/go-delve/delve/blob/master/Documentation/usage/dlv_dap.md
+-- https://github.com/ravenxrz/dotfiles/blob/master/nvim/lua/user/dap/dap-util.lua
 dap.configurations.go = {
   {
-    type = 'go';
-    name = 'Debug';
-    request = 'launch';
-    showLog = false;
-    program = "${file}";
-    dlvToolPath = vim.fn.exepath('dlv')  -- Adjust to where delve is installed
+    type = "delve",
+    name = "Debug",
+    request = "launch",
+    program = "${file}"
   },
+  {
+    type = "delve",
+    name = "Debug test", -- configuration for debugging test files
+    request = "launch",
+    mode = "test",
+    program = "${file}"
+  },
+  -- works with go.mod packages and sub packages
+  {
+    type = "delve",
+    name = "Debug test (go.mod)",
+    request = "launch",
+    mode = "test",
+    program = "./${relativeFileDirname}"
+  }
 }

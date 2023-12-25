@@ -219,7 +219,7 @@ pluginKeys.cmp = function(cmp)
 	}
 end
 
--- nvim-dap
+-- dap
 pluginKeys.mapDAP = function()
   	vim.keymap.set("n", "<F4>", function()
 		require("dap").terminate()
@@ -227,6 +227,9 @@ pluginKeys.mapDAP = function()
 
 	vim.keymap.set("n", "<F5>", function()
 		require("dap").continue()
+	end)
+	vim.keymap.set("n", ",dr", function()
+		require("dap").restart()
 	end)
 	vim.keymap.set("n", "<F9>", function()
 		require("dap").step_into() --进入断点函数
@@ -237,25 +240,29 @@ pluginKeys.mapDAP = function()
 	vim.keymap.set("n", "<F12>", function()
 		require("dap").step_out() --下一个断点
 	end)
-	vim.keymap.set("n", "<Leader>dd", function()
+	vim.keymap.set("n", ",dd", function()
 		require("dap").toggle_breakpoint()
 	end)
     --设置条件断点
-	vim.keymap.set("n", "<Leader>dc", function()
+	vim.keymap.set("n", ",dc", function()
 		-- require("dap").set_breakpoint(nil, nil, vim.fn.input("Log point message: "))
 		require("dap").set_breakpoint(vim.fn.input("[Condition] > ")) -- 输入条件eg: a>18 
 	end)
-	vim.keymap.set({ "n", "v" }, "<Leader>dh", function()
+    --清空所有断点
+	vim.keymap.set("n", ",dx", function()
+		require("dap").clear_breakpoints()
+	end)
+	vim.keymap.set({ "n", "v" }, ",dh", function()
 		require("dap.ui.widgets").hover()
 	end)
-	vim.keymap.set({ "n", "v" }, "<Leader>dp", function()
+	vim.keymap.set({ "n", "v" }, ",dp", function()
 		require("dap.ui.widgets").preview()
 	end)
-	vim.keymap.set("n", "<Leader>df", function()
+	vim.keymap.set("n", ",df", function()
 		local widgets = require("dap.ui.widgets")
 		widgets.centered_float(widgets.frames)
 	end)
-	vim.keymap.set("n", "<Leader>ds", function()
+	vim.keymap.set("n", ",ds", function()
 		local widgets = require("dap.ui.widgets")
 		widgets.centered_float(widgets.scopes)
 	end)
@@ -263,12 +270,11 @@ pluginKeys.mapDAP = function()
 	--结束调试
 	map(
 		"n",
-		"<leader>de",
+		",de",
 		":lua require'dap'.close()<CR>"
 			.. ":lua require'dap'.terminate()<CR>"
 			.. ":lua require'dap.repl'.close()<CR>"
 			.. ":lua require'dapui'.close()<CR>"
-			.. ":lua require('dap').clear_breakpoints()<CR>"
 			.. "<C-w>o<CR>",
 		opt
 	)
