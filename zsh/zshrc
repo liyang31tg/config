@@ -76,7 +76,7 @@ alias find="fd"
 #
 
 function ip(){
-  curl cip.cc
+  curl ipinfo.io
 }
 
 
