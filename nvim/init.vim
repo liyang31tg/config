@@ -2,12 +2,10 @@
 lua require('base')
 lua require('keybindings')
 lua require('plugins') --安装插件
+lua require("lsp")
 lua require("plugin-config") --插件配置
 lua require('autocmd')
 lua require('colorscheme')
-lua require("lsp.setup")
-lua require("lsp.cmp")
-lua require("lsp.null-ls")
 lua require("dap.nvim-dap")
 lua require("dap.nvim-dap.go")
 

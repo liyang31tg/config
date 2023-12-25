@@ -1,16 +1,16 @@
 -- init.lua 加载这个模块的时候会自动执行
 -- MARK 需要保证其再加顺序
-local status0, _ = pcall(require, "plugin-config.mason")
-if not status0 then
-	vim.notify("没有找到 plugin-config.mason")
-	return
-end
-
-local status1, _ = pcall(require, "plugin-config.mason-lspconfig")
-if not status1 then
-	vim.notify("没有找到 plugin-config.mason-lspconfig")
-	return
-end
+-- local status0, _ = pcall(require, "plugin-config.mason")
+-- if not status0 then
+-- 	vim.notify("没有找到 plugin-config.mason")
+-- 	return
+-- end
+--
+-- local status1, _ = pcall(require, "plugin-config.mason-lspconfig")
+-- if not status1 then
+-- 	vim.notify("没有找到 plugin-config.mason-lspconfig")
+-- 	return
+-- end
 
 
 local M = {}

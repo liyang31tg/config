@@ -25,12 +25,6 @@ packer.startup({
 		--textobj
 		use("nvim-treesitter/nvim-treesitter-textobjects")
 
-		--------------------- LSP --------------------
-		use({
-			"williamboman/mason.nvim",
-			"williamboman/mason-lspconfig.nvim",
-			"neovim/nvim-lspconfig",
-		})
 
 		-- 补全引擎
 		use("hrsh7th/nvim-cmp")
@@ -42,6 +36,14 @@ packer.startup({
 		use("hrsh7th/cmp-buffer") -- { name = 'buffer' },
 		use("hrsh7th/cmp-path") -- { name = 'path' }
 		use("hrsh7th/cmp-cmdline") -- { name = 'cmdline' }
+		--------------------- LSP 也是注入到上面的补全源中才可以使用--------------------
+		use({
+			"williamboman/mason.nvim",
+			"williamboman/mason-lspconfig.nvim",
+			"neovim/nvim-lspconfig",
+		})
+
+        use "RRethy/vim-illuminate" -- 高亮sameid
 
 		-- 常见编程语言代码段
 		use("rafamadriz/friendly-snippets")
