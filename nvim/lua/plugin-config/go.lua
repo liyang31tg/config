@@ -4,7 +4,8 @@ if not status then
 	return
 end
 
-go.setup({
+-- 只想用他的tag功能
+go.setup({ 
 	tag_transform = "keep",
 	tag_options = "",
 	run_in_floaterm = true,
@@ -16,12 +17,3 @@ go.setup({
 
 require("keybindings").mapGo()
 
---autosave
--- local format_sync_grp = vim.api.nvim_create_augroup("GoImport", {})
--- vim.api.nvim_create_autocmd("BufWritePre", {
--- 	pattern = "*.go",
--- 	callback = function()
--- 		require("go.format").goimport()
--- 	end,
--- 	group = format_sync_grp,
--- })

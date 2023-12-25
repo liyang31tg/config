@@ -4,11 +4,11 @@ packer.startup({
 		-- Packer 可以管理自己本身
 		use("wbthomason/packer.nvim")
 
-        use "rcarriga/nvim-notify" -- notify
-
+		use("rcarriga/nvim-notify") -- notify
 
 		--侧栏目录结构
 		use({ "kyazdani42/nvim-tree.lua", requires = "kyazdani42/nvim-web-devicons" })
+		use("simrat39/symbols-outline.nvim") --目录大纲
 		--tab自定义的那个标签页,本质就是buffer，只是之前无地方显示提现
 		use({ "akinsho/bufferline.nvim", requires = { "kyazdani42/nvim-web-devicons", "moll/vim-bbye" } })
 		--lualine
@@ -24,7 +24,6 @@ packer.startup({
 		use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
 		--textobj
 		use("nvim-treesitter/nvim-treesitter-textobjects")
-
 
 		-- 补全引擎
 		use("hrsh7th/nvim-cmp")
@@ -43,15 +42,15 @@ packer.startup({
 			"neovim/nvim-lspconfig",
 		})
 
-        use "RRethy/vim-illuminate" -- 高亮sameid
+		use("RRethy/vim-illuminate") -- 高亮sameid
 
 		-- 常见编程语言代码段
 		use("rafamadriz/friendly-snippets")
 
-		-- 代码格式化
+		-- linter and formatter
 		use({ "jose-elias-alvarez/null-ls.nvim", requires = "nvim-lua/plenary.nvim" })
 
-		--golang
+		--golang 强化,添加lsp以外的另外独特功能
 		use({
 			"ray-x/go.nvim",
 			requires = {
@@ -142,6 +141,18 @@ packer.startup({
 				end, { expr = true })
 			end,
 		})
+		--自动保存代码,即使没保存的强制退出,也会保存
+		use("Pocco81/auto-save.nvim")
+
+		-- litee family
+		-- use({
+		-- 	"ldelossa/litee.nvim",
+		-- 	commit = "47235cb807a83af866e06ce654b28efcfe347c60",
+		-- })
+		-- use({
+		-- 	"ldelossa/litee-calltree.nvim",
+		-- 	commit = "3f3c25e584558949b1eda38ded76eade28fa5fd6",
+		-- })
 	end,
 	config = {
 		-- 并发数限制
