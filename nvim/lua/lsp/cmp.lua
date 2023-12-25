@@ -1,5 +1,6 @@
 local cmp = require("cmp")
 
+
 -- Global setup.
 cmp.setup({
 	-- 指定 snippet 引擎
