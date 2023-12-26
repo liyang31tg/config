@@ -14,7 +14,8 @@ packer.startup({
     --lualine
     use({ "nvim-lualine/lualine.nvim", requires = { "kyazdani42/nvim-web-devicons" } })
     use("arkav/lualine-lsp-progress")
-    -- telescope，类似于fzf
+
+    -- telescope,各种检索
     use({ "nvim-telescope/telescope.nvim", requires = { "nvim-lua/plenary.nvim" } })
 
     -- project
@@ -157,6 +158,7 @@ packer.startup({
     --
     use("lewis6991/gitsigns.nvim")
     use("sindrets/diffview.nvim")
+    use("folke/which-key.nvim")
   end,
   config = {
     -- 并发数限制

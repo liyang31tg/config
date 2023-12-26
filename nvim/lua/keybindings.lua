@@ -116,9 +116,8 @@ map("n", "s=", "<C-w>=", opt)
 -- map("t", "<c-j>", [[ <C-\><C-N><C-w>j ]], opt)
 -- map("t", "<c-k>", [[ <C-\><C-N><C-w>k ]], opt)
 -- map("t", "<c-l>", [[ <C-\><C-N><C-w>l ]], opt)
-map("n","<space>t","<cmd>ToggleTerm<cr>",opt)
-
-
+map("n", "<space>t", "<cmd>ToggleTerm<cr>", opt)
+map("n", "<c-t>", "<cmd>ToggleTerm<cr>", opt)
 
 -- 在visual 模式里粘贴不要复制
 map("v", "p", '"_dP', opt)
@@ -145,10 +144,11 @@ map("c", "<c-0>", ":NvimTreeFindFile<CR>", opt)
 
 -- Telescope
 -- 查找文件
-map("n", "<C-p>", ":Telescope find_files<CR>", opt)
+map("n", "<C-p>", "<leader>ff", { silent = true })
 -- 全局搜索
-map("n", "<C-f>", ":Telescope live_grep<CR>", opt)
-map("n", "<Leader>/", ":lua require('telescope.builtin').current_buffer_fuzzy_find() <cr>", opt)
+map("n", "<C-f>", "<leader>fg", { silent = true })
+--buffer 搜索
+map("n", "<Leader>/", "<leader>f/", { silent = true })
 
 -- Telescope 列表中 插入模式快捷键
 pluginKeys.telescopeList = {
@@ -169,6 +169,202 @@ pluginKeys.telescopeList = {
 	},
 }
 
+pluginKeys.whichkeys = {
+	a = { "<cmd>Alpha<cr>", "Welcome" },
+	r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
+	e = { "<cmd>NvimTreeToggle<cr>", "Explorer" },
+	C = { "<cmd>%bd|e#<CR>", "Close Other Buffers" },
+	f = {
+		name = "telescope",
+		b = { "<cmd>lua require('telescope.builtin').buffers()<cr>", "Find buffers" },
+		c = { "<cmd>lua require('telescope.builtin').colorscheme()<cr>", "Find colorscheme" },
+		d = { "<cmd>lua require('telescope.builtin').diagnostics()<cr>", "Find diagnostics" }, --只针对一些打开的buffer
+		f = { "<cmd>lua require('telescope.builtin').find_files()<cr>", "Find files" },
+		g = { "<cmd>lua require('telescope.builtin').live_grep()<cr>", "Find grep str" },
+		h = { "<cmd>lua require('telescope.builtin').git_branches()<cr>", "Find  branch logs" }, --history
+		q = { "<cmd>lua require('telescope.builtin').autocommands()<cr>", "Find  branch logs" },
+		s = {
+			"<cmd>lua require('telescope.builtin').lsp_document_symbols()<cr>",
+			"Find Document Symbols",
+		},
+		S = {
+			"<cmd>lua require('telescope.builtin').lsp_dynamic_workspace_symbols()<cr>",
+			"Find Symobls",
+		},
+		["?"] = { "<cmd>lua require('telescope.builtin').help_tags()<cr>", "Find  help" },
+		["/"] = {
+			"<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<cr>",
+			"Find text in current buffer",
+		},
+	},
+	-- ["F"] = { "<cmd>Telescope live_grep theme=ivy<cr>", "Find Text" },
+	-- ["p"] = { "<cmd>Telescope projects<cr>", "Projects" },
+
+	["p"] = { "<cmd>SessionManager load_session<cr>", "Projects" },
+
+	["t"] = {
+		"<cmd>UltestSummary<CR>",
+		"Unit Test",
+	},
+
+	["o"] = {
+		"<cmd>SymbolsOutline<CR>",
+		"Outline",
+	},
+	["v"] = {
+		"<cmd>lua require('telescope').extensions.neoclip.default(require('telescope.themes').get_ivy())<cr>",
+		"Clipboard Manager",
+	},
+
+	d = {
+		name = "Debug",
+		R = { "<cmd>lua require'dap'.run_to_cursor()<cr>", "Run to Cursor" },
+		E = { "<cmd>lua require'dapui'.eval(vim.fn.input '[Expression] > ')<cr>", "Evaluate Input" },
+		X = { "<cmd>lua require'dap'.terminate()<cr>", "Terminate" },
+		-- C = { "<cmd>lua require'dap'.set_breakpoint(vim.fn.input '[Condition] > ')<cr>", "Conditional Breakpoint" },
+		T = { "<cmd>lua require'dapui'.toggle('sidebar')<cr>", "Toggle Sidebar" },
+		p = { "<cmd>lua require'dap'.pause()<cr>", "Pause" },
+		r = { "<cmd>lua require'dap'.repl.toggle()<cr>", "Toggle Repl" },
+		q = { "<cmd>lua require'dap'.close()<cr>", "Quit" },
+
+		-- b = { "<cmd>lua require'dap'.step_back()<cr>", "Step Back" },
+		-- c = { "<cmd>lua require'dap'.continue()<cr>", "Continue" },
+		-- d = { "<cmd>lua require'dap'.disconnect()<cr>", "Disconnect" },
+		-- e = { "<cmd>lua require'dapui'.eval()<cr>", "Evaluate" },
+		-- g = { "<cmd>lua require'dap'.session()<cr>", "Get Session" },
+		-- h = { "<cmd>lua require'dap.ui.widgets'.hover()<cr>", "Hover Variables" },
+		-- S = { "<cmd>lua require'dap.ui.widgets'.scopes()<cr>", "Scopes" },
+		-- i = { "<cmd>lua require'dap'.step_into()<cr>", "Step Into" },
+		-- o = { "<cmd>lua require'dap'.step_over()<cr>", "Step Over" },
+		-- t = { "<cmd>lua require'dap'.toggle_breakpoint()<cr>", "Toggle Breakpoint" },
+		-- u = { "<cmd>lua require'dap'.step_out()<cr>", "Step Out" },
+	},
+
+	T = {
+		name = "Trouble",
+		t = { "<cmd>Trouble<cr>", "ToggleTrouble" },
+		d = { "<cmd>Trouble document_diagnostics<cr>", "Document Diagnostics" },
+		w = { "<cmd>Trouble workspace_diagnostics<cr>", "Workspace Diagnostics" },
+		q = { "<cmd>Trouble quickfix<cr>", "Quick Fix" },
+		u = { "<cmd>Trouble lsp_references<cr>", "Usage" },
+		g = { "<cmd>Gitsigns setloclist<cr>", "Open changed hunk" },
+	},
+
+	-- g = {
+	--   name = "Git",
+	--   b = { "<cmd>VGit buffer_gutter_blame_preview<cr>", "File Blame" },
+	--   d = { "<cmd>VGit buffer_diff_preview<cr>", "Diff File" },
+	--   D = { "<cmd>VGit project_diff_preview<cr>", "Diff Project" },
+	--   s = { "<cmd>VGit buffer_stage<cr>", "Stage File" },
+	--   u = { "<cmd>VGit buffer_unstage<cr>", "Unstage File" },
+	--   r = { "<cmd>VGit buffer_reset<cr>", "Reset File" },
+	--   f = { "<cmd>VGit buffer_history_preview <cr>", "Reset File" },
+	--
+	--   B = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
+	--   c = { "<cmd>Telescope git_commits<cr>", "Checkout commit" },
+	-- },
+
+	g = {
+		name = "Git",
+		-- g = { "<cmd>lua _LAZYGIT_TOGGLE()<CR>", "Lazygit" },
+		f = { "<cmd>DiffviewFileHistory<CR>", "File History" },
+		p = { "<cmd>DiffviewOpen<CR>", "Diff Project" },
+		n = { "<cmd>lua require 'gitsigns'.next_hunk()<cr>", "Next Hunk" },
+		N = { "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", "Prev Hunk" },
+		l = { "<cmd>lua require 'gitsigns'.blame_line()<cr>", "Blame" },
+		r = { "<cmd>lua require 'gitsigns'.reset_hunk()<cr>", "Reset Hunk" },
+		R = { "<cmd>lua require 'gitsigns'.reset_buffer()<cr>", "Reset Buffer" },
+		s = { "<cmd>lua require 'gitsigns'.stage_hunk()<cr>", "Stage Hunk" },
+		S = { "<cmd>lua require 'gitsigns'.stage_buffer()<cr>", "Stage Hunk" },
+		u = { "<cmd>lua require 'gitsigns'.undo_stage_hunk()<cr>", "Undo Stage Hunk" },
+		U = { "<cmd>lua require 'gitsigns'.undo_stage_hunk()<cr>", "Undo Stage Hunk" },
+		o = { "<cmd>Telescope git_status<cr>", "Open changed file" },
+		b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
+		c = { "<cmd>Telescope git_commits<cr>", "Checkout commit" },
+		d = {
+			"<cmd>Gitsigns diffthis HEAD<cr>",
+			"Diff",
+		},
+	},
+
+	R = {
+		name = "Replace",
+		f = { "<cmd>lua require('spectre').open_file_search()<CR>", "Replace File" },
+		p = { "<cmd>lua require('spectre').open()<CR>", "Replace Project" },
+		s = { "<cmd>lua require('spectre').open_visual({select_word=true})<CR>", "Search" },
+		-- -- 全项目替换
+		-- vim.keybinds.gmap("n", "<leader>rp", "", vim.keybinds.opts)
+		-- -- 只替换当前文件
+		-- vim.keybinds.gmap("n", "<leader>rf", , vim.keybinds.opts)
+		-- -- 全项目中搜索当前单词
+		-- vim.keybinds.gmap("n", "<leader>rw", , vim.keybinds.opts)
+	},
+
+	l = {
+		name = "LSP",
+		l = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" },
+		d = {
+			"<cmd>Telescope lsp_document_diagnostics<cr>",
+			"Document Diagnostics",
+		},
+		w = {
+			"<cmd>Telescope lsp_workspace_diagnostics<cr>",
+			"Workspace Diagnostics",
+		},
+		i = { "<cmd>LspInfo<cr>", "Info" },
+		I = { "<cmd>LspInstallInfo<cr>", "Installer Info" },
+		j = {
+			"<cmd>lua vim.lsp.diagnostic.goto_next()<CR>",
+			"Next Diagnostic",
+		},
+		k = {
+			"<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>",
+			"Prev Diagnostic",
+		},
+		q = { "<cmd>lua vim.lsp.diagnostic.set_loclist()<cr>", "Quickfix" },
+		r = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename" },
+		s = { "<cmd>Telescope lsp_document_symbols<cr>", "Document Symbols" },
+		S = {
+			"<cmd>Telescope lsp_dynamic_workspace_symbols<cr>",
+			"Workspace Symbols",
+		},
+	},
+
+	-- h = {
+	--   a = { "<cmd>HSHighlight 1<cr>", "Hightlight 1" },
+	--   b = { "<cmd>HSHighlight 2<cr>", "Hightlight 2" },
+	--   c = { "<cmd>HSHighlight 3<cr>", "Hightlight 3" },
+	--   d = { "<cmd>HSHighlight 4<cr>", "Hightlight 4" },
+	--   e = { "<cmd>HSHighlight 5<cr>", "Hightlight 5" },
+	--   f = { "<cmd>HSHighlight 6<cr>", "Hightlight 6" },
+	--   u = { "<cmd>HSRmHighlight<cr>", "RemoveHighlight" },
+	--   U = { "<cmd>HSRmHighlight rm_all<cr>", "RemoveAllHighlight" },
+	-- },
+
+	h = {
+		name = "Help",
+		-- b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
+		c = { "<cmd>Telescope colorscheme<cr>", "Colorscheme" },
+		h = { "<cmd>Telescope help_tags<cr>", "Find Help" },
+		M = { "<cmd>Telescope man_pages<cr>", "Man Pages" },
+		-- r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
+		R = { "<cmd>Telescope registers<cr>", "Registers" },
+		k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
+		C = { "<cmd>Telescope commands<cr>", "Commands" },
+	},
+
+	-- t = {
+	--   name = "Terminal",
+	--   n = { "<cmd>lua _NODE_TOGGLE()<cr>", "Node" },
+	--   u = { "<cmd>lua _NCDU_TOGGLE()<cr>", "NCDU" },
+	--   t = { "<cmd>lua _HTOP_TOGGLE()<cr>", "Htop" },
+	--   p = { "<cmd>lua _PYTHON_TOGGLE()<cr>", "Python" },
+	--   f = { "<cmd>ToggleTerm direction=float<cr>", "Float" },
+	--   h = { "<cmd>ToggleTerm size=10 direction=horizontal<cr>", "Horizontal" },
+	--   v = { "<cmd>ToggleTerm size=80 direction=vertical<cr>", "Vertical" },
+	-- },
+}
+
 -- lsp
 -- rename
 map("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opt)
@@ -187,7 +383,7 @@ map("n", "gr", "<cmd>TroubleToggle lsp_references<cr>", opt)
 map("n", "gp", "<cmd>lua vim.diagnostic.open_float()<CR>", opt)
 map("n", "gk", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opt)
 map("n", "gj", "<cmd>lua vim.diagnostic.goto_next()<CR>", opt)
-map("n", "<leader>f", "<cmd>lua vim.lsp.buf.format({async = true})<CR>", opt)
+map("n", "<leader><leader>", "<cmd>lua vim.lsp.buf.format({async = true})<CR>", opt)
 -- 没用到
 -- mapbuf('n', '<leader>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opt)
 -- mapbuf("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opt)
@@ -224,7 +420,7 @@ end
 
 -- dap
 pluginKeys.mapDAP = function()
-  	vim.keymap.set("n", "<F4>", function()
+	vim.keymap.set("n", "<F4>", function()
 		require("dap").terminate()
 	end)
 
@@ -246,12 +442,12 @@ pluginKeys.mapDAP = function()
 	vim.keymap.set("n", ",dd", function()
 		require("dap").toggle_breakpoint()
 	end)
-    --设置条件断点
+	--设置条件断点
 	vim.keymap.set("n", ",dc", function()
 		-- require("dap").set_breakpoint(nil, nil, vim.fn.input("Log point message: "))
-		require("dap").set_breakpoint(vim.fn.input("[Condition] > ")) -- 输入条件eg: a>18 
+		require("dap").set_breakpoint(vim.fn.input("[Condition] > ")) -- 输入条件eg: a>18
 	end)
-    --清空所有断点
+	--清空所有断点
 	vim.keymap.set("n", ",dx", function()
 		require("dap").clear_breakpoints()
 	end)
