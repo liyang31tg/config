@@ -1,7 +1,7 @@
 import:
  - ~/.config/alacritty/themes/themes/nord.yaml
 window:
-   decorations: none
+   # decorations: none
    startup_mode: Maximized
 dynamic_title: true
 option_as_alt: Both #这个键无效
