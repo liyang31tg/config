@@ -367,6 +367,9 @@ pluginKeys.whichkeys = {
 
 -- lsp
 -- rename
+-- -- calltree
+-- map("n", "<leader>in", "<cmd>lua vim.lsp.buf.incoming_calls()<cr>", opt)
+
 map("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opt)
 -- code action
 map("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opt)

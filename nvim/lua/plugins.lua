@@ -147,7 +147,7 @@ packer.startup({
 		-- use("Pocco81/auto-save.nvim")--与格式化那些有抖动效果
 		use("akinsho/toggleterm.nvim")
 
-		-- litee family
+		-- litee family 不好用,扯淡的
 		-- use({
 		-- 	"ldelossa/litee.nvim",
 		-- 	commit = "47235cb807a83af866e06ce654b28efcfe347c60",
@@ -156,7 +156,7 @@ packer.startup({
 		-- 	"ldelossa/litee-calltree.nvim",
 		-- 	commit = "3f3c25e584558949b1eda38ded76eade28fa5fd6",
 		-- })
-		--
+
 		use("lewis6991/gitsigns.nvim")
 		use("sindrets/diffview.nvim")
 		use("folke/which-key.nvim")
