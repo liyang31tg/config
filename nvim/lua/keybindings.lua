@@ -46,29 +46,13 @@ map("v", "<A-k>", ":m '<-2<cr>gv=gv", opts("Move up"))
 map("v", "<", "<gv", opt)
 map("v", ">", ">gv", opt)
 
---tab 原生
-map("n", "<leader>tn", ":tab split<cr>", opt)
-map("n", "gt", ":+tabnext<cr>", opt) --默认值也是这个，写在这里只是方便记忆
-map("n", "gT", ":-tabnext<cr>", opt) --默认值也是这个，写在这里只是方便记忆
-map("n", ".t", ":+tabmove<cr>", opt)
-map("n", ",t", ":-tabmove<cr>", opt)
-map("n", "<leader>tq", "<cmd>tabclose<cr>", opt)
 
 -- bufferline
 -- 左右Tab切换
-map("n", "[b", ":BufferLineCyclePrev<CR>", opt)
-map("n", "]b", ":BufferLineCycleNext<CR>", opt)
+map("n", "[b", "<leader>b[", { silent = true })
+map("n", "]b", "<leader>b[", { silent = true })
 -- 关闭
---"moll/vim-bbye"
-map("n", "<leader>bq", ":Bdelete!<CR>", opt)
-map("n", "<leader>bl", ":BufferLineCloseRight<CR>", opt)
-map("n", "<leader>bh", ":BufferLineCloseLeft<CR>", opt)
-map("n", "<leader>bo", ":BufferLineCloseOthers<CR>", opt)
-map("n", "<leader>bc", ":BufferLinePickClose<CR>", opt)
-map("n", "<leader>bp", ":BufferLinePick<CR>", opt)
-map("n", "<leader>b,", ":BufferLineMovePrev<CR>", opt)
-map("n", "<leader>b.", ":BufferLineMoveNext<CR>", opt)
-map("n", "<leader>bb", "<cmd>e #<cr>", opts("与上一个buffer切换"))
+--
 
 map(
 	"n",
@@ -116,7 +100,6 @@ map("n", "s=", "<C-w>=", opt)
 -- map("t", "<c-j>", [[ <C-\><C-N><C-w>j ]], opt)
 -- map("t", "<c-k>", [[ <C-\><C-N><C-w>k ]], opt)
 -- map("t", "<c-l>", [[ <C-\><C-N><C-w>l ]], opt)
-map("n", "<space>t", "<cmd>ToggleTerm<cr>", opt)
 map("n", "<c-t>", "<cmd>ToggleTerm<cr>", opt)
 
 -- 在visual 模式里粘贴不要复制
@@ -171,51 +154,20 @@ pluginKeys.telescopeList = {
 
 pluginKeys.whichkeys = {
 	a = { "<cmd>Alpha<cr>", "Welcome" },
-	r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
-	e = { "<cmd>NvimTreeToggle<cr>", "Explorer" },
-	C = { "<cmd>%bd|e#<CR>", "Close Other Buffers" },
-	f = {
-		name = "telescope",
-		b = { "<cmd>lua require('telescope.builtin').buffers()<cr>", "Find buffers" },
-		c = { "<cmd>lua require('telescope.builtin').colorscheme()<cr>", "Find colorscheme" },
-		d = { "<cmd>lua require('telescope.builtin').diagnostics()<cr>", "Find diagnostics" }, --只针对一些打开的buffer
-		f = { "<cmd>lua require('telescope.builtin').find_files()<cr>", "Find files" },
-		g = { "<cmd>lua require('telescope.builtin').live_grep()<cr>", "Find grep str" },
-		h = { "<cmd>lua require('telescope.builtin').git_branches()<cr>", "Find  branch logs" }, --history
-		q = { "<cmd>lua require('telescope.builtin').autocommands()<cr>", "Find  branch logs" },
-		s = {
-			"<cmd>lua require('telescope.builtin').lsp_document_symbols()<cr>",
-			"Find Document Symbols",
-		},
-		S = {
-			"<cmd>lua require('telescope.builtin').lsp_dynamic_workspace_symbols()<cr>",
-			"Find Symobls",
-		},
-		["?"] = { "<cmd>lua require('telescope.builtin').help_tags()<cr>", "Find  help" },
-		["/"] = {
-			"<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<cr>",
-			"Find text in current buffer",
-		},
+    --"moll/vim-bbye"
+	b = {
+		q = { "<cmd>Bdelete!<cr>", "Close" },
+		b = { "<cmd>e #<cr>", "与上一个buffer切换" },
+		l = { "<cmd>BufferLineCloseRight<cr>", "Close Right" },
+		h = { "<cmd>BufferLineCloseLeft<cr>", "Close Left" },
+		o = { "<cmd>BufferLineCloseOthers<cr>", "Close Others" },
+		c = { "<cmd>BufferLinePickClose<cr>", "Close" },
+		p = { "<cmd>BufferLinePick<cr>", "Close Pick" },
+		[","] = { "<cmd>BufferLineMovePrev<cr>", "Move Prev" },
+		["."] = { "<cmd>BufferLineMoveNext<cr>", "Move Next" },
+		["["] = { "<cmd>BufferLineCyclePrev<cr>", "Focus Pre" },
+		["]"] = { "<cmd>BufferLineCycleNext<cr>", "Focus Next" },
 	},
-	-- ["F"] = { "<cmd>Telescope live_grep theme=ivy<cr>", "Find Text" },
-	-- ["p"] = { "<cmd>Telescope projects<cr>", "Projects" },
-
-	["p"] = { "<cmd>SessionManager load_session<cr>", "Projects" },
-
-	["t"] = {
-		"<cmd>UltestSummary<CR>",
-		"Unit Test",
-	},
-
-	["o"] = {
-		"<cmd>SymbolsOutline<CR>",
-		"Outline",
-	},
-	["v"] = {
-		"<cmd>lua require('telescope').extensions.neoclip.default(require('telescope.themes').get_ivy())<cr>",
-		"Clipboard Manager",
-	},
-
 	d = {
 		name = "Debug",
 		R = { "<cmd>lua require'dap'.run_to_cursor()<cr>", "Run to Cursor" },
@@ -238,6 +190,44 @@ pluginKeys.whichkeys = {
 		-- o = { "<cmd>lua require'dap'.step_over()<cr>", "Step Over" },
 		-- t = { "<cmd>lua require'dap'.toggle_breakpoint()<cr>", "Toggle Breakpoint" },
 		-- u = { "<cmd>lua require'dap'.step_out()<cr>", "Step Out" },
+	},
+	e = { "<cmd>NvimTreeToggle<cr>", "Explorer" },
+	r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
+	f = {
+		name = "telescope",
+		b = { "<cmd>lua require('telescope.builtin').buffers()<cr>", "Find buffers" },
+		c = { "<cmd>lua require('telescope.builtin').colorscheme()<cr>", "Find colorscheme" },
+		d = { "<cmd>lua require('telescope.builtin').diagnostics()<cr>", "Find diagnostics" }, --只针对一些打开的buffer
+		f = { "<cmd>lua require('telescope.builtin').find_files()<cr>", "Find files" },
+		g = { "<cmd>lua require('telescope.builtin').live_grep()<cr>", "Find grep str" },
+		h = { "<cmd>lua require('telescope.builtin').git_branches()<cr>", "Find  branch logs" }, --history
+		p = { "<cmd>Telescope projects<cr>", "Projects" },
+		q = { "<cmd>lua require('telescope.builtin').autocommands()<cr>", "Find  au" },
+		s = {
+			"<cmd>lua require('telescope.builtin').lsp_document_symbols()<cr>",
+			"Find Document Symbols",
+		},
+		S = {
+			"<cmd>lua require('telescope.builtin').lsp_dynamic_workspace_symbols()<cr>",
+			"Find Symobls",
+		},
+		["/"] = {
+			"<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<cr>",
+			"Find text in current buffer",
+		},
+	},
+
+	p = { "<cmd>SessionManager load_session<cr>", "Projects" },
+
+	t = {},
+
+	o = {
+		"<cmd>SymbolsOutline<CR>",
+		"Outline",
+	},
+	v = {
+		"<cmd>lua require('telescope').extensions.neoclip.default(require('telescope.themes').get_ivy())<cr>",
+		"Clipboard Manager",
 	},
 
 	T = {
@@ -343,11 +333,9 @@ pluginKeys.whichkeys = {
 
 	h = {
 		name = "Help",
-		-- b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
 		c = { "<cmd>Telescope colorscheme<cr>", "Colorscheme" },
 		h = { "<cmd>Telescope help_tags<cr>", "Find Help" },
 		M = { "<cmd>Telescope man_pages<cr>", "Man Pages" },
-		-- r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
 		R = { "<cmd>Telescope registers<cr>", "Registers" },
 		k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
 		C = { "<cmd>Telescope commands<cr>", "Commands" },
@@ -521,13 +509,7 @@ pluginKeys.mapGo = function()
 	vim.cmd("au FileType go nmap <buffer> <LocalLeader>tf :GoTestFunc -v -n 1<cr>")
 end
 
-pluginKeys.mapTrouble = function()
-	map("n", "<LocalLeader>xx", ":lua require('trouble').open()<cr>", opt)
-	map("n", "<LocalLeader>xw", ":lua require('trouble').open('workspace_diagnostics')<cr>", opt)
-	map("n", "<LocalLeader>xd", ":lua require('trouble').open('document_diagnostics')<cr>", opt)
-	map("n", "<LocalLeader>xq", ":lua require('trouble').open('quickfix')<cr>", opt)
-	map("n", "<LocalLeader>xl", ":lua require('trouble').open('loclist')<cr>", opt)
-end
+pluginKeys.mapTrouble = function() end
 
 pluginKeys.mapJavascript = function()
 	vim.cmd("au FileType javascript nmap <buffer> <silent> <LocalLeader>r :!node  %<cr>")

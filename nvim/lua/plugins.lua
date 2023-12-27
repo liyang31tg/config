@@ -160,6 +160,9 @@ packer.startup({
 		use("lewis6991/gitsigns.nvim")
 		use("sindrets/diffview.nvim")
 		use("folke/which-key.nvim")
+		use("nvim-pack/nvim-spectre")
+		use("folke/todo-comments.nvim") --NOTE  无法找到所有的TODO不知道什么问题
+		use("ray-x/lsp_signature.nvim")
 	end,
 	config = {
 		-- 并发数限制
