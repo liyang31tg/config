@@ -145,7 +145,7 @@ packer.startup({
 		})
 		--自动保存代码,即使没保存的强制退出,也会保存
 		-- use("Pocco81/auto-save.nvim")--与格式化那些有抖动效果
-		use("akinsho/toggleterm.nvim")
+		use("akinsho/toggleterm.nvim") --nvim中的终端
 
 		-- litee family 不好用,扯淡的
 		-- use({
@@ -159,14 +159,17 @@ packer.startup({
 
 		use("lewis6991/gitsigns.nvim")
 		use("sindrets/diffview.nvim")
-		use("folke/which-key.nvim")
-		use("nvim-pack/nvim-spectre")
+		use("folke/which-key.nvim") --下面的那个key的提示
+		use("nvim-pack/nvim-spectre") --搜索替换
 		use("folke/todo-comments.nvim") --NOTE  无法找到所有的TODO不知道什么问题
-		use("ray-x/lsp_signature.nvim")
+		use("ray-x/lsp_signature.nvim") -- 代码提示,每一个形参都会有提示
+		use("fladson/vim-kitty") --高亮kitty配置
+		use("mg979/vim-visual-multi") --多光标操作
+		use({ "kosayoda/nvim-lightbulb" }) --点亮有code action的地方
 	end,
 	config = {
 		-- 并发数限制
-		max_jobs = 16,
+		max_jobr = 16,
 		display = {
 			open_fn = function()
 				return require("packer.util").float({ border = "single" })

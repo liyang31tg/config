@@ -77,7 +77,7 @@ masonlspconfig.setup({
 	ensure_installed = {
         "lua_ls",
 		"gopls",
-		"golangci_lint_ls",
+		-- "golangci_lint_ls",
 		"vimls",
 		"cssls",
 		"html",

@@ -57,6 +57,7 @@ null_ls.setup({
 			},
 		}),
 		-- Diagnostics  ---------------------
+		-- diagnostics.golangci_lint, --gopls感觉自己会报错,可以不用这个
 		-- diagnostics.eslint.with({
 		-- 	prefer_local = "node_modules/.bin",
 		-- }),
@@ -64,7 +65,10 @@ null_ls.setup({
 		-- code_actions.eslint.with({
 		-- 	prefer_local = "node_modules/.bin",
 		-- }),
-		code_actions.gomodifytags,
+		code_actions.gomodifytags.with({
+			command = "gomodifytags",
+			args = { "-transform", "pascalcase" },
+		}),
 		code_actions.impl,
 
 		-- formatting.fixjson,
