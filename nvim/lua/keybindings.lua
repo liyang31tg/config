@@ -245,11 +245,12 @@ pluginKeys.whichkeys = {
 	g = { --不需要管理git信息,git信息还是用gui管理
 		name = "Git",
 		g = { "<cmd>lua _GITUI_TOGGLE()<CR>", "GUI" },
-		a = { "<cmd>DiffviewOpen<CR>", "Diff Project" },
+		a = { "<cmd>DiffviewOpen<CR>", "Diff Project" },--当前stage与unstage的版本与HEAD的比较,HEAD可以切换成任意commit的hash
 		b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
 		c = { "<cmd>Telescope git_commits<cr>", "Checkout commit" },
-		d = { "<cmd>Gitsigns diffthis HEAD<cr>", "Diff" },
-		f = { "<cmd>DiffviewFileHistory<CR>", "File History" },
+		d = { "<cmd>Gitsigns diffthis HEAD<cr>", "Diff" }, --当前文件与HEAD的差异
+		f = { "<cmd>DiffviewFileHistory %<cr>", "Current File History" }, --当前文件的历史记录
+		F = { "<cmd>DiffviewFileHistory<cr>", "Files History" }, --历史记录
 		n = { "<cmd>lua require 'gitsigns'.next_hunk()<cr>", "Next Hunk" },
 		p = { "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", "Prev Hunk" },
 		l = { "<cmd>lua require 'gitsigns'.blame_line()<cr>", "Blame" },
@@ -260,6 +261,7 @@ pluginKeys.whichkeys = {
 		-- u = { "<cmd>lua require 'gitsigns'.undo_stage_hunk()<cr>", "Undo Stage Hunk" },
 		-- U = { "<cmd>lua require 'gitsigns'.undo_stage_hunk()<cr>", "Undo Stage Hunk" },
 		s = { "<cmd>Telescope git_status<cr>", "Open changed file" },
+        x = { "<cmd>DiffviewClose<cr>", "DiffviewClose" },
 	},
 
 	R = {
@@ -300,6 +302,7 @@ map("n", ",D", "<cmd>lua vim.lsp.buf.declaraion()<CR>", opt)
 map("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opt)
 -- map("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opt)
 map("n", "gr", "<cmd>TroubleToggle lsp_references<cr>", opt)
+map("n", ",gr", "<cmd>Telescope lsp_references<cr>", opt)
 -- diagnostic
 map("n", "gp", "<cmd>lua vim.diagnostic.open_float()<CR>", opt)
 map("n", "gk", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opt)
