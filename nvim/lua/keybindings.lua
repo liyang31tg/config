@@ -37,12 +37,12 @@ map("n", "<leader>wk", "<C-w>K", opt)
 map("n", "<leader>wl", "<C-w>L", opt)
 
 -- Move Lines
-map("n", "<A-j>", "<cmd>m .+1<cr>==", opts("Move down"))
-map("n", "<A-k>", "<cmd>m .-2<cr>==", opts("Move up"))
-map("i", "<A-j>", "<esc><cmd>m .+1<cr>==gi", opts("Move down"))
-map("i", "<A-k>", "<esc><cmd>m .-2<cr>==gi", opts("Move up"))
-map("v", "<A-j>", ":m '>+1<cr>gv=gv", opts("Move down"))
-map("v", "<A-k>", ":m '<-2<cr>gv=gv", opts("Move up"))
+map("n", "<c-J>", "<cmd>m .+1<cr>==", opts("Move down"))
+map("n", "<c-K>", "<cmd>m .-2<cr>==", opts("Move up"))
+map("i", "<c-J>", "<esc><cmd>m .+1<cr>==gi", opts("Move down"))
+map("i", "<c-K>", "<esc><cmd>m .-2<cr>==gi", opts("Move up"))
+map("v", "<c-J>", ":m '>+1<cr>gv=gv", opts("Move down"))
+map("v", "<c-K>", ":m '<-2<cr>gv=gv", opts("Move up"))
 map("v", "<", "<gv", opt)
 map("v", ">", ">gv", opt)
 
