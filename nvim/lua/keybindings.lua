@@ -200,7 +200,6 @@ pluginKeys.whichkeys = {
 		D = { "<cmd>lua require('telescope.builtin').diagnostics()<cr>", "Find diagnostics" }, --只针对一些打开的buffer
 		f = { "<cmd>lua require('telescope.builtin').find_files()<cr>", "Find files" },
 		g = { "<cmd>lua require('telescope.builtin').live_grep()<cr>", "Find grep str" },
-		h = { "<cmd>lua require('telescope.builtin').git_branches()<cr>", "Find  branch logs" }, --history
 		p = { "<cmd>Telescope projects<cr>", "Projects" },
 		q = { "<cmd>lua require('telescope.builtin').autocommands()<cr>", "Find  au" },
 		s = {
