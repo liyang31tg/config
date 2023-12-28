@@ -46,7 +46,6 @@ map("v", "<A-k>", ":m '<-2<cr>gv=gv", opts("Move up"))
 map("v", "<", "<gv", opt)
 map("v", ">", ">gv", opt)
 
-
 -- bufferline
 -- 左右Tab切换
 map("n", "[b", "<leader>b[", { silent = true })
@@ -154,7 +153,7 @@ pluginKeys.telescopeList = {
 
 pluginKeys.whichkeys = {
 	a = { "<cmd>Alpha<cr>", "Welcome" },
-    --"moll/vim-bbye"
+	--"moll/vim-bbye"
 	b = {
 		q = { "<cmd>Bdelete!<cr>", "Close" },
 		b = { "<cmd>e #<cr>", "与上一个buffer切换" },
@@ -220,19 +219,8 @@ pluginKeys.whichkeys = {
 
 	p = { "<cmd>SessionManager load_session<cr>", "Projects" },
 
-	t = {},
 
-	o = {
-		"<cmd>SymbolsOutline<CR>",
-		"Outline",
-	},
-
-	v = {
-		"<cmd>lua require('telescope').extensions.neoclip.default(require('telescope.themes').get_ivy())<cr>",
-		"Clipboard Manager",
-	},
-
-	T = {
+	t = {
 		name = "Trouble",
 		t = { "<cmd>Trouble<cr>", "ToggleTrouble" },
 		d = { "<cmd>Trouble document_diagnostics<cr>", "Document Diagnostics" },
@@ -242,41 +230,37 @@ pluginKeys.whichkeys = {
 		g = { "<cmd>Gitsigns setloclist<cr>", "Open changed hunk" },
 	},
 
-	-- g = {
-	--   name = "Git",
-	--   b = { "<cmd>VGit buffer_gutter_blame_preview<cr>", "File Blame" },
-	--   d = { "<cmd>VGit buffer_diff_preview<cr>", "Diff File" },
-	--   D = { "<cmd>VGit project_diff_preview<cr>", "Diff Project" },
-	--   s = { "<cmd>VGit buffer_stage<cr>", "Stage File" },
-	--   u = { "<cmd>VGit buffer_unstage<cr>", "Unstage File" },
-	--   r = { "<cmd>VGit buffer_reset<cr>", "Reset File" },
-	--   f = { "<cmd>VGit buffer_history_preview <cr>", "Reset File" },
-	--
-	--   B = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
-	--   c = { "<cmd>Telescope git_commits<cr>", "Checkout commit" },
-	-- },
+	T = {
+		name = "Terminal",
+		n = { "<cmd>lua _NODE_TOGGLE()<cr>", "Node" },
+		u = { "<cmd>lua _NCDU_TOGGLE()<cr>", "NCDU" },
+		t = { "<cmd>lua _HTOP_TOGGLE()<cr>", "Htop" },
+		p = { "<cmd>lua _PYTHON_TOGGLE()<cr>", "Python" },
+		f = { "<cmd>ToggleTerm direction=float<cr>", "Float" },
+		h = { "<cmd>ToggleTerm size=10 direction=horizontal<cr>", "Horizontal" },
+		v = { "<cmd>ToggleTerm size=80 direction=vertical<cr>", "Vertical" },
+	},
 
-	g = {
+	o = { "<cmd>SymbolsOutline<CR>", "Outline" },
+
+	g = { --不需要管理git信息,git信息还是用gui管理
 		name = "Git",
-		-- g = { "<cmd>lua _LAZYGIT_TOGGLE()<CR>", "Lazygit" },
+		g = { "<cmd>lua _GITUI_TOGGLE()<CR>", "GUI" },
+		a = { "<cmd>DiffviewOpen<CR>", "Diff Project" },
+		b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
+		c = { "<cmd>Telescope git_commits<cr>", "Checkout commit" },
+		d = { "<cmd>Gitsigns diffthis HEAD<cr>", "Diff" },
 		f = { "<cmd>DiffviewFileHistory<CR>", "File History" },
-		p = { "<cmd>DiffviewOpen<CR>", "Diff Project" },
 		n = { "<cmd>lua require 'gitsigns'.next_hunk()<cr>", "Next Hunk" },
-		N = { "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", "Prev Hunk" },
+		p = { "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", "Prev Hunk" },
 		l = { "<cmd>lua require 'gitsigns'.blame_line()<cr>", "Blame" },
 		r = { "<cmd>lua require 'gitsigns'.reset_hunk()<cr>", "Reset Hunk" },
 		R = { "<cmd>lua require 'gitsigns'.reset_buffer()<cr>", "Reset Buffer" },
-		s = { "<cmd>lua require 'gitsigns'.stage_hunk()<cr>", "Stage Hunk" },
-		S = { "<cmd>lua require 'gitsigns'.stage_buffer()<cr>", "Stage Hunk" },
-		u = { "<cmd>lua require 'gitsigns'.undo_stage_hunk()<cr>", "Undo Stage Hunk" },
-		U = { "<cmd>lua require 'gitsigns'.undo_stage_hunk()<cr>", "Undo Stage Hunk" },
-		o = { "<cmd>Telescope git_status<cr>", "Open changed file" },
-		b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
-		c = { "<cmd>Telescope git_commits<cr>", "Checkout commit" },
-		d = {
-			"<cmd>Gitsigns diffthis HEAD<cr>",
-			"Diff",
-		},
+		-- s = { "<cmd>lua require 'gitsigns'.stage_hunk()<cr>", "Stage Hunk" },
+		-- S = { "<cmd>lua require 'gitsigns'.stage_buffer()<cr>", "Stage Hunk" },
+		-- u = { "<cmd>lua require 'gitsigns'.undo_stage_hunk()<cr>", "Undo Stage Hunk" },
+		-- U = { "<cmd>lua require 'gitsigns'.undo_stage_hunk()<cr>", "Undo Stage Hunk" },
+		s = { "<cmd>Telescope git_status<cr>", "Open changed file" },
 	},
 
 	R = {
@@ -284,26 +268,9 @@ pluginKeys.whichkeys = {
 		f = { "<cmd>lua require('spectre').open_file_search()<CR>", "Replace File" },
 		p = { "<cmd>lua require('spectre').open()<CR>", "Replace Project" },
 		s = { "<cmd>lua require('spectre').open_visual({select_word=true})<CR>", "Search" },
-		-- -- 全项目替换
-		-- vim.keybinds.gmap("n", "<leader>rp", "", vim.keybinds.opts)
-		-- -- 只替换当前文件
-		-- vim.keybinds.gmap("n", "<leader>rf", , vim.keybinds.opts)
-		-- -- 全项目中搜索当前单词
-		-- vim.keybinds.gmap("n", "<leader>rw", , vim.keybinds.opts)
 	},
 
 	l = {},
-
-	-- h = {
-	--   a = { "<cmd>HSHighlight 1<cr>", "Hightlight 1" },
-	--   b = { "<cmd>HSHighlight 2<cr>", "Hightlight 2" },
-	--   c = { "<cmd>HSHighlight 3<cr>", "Hightlight 3" },
-	--   d = { "<cmd>HSHighlight 4<cr>", "Hightlight 4" },
-	--   e = { "<cmd>HSHighlight 5<cr>", "Hightlight 5" },
-	--   f = { "<cmd>HSHighlight 6<cr>", "Hightlight 6" },
-	--   u = { "<cmd>HSRmHighlight<cr>", "RemoveHighlight" },
-	--   U = { "<cmd>HSRmHighlight rm_all<cr>", "RemoveAllHighlight" },
-	-- },
 
 	h = {
 		name = "Help",
@@ -314,17 +281,6 @@ pluginKeys.whichkeys = {
 		k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
 		C = { "<cmd>Telescope commands<cr>", "Commands" },
 	},
-
-	-- t = {
-	--   name = "Terminal",
-	--   n = { "<cmd>lua _NODE_TOGGLE()<cr>", "Node" },
-	--   u = { "<cmd>lua _NCDU_TOGGLE()<cr>", "NCDU" },
-	--   t = { "<cmd>lua _HTOP_TOGGLE()<cr>", "Htop" },
-	--   p = { "<cmd>lua _PYTHON_TOGGLE()<cr>", "Python" },
-	--   f = { "<cmd>ToggleTerm direction=float<cr>", "Float" },
-	--   h = { "<cmd>ToggleTerm size=10 direction=horizontal<cr>", "Horizontal" },
-	--   v = { "<cmd>ToggleTerm size=80 direction=vertical<cr>", "Vertical" },
-	-- },
 }
 
 -- lsp
@@ -333,7 +289,7 @@ map("n", ",rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opt)
 -- code action
 map("n", ",ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opt)
 
-map("n",",li","<cmd>LspInfo<cr>",opt) --show lsp info
+map("n", ",li", "<cmd>LspInfo<cr>", opt) --show lsp info
 -- go xx
 map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opt)
 map("n", "gD", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opt)

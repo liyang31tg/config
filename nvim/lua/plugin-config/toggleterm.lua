@@ -43,13 +43,18 @@ vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
 local Terminal = require("toggleterm.terminal").Terminal
 local lazygit = Terminal:new({ cmd = "lazygit", hidden = true })
 
--- NOTE: need to install lazygit first
 -- sudo add-apt-repository ppa:lazygit-team/release
 -- sudo apt-get update
 -- sudo apt-get install lazygit
--- TODO: 这个命令暂时不起作用
 function _LAZYGIT_TOGGLE()
 	lazygit:toggle()
+end
+
+
+local gitui = Terminal:new({ cmd = "gitui", hidden = true })
+
+function _GITUI_TOGGLE()
+  gitui:toggle()
 end
 
 local node = Terminal:new({ cmd = "node", hidden = true })
