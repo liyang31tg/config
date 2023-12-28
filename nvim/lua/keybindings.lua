@@ -219,7 +219,6 @@ pluginKeys.whichkeys = {
 
 	p = { "<cmd>SessionManager load_session<cr>", "Projects" },
 
-
 	t = {
 		name = "Trouble",
 		t = { "<cmd>Trouble<cr>", "ToggleTrouble" },
@@ -281,6 +280,8 @@ pluginKeys.whichkeys = {
 		k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
 		C = { "<cmd>Telescope commands<cr>", "Commands" },
 	},
+
+	z = { "<cmd>ZenMode<cr>", "ZenMode" },
 }
 
 -- lsp
@@ -311,6 +312,7 @@ map("n", "<leader><leader>", "<cmd>lua vim.lsp.buf.format({async = true})<CR>", 
 -- mapbuf('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opt)
 -- mapbuf('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opt)
 -- mapbuf('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opt)
+--
 
 -- nvim-cmp 自动补全
 pluginKeys.cmp = function(cmp)
