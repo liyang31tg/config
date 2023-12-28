@@ -12,8 +12,8 @@ end
 map("n", ",r", "<c-r>", opt) --kitty中c-r不知道什么情况下被限制了
 -- 取消 s 默认功能
 map("n", "s", "", opt)
-map("c", "<c-j>", "<c-n>", {})
-map("c", "<c-k>", "<c-p>", {})
+-- map("c", "<c-j>", "<c-n>", {})
+-- map("c", "<c-k>", "<c-p>", {})
 
 map("n", "`", "~", opt)
 map("n", "\\s", [[  :<c-u>%s\/\/g<left><left> ]], opt)
@@ -30,19 +30,19 @@ map("n", "<c-h>", "<C-w>h", opt)
 map("n", "<c-j>", "<C-w>j", opt)
 map("n", "<c-k>", "<C-w>k", opt)
 map("n", "<c-l>", "<C-w>l", opt)
--- move window
-map("n", "<leader>wh", "<C-w>H", opt)
-map("n", "<leader>wj", "<C-w>J", opt)
-map("n", "<leader>wk", "<C-w>K", opt)
-map("n", "<leader>wl", "<C-w>L", opt)
+-- move window 用winshelft替换
+-- map("n", "<leader>wh", "<C-w>H", opt)
+-- map("n", "<leader>wj", "<C-w>J", opt)
+-- map("n", "<leader>wk", "<C-w>K", opt)
+-- map("n", "<leader>wl", "<C-w>L", opt)
 
 -- Move Lines
-map("n", "<c-J>", "<cmd>m .+1<cr>==", opts("Move down"))
-map("n", "<c-K>", "<cmd>m .-2<cr>==", opts("Move up"))
-map("i", "<c-J>", "<esc><cmd>m .+1<cr>==gi", opts("Move down"))
-map("i", "<c-K>", "<esc><cmd>m .-2<cr>==gi", opts("Move up"))
-map("v", "<c-J>", ":m '>+1<cr>gv=gv", opts("Move down"))
-map("v", "<c-K>", ":m '<-2<cr>gv=gv", opts("Move up"))
+map("n", "<c-w>j", "<cmd>m .+1<cr>==", opts("Move down"))
+map("n", "<c-w>k", "<cmd>m .-2<cr>==", opts("Move up"))
+map("i", "<c-w>j", "<esc><cmd>m .+1<cr>==gi", opts("Move down"))
+map("i", "<c-w>k", "<esc><cmd>m .-2<cr>==gi", opts("Move up"))
+map("v", "<c-w>j", ":m '>+1<cr>gv=gv", opts("Move down"))
+map("v", "<c-w>k", ":m '<-2<cr>gv=gv", opts("Move up"))
 map("v", "<", "<gv", opt)
 map("v", ">", ">gv", opt)
 
@@ -190,8 +190,9 @@ pluginKeys.whichkeys = {
 		-- t = { "<cmd>lua require'dap'.toggle_breakpoint()<cr>", "Toggle Breakpoint" },
 		-- u = { "<cmd>lua require'dap'.step_out()<cr>", "Step Out" },
 	},
+
 	e = { "<cmd>NvimTreeToggle<cr>", "Explorer" },
-	r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
+
 	f = {
 		name = "telescope",
 		b = { "<cmd>lua require('telescope.builtin').buffers()<cr>", "Find buffers" },
@@ -216,7 +217,33 @@ pluginKeys.whichkeys = {
 		},
 	},
 
+	g = { --不需要管理git信息,git信息还是用gui管理
+		name = "Git",
+		g = { "<cmd>lua _GITUI_TOGGLE()<CR>", "GUI" },
+		a = { "<cmd>DiffviewOpen<CR>", "Diff Project" }, --当前stage与unstage的版本与HEAD的比较,HEAD可以切换成任意commit的hash
+		b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
+		c = { "<cmd>Telescope git_commits<cr>", "Checkout commit" },
+		d = { "<cmd>Gitsigns diffthis HEAD<cr>", "Diff" }, --当前文件与HEAD的差异
+		f = { "<cmd>DiffviewFileHistory %<cr>", "Current File History" }, --当前文件的历史记录
+		F = { "<cmd>DiffviewFileHistory<cr>", "Files History" }, --历史记录
+		n = { "<cmd>lua require 'gitsigns'.next_hunk()<cr>", "Next Hunk" },
+		p = { "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", "Prev Hunk" },
+		l = { "<cmd>lua require 'gitsigns'.blame_line()<cr>", "Blame" },
+		r = { "<cmd>lua require 'gitsigns'.reset_hunk()<cr>", "Reset Hunk" },
+		R = { "<cmd>lua require 'gitsigns'.reset_buffer()<cr>", "Reset Buffer" },
+		-- s = { "<cmd>lua require 'gitsigns'.stage_hunk()<cr>", "Stage Hunk" },
+		-- S = { "<cmd>lua require 'gitsigns'.stage_buffer()<cr>", "Stage Hunk" },
+		-- u = { "<cmd>lua require 'gitsigns'.undo_stage_hunk()<cr>", "Undo Stage Hunk" },
+		-- U = { "<cmd>lua require 'gitsigns'.undo_stage_hunk()<cr>", "Undo Stage Hunk" },
+		s = { "<cmd>Telescope git_status<cr>", "Open changed file" },
+		x = { "<cmd>DiffviewClose<cr>", "DiffviewClose" },
+	},
+
+	o = { "<cmd>SymbolsOutline<CR>", "Outline" },
+
 	p = { "<cmd>SessionManager load_session<cr>", "Projects" },
+
+	r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
 
 	t = {
 		name = "Trouble",
@@ -239,38 +266,12 @@ pluginKeys.whichkeys = {
 		v = { "<cmd>ToggleTerm size=80 direction=vertical<cr>", "Vertical" },
 	},
 
-	o = { "<cmd>SymbolsOutline<CR>", "Outline" },
-
-	g = { --不需要管理git信息,git信息还是用gui管理
-		name = "Git",
-		g = { "<cmd>lua _GITUI_TOGGLE()<CR>", "GUI" },
-		a = { "<cmd>DiffviewOpen<CR>", "Diff Project" },--当前stage与unstage的版本与HEAD的比较,HEAD可以切换成任意commit的hash
-		b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
-		c = { "<cmd>Telescope git_commits<cr>", "Checkout commit" },
-		d = { "<cmd>Gitsigns diffthis HEAD<cr>", "Diff" }, --当前文件与HEAD的差异
-		f = { "<cmd>DiffviewFileHistory %<cr>", "Current File History" }, --当前文件的历史记录
-		F = { "<cmd>DiffviewFileHistory<cr>", "Files History" }, --历史记录
-		n = { "<cmd>lua require 'gitsigns'.next_hunk()<cr>", "Next Hunk" },
-		p = { "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", "Prev Hunk" },
-		l = { "<cmd>lua require 'gitsigns'.blame_line()<cr>", "Blame" },
-		r = { "<cmd>lua require 'gitsigns'.reset_hunk()<cr>", "Reset Hunk" },
-		R = { "<cmd>lua require 'gitsigns'.reset_buffer()<cr>", "Reset Buffer" },
-		-- s = { "<cmd>lua require 'gitsigns'.stage_hunk()<cr>", "Stage Hunk" },
-		-- S = { "<cmd>lua require 'gitsigns'.stage_buffer()<cr>", "Stage Hunk" },
-		-- u = { "<cmd>lua require 'gitsigns'.undo_stage_hunk()<cr>", "Undo Stage Hunk" },
-		-- U = { "<cmd>lua require 'gitsigns'.undo_stage_hunk()<cr>", "Undo Stage Hunk" },
-		s = { "<cmd>Telescope git_status<cr>", "Open changed file" },
-        x = { "<cmd>DiffviewClose<cr>", "DiffviewClose" },
-	},
-
 	R = {
 		name = "Replace",
 		f = { "<cmd>lua require('spectre').open_file_search()<CR>", "Replace File" },
 		p = { "<cmd>lua require('spectre').open()<CR>", "Replace Project" },
 		s = { "<cmd>lua require('spectre').open_visual({select_word=true})<CR>", "Search" },
 	},
-
-	l = {},
 
 	h = {
 		name = "Help",
@@ -281,6 +282,10 @@ pluginKeys.whichkeys = {
 		k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
 		C = { "<cmd>Telescope commands<cr>", "Commands" },
 	},
+
+	l = {},
+
+	w = { "<cmd>WinResizerStartMove<cr>", "Move Win" },
 
 	z = { "<cmd>ZenMode<cr>", "ZenMode" },
 }

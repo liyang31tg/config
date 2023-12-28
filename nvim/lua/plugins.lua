@@ -167,6 +167,8 @@ packer.startup({
 		use("mg979/vim-visual-multi") --多光标操作
 		use({ "kosayoda/nvim-lightbulb" }) --点亮有code action的地方
         use("folke/zen-mode.nvim") --zenmode
+        -- use("sindrets/winshift.nvim") --resize move win
+        use("simeji/winresizer") -- resize move win
 	end,
 	config = {
 		-- 并发数限制
