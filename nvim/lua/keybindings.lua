@@ -197,7 +197,8 @@ pluginKeys.whichkeys = {
 		name = "telescope",
 		b = { "<cmd>lua require('telescope.builtin').buffers()<cr>", "Find buffers" },
 		c = { "<cmd>lua require('telescope.builtin').colorscheme()<cr>", "Find colorscheme" },
-		d = { "<cmd>lua require('telescope.builtin').diagnostics()<cr>", "Find diagnostics" }, --只针对一些打开的buffer
+		d = { "<cmd>lua require('telescope.builtin').diagnostics({bufnr=0})<cr>", "Find diagnostics" }, --只针对当前buffer
+		D = { "<cmd>lua require('telescope.builtin').diagnostics()<cr>", "Find diagnostics" }, --只针对一些打开的buffer
 		f = { "<cmd>lua require('telescope.builtin').find_files()<cr>", "Find files" },
 		g = { "<cmd>lua require('telescope.builtin').live_grep()<cr>", "Find grep str" },
 		h = { "<cmd>lua require('telescope.builtin').git_branches()<cr>", "Find  branch logs" }, --history
@@ -225,6 +226,7 @@ pluginKeys.whichkeys = {
 		"<cmd>SymbolsOutline<CR>",
 		"Outline",
 	},
+
 	v = {
 		"<cmd>lua require('telescope').extensions.neoclip.default(require('telescope.themes').get_ivy())<cr>",
 		"Clipboard Manager",
@@ -290,35 +292,7 @@ pluginKeys.whichkeys = {
 		-- vim.keybinds.gmap("n", "<leader>rw", , vim.keybinds.opts)
 	},
 
-	l = {
-		name = "LSP",
-		l = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" },
-		d = {
-			"<cmd>Telescope lsp_document_diagnostics<cr>",
-			"Document Diagnostics",
-		},
-		w = {
-			"<cmd>Telescope lsp_workspace_diagnostics<cr>",
-			"Workspace Diagnostics",
-		},
-		i = { "<cmd>LspInfo<cr>", "Info" },
-		I = { "<cmd>LspInstallInfo<cr>", "Installer Info" },
-		j = {
-			"<cmd>lua vim.lsp.diagnostic.goto_next()<CR>",
-			"Next Diagnostic",
-		},
-		k = {
-			"<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>",
-			"Prev Diagnostic",
-		},
-		q = { "<cmd>lua vim.lsp.diagnostic.set_loclist()<cr>", "Quickfix" },
-		r = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename" },
-		s = { "<cmd>Telescope lsp_document_symbols<cr>", "Document Symbols" },
-		S = {
-			"<cmd>Telescope lsp_dynamic_workspace_symbols<cr>",
-			"Workspace Symbols",
-		},
-	},
+	l = {},
 
 	-- h = {
 	--   a = { "<cmd>HSHighlight 1<cr>", "Hightlight 1" },
@@ -355,18 +329,17 @@ pluginKeys.whichkeys = {
 
 -- lsp
 -- rename
--- -- calltree
--- map("n", "<leader>in", "<cmd>lua vim.lsp.buf.incoming_calls()<cr>", opt)
-
-map("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opt)
+map("n", ",rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opt)
 -- code action
-map("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opt)
+map("n", ",ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opt)
+
+map("n",",li","<cmd>LspInfo<cr>",opt) --show lsp info
 -- go xx
 map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opt)
 map("n", "gD", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opt)
 map("n", "gh", "<cmd>lua vim.lsp.buf.hover()<CR>", opt)
 map("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opt)
-map("n", "<space>D", "<cmd>lua vim.lsp.buf.declaraion()<CR>", opt)
+map("n", ",D", "<cmd>lua vim.lsp.buf.declaraion()<CR>", opt)
 map("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opt)
 -- map("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opt)
 map("n", "gr", "<cmd>TroubleToggle lsp_references<cr>", opt)
@@ -374,6 +347,7 @@ map("n", "gr", "<cmd>TroubleToggle lsp_references<cr>", opt)
 map("n", "gp", "<cmd>lua vim.diagnostic.open_float()<CR>", opt)
 map("n", "gk", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opt)
 map("n", "gj", "<cmd>lua vim.diagnostic.goto_next()<CR>", opt)
+map("n", "gf", "<cmd>lua vim.diagnostic.set_loclist()<CR>", opt) --Quickfix
 map("n", "<leader><leader>", "<cmd>lua vim.lsp.buf.format({async = true})<CR>", opt)
 -- 没用到
 -- mapbuf('n', '<leader>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opt)
