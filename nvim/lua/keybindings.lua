@@ -37,12 +37,12 @@ map("n", "<c-l>", "<C-w>l", opt)
 -- map("n", "<leader>wl", "<C-w>L", opt)
 
 -- Move Lines
-map("n", "<c-w>j", "<cmd>m .+1<cr>==", opts("Move down"))
-map("n", "<c-w>k", "<cmd>m .-2<cr>==", opts("Move up"))
-map("i", "<c-w>j", "<esc><cmd>m .+1<cr>==gi", opts("Move down"))
-map("i", "<c-w>k", "<esc><cmd>m .-2<cr>==gi", opts("Move up"))
-map("v", "<c-w>j", ":m '>+1<cr>gv=gv", opts("Move down"))
-map("v", "<c-w>k", ":m '<-2<cr>gv=gv", opts("Move up"))
+map("n", "<c-a>j", "<cmd>m .+1<cr>==", opts("Move down"))
+map("n", "<c-a>k", "<cmd>m .-2<cr>==", opts("Move up"))
+map("i", "<c-a>j", "<esc><cmd>m .+1<cr>==gi", opts("Move down"))
+map("i", "<c-a>k", "<esc><cmd>m .-2<cr>==gi", opts("Move up"))
+map("v", "<c-a>j", ":m '>+1<cr>gv=gv", opts("Move down"))
+map("v", "<c-a>k", ":m '<-2<cr>gv=gv", opts("Move up"))
 map("v", "<", "<gv", opt)
 map("v", ">", ">gv", opt)
 
@@ -433,19 +433,28 @@ pluginKeys.mapFanYi = function()
 	map("n", "fy", "<cmd>TransToZH<CR>", opt)
 end
 
+
+
 pluginKeys.mapGo = function()
 	vim.cmd("au FileType go nmap <buffer> <silent> <LocalLeader>r :GoRun -F %:p:h<cr>")
-	vim.cmd("au FileType go nmap <buffer> <LocalLeader>b :GoBuild %:p:h<cr>")
+	-- vim.cmd("au FileType go nmap <buffer> <LocalLeader>b :GoBuild -o cc %:p:h<cr>")
+	vim.cmd("au FileType go nmap <buffer> <LocalLeader>b :!go build -o /tmp/ %:p:h<cr>")
 	vim.cmd("au FileType go nmap <buffer> <LocalLeader>tb :GoAddTag bson<cr>")
 	vim.cmd("au FileType go nmap <buffer> <LocalLeader>tj :GoAddTag json<cr>")
-	vim.cmd("au FileType go nmap <buffer> <LocalLeader>tt :GoAddTag toml<cr>")
+	-- vim.cmd("au FileType go nmap <buffer> <LocalLeader>tt :GoAddTag toml<cr>")
 	vim.cmd("au FileType go nmap <buffer> <LocalLeader>ty :GoAddTag yaml<cr>")
 	vim.cmd("au FileType go nmap <buffer> <LocalLeader>tx :GoAddTag xml<cr>")
 	vim.cmd("au FileType go nmap <buffer> <LocalLeader>tc :GoClearTag <cr>")
 	-- vim.cmd("au FileType go nmap <buffer> <LocalLeader>tf :GoTest -v -n 1 -f<cr>")
 	vim.cmd("au FileType go nmap <buffer> <silent> K :lua vim.lsp.buf.hover()<CR>") --借用了上面的lsp，只是希望这个只在go这个文件生效
-	vim.cmd("au FileType go nmap <buffer> <LocalLeader>gt :<c-u>GoAddTest<cr>")
-	vim.cmd("au FileType go nmap <buffer> <LocalLeader>tf :GoTestFunc -v -n 1<cr>")
+	-- vim.cmd("au FileType go nmap <buffer> <LocalLeader>gt :<c-u>GoAddTest<cr>")
+	-- vim.cmd("au FileType go nmap <buffer> <LocalLeader>gt <cmd>lua require('neotest').summary.toggle()<cr>")
+	vim.cmd("au FileType go nmap <buffer> <LocalLeader>tt <cmd>lua require('neotest').summary.toggle()<cr>")
+	vim.cmd("au FileType go nmap <buffer> <LocalLeader>to <cmd>lua require('neotest').output_panel.toggle()<cr>")
+	vim.cmd("au FileType go nmap <buffer> <LocalLeader>td <cmd>lua require('neotest').output_panel.clear()<cr>")
+	vim.cmd("au FileType go nmap <buffer> <LocalLeader>tf <cmd>lua require('neotest').run.run()<cr>") --test single func
+	vim.cmd("au FileType go nmap <buffer> <LocalLeader>tF <cmd>lua require('neotest').run.run(vim.fn.expand('%'))<cr>") --test single file
+	vim.cmd("au FileType go nmap <buffer> <LocalLeader>tp <cmd>lua require('neotest').run.run(vim.fn.getcwd())<cr>") --test workspace
 end
 
 pluginKeys.mapTrouble = function() end
