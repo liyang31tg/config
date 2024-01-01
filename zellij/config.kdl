@@ -1,5 +1,9 @@
 // If you'd like to override the default keybindings completely, be sure to change "keybinds" to "keybinds clear-defaults=true"
 
+
+
+
+
 keybinds clear-defaults=true {
     normal {
         //bind "Alt Q" { Detach; }
@@ -268,7 +272,7 @@ theme "nord"
 // The name of the default layout to load on startup
 // Default: "default"
 //"compact"
-default_layout "compact"
+default_layout "zjstatus"
 
 // Choose the mode that zellij uses when starting up.
 // Default: normal
