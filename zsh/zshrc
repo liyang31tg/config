@@ -67,7 +67,7 @@ alias top="btm" #brew install bottom
 alias cat="bat --color never"
 alias grep="rg"
 alias diff="delta"
-alias sed="sd"
+# alias sed="sd"
 alias df="duf"
 alias t="tldr" #brew install tealdeer #命令的常用语法
 alias ps="procs"
@@ -171,11 +171,12 @@ function zc(){
 
 #链接一个现有的会话,大于2个选择，只有一个默认打开，一个都没有就打开default
 function za(){
-    ZJ_SESSIONS=$(zellij list-sessions)
+    zellij da -y
+    ZJ_SESSIONS=$(zellij list-sessions | sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]//g")
     NO_SESSIONS=$(echo "${ZJ_SESSIONS}" | wc -l)
     if [ "${NO_SESSIONS}" -ge 2 ]; then
       zellij attach \
-      "$(echo "${ZJ_SESSIONS}" | sk)"
+      "$(echo "${ZJ_SESSIONS}" | sk | awk '{print $1}')"
     elif [ "${NO_SESSIONS}" -eq 1 ]; then
       zellij attach -c
     else
