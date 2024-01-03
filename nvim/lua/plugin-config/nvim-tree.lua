@@ -20,11 +20,13 @@ local function my_on_attach(bufnr)
 	--vim.keymap.del('n', 'O', { buffer = bufnr })
 	--vim.keymap.set('n', '<2-RightMouse>', '', { buffer = bufnr })
 	--vim.keymap.del('n', '<2-RightMouse>', { buffer = bufnr })
+	vim.keymap.del("n", "<C-t>", { buffer = bufnr })
 	vim.keymap.set("n", "D", "", { buffer = bufnr })
 	vim.keymap.del("n", "D", { buffer = bufnr })
 	vim.keymap.del("n", "d", { buffer = bufnr })
 	vim.keymap.del("n", "<c-x>", { buffer = bufnr })
 
+	vim.keymap.set("n", "<c-h>", api.node.open.horizontal, opts("open horizontal"))
 	vim.keymap.set("n", "x", api.node.navigate.parent_close, opts("关闭父级目录"))
 	vim.keymap.set("n", "d", api.fs.trash, opts("删除到回收站"))
 	vim.keymap.set("n", "<CR>", api.node.open.no_window_picker, opts("直接打开"))
@@ -32,7 +34,6 @@ local function my_on_attach(bufnr)
 	vim.keymap.set("n", "?", api.tree.toggle_help, opts("Help"))
 	vim.keymap.set("n", "C", api.tree.change_root_to_node, opts("CD"))
 	vim.keymap.set("n", "u", api.tree.change_root_to_parent, opts("Up"))
-	vim.keymap.set("n", "<c-h>", api.node.open.horizontal, opts("open:水平"))
 	vim.keymap.set("n", "P", function()
 		local node = api.tree.get_node_under_cursor()
 		print(node.absolute_path)
@@ -59,7 +60,7 @@ nvim_tree.setup({
 		-- 隐藏 .文件
 		dotfiles = true,
 		-- 隐藏 node_modules 文件夹
-		custom = { "node_modules" ,"meta"},
+		custom = { "node_modules", "meta" },
 	},
 	view = {
 		-- 宽度
