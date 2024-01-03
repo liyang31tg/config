@@ -46,6 +46,7 @@ function fg() {
 # alias start
 alias vi=nvim
 alias vim=nvim
+alias neococos=nvim --listen ~/.cache/nvim/server.pipe
 # alias ls="ls --color=auto"
 alias r="source $HOME/.zshrc"
 alias d="kitty +kitten diff"
