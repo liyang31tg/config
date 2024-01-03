@@ -25,6 +25,12 @@ local function my_on_attach(bufnr)
 	vim.keymap.del("n", "D", { buffer = bufnr })
 	vim.keymap.del("n", "d", { buffer = bufnr })
 	vim.keymap.del("n", "<c-x>", { buffer = bufnr })
+    --抹掉bookmark功能
+	vim.keymap.del("n", "M", { buffer = bufnr })
+	vim.keymap.del("n", "m", { buffer = bufnr })
+	vim.keymap.del("n", "bd", { buffer = bufnr })
+	vim.keymap.del("n", "bt", { buffer = bufnr })
+	vim.keymap.del("n", "bmv", { buffer = bufnr })
 
 	vim.keymap.set("n", "<c-h>", api.node.open.horizontal, opts("open horizontal"))
 	vim.keymap.set("n", "x", api.node.navigate.parent_close, opts("关闭父级目录"))
