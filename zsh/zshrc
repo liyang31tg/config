@@ -73,6 +73,7 @@ alias df="duf"
 alias t="tldr" #brew install tealdeer #命令的常用语法
 alias ps="procs"
 alias find="fd"
+alias s="neofetch"
 # 命令替换end
 #
 
@@ -185,4 +186,7 @@ function za(){
     fi
 }
 # zellij end
+typeset -g POWERLEVEL9K_INSTANT_PROMPT=off
+
+neofetch
 
