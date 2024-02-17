@@ -3,29 +3,26 @@
 "start 
 syntax enable
 syntax on
-set nu rnu
-set wrap
-set showcmd
-set wildmenu
-set hlsearch
-exec "nohlsearch"
-set incsearch
-set ignorecase
-set smartcase
-set nocompatible "不要兼容vi，兼容的话，本身很多命令用不了
+" set wrap
+" set showcmd
+" set wildmenu
+" set hlsearch
+" exec "nohlsearch"
+" set incsearch
+" set ignorecase
+" set smartcase
+" set nocompatible "不要兼容vi，兼容的话，本身很多命令用不了
 filetype on
 filetype indent on
 filetype plugin on
 filetype plugin indent on
-set mouse=a
+" set mouse=a
 let &t_ut=''
 set tw=0
 set indentexpr=
-set backspace=indent,eol,start
 set foldmethod=indent
 set foldlevel=99
 set laststatus=2
-set clipboard+=unnamedplus "支持系统粘贴板
 " set ts=4 "设置tab为4个空格
 " set expandtab "将tab展开为空格
 nnoremap <leader>rc :e $HOME/.config/nvim/init.vim<cr>

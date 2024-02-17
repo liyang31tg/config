@@ -26,4 +26,4 @@ raycast
 lazygit/state.yml
 # nvim/item2/com.googlecode.item2.plist
 nvim/plugin/packer_compiled.lua
-undodir
+.undodir

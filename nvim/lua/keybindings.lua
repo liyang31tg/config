@@ -1,11 +1,16 @@
-vim.g.mapleader = " "
-vim.g.maplocalleader = ","
-local map = vim.api.nvim_set_keymap
+local map = vim.keymap.set
 local opt = { noremap = true, silent = true }
 
 local function opts(desc)
 	return { noremap = true, silent = true, desc = desc }
 end
+
+--Nop
+map({ "i", "v" }, "<Left>", "<Nop>", opt) -- 不能用左箭头", opt)
+map({ "i", "v" }, "<Right>", "<Nop>", opt)
+map({ "i", "v" }, "<Up>", "<Nop>", opt)
+map({ "i", "v" }, "<Down>", "<Nop>", opt)
+
 
 -- kitty 首先在mac环境中需要将option改成alt ，macos_option_as_alt yes
 -- vim 可以识别alt+shelft+anykey ，不能识别ctrl+shelft+anykey
@@ -19,7 +24,9 @@ map("n", "j", "<Plug>(accelerated_jk_gj)", opt)
 map("n", "k", "<Plug>(accelerated_jk_gk)", opt)
 
 map("n", "`", "~", opt)
-map("n", "\\s", [[  :<c-u>%s\/\/g<left><left> ]], opt)
+--莫名多一个空格,用原生实现
+map("n", "\\s", [[  :<c-u>%s//g<left><left> ]], { noremap = true })
+
 -- windows 分屏快捷键
 map("n", "sl", ":vsp<CR>", opt)
 map("n", "s|", ":vsp<CR>", opt)
