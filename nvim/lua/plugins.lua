@@ -169,6 +169,9 @@ packer.startup({
         use("folke/zen-mode.nvim") --zenmode
         -- use("sindrets/winshift.nvim") --resize move win
         use("simeji/winresizer") -- resize move win
+        use("rhysd/accelerated-jk") --加速jk的滚动,丝滑
+        --todo plugin
+        --flash.nvim
 	end,
 	config = {
 		-- 并发数限制

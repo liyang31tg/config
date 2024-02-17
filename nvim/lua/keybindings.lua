@@ -15,6 +15,9 @@ map("n", "s", "", opt)
 -- map("c", "<c-j>", "<c-n>", {})
 -- map("c", "<c-k>", "<c-p>", {})
 
+map("n", "j", "<Plug>(accelerated_jk_gj)", opt)
+map("n", "k", "<Plug>(accelerated_jk_gk)", opt)
+
 map("n", "`", "~", opt)
 map("n", "\\s", [[  :<c-u>%s\/\/g<left><left> ]], opt)
 -- windows 分屏快捷键
@@ -37,12 +40,10 @@ map("n", "<c-l>", "<C-w>l", opt)
 -- map("n", "<leader>wl", "<C-w>L", opt)
 
 -- Move Lines
-map("n", "<c-a>j", "<cmd>m .+1<cr>==", opts("Move down"))
-map("n", "<c-a>k", "<cmd>m .-2<cr>==", opts("Move up"))
-map("i", "<c-a>j", "<esc><cmd>m .+1<cr>==gi", opts("Move down"))
-map("i", "<c-a>k", "<esc><cmd>m .-2<cr>==gi", opts("Move up"))
-map("v", "<c-a>j", ":m '>+1<cr>gv=gv", opts("Move down"))
-map("v", "<c-a>k", ":m '<-2<cr>gv=gv", opts("Move up"))
+map("v", "J", ":m '>+1<cr>gv=gv", opts("Move down"))
+map("v", "K", ":m '<-2<cr>gv=gv", opts("Move up"))
+map("v", "H", "<gv", opt)
+map("v", "L", ">gv", opt)
 map("v", "<", "<gv", opt)
 map("v", ">", ">gv", opt)
 
@@ -311,7 +312,7 @@ map("n", ",gr", "<cmd>Telescope lsp_references<cr>", opt)
 map("n", "gp", "<cmd>lua vim.diagnostic.open_float()<CR>", opt)
 map("n", "gk", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opt)
 map("n", "gj", "<cmd>lua vim.diagnostic.goto_next()<CR>", opt)
-map("n", "gf", "<cmd>lua vim.diagnostic.set_loclist()<CR>", opt) --Quickfix
+-- map("n", "gf", "<cmd>lua vim.diagnostic.set_loclist()<CR>", opt) --Quickfix 与文件跳转冲突
 map("n", "<leader><leader>", "<cmd>lua vim.lsp.buf.format({async = true})<CR>", opt)
 -- 没用到
 -- mapbuf('n', '<leader>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opt)
@@ -432,8 +433,6 @@ end
 pluginKeys.mapFanYi = function()
 	map("n", "fy", "<cmd>TransToZH<CR>", opt)
 end
-
-
 
 pluginKeys.mapGo = function()
 	vim.cmd("au FileType go nmap <buffer> <silent> <LocalLeader>r :GoRun -F %:p:h<cr>")

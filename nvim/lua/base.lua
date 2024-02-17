@@ -55,7 +55,7 @@ vim.wo.wrap = false
 vim.o.whichwrap = "<,>,[,]"
 -- 允许隐藏被修改过的buffer
 vim.o.hidden = true
--- 鼠标支持
+-- 鼠标支
 vim.o.mouse = "a"
 -- 禁止创建备份文件
 vim.o.backup = false
@@ -87,3 +87,6 @@ vim.o.pumheight = 10
 vim.o.showtabline = 2
 -- 使用增强状态栏插件后不再需要 vim 的模式提示
 vim.o.showmode = false
+-- 序列化undofile,保证其文件退出也可以undo
+vim.o.undofile = true
+vim.o.undodir = os.getenv("HOME") .. "/.config/nvim/undodir"
