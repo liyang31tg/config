@@ -20,8 +20,8 @@ map("n", "s", "", opt)
 -- map("c", "<c-j>", "<c-n>", {})
 -- map("c", "<c-k>", "<c-p>", {})
 
-map("n", "j", "<Plug>(accelerated_jk_gj)", opt)
-map("n", "k", "<Plug>(accelerated_jk_gk)", opt)
+--map("n", "j", "<Plug>(accelerated_jk_gj)", opt)
+--map("n", "k", "<Plug>(accelerated_jk_gk)", opt)
 
 map("n", "`", "~", opt)
 --莫名多一个空格,用原生实现
@@ -140,24 +140,6 @@ map("n", "<C-f>", "<leader>fg", { silent = true })
 --buffer 搜索
 map("n", "<Leader>/", "<leader>f/", { silent = true })
 
--- Telescope 列表中 插入模式快捷键
-pluginKeys.telescopeList = {
-	i = {
-		-- 上下移动
-		["<C-j>"] = "move_selection_next",
-		["<C-k>"] = "move_selection_previous",
-		["<Down>"] = "move_selection_next",
-		["<Up>"] = "move_selection_previous",
-		-- 历史记录
-		["<C-n>"] = "cycle_history_next",
-		["<C-p>"] = "cycle_history_prev",
-		-- 关闭窗口
-		["<C-c>"] = "close",
-		-- 预览窗口上下滚动
-		["<C-u>"] = "preview_scrolling_up",
-		["<C-d>"] = "preview_scrolling_down",
-	},
-}
 
 pluginKeys.whichkeys = {
 	a = { "<cmd>Alpha<cr>", "Welcome" },
@@ -203,6 +185,7 @@ pluginKeys.whichkeys = {
 
 	f = {
 		name = "telescope",
+        -- open oldfiles,可以添加
 		b = { "<cmd>lua require('telescope.builtin').buffers()<cr>", "Find buffers" },
 		c = { "<cmd>lua require('telescope.builtin').colorscheme()<cr>", "Find colorscheme" },
 		d = { "<cmd>lua require('telescope.builtin').diagnostics({bufnr=0})<cr>", "Find diagnostics" }, --只针对当前buffer
@@ -467,6 +450,11 @@ pluginKeys.mapTrouble = function() end
 
 pluginKeys.mapJavascript = function()
 	vim.cmd("au FileType javascript nmap <buffer> <silent> <LocalLeader>r :!node  %<cr>")
+end
+
+pluginKeys.accelerated = function()
+map("n", "j", "<Plug>(accelerated_jk_gj)", opt)
+map("n", "k", "<Plug>(accelerated_jk_gk)", opt)
 end
 
 return pluginKeys

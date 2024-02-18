@@ -1,8 +1,8 @@
 "复制来源https://github.com/theniceboy/vimrc-example/blob/master/vimrc
 "作者 https://www.bilibili.com/video/BV1e4411V7AA?spm_id_from=333.1007.top_right_bar_window_history.content.click
 "start 
-syntax enable
-syntax on
+"syntax enable
+"syntax on
 " set wrap
 " set showcmd
 " set wildmenu

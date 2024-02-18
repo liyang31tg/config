@@ -8,12 +8,12 @@ packer.startup({
 		use("rcarriga/nvim-notify") -- notify
 
 		--侧栏目录结构
-		use({ "kyazdani42/nvim-tree.lua", requires = "kyazdani42/nvim-web-devicons" })
+		--use({ "kyazdani42/nvim-tree.lua", requires = "kyazdani42/nvim-web-devicons" })
 		use("simrat39/symbols-outline.nvim") --目录大纲
 		--tab自定义的那个标签页,本质就是buffer，只是之前无地方显示提现
-		use({ "akinsho/bufferline.nvim", requires = { "kyazdani42/nvim-web-devicons", "moll/vim-bbye" } })
+		--use({ "akinsho/bufferline.nvim", requires = { "kyazdani42/nvim-web-devicons", "moll/vim-bbye" } })
 		--lualine
-		use({ "nvim-lualine/lualine.nvim", requires = { "kyazdani42/nvim-web-devicons" } })
+		--use({ "nvim-lualine/lualine.nvim", requires = { "kyazdani42/nvim-web-devicons" } })
 		use("arkav/lualine-lsp-progress")
 
 		-- telescope,各种检索
@@ -23,9 +23,9 @@ packer.startup({
 		use("ahmedkhalf/project.nvim")
 
 		--高亮
-		use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
+		--use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
 		--textobj
-		use("nvim-treesitter/nvim-treesitter-textobjects")
+		--use("nvim-treesitter/nvim-treesitter-textobjects")
 
 		-- 补全引擎
 		use("hrsh7th/nvim-cmp")
@@ -44,7 +44,7 @@ packer.startup({
 			"neovim/nvim-lspconfig",
 		})
 
-		use("RRethy/vim-illuminate") -- 高亮sameid
+		--use("RRethy/vim-illuminate") -- 高亮sameid
 
 		-- 常见编程语言代码段
 		use("rafamadriz/friendly-snippets")
@@ -69,19 +69,19 @@ packer.startup({
 		use("rcarriga/nvim-dap-ui")
 
 		--类似于之前的vim-surround + 注释
-		use({ "echasnovski/mini.nvim", branch = "stable" })
+		--use({ "echasnovski/mini.nvim", branch = "stable" })
 
 		--美化ui
-		use("stevearc/dressing.nvim")
+		--use("stevearc/dressing.nvim")
 
 		--欢迎页面
-		use({
-			"goolord/alpha-nvim",
-			requires = { "nvim-tree/nvim-web-devicons" },
-			config = function()
-				require("alpha").setup(require("alpha.themes.theta").config)
-			end,
-		})
+		--use({
+		--	"goolord/alpha-nvim",
+		--	requires = { "nvim-tree/nvim-web-devicons" },
+		--	config = function()
+		--		require("alpha").setup(require("alpha.themes.theta").config)
+		--	end,
+		--})
 
 		--测试模块
 		use({
@@ -157,16 +157,16 @@ packer.startup({
 		-- 	commit = "3f3c25e584558949b1eda38ded76eade28fa5fd6",
 		-- })
 
-		use("lewis6991/gitsigns.nvim")
+		--use("lewis6991/gitsigns.nvim")
 		use("sindrets/diffview.nvim")
-		use("folke/which-key.nvim") --下面的那个key的提示
+		--use("folke/which-key.nvim") --下面的那个key的提示
 		use("nvim-pack/nvim-spectre") --搜索替换
 		use("folke/todo-comments.nvim") --NOTE  无法找到所有的TODO不知道什么问题
 		use("ray-x/lsp_signature.nvim") -- 代码提示,每一个形参都会有提示
-		use("fladson/vim-kitty") --高亮kitty配置
+		--use("fladson/vim-kitty") --高亮kitty配置
 		use("mg979/vim-visual-multi") --多光标操作
 		use({ "kosayoda/nvim-lightbulb" }) --点亮有code action的地方
-        use("folke/zen-mode.nvim") --zenmode
+        --use("folke/zen-mode.nvim") --zenmode
         -- use("sindrets/winshift.nvim") --resize move win
         use("simeji/winresizer") -- resize move win
         use("rhysd/accelerated-jk") --加速jk的滚动,丝滑
