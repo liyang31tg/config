@@ -347,4 +347,3 @@ scrollback_editor "/usr/local/bin/nvim"
 // theme_dir "/path/to/my/theme_dir"
 
 session_serialization false
-session_serialization false
