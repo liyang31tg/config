@@ -15,7 +15,7 @@ option.backspace = { "indent", "eol", "start" }
 -- vim.o.ts = 4
 -- vim.bo.ts = 4
 option.tabstop = 4
-option.shiftwidth = 2
+option.shiftwidth = 4
 option.softtabstop = 4
 -- 空格替代tab
 option.expandtab = true

@@ -1,22 +1,9 @@
 "复制来源https://github.com/theniceboy/vimrc-example/blob/master/vimrc
 "作者 https://www.bilibili.com/video/BV1e4411V7AA?spm_id_from=333.1007.top_right_bar_window_history.content.click
-"start 
-"syntax enable
-"syntax on
-" set wrap
-" set showcmd
-" set wildmenu
-" set hlsearch
-" exec "nohlsearch"
-" set incsearch
-" set ignorecase
-" set smartcase
-" set nocompatible "不要兼容vi，兼容的话，本身很多命令用不了
 filetype on
 filetype indent on
 filetype plugin on
 filetype plugin indent on
-" set mouse=a
 let &t_ut=''
 set tw=0
 set indentexpr=
@@ -35,26 +22,6 @@ augroup END
 " za "折叠代码
 "无法转成lua，有bug
 noremap \s :<c-u>%s//g<left><left>
-" Text Objects 
-" iw,aw,这些都是TextObject
-" Map function and class text objects
-" NOTE: Requires 'textDocument.documentSymbol' support from the language server
-" x 是试图模式
-" o 是操作准备模式, 前置需要一个操作命令（operator）
-" xmap if <Plug>(coc-funcobj-i)
-" omap if <Plug>(coc-funcobj-i)
-" xmap af <Plug>(coc-funcobj-a)
-" omap af <Plug>(coc-funcobj-a)
-" xmap ic <Plug>(coc-classobj-i)
-" omap ic <Plug>(coc-classobj-i)
-" xmap ac <Plug>(coc-classobj-a)
-" xmap ac <Plug>(coc-classobj-a)
-"
-"
-"
-"
-"
-"
 "<c-数字> vim9.0已经支持，nvim自然也支持测试了，保证不是通过meta桥接
 "<c-m-字母> 在nvim可使用 <ctrl+option+>
 " Better Navigation

@@ -11,7 +11,7 @@ local opt = {
 
 local obj = {
   "RRethy/vim-illuminate",
-  config= function()
+  config = function()
     require("illuminate").configure(opt)
   end,
 }

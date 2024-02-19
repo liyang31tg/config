@@ -5,7 +5,7 @@ local opt = {
     component_separators = { left = "|", right = "|" },
     -- https://github.com/ryanoasis/powerline-extra-symbols
     --section_separators = { left = " ", right = "" },
-    section_separators = { left = '', right = ''},
+    section_separators = { left = '', right = '' },
   },
   extensions = { "nvim-tree", "toggleterm" },
   sections = {
@@ -37,12 +37,12 @@ local opt = {
   },
 }
 local obj = {
- 'nvim-lualine/lualine.nvim',
+  'nvim-lualine/lualine.nvim',
   --config = function()
-   -- require("lualine").setup(opt)
+  -- require("lualine").setup(opt)
   --end,
   opts = opt,
   dependencies = { 'nvim-tree/nvim-web-devicons' }
-  }
+}
 
 return obj

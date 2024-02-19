@@ -1,26 +1,28 @@
-local status, neotest = pcall(require, "neotest")
-if not status then
-	vim.notify("没有找到 neotest")
-	return
-end
+local obj = {
+    "nvim-neotest/neotest",
+    dependencies = {
+        "nvim-lua/plenary.nvim",
+        "antoinemadec/FixCursorHold.nvim",
+        "nvim-treesitter/nvim-treesitter",
+        "nvim-neotest/neotest-go",
+    },
+    config = function()
+        require("neotest").setup({
+            adapters = {
+                require("neotest-go")({
+                    experimental = {
+                        test_table = true,
+                    },
+                    args = { "-v", "-count=1", "-timeout=60s" },
+                }),
+            },
+        })
+        require("keybindings").mapTEST()
+    end
 
-local status1, neotestGo = pcall(require, "neotest-go")
-if not status1 then
-	vim.notify("没有找到 neotestGo")
-	return
-end
-neotest.setup({
-	adapters = {
-		neotestGo({
-			experimental = {
-				test_table = true,
-			},
-			args = { "-v", "-count=1", "-timeout=60s" },
-		}),
-	},
-})
+}
 
-require("keybindings").mapTEST()
+return obj
 
 -- Test single function
 -- To test a single test hover over the test and run require('neotest').run.run()
