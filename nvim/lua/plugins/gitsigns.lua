@@ -1,17 +1,18 @@
 local opt = {
     signs = {
-        add          = { hl = 'GitSignsAdd', text = '│', numhl = 'GitSignsAddNr', linehl = 'GitSignsAddLn' },
-        change       = { hl = 'GitSignsChange', text = '│', numhl = 'GitSignsChangeNr', linehl = 'GitSignsChangeLn' },
-        delete       = { hl = 'GitSignsDelete', text = '_', numhl = 'GitSignsDeleteNr', linehl = 'GitSignsDeleteLn' },
-        topdelete    = { hl = 'GitSignsDelete', text = '‾', numhl = 'GitSignsDeleteNr', linehl = 'GitSignsDeleteLn' },
-        changedelete = { hl = 'GitSignsChange', text = '~', numhl = 'GitSignsChangeNr', linehl = 'GitSignsChangeLn' },
+        add = { hl = "GitSignsAdd", text = "│", numhl = "GitSignsAddNr", linehl = "GitSignsAddLn" },
+        change = { hl = "GitSignsChange", text = "│", numhl = "GitSignsChangeNr", linehl = "GitSignsChangeLn" },
+        delete = { hl = "GitSignsDelete", text = "_", numhl = "GitSignsDeleteNr", linehl = "GitSignsDeleteLn" },
+        topdelete = { hl = "GitSignsDelete", text = "‾", numhl = "GitSignsDeleteNr", linehl = "GitSignsDeleteLn" },
+        changedelete = { hl = "GitSignsChange", text = "~", numhl = "GitSignsChangeNr", linehl = "GitSignsChangeLn" },
     },
     signcolumn = true, -- Toggle with `:Gitsigns toggle_signs`
-    numhl = false,     -- Toggle with `:Gitsigns toggle_numhl`
-    linehl = false,    -- Toggle with `:Gitsigns toggle_linehl`
+    numhl = false,  -- Toggle with `:Gitsigns toggle_numhl`
+    linehl = false, -- Toggle with `:Gitsigns toggle_linehl`
     word_diff = false, -- Toggle with `:Gitsigns toggle_word_diff`
     watch_gitdir = {
-        interval = 1000, follow_files = true,
+        interval = 1000,
+        follow_files = true,
     },
     attach_to_untracked = true,
     current_line_blame = true, -- Toggle with `:Gitsigns toggle_current_line_blame`
@@ -66,7 +67,7 @@ local opt = {
         -- Text object
         -- map('o', 'ih', ':<C-U>Gitsigns select_hunk<CR>')
         -- map('x', 'ih', ':<C-U>Gitsigns select_hunk<CR>')
-    end
+    end,
 }
 
 local obj = {
@@ -77,7 +78,7 @@ local obj = {
     config = function(_, opts)
         require("gitsigns").setup(opts)
         require("diffview").setup()
-    end
+    end,
 }
 
 return obj

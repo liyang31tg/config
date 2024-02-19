@@ -1,11 +1,11 @@
 local obj = {
     "nvim-pack/nvim-spectre",
-    dependencies= {
-        "nvim-lua/plenary.nvim"
+    dependencies = {
+        "nvim-lua/plenary.nvim",
     },
-    config=function ()
+    config = function()
         require("spectre").setup()
-    end
+    end,
 }
 
 return obj

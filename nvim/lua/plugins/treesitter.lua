@@ -1,18 +1,19 @@
+vim.opt.runtimepath:append("$HOME/.local/share/treesitter") --mark treesitter 存放目录,且下面必须指定目录位置,否则无法找到,将每次打开都重新安装一次
 local opts = {
     -- 安装 language parser
     -- :TSInstallInfo 命令查看支持的语言
-    auto_install = false,
+    parser_install_dir = "$HOME/.local/share/treesitter",
+    auto_install = true, --进入buffer,检测到没有就安装
     sync_install = false,
     ensure_installed = { "json", "html", "css", "vim", "lua", "javascript", "typescript", "go" },
-    -- ensure_installed = "all",
-    -- 启用代码高亮模块
+    -- ensure_installed = "all", 启用代码高亮模块
     highlight = {
         enable = true,
-        disable = { "lua" },                   -- 不要加强lua高亮,因为keybind那个文件会卡出翔
+        disable = { "lua" },                 -- 不要加强lua高亮,因为keybind那个文件会卡出翔
         additional_vim_regex_highlighting = false, --关闭vim的正则高亮
     },
     indent = {
-        enable = true
+        enable = true,
     },
     textobjects = {
         select = {
@@ -40,9 +41,9 @@ local opts = {
             -- and should return the mode ('v', 'V', or '<c-v>') or a table
             -- mapping query_strings to modes.
             selection_modes = {
-                ['@parameter.outer'] = 'v', -- charwise
-                ['@function.outer'] = 'V', -- linewise
-                ['@class.outer'] = '<c-v>', -- blockwise
+                ["@parameter.outer"] = "v", -- charwise
+                ["@function.outer"] = "V", -- linewise
+                ["@class.outer"] = "<c-v>", -- blockwise
             },
             -- If you set this to `true` (default is `false`) then any textobject is
             -- extended to include preceding or succeeding whitespace. Succeeding
@@ -56,7 +57,6 @@ local opts = {
             include_surrounding_whitespace = false,
         },
     },
-
 }
 
 local obj = {
