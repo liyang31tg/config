@@ -1,4 +1,5 @@
-local map = vim.keymap.set
+local map = vim.keymap.set --该api不支持noremap属性,相反的你需要递归映射的就需要指定remap属性,类似一下面的remap=true
+-- local mapapi = vim.api.nvim_set_keymap
 local opt = { noremap = true, silent = true }
 
 local function opts(desc)
@@ -10,7 +11,6 @@ map({ "i", "v" }, "<Left>", "<Nop>", opt) -- 不能用左箭头", opt)
 map({ "i", "v" }, "<Right>", "<Nop>", opt)
 map({ "i", "v" }, "<Up>", "<Nop>", opt)
 map({ "i", "v" }, "<Down>", "<Nop>", opt)
-
 
 -- kitty 首先在mac环境中需要将option改成alt ，macos_option_as_alt yes
 -- vim 可以识别alt+shelft+anykey ，不能识别ctrl+shelft+anykey
@@ -56,10 +56,8 @@ map("v", ">", ">gv", opt)
 
 -- bufferline
 -- 左右Tab切换
-map("n", "[b", "<leader>b[", { silent = true })
-map("n", "]b", "<leader>b[", { silent = true })
--- 关闭
---
+map("n", "[b", "<leader>b[", { silent = true, remap = true })
+map("n", "]b", "<leader>b[", { silent = true, remap = true })
 
 map(
     "n",
@@ -134,12 +132,11 @@ map("c", "<c-0>", ":NvimTreeFindFile<CR>", opt)
 
 -- Telescope
 -- 查找文件
-map("n", "<C-p>", "<leader>ff", { silent = true })
+map("n", "<c-p>", "<leader>ff", { silent = true, remap = true })
 -- 全局搜索
-map("n", "<C-f>", "<leader>fg", { silent = true })
+map("n", "<C-f>", "<leader>fg", { silent = true, remap = true })
 --buffer 搜索
-map("n", "<Leader>/", "<leader>f/", { silent = true })
-
+map("n", "<Leader>/", "<leader>f/", { silent = true, remap = true, desc = "文件搜索" })
 
 pluginKeys.whichkeys = {
     a = { "<cmd>Alpha<cr>", "Welcome" },
@@ -189,7 +186,7 @@ pluginKeys.whichkeys = {
         b = { "<cmd>lua require('telescope.builtin').buffers()<cr>", "Find buffers" },
         c = { "<cmd>lua require('telescope.builtin').colorscheme()<cr>", "Find colorscheme" },
         d = { "<cmd>lua require('telescope.builtin').diagnostics({bufnr=0})<cr>", "Find diagnostics" }, --只针对当前buffer
-        D = { "<cmd>lua require('telescope.builtin').diagnostics()<cr>", "Find diagnostics" },          --只针对一些打开的buffer
+        D = { "<cmd>lua require('telescope.builtin').diagnostics()<cr>", "Find diagnostics" },    --只针对一些打开的buffer
         f = { "<cmd>lua require('telescope.builtin').find_files()<cr>", "Find files" },
         g = { "<cmd>lua require('telescope.builtin').live_grep()<cr>", "Find grep str" },
         p = { "<cmd>Telescope projects<cr>", "Projects" },
@@ -214,9 +211,9 @@ pluginKeys.whichkeys = {
         a = { "<cmd>DiffviewOpen<CR>", "Diff Project" }, --当前stage与unstage的版本与HEAD的比较,HEAD可以切换成任意commit的hash
         b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
         c = { "<cmd>Telescope git_commits<cr>", "Checkout commit" },
-        d = { "<cmd>Gitsigns diffthis HEAD<cr>", "Diff" },                --当前文件与HEAD的差异
+        d = { "<cmd>Gitsigns diffthis HEAD<cr>", "Diff" },          --当前文件与HEAD的差异
         f = { "<cmd>DiffviewFileHistory %<cr>", "Current File History" }, --当前文件的历史记录
-        F = { "<cmd>DiffviewFileHistory<cr>", "Files History" },          --历史记录
+        F = { "<cmd>DiffviewFileHistory<cr>", "Files History" },    --历史记录
         n = { "<cmd>lua require 'gitsigns'.next_hunk()<cr>", "Next Hunk" },
         p = { "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", "Prev Hunk" },
         l = { "<cmd>lua require 'gitsigns'.blame_line()<cr>", "Blame" },
@@ -339,8 +336,8 @@ pluginKeys.cmp = function(cmp, has_words_before, feedkey)
         ["<c-l>"] = cmp.mapping(function(fallback)
             if vim.fn["vsnip#available"](1) == 1 then
                 feedkey("<Plug>(vsnip-expand-or-jump)", "")
-            -- elseif has_words_before() then
-            --     cmp.complete()
+                -- elseif has_words_before() then
+                --     cmp.complete()
             else
                 fallback() -- The fallback function sends a already mapped key. In this case, it's probably `<Tab>`.
             end
@@ -456,9 +453,9 @@ pluginKeys.mapGo = function()
     vim.cmd("au FileType go nmap <buffer> <LocalLeader>tt <cmd>lua require('neotest').summary.toggle()<cr>")
     vim.cmd("au FileType go nmap <buffer> <LocalLeader>to <cmd>lua require('neotest').output_panel.toggle()<cr>")
     vim.cmd("au FileType go nmap <buffer> <LocalLeader>td <cmd>lua require('neotest').output_panel.clear()<cr>")
-    vim.cmd("au FileType go nmap <buffer> <LocalLeader>tf <cmd>lua require('neotest').run.run()<cr>")                   --test single func
+    vim.cmd("au FileType go nmap <buffer> <LocalLeader>tf <cmd>lua require('neotest').run.run()<cr>")                --test single func
     vim.cmd("au FileType go nmap <buffer> <LocalLeader>tF <cmd>lua require('neotest').run.run(vim.fn.expand('%'))<cr>") --test single file
-    vim.cmd("au FileType go nmap <buffer> <LocalLeader>tp <cmd>lua require('neotest').run.run(vim.fn.getcwd())<cr>")    --test workspace
+    vim.cmd("au FileType go nmap <buffer> <LocalLeader>tp <cmd>lua require('neotest').run.run(vim.fn.getcwd())<cr>") --test workspace
 end
 
 pluginKeys.mapTrouble = function() end
