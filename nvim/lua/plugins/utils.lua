@@ -28,15 +28,15 @@ local obj = {
         config = function()
             local opt = {
                 mappings = {
-                    add = "sa",            -- Add surrounding in Normal and Visual modes
-                    delete = "sd",         -- Delete surrounding
-                    replace = "sr",        -- Replace surrounding
-                    find = "sf",           -- Find surrounding (to the right)
-                    find_left = "sF",      -- Find surrounding (to the left)
-                    highlight = "sh",      -- Highlight surrounding
+                    add = "sa", -- Add surrounding in Normal and Visual modes
+                    delete = "sd", -- Delete surrounding
+                    replace = "sr", -- Replace surrounding
+                    find = "sf", -- Find surrounding (to the right)
+                    find_left = "sF", -- Find surrounding (to the left)
+                    highlight = "sh", -- Highlight surrounding
                     update_n_lines = "sn", -- Update `n_lines`
-                    suffix_last = "",      -- Suffix to search with "prev" method
-                    suffix_next = "",      -- Suffix to search with "next" method
+                    suffix_last = "", -- Suffix to search with "prev" method
+                    suffix_next = "", -- Suffix to search with "next" method
                 },
             }
             require("mini.surround").setup(opt)
@@ -59,8 +59,7 @@ local obj = {
                 },
             }
             require("mini.comment").setup(opt)
-        end
-
+        end,
     },
     {
         "echasnovski/mini.pairs",
@@ -91,8 +90,7 @@ local obj = {
                 },
             }
             require("mini.pairs").setup(opt)
-        end
-
+        end,
     },
     {
         "echasnovski/mini.ai",
@@ -131,7 +129,7 @@ local obj = {
                 silent = false,
             }
             require("mini.ai").setup(opt)
-        end
+        end,
     },
     {
         "rcarriga/nvim-notify",
@@ -143,29 +141,34 @@ local obj = {
     },
     {
         "fladson/vim-kitty",
-        config = function()
-        end,
+        config = function() end,
     },
     {
         "mg979/vim-visual-multi",
-        config = function()
-        end,
+        config = function() end,
     },
     {
         "folke/todo-comments.nvim",
         dependencies = { "nvim-lua/plenary.nvim" },
-        opts = {
-        }
+        opts = {},
     },
     {
-        'kosayoda/nvim-lightbulb', --点亮codeaction
+        "kosayoda/nvim-lightbulb", --点亮codeaction
         config = function()
             require("nvim-lightbulb").setup({
-                autocmd = { enabled = true }
+                autocmd = { enabled = true },
             })
-        end
-    }
-
+        end,
+    },
+    { --全局搜索替换
+        "nvim-pack/nvim-spectre",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+        },
+        config = function()
+            require("spectre").setup()
+        end,
+    },
 }
 
 return obj

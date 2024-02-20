@@ -296,8 +296,8 @@ map("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opt)
 map("n", ",D", "<cmd>lua vim.lsp.buf.declaraion()<CR>", opt)
 map("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opt)
 -- map("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opt)
-map("n", "gr", "<cmd>TroubleToggle lsp_references<cr>", opt)
-map("n", ",gr", "<cmd>Telescope lsp_references<cr>", opt)
+map("n", ",gr", "<cmd>TroubleToggle lsp_references<cr>", opt)
+map("n", "gr", "<cmd>Telescope lsp_references<cr>", opt)
 -- diagnostic
 map("n", "gp", "<cmd>lua vim.diagnostic.open_float()<CR>", opt)
 map("n", "gk", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opt)
@@ -336,17 +336,17 @@ pluginKeys.cmp = function(cmp, has_words_before, feedkey)
         -- 如果窗口内容太多，可以滚动
         ["<C-u>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
         ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
-        ["<Tab>"] = cmp.mapping(function(fallback)
+        ["<c-l>"] = cmp.mapping(function(fallback)
             if vim.fn["vsnip#available"](1) == 1 then
                 feedkey("<Plug>(vsnip-expand-or-jump)", "")
-            elseif has_words_before() then
-                cmp.complete()
+            -- elseif has_words_before() then
+            --     cmp.complete()
             else
                 fallback() -- The fallback function sends a already mapped key. In this case, it's probably `<Tab>`.
             end
         end, { "i", "s" }),
 
-        ["<S-Tab>"] = cmp.mapping(function()
+        ["<c-h>"] = cmp.mapping(function()
             if vim.fn["vsnip#jumpable"](-1) == 1 then
                 feedkey("<Plug>(vsnip-jump-prev)", "")
             end
