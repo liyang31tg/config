@@ -28,4 +28,4 @@ lazygit/state.yml
 nvim/plugin/packer_compiled.lua
 .undodir
 undodir
-lazy-lock.json
+.lazy-lock.json

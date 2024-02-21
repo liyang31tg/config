@@ -114,6 +114,19 @@ local obj = {
 
             -- https://github.com/go-delve/delve/blob/master/Documentation/usage/dlv_dap.md
             -- https://github.com/ravenxrz/dotfiles/blob/master/nvim/lua/user/dap/dap-util.lua
+            -- Some variables are supported:
+            -- `${file}`: Active filename
+            -- `${fileBasename}`: The current file's basename
+            -- `${fileBasenameNoExtension}`: The current file's basename without extension
+            -- `${fileDirname}`: The current file's dirname
+            -- `${fileExtname}`: The current file's extension
+            -- `${relativeFile}`: The current file relative to |getcwd()|
+            -- `${relativeFileDirname}`: The current file's dirname relative to |getcwd()|
+            -- `${workspaceFolder}`: The current working directory of Neovim
+            -- `${workspaceFolderBasename}`: The name of the folder opened in Neovim
+            -- `${command:pickProcess}`: Open dialog to pick process using |vim.ui.select|
+            -- `${env:Name}`: Environment variable named `Name`, for example: `${env:HOME}`.
+
             dap.configurations.go = {
                 {
                     type = "delve",
@@ -151,20 +164,28 @@ local obj = {
                 dapui.open()
             end
 
-            -- dap.listeners.before.event_terminated.dapui_config = function()
-            --     print("dapui close")
-            --     require("keybindings").unmapBufferDAP()
-            --     dapui.close()
-            -- end
-
-            dap.listeners.before.event_exited.dapui_config = function()
-                print("dapui close1")
+            dap.listeners.before.event_terminated.dapui_config = function()
                 require("keybindings").unmapBufferDAP()
+                dap.close()
+                dap.repl.close()
                 dapui.close()
+                local status_ok, api = pcall(require, "nvim-tree.api")
+                if status_ok then
+                    api.tree.close()
+                    return
+                end
             end
 
-            dap.listeners.before["event_terminated"]["dapui_config"] = function(session, body)
-                print("Session terminated", vim.inspect(session), vim.inspect(body))
+            dap.listeners.before.event_exited.dapui_config = function()
+                require("keybindings").unmapBufferDAP()
+                dap.close()
+                dap.repl.close()
+                dapui.close()
+                local status_ok, api = pcall(require, "nvim-tree.api")
+                if status_ok then
+                    api.tree.close()
+                    return
+                end
             end
 
             require("nvim-dap-virtual-text").setup({

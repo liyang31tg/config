@@ -414,10 +414,10 @@ pluginKeys.mapBufferDAP = function()
     map(
         "n",
         ",de",
-        ":lua require'dap'.close()<CR>",
-        -- .. ":lua require'dap'.terminate()<CR>"
-        -- .. ":lua require'dap.repl'.close()<CR>",
-        -- .. ":lua require'dapui'.close()<CR>",
+        ":lua require'dap'.terminate()<CR>",
+        -- .. ":lua require'dap'.close()<CR>"
+        -- .. ":lua require'dap.repl'.close()<CR>"
+        -- .. ":lua require'dapui'.close()<CR>"
         -- .. "<C-w>o<CR>",
         { desc = "end debug", silent = true, buffer = true }
     )
