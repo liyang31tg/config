@@ -1,4 +1,5 @@
 local map = vim.keymap.set --该api不支持noremap属性,相反的你需要递归映射的就需要指定remap属性,类似一下面的remap=true
+local unmap = vim.keymap.del
 -- local mapapi = vim.api.nvim_set_keymap
 local opt = { noremap = true, silent = true }
 
@@ -116,19 +117,15 @@ map("n", ",q", ":q!<CR>", opt)
 map("n", "Q", ":qa!<CR>", opt)
 
 -- insert 模式下，跳到行首行尾
-map("i", "<C-i>", "<ESC>I", opt)
-map("i", "<C-a>", "<ESC>A", opt)
+-- map("i", "<c-i>", "<ESC>I", opt) --now work
+map("i", "<c-a>", "<ESC>A", opt)
 
 --第三方插件的快捷键银蛇如下
 local pluginKeys = {}
 --nvim-tree
 map("n", "<F3>", ":NvimTreeToggle<CR>", opt)
 map("n", "<F2>", ":NvimTreeFocus<CR>", opt)
-map("n", "<c-0>", ":NvimTreeFindFile<CR>", opt)
-map("i", "<c-0>", ":NvimTreeFindFile<CR>", opt)
-map("v", "<c-0>", ":NvimTreeFindFile<CR>", opt)
-map("t", "<c-0>", ":NvimTreeFindFile<CR>", opt)
-map("c", "<c-0>", ":NvimTreeFindFile<CR>", opt)
+map({ "n", "i", "v", "c", "t" }, "<c-0>", ":NvimTreeFindFile<CR>", opt)
 
 -- Telescope
 -- 查找文件
@@ -327,7 +324,7 @@ pluginKeys.cmp = function(cmp, has_words_before, feedkey)
         ["<C-n>"] = cmp.mapping.select_next_item(),
         -- 确认
         ["<CR>"] = cmp.mapping.confirm({
-            select = true,
+            -- select = true,
             behavior = cmp.ConfirmBehavior.Replace,
         }),
         -- 如果窗口内容太多，可以滚动
@@ -351,50 +348,64 @@ pluginKeys.cmp = function(cmp, has_words_before, feedkey)
     }
 end
 
+map("n", ",de", "<cmd>echo 'dddd'<cr>", opt)
+
 -- dap
+pluginKeys.unmapBufferDAP = function()
+    print("unmapBufferDAP")
+    unmap("n", ",de", { buffer = true })
+end
+
 pluginKeys.mapDAP = function()
-    vim.keymap.set("n", "<F4>", function()
+    map("n", "<F5>", function()
+        require("dap").continue()
+    end)
+    map("n", ",dd", function()
+        require("dap").toggle_breakpoint()
+    end, { desc = "toggle breakpoint" })
+    --设置条件断点
+    map("n", ",dc", function()
+        -- require("dap").set_breakpoint(nil, nil, vim.fn.input("Log point message: "))
+        require("dap").set_breakpoint(vim.fn.input("[Condition] > ")) -- 输入条件eg: a>18
+    end, { desc = "设置条件断点" })
+    --清空所有断点
+    map("n", ",dx", function()
+        require("dap").clear_breakpoints()
+    end, { desc = "clear all breakpoints" })
+end
+
+pluginKeys.mapBufferDAP = function()
+    print("mapBufferDAP")
+    map("n", "<F4>", function()
         require("dap").terminate()
     end)
 
-    vim.keymap.set("n", "<F5>", function()
+    map("n", "<F5>", function()
         require("dap").continue()
     end)
-    vim.keymap.set("n", ",dr", function()
+    map("n", ",dr", function()
         require("dap").restart()
     end)
-    vim.keymap.set("n", "<F9>", function()
+    map("n", "<F9>", function()
         require("dap").step_into() --进入断点函数
     end)
-    vim.keymap.set("n", "<F10>", function()
+    map("n", "<F10>", function()
         require("dap").step_over() -- 单步
     end)
-    vim.keymap.set("n", "<F12>", function()
+    map("n", "<F12>", function()
         require("dap").step_out() --下一个断点
     end)
-    vim.keymap.set("n", ",dd", function()
-        require("dap").toggle_breakpoint()
-    end)
-    --设置条件断点
-    vim.keymap.set("n", ",dc", function()
-        -- require("dap").set_breakpoint(nil, nil, vim.fn.input("Log point message: "))
-        require("dap").set_breakpoint(vim.fn.input("[Condition] > ")) -- 输入条件eg: a>18
-    end)
-    --清空所有断点
-    vim.keymap.set("n", ",dx", function()
-        require("dap").clear_breakpoints()
-    end)
-    vim.keymap.set({ "n", "v" }, ",dh", function()
+    map({ "n", "v" }, ",dh", function()
         require("dap.ui.widgets").hover()
     end)
-    vim.keymap.set({ "n", "v" }, ",dp", function()
+    map({ "n", "v" }, ",dp", function()
         require("dap.ui.widgets").preview()
     end)
-    vim.keymap.set("n", ",df", function()
+    map("n", ",df", function()
         local widgets = require("dap.ui.widgets")
         widgets.centered_float(widgets.frames)
     end)
-    vim.keymap.set("n", ",ds", function()
+    map("n", ",ds", function()
         local widgets = require("dap.ui.widgets")
         widgets.centered_float(widgets.scopes)
     end)
@@ -403,12 +414,12 @@ pluginKeys.mapDAP = function()
     map(
         "n",
         ",de",
-        ":lua require'dap'.close()<CR>"
-        .. ":lua require'dap'.terminate()<CR>"
-        .. ":lua require'dap.repl'.close()<CR>"
-        .. ":lua require'dapui'.close()<CR>"
-        .. "<C-w>o<CR>",
-        opt
+        ":lua require'dap'.close()<CR>",
+        -- .. ":lua require'dap'.terminate()<CR>"
+        -- .. ":lua require'dap.repl'.close()<CR>",
+        -- .. ":lua require'dapui'.close()<CR>",
+        -- .. "<C-w>o<CR>",
+        { desc = "end debug", silent = true, buffer = true }
     )
     -- 开始调试
     -- map("n", "<F5>", ":lua require'dap'.continue()<CR>", opt)

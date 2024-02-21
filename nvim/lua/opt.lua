@@ -96,4 +96,8 @@ buffer.fileencoding = "utf-8"
 
 --global
 global.mapleader = " "
-global.maplocalleader = ","
+global.maplocalleader = "," --LocalLeader 用于map的<buffer>的时候
+--buffer的map会覆盖全局map的映射
+--:unmap <buffer> ,
+--:mapclear <buffer>
+

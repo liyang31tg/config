@@ -139,23 +139,37 @@ local obj = {
             }
 
             dapui.setup(dapui_opt)
+            require("keybindings").mapDAP()
 
-            dap.listeners.after.event_initialized["dapui_config"] = function()
+            dap.listeners.before.attach.dapui_config = function()
+                require("keybindings").mapBufferDAP()
                 dapui.open()
             end
-            dap.listeners.before.event_terminated["dapui_config"] = function()
+
+            dap.listeners.before.launch.dapui_config = function()
+                require("keybindings").mapBufferDAP()
+                dapui.open()
+            end
+
+            -- dap.listeners.before.event_terminated.dapui_config = function()
+            --     print("dapui close")
+            --     require("keybindings").unmapBufferDAP()
+            --     dapui.close()
+            -- end
+
+            dap.listeners.before.event_exited.dapui_config = function()
+                print("dapui close1")
+                require("keybindings").unmapBufferDAP()
                 dapui.close()
             end
-            dap.listeners.before.event_exited["dapui_config"] = function()
-                dapui.close()
+
+            dap.listeners.before["event_terminated"]["dapui_config"] = function(session, body)
+                print("Session terminated", vim.inspect(session), vim.inspect(body))
             end
 
             require("nvim-dap-virtual-text").setup({
                 commented = true,
             })
-
-            -- 绑定 nvim-dap 快捷键
-            require("keybindings").mapDAP()
         end,
     },
 }
