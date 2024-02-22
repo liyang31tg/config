@@ -1,17 +1,15 @@
 local map = vim.keymap.set --该api不支持noremap属性,相反的你需要递归映射的就需要指定remap属性,类似一下面的remap=true
 local unmap = vim.keymap.del
+local remap = function(modes, lhs, rhs, opts)
+    unmap(modes, lhs, opts)
+    map(modes, lhs, rhs, opts)
+end
 -- local mapapi = vim.api.nvim_set_keymap
 local opt = { noremap = true, silent = true }
 
 local function opts(desc)
     return { noremap = true, silent = true, desc = desc }
 end
-
---Nop
-map({ "i", "v" }, "<Left>", "<Nop>", opt) -- 不能用左箭头", opt)
-map({ "i", "v" }, "<Right>", "<Nop>", opt)
-map({ "i", "v" }, "<Up>", "<Nop>", opt)
-map({ "i", "v" }, "<Down>", "<Nop>", opt)
 
 -- kitty 首先在mac环境中需要将option改成alt ，macos_option_as_alt yes
 -- vim 可以识别alt+shelft+anykey ，不能识别ctrl+shelft+anykey
@@ -348,25 +346,26 @@ pluginKeys.cmp = function(cmp, has_words_before, feedkey)
     }
 end
 
-map("n", ",de", "<cmd>echo 'dddd'<cr>", opt)
-
 -- dap
-pluginKeys.unmapBufferDAP = function()
+pluginKeys.unmapTmpDAP = function()
     print("unmapBufferDAP")
-    unmap("n", ",de", { buffer = true })
-    unmap("n", "<leader>j", { buffer = true })
-    unmap("n", "<cr>", { buffer = true })
-    unmap("n", "<leader>k", { buffer = true })
-    unmap("n", "J", { buffer = true })
-    unmap({ "n", "v" }, ",dh", { buffer = true })
-    unmap("n", ",ds", { buffer = true })
-    unmap("n", ",da", { buffer = true })
+    unmap("n", ",de", {})
+    -- remap("n", ",de", "<cmd>echo 'dddd'<cr>", opt)
+
+    unmap("n", "<leader>j", {})
+    unmap("n", "<cr>", {})
+    unmap("n", "<leader>k", {})
+    unmap("n", "J", {})
+    unmap({ "n", "v" }, ",dh", {})
+    unmap("n", ",ds", {})
+    unmap("n", ",da", {})
+    unmap("n", ",dr", {})
 end
 
 pluginKeys.mapDAP = function()
     map("n", "<F5>", function()
         require("dap").continue()
-    end)
+    end, { desc = "启动断点" })
     map("n", ",dd", function()
         require("dap").toggle_breakpoint()
     end, { desc = "toggle breakpoint" })
@@ -381,38 +380,35 @@ pluginKeys.mapDAP = function()
     end, { desc = "clear all breakpoints" })
 end
 
-pluginKeys.mapBufferDAP = function()
+pluginKeys.mapTmpDAP = function()
     print("mapBufferDAP")
-    map("n", "<F4>", function()
-        require("dap").terminate()
-    end)
+    -- map("n", "<F4>", function()
+    --     require("dap").terminate()
+    -- end)
 
-    map("n", "<F5>", function()
-        require("dap").continue()
-    end)
     map("n", ",dr", function()
         require("dap").restart()
-    end)
+    end, { desc = "restart" })
 
     map("n", "<leader>k", function()
         require("dap").step_back() -- 单步回退,需要debugger支持才能用
-    end, { desc = "step back", buffer = true })
+    end, { desc = "step back" })
 
     map("n", "<cr>", function()
         require("dap").step_into() --进入断点函数
-    end, { desc = "step into", buffer = true })
+    end, { desc = "step into" })
 
     map("n", "<leader>j", function()
         require("dap").step_over() -- 单步,如果一个函数里,有断点,单步调试的时候也会进入该函数
-    end, { desc = "step over", buffer = true })
+    end, { desc = "step over" })
 
     map("n", "J", function()
         require("dap").step_out() --下一个断点
-    end, { desc = "step out", buffer = true })
+    end, { desc = "step out" })
 
     map({ "n", "v" }, ",dh", function()
         require("dap.ui.widgets").hover()
-    end, { desc = "hover", buffer = true })
+    end, { desc = "hover" })
 
     -- map({ "n", "v" }, ",dp", function()
     --     require("dap.ui.widgets").preview()
@@ -421,12 +417,12 @@ pluginKeys.mapBufferDAP = function()
     map("n", ",ds", function()
         local widgets = require("dap.ui.widgets")
         widgets.centered_float(widgets.frames) --将栈信息显示在屏幕中间
-    end, { desc = "show stack info", buffer = true })
+    end, { desc = "show stack info" })
 
     map("n", ",da", function()
         local widgets = require("dap.ui.widgets")
         widgets.centered_float(widgets.scopes) --将变量信息显示在屏幕中间
-    end, { desc = "show variable info", buffer = true })
+    end, { desc = "show variable info" })
 
     --结束调试
     map(
@@ -437,7 +433,7 @@ pluginKeys.mapBufferDAP = function()
         -- .. ":lua require'dap.repl'.close()<CR>"
         -- .. ":lua require'dapui'.close()<CR>"
         -- .. "<C-w>o<CR>",
-        { desc = "end debug", silent = true, buffer = true }
+        { desc = "end debug", silent = true }
     )
     -- 开始调试
     -- map("n", "<F5>", ":lua require'dap'.continue()<CR>", opt)

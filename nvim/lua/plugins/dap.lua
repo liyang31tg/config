@@ -108,7 +108,7 @@ local obj = {
                 port = "${port}",
                 executable = {
                     command = "dlv",
-                    args = { "dap", "-l", "127.0.0.1:${port}" },
+                    args = { "dap", "-l", "127.0.0.1:${port}", "--log", "--log-output='dap'" },
                 },
             }
 
@@ -130,9 +130,21 @@ local obj = {
             dap.configurations.go = {
                 {
                     type = "delve",
-                    name = "Debug",
+                    name = "Debug package",
+                    request = "launch",
+                    program = "${fileDirname}",
+                },
+                {
+                    type = "delve",
+                    name = "Debug file",
                     request = "launch",
                     program = "${file}",
+                },
+                {
+                    type = "delve",
+                    name = "Debug Workspace (go.mod)",
+                    request = "launch",
+                    program = "${workspaceFolder}",
                 },
                 {
                     type = "delve",
@@ -153,19 +165,24 @@ local obj = {
 
             dapui.setup(dapui_opt)
             require("keybindings").mapDAP()
+            --不能针对某个buffer设置起属性,因为代码不会在一个文件中写,
+            --解决方案
+            --通常设置一批映射关系
+            --检测dap开启,覆盖这批映射关系
+            --检测dap关闭,删除关闭这批dap映射关系,并且还原普通的映射关系
 
             dap.listeners.before.attach.dapui_config = function()
-                require("keybindings").mapBufferDAP()
+                require("keybindings").mapTmpDAP()
                 dapui.open()
             end
 
             dap.listeners.before.launch.dapui_config = function()
-                require("keybindings").mapBufferDAP()
+                require("keybindings").mapTmpDAP()
                 dapui.open()
             end
 
             dap.listeners.before.event_terminated.dapui_config = function()
-                require("keybindings").unmapBufferDAP()
+                require("keybindings").unmapTmpDAP()
                 dap.close()
                 dap.repl.close()
                 dapui.close()
@@ -177,15 +194,15 @@ local obj = {
             end
 
             dap.listeners.before.event_exited.dapui_config = function()
-                require("keybindings").unmapBufferDAP()
-                dap.close()
-                dap.repl.close()
-                dapui.close()
-                local status_ok, api = pcall(require, "nvim-tree.api")
-                if status_ok then
-                    api.tree.close()
-                    return
-                end
+                -- require("keybindings").unmapTmpDAP()
+                -- dap.close()
+                -- dap.repl.close()
+                -- dapui.close()
+                -- local status_ok, api = pcall(require, "nvim-tree.api")
+                -- if status_ok then
+                --     api.tree.close()
+                --     return
+                -- end
             end
 
             require("nvim-dap-virtual-text").setup({
