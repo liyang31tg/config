@@ -354,6 +354,13 @@ map("n", ",de", "<cmd>echo 'dddd'<cr>", opt)
 pluginKeys.unmapBufferDAP = function()
     print("unmapBufferDAP")
     unmap("n", ",de", { buffer = true })
+    unmap("n", "<leader>j", { buffer = true })
+    unmap("n", "<cr>", { buffer = true })
+    unmap("n", "<leader>k", { buffer = true })
+    unmap("n", "J", { buffer = true })
+    unmap({ "n", "v" }, ",dh", { buffer = true })
+    unmap("n", ",ds", { buffer = true })
+    unmap("n", ",da", { buffer = true })
 end
 
 pluginKeys.mapDAP = function()
@@ -386,29 +393,40 @@ pluginKeys.mapBufferDAP = function()
     map("n", ",dr", function()
         require("dap").restart()
     end)
-    map("n", "<F9>", function()
+
+    map("n", "<leader>k", function()
+        require("dap").step_back() -- 单步回退,需要debugger支持才能用
+    end, { desc = "step back", buffer = true })
+
+    map("n", "<cr>", function()
         require("dap").step_into() --进入断点函数
-    end)
-    map("n", "<F10>", function()
-        require("dap").step_over() -- 单步
-    end)
-    map("n", "<F12>", function()
+    end, { desc = "step into", buffer = true })
+
+    map("n", "<leader>j", function()
+        require("dap").step_over() -- 单步,如果一个函数里,有断点,单步调试的时候也会进入该函数
+    end, { desc = "step over", buffer = true })
+
+    map("n", "J", function()
         require("dap").step_out() --下一个断点
-    end)
+    end, { desc = "step out", buffer = true })
+
     map({ "n", "v" }, ",dh", function()
         require("dap.ui.widgets").hover()
-    end)
-    map({ "n", "v" }, ",dp", function()
-        require("dap.ui.widgets").preview()
-    end)
-    map("n", ",df", function()
-        local widgets = require("dap.ui.widgets")
-        widgets.centered_float(widgets.frames)
-    end)
+    end, { desc = "hover", buffer = true })
+
+    -- map({ "n", "v" }, ",dp", function()
+    --     require("dap.ui.widgets").preview()
+    -- end)
+
     map("n", ",ds", function()
         local widgets = require("dap.ui.widgets")
-        widgets.centered_float(widgets.scopes)
-    end)
+        widgets.centered_float(widgets.frames) --将栈信息显示在屏幕中间
+    end, { desc = "show stack info", buffer = true })
+
+    map("n", ",da", function()
+        local widgets = require("dap.ui.widgets")
+        widgets.centered_float(widgets.scopes) --将变量信息显示在屏幕中间
+    end, { desc = "show variable info", buffer = true })
 
     --结束调试
     map(
