@@ -449,12 +449,6 @@ pluginKeys.mapTmpDAP = function()
 end
 -- map  test
 pluginKeys.mapTEST = function()
-    map(
-        "n",
-        "<leader>tf",
-        ":lua require('neotest').run.run(vim.fn.getcwd())<CR>" .. ":lua require('neotest').output_panel.open()<cr>",
-        opt
-    )
 end
 
 pluginKeys.mapFanYi = function()
@@ -475,12 +469,12 @@ pluginKeys.mapGo = function()
     vim.cmd("au FileType go nmap <buffer> <silent> K :lua vim.lsp.buf.hover()<CR>") --借用了上面的lsp，只是希望这个只在go这个文件生效
     -- vim.cmd("au FileType go nmap <buffer> <LocalLeader>gt :<c-u>GoAddTest<cr>")
     -- vim.cmd("au FileType go nmap <buffer> <LocalLeader>gt <cmd>lua require('neotest').summary.toggle()<cr>")
-    vim.cmd("au FileType go nmap <buffer> <LocalLeader>tt <cmd>lua require('neotest').summary.toggle()<cr>")
+    vim.cmd("au FileType go nmap <buffer> <LocalLeader>ts <cmd>lua require('neotest').summary.toggle()<cr>")
     vim.cmd("au FileType go nmap <buffer> <LocalLeader>to <cmd>lua require('neotest').output_panel.toggle()<cr>")
     vim.cmd("au FileType go nmap <buffer> <LocalLeader>td <cmd>lua require('neotest').output_panel.clear()<cr>")
-    vim.cmd("au FileType go nmap <buffer> <LocalLeader>tf <cmd>lua require('neotest').run.run()<cr>")                --test single func
-    vim.cmd("au FileType go nmap <buffer> <LocalLeader>tF <cmd>lua require('neotest').run.run(vim.fn.expand('%'))<cr>") --test single file
-    vim.cmd("au FileType go nmap <buffer> <LocalLeader>tp <cmd>lua require('neotest').run.run(vim.fn.getcwd())<cr>") --test workspace
+    vim.cmd("au FileType go nmap <buffer> <LocalLeader>tt <cmd>lua require('neotest').run.run()<cr>")                --test single func
+    vim.cmd("au FileType go nmap <buffer> <LocalLeader>tf <cmd>lua require('neotest').run.run(vim.fn.expand('%'))<cr>") --test single file
+    vim.cmd("au FileType go nmap <buffer> <LocalLeader>tw <cmd>lua require('neotest').run.run(vim.fn.getcwd())<cr>") --test workspace
 end
 
 pluginKeys.mapTrouble = function() end

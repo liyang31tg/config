@@ -150,7 +150,9 @@ local obj = {
     {
         "folke/todo-comments.nvim",
         dependencies = { "nvim-lua/plenary.nvim" },
-        opts = {},
+        opts = {
+            sign_priority = 18, -- sign priority
+        },
     },
     {
         "kosayoda/nvim-lightbulb", --点亮codeaction
