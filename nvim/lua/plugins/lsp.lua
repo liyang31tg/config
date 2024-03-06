@@ -138,7 +138,7 @@ local obj = {
     },
     config = function()
         require("neodev").setup()
-        init_null_ls()
+        -- init_null_ls()
         require 'lsp_signature'.setup()
         require("mason").setup()
         require("mason-lspconfig").setup({

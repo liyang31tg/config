@@ -295,7 +295,8 @@ map("n", "gp", "<cmd>lua vim.diagnostic.open_float()<CR>", opt)
 map("n", "gk", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opt)
 map("n", "gj", "<cmd>lua vim.diagnostic.goto_next()<CR>", opt)
 -- map("n", "gf", "<cmd>lua vim.diagnostic.set_loclist()<CR>", opt) --Quickfix 与文件跳转冲突
-map("n", "<leader><leader>", "<cmd>lua vim.lsp.buf.format({async = true})<CR>", opt)
+-- map("n", "<leader><leader>", "<cmd>lua vim.lsp.buf.format({async = true})<CR>", opt)
+map("n", "<leader><leader>", function() require("conform").format({ async = false }) end, opts("Format"))
 -- 没用到
 -- mapbuf('n', '<leader>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opt)
 -- mapbuf("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opt)
