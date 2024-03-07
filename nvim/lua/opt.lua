@@ -79,8 +79,9 @@ option.whichwrap = "<,>,[,]"
 option.hidden = true
 -- 样式
 option.background = "dark"
--- 不可见字符的显示，这里只把空格显示为一个点
-option.list = true
+-- 不可见字符的显示，这里只把空格显示为一个点,就是把缩进的空格全部用>占用了
+-- option.list = true
+--
 --vim.o.listchars = "space:·"
 -- Dont' pass messages to |ins-completin menu|
 option.shortmess = vim.o.shortmess .. "c"
@@ -100,4 +101,3 @@ global.maplocalleader = "," --LocalLeader 用于map的<buffer>的时候
 --buffer的map会覆盖全局map的映射
 --:unmap <buffer> ,
 --:mapclear <buffer>
-
