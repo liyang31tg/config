@@ -56,7 +56,7 @@ map("v", ">", ">gv", opt)
 -- bufferline
 -- 左右Tab切换
 map("n", "[b", "<leader>b[", { silent = true, remap = true })
-map("n", "]b", "<leader>b[", { silent = true, remap = true })
+map("n", "]b", "<leader>b]", { silent = true, remap = true })
 
 map(
 	"n",
