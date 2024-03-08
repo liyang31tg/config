@@ -483,6 +483,7 @@ pluginKeys.mapTrouble = function() end
 
 pluginKeys.mapJavascript = function()
 	vim.cmd("au FileType javascript nmap <buffer> <silent> <LocalLeader>r :!node  %<cr>")
+	vim.cmd("au FileType typescript nmap <buffer> <silent> <LocalLeader>r :!ts-node  %<cr>")
 end
 
 pluginKeys.accelerated = function()
