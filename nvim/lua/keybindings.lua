@@ -56,7 +56,7 @@ map("v", ">", ">gv", opt)
 -- bufferline
 -- 左右Tab切换
 map("n", "[b", "<leader>b[", { silent = true, remap = true })
-map("n", "]b", "<leader>b[", { silent = true, remap = true })
+map("n", "]b", "<leader>b]", { silent = true, remap = true })
 
 map(
 	"n",
@@ -483,6 +483,7 @@ pluginKeys.mapTrouble = function() end
 
 pluginKeys.mapJavascript = function()
 	vim.cmd("au FileType javascript nmap <buffer> <silent> <LocalLeader>r :!node  %<cr>")
+	vim.cmd("au FileType typescript nmap <buffer> <silent> <LocalLeader>r :!ts-node  %<cr>")
 end
 
 pluginKeys.accelerated = function()
