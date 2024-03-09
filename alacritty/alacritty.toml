@@ -74,3 +74,9 @@ key = "Key9"
 mods = "Control"
 chars = "\u001b:OutlineFocus\r"
 
+[[keyboard.bindings]]
+key = "."
+mods = "Control"
+chars = "\u001b:OutlineFocus\r"
+
+
