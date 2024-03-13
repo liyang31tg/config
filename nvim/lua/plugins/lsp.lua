@@ -129,6 +129,7 @@ end
 local obj = {
 	"neovim/nvim-lspconfig",
 	dependencies = {
+		"hrsh7th/cmp-nvim-lsp",
 		"williamboman/mason.nvim",
 		"williamboman/mason-lspconfig.nvim",
 		"folke/neodev.nvim",
