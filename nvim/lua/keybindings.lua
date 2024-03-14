@@ -13,9 +13,9 @@ end
 
 -- kitty 首先在mac环境中需要将option改成alt ，macos_option_as_alt yes
 -- vim 可以识别alt+shelft+anykey ，不能识别ctrl+shelft+anykey
-map("n", ",r", "<c-r>", opt) --kitty中c-r不知道什么情况下被限制了
+-- map("n", ",r", "<c-r>", opt) --kitty中c-r不知道什么情况下被限制了
 -- 取消 s 默认功能
-map("n", "s", "", opt)
+-- map("n", "s", "", opt)
 -- map("c", "<c-j>", "<c-n>", {})
 -- map("c", "<c-k>", "<c-p>", {})
 
@@ -78,7 +78,7 @@ map("o", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev search result
 
 map("n", "<leader>K", "<cmd>norm! K<cr>", { desc = "Keywordprg" })
 -- new file
-map("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" })
+map("n", "<leader>fn", "<cmd>new<cr>", { desc = "New File" })
 
 map("n", "<leader>xl", "<cmd>lopen<cr>", { desc = "Location List" })
 map("n", "<leader>xq", "<cmd>copen<cr>", { desc = "Quickfix List" })
@@ -126,7 +126,7 @@ map("n", "<F2>", ":NvimTreeFocus<CR>", opt)
 map({ "n", "i", "v", "c", "t" }, "<c-0>", ":NvimTreeFindFile<CR>", opt)
 
 -- Telescope
-map("n", "<c-p>", "<leader>pp", { silent = true, remap = true })
+map("n", "<c-p>", ".tt", { silent = true, remap = true })
 -- 查找文件
 -- map("n", "<c-p>", "<leader>ff", { silent = true, remap = true })
 -- 全局搜索
@@ -135,9 +135,9 @@ map("n", "<C-f>", "<leader>fg", { silent = true, remap = true })
 map("n", "<Leader>/", "<leader>f/", { silent = true, remap = true, desc = "文件搜索" })
 
 --toggletasks
-map("n", "<leader>pp", "<cmd>Telescope toggletasks spawn theme=dropdown<cr>", opts("toggletasks select"))
-map("n", "<leader>ps", "<cmd>Telescope toggletasks select theme=dropdown<cr>", opts("toggletasks select running task"))
-map("n", "<leader>pe", "<cmd>Telescope toggletasks edit theme=dropdown<cr>", opts("toggletasks edit"))
+map("n", ".t", "<cmd>Telescope toggletasks spawn theme=dropdown<cr>", opts("toggletasks select"))
+map("n", ".ts", "<cmd>Telescope toggletasks select theme=dropdown<cr>", opts("toggletasks select running task"))
+map("n", ".te", "<cmd>Telescope toggletasks edit theme=dropdown<cr>", opts("toggletasks edit"))
 
 pluginKeys.whichkeys = {
 	a = { "<cmd>Alpha<cr>", "Welcome" },
@@ -198,7 +198,7 @@ pluginKeys.whichkeys = {
 		},
 		S = {
 			"<cmd>lua require('telescope.builtin').lsp_dynamic_workspace_symbols()<cr>",
-			"Find Symobls",
+			"Find Symbols",
 		},
 		["/"] = {
 			"<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<cr>",
@@ -230,9 +230,9 @@ pluginKeys.whichkeys = {
 
 	o = { "<cmd>Outline<CR>", "Outline" },
 
-	p = { "<cmd>SessionManager load_session<cr>", "Projects" },
-
-	r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
+	r = {
+		r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
+	},
 
 	t = {
 		name = "Trouble",
@@ -291,7 +291,7 @@ map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opt)
 map("n", "gD", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opt)
 map("n", "gh", "<cmd>lua vim.lsp.buf.hover()<CR>", opt)
 map("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opt)
-map("n", ",D", "<cmd>lua vim.lsp.buf.declaraion()<CR>", opt)
+map("n", ",D", "<cmd>lua vim.lsp.buf.declaration()<CR>", opt)
 map("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opt)
 -- map("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opt)
 map("n", ",gr", "<cmd>TroubleToggle lsp_references<cr>", opt)
