@@ -1,3 +1,5 @@
+-- m 映射的是alt控制键
+-- c 映射的是ctrl控制键
 local map = vim.keymap.set --该api不支持noremap属性,相反的你需要递归映射的就需要指定remap属性,类似一下面的remap=true
 local unmap = vim.keymap.del
 local remap = function(modes, lhs, rhs, opts)
@@ -5,10 +7,10 @@ local remap = function(modes, lhs, rhs, opts)
 	map(modes, lhs, rhs, opts)
 end
 -- local mapapi = vim.api.nvim_set_keymap
-local opt = { noremap = true, silent = true }
+local opt = { remap = false, silent = true }
 
 local function opts(desc)
-	return { noremap = true, silent = true, desc = desc }
+	return { remap = false, silent = true, desc = desc }
 end
 
 -- kitty 首先在mac环境中需要将option改成alt ，macos_option_as_alt yes
@@ -65,16 +67,11 @@ map(
 	opts("Redraw / clear hlsearch / diff update")
 )
 
-map("n", "gw", "*N", opts("查询这个单词"))
-map("x", "gw", "*N", opts("查询这个单词"))
+map({ "n", "x" }, "gw", "*N", opts("查询这个单词"))
 
 -- copy from lazygit 不知道具体什么功能
-map("n", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
-map("x", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
-map("o", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
-map("n", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev search result" })
-map("x", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev search result" })
-map("o", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev search result" })
+map({ "n", "x", "o" }, "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
+map({ "n", "x", "o" }, "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev search result" })
 
 map("n", "<leader>K", "<cmd>norm! K<cr>", { desc = "Keywordprg" })
 -- new file
@@ -115,8 +112,8 @@ map("n", ",q", ":q!<CR>", opt)
 map("n", "Q", ":qa!<CR>", opt)
 
 -- insert 模式下，跳到行首行尾
--- map("i", "<c-i>", "<ESC>I", opt) --now work
-map("i", "<c-a>", "<ESC>A", opt)
+map({ "n", "i" }, "<c-e>", "<ESC>A", opt) --now work
+map({ "n", "i" }, "<c-a>", "<ESC>I", opt)
 
 --第三方插件的快捷键银蛇如下
 local pluginKeys = {}
