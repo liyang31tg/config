@@ -20,3 +20,5 @@ go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
 |`ZZ`|等价于: `:wq`|
 |`:q!`|强制退出|
 |`:e!`|强制重新打开|
+
+\`是mark的前缀，之前映射为了`~`作为字符大小写切换

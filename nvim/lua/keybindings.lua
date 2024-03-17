@@ -13,18 +13,7 @@ local function opts(desc)
 	return { remap = false, silent = true, desc = desc }
 end
 
--- kitty 首先在mac环境中需要将option改成alt ，macos_option_as_alt yes
--- vim 可以识别alt+shelft+anykey ，不能识别ctrl+shelft+anykey
--- map("n", ",r", "<c-r>", opt) --kitty中c-r不知道什么情况下被限制了
--- 取消 s 默认功能
--- map("n", "s", "", opt)
--- map("c", "<c-j>", "<c-n>", {})
--- map("c", "<c-k>", "<c-p>", {})
-
---map("n", "j", "<Plug>(accelerated_jk_gj)", opt)
---map("n", "k", "<Plug>(accelerated_jk_gk)", opt)
-
-map("n", "`", "~", opt)
+-- map("n", "`", "~", opt) `是mark的前缀
 --莫名多一个空格,用原生实现
 map("n", "\\s", [[  :<c-u>%s//g<left><left> ]], { noremap = true })
 
