@@ -13,7 +13,7 @@ set laststatus=2
 " set ts=4 "设置tab为4个空格
 " set expandtab "将tab展开为空格
 nnoremap <leader>rc :e $HOME/.config/nvim/init.vim<cr>
-nnoremap <leader>so :source $MYVIMRC<cr>  
+nnoremap <leader>so :source $MYVIMRC<cr>
 augroup NVIMRC
     autocmd!
     autocmd BufWritePost *.nvimrc exec ":so %"
@@ -38,9 +38,9 @@ autocmd FileType cs nnoremap <leader>r :set splitbelow<cr> :sp <CR> :term dotnet
 autocmd FileType typescript nnoremap <leader>r :set splitbelow<cr> :sp <CR> :term deno run % <CR>a
 noremap \p :echo expand('%:p')<CR>
 
-hi IlluminatedWordText ctermfg=Cyan guifg=#FF7373 gui=bold
-hi IlluminatedWordRead ctermfg=Cyan guifg=#FF7373 gui=bold
-hi IlluminatedWordWrite ctermfg=Cyan guifg=#FF7373 gui=bold
+" hi IlluminatedWordText ctermfg=Cyan guifg=#FF7373 gui=bold
+" hi IlluminatedWordRead ctermfg=Cyan guifg=#FF7373 gui=bold
+" hi IlluminatedWordWrite ctermfg=Cyan guifg=#FF7373 gui=bold
 
 
 

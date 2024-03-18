@@ -112,18 +112,13 @@ map("n", "<F2>", ":NvimTreeFocus<CR>", opt)
 map({ "n", "i", "v", "c", "t" }, "<c-0>", ":NvimTreeFindFile<CR>", opt)
 
 -- Telescope
-map("n", "<c-p>", ".tt", { silent = true, remap = true })
+-- map("n", "<c-p>", ".tt", { silent = true, remap = true })
 -- 查找文件
--- map("n", "<c-p>", "<leader>ff", { silent = true, remap = true })
+map("n", "<c-p>", "<leader>ff", { silent = true, remap = true })
 -- 全局搜索
 map("n", "<C-f>", "<leader>fg", { silent = true, remap = true })
 --buffer 搜索
 map("n", "<Leader>/", "<leader>f/", { silent = true, remap = true, desc = "文件搜索" })
-
---toggletasks
-map("n", ".t", "<cmd>Telescope toggletasks spawn theme=dropdown<cr>", opts("toggletasks select"))
-map("n", ".ts", "<cmd>Telescope toggletasks select theme=dropdown<cr>", opts("toggletasks select running task"))
-map("n", ".te", "<cmd>Telescope toggletasks edit theme=dropdown<cr>", opts("toggletasks edit"))
 
 pluginKeys.whichkeys = {
 	a = { "<cmd>Alpha<cr>", "Welcome" },
@@ -215,6 +210,13 @@ pluginKeys.whichkeys = {
 	},
 
 	o = { "<cmd>Outline<CR>", "Outline" },
+
+	p = {
+		name = "progress",
+		p = { "<cmd>Telescope toggletasks spawn theme=dropdown<cr>", "toggletasks select" },
+		s = { "<cmd>Telescope toggletasks select theme=dropdown<cr>", "toggletasks select running task" },
+		e = { "<cmd>Telescope toggletasks edit theme=dropdown<cr>", "toggletasks edit" },
+	},
 
 	r = {
 		r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
