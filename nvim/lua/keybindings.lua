@@ -471,6 +471,7 @@ pluginKeys.mapGo = function()
 	vim.cmd("au FileType go nmap <buffer> <LocalLeader>tt <cmd>lua require('neotest').run.run()<cr>") --test single func
 	vim.cmd("au FileType go nmap <buffer> <LocalLeader>tf <cmd>lua require('neotest').run.run(vim.fn.expand('%'))<cr>") --test single file
 	vim.cmd("au FileType go nmap <buffer> <LocalLeader>tw <cmd>lua require('neotest').run.run(vim.fn.getcwd())<cr>") --test workspace
+	vim.cmd("au FileType go nmap <buffer> <LocalLeader>tg :GoTests<cr>")
 end
 
 pluginKeys.mapTrouble = function() end
