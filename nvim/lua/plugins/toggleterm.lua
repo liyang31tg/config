@@ -34,7 +34,7 @@ local obj = {
 			-- vim.api.nvim_buf_set_keymap(0, "t", "<C-h>", [[<C-\><C-n><C-W>h]], optss)
 			-- vim.api.nvim_buf_set_keymap(0, "t", "<C-j>", [[<C-\><C-n><C-W>j]], optss)
 			-- vim.api.nvim_buf_set_keymap(0, "t", "<C-k>", [[<C-\><C-n><C-W>k]], optss)
-			vim.api.nvim_buf_set_keymap(0, "t", "<C-t>", [[<C-\><C-n><cmd>ToggleTerm<cr>]], optss)
+			vim.api.nvim_buf_set_keymap(0, "t", "<C-t>", [[<C-\><C-n><cmd>ToggleTerm direction=float <cr>]], optss)
 			-- ctrl l preserved for clear terminal content
 			-- vim.api.nvim_buf_set_keymap(0, 't', '<C-l>', [[<C-\><C-n><C-W>l]], opts)
 		end
