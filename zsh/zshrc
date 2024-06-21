@@ -187,6 +187,7 @@ function za(){
 }
 # zellij end
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=off
+export useryy=12 #这是一个标识，表示只在本机
 
 neofetch
 

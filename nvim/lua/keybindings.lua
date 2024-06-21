@@ -486,4 +486,9 @@ pluginKeys.accelerated = function()
 	map("n", "k", "<Plug>(accelerated_jk_gk)", opt)
 end
 
+pluginKeys.mapTerminal = function()
+	vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
+	map({ "n", "i", "o" }, "-t", [[<cmd>lua _BottomTerminal_TOGGLE() <cr>]], opt)
+end
+
 return pluginKeys

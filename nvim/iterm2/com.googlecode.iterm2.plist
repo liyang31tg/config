@@ -12,11 +12,6 @@
 	<true/>
 	<key>Command</key>
 	<string>echo"cc"</string>
-	<key>Coprocess MRU</key>
-	<array>
-		<string>/usr/local/bin/iterm2-send-zmodem.sh</string>
-		<string>/usr/local/bin/iterm2-recv-zmodem.sh</string>
-	</array>
 	<key>Custom Color Presets</key>
 	<dict>
 		<key>3024 Day</key>
@@ -71751,6 +71746,10 @@
 	<true/>
 	<key>MaxVertically</key>
 	<false/>
+	<key>NeverWarnAboutShortLivedSessions_67002FA7-1CCA-4693-8CE2-3EFD6181D1C5</key>
+	<true/>
+	<key>NeverWarnAboutShortLivedSessions_67002FA7-1CCA-4693-8CE2-3EFD6181D1C5_selection</key>
+	<integer>0</integer>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -72022,7 +72021,7 @@
 			<key>Columns</key>
 			<integer>180</integer>
 			<key>Command</key>
-			<string>echo "cc"</string>
+			<string>/bin/zsh --login -c "zellij attach -c item2"</string>
 			<key>Cursor Color</key>
 			<dict>
 				<key>Alpha Component</key>
@@ -72063,7 +72062,7 @@
 				<real>0.96546226739883423</real>
 			</dict>
 			<key>Custom Command</key>
-			<string>No</string>
+			<string>Yes</string>
 			<key>Custom Directory</key>
 			<string>No</string>
 			<key>Default Bookmark</key>
@@ -72402,6 +72401,8 @@
 				<key>Red Component</key>
 				<real>0.24144099652767181</real>
 			</dict>
+			<key>Load Shell Integration Automatically</key>
+			<false/>
 			<key>Mouse Reporting</key>
 			<true/>
 			<key>Name</key>

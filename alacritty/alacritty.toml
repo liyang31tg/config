@@ -83,6 +83,7 @@ chars = "\u001b:OutlineFocus\r"
 [[keyboard.bindings]]
 key = "T"
 mods = "Command"
-chars = "\u001b:ToggleTerm size=40 direction=horizontal\r"
+# action = "None"
+chars = "\u002d\u0074"
 
 
