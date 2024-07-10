@@ -79,11 +79,13 @@ key = "."
 mods = "Control"
 chars = "\u001b:OutlineFocus\r"
 
-
+# f12  f13   f14   f15  f16  f17  f18  f19  f20  f21  f22 f23  f24  f25
+# f70f f710 F710 F711 F712 F713 F714 F715 F716 F717 F718 F719 F71A F71B F71C F71D F71E F71F
 [[keyboard.bindings]]
 key = "T"
 mods = "Command"
 # action = "None"
-chars = "\u002d\u0074"
+chars = "\u0002" #<c-b>
+# chars = "\u001b"
 
 
