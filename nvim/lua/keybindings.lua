@@ -488,7 +488,7 @@ end
 
 pluginKeys.mapTerminal = function()
 	vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
-	map({ "n", "o" }, "<c-b>", [[<cmd>lua _BottomTerminal_TOGGLE() <cr>]], opt)
+	map({ "n", "o" }, "<F13>", [[<cmd>lua _BottomTerminal_TOGGLE() <cr>]], opt)
 end
 
 return pluginKeys

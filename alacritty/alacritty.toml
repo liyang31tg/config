@@ -79,13 +79,37 @@ key = "."
 mods = "Control"
 chars = "\u001b:OutlineFocus\r"
 
-# f12  f13   f14   f15  f16  f17  f18  f19  f20  f21  f22 f23  f24  f25
-# f70f f710 F710 F711 F712 F713 F714 F715 F716 F717 F718 F719 F71A F71B F71C F71D F71E F71F
+#ANSI 转义 chars的内容 [:转义开始 ~:转义结束
+#需要与\u001b配合使用
+# 功能键	ANSI 转义序列
+# F1	[11~
+# F2	[12~
+# F3	[13~
+# F4	[14~
+# F5	[15~
+# F6	[17~
+# F7	[18~
+# F8	[19~
+# F9	[20~
+# F10	[21~
+# F11	[23~
+# F12	[24~
+# F13	[25~
+# F14	[26~
+# F15	[28~
+# F16	[29~
+# F17	[31~
+# F18	[32~
+# F19	[33~
+# F20	[34~
+# F21	[35~
+# F22	[36~
+# F23	[23~
+# F24	[24~
 [[keyboard.bindings]]
 key = "T"
 mods = "Command"
-# action = "None"
-chars = "\u0002" #<c-b>
-# chars = "\u001b"
+chars = "\u001b[25~"
+# chars = "\u001b[1;2Q" #esc+f14
 
 
