@@ -481,6 +481,8 @@ pluginKeys.mapJavascript = function()
 	vim.cmd("au FileType typescript nmap <buffer> <silent> <LocalLeader>r :!ts-node  %<cr>")
 end
 
+vim.cmd("au FileType lua nmap <buffer> <silent> <LocalLeader>r :!lua  %<cr>")
+
 pluginKeys.accelerated = function()
 	map("n", "j", "<Plug>(accelerated_jk_gj)", opt)
 	map("n", "k", "<Plug>(accelerated_jk_gk)", opt)
