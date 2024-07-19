@@ -31,7 +31,7 @@ option.relativenumber = true
 -- 补全增强
 option.wildmenu = true
 -- 搜索不要高亮
-option.hlsearch = false
+option.hlsearch = true
 option.ignorecase = true
 option.smartcase = true --[[ 只能大小写 ]]
 -- 自动补全不自动选中

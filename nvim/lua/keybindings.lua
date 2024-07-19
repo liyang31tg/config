@@ -16,6 +16,7 @@ end
 -- map("n", "`", "~", opt) `是mark的前缀
 --莫名多一个空格,用原生实现
 map("n", "\\s", [[  :<c-u>%s//g<left><left> ]], { noremap = true })
+map({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and Clear hlsearch" })
 
 -- windows 分屏快捷键
 map("n", "sl", ":vsp<CR>", opt)
@@ -30,11 +31,13 @@ map("n", "<c-h>", "<C-w>h", opt)
 map("n", "<c-j>", "<C-w>j", opt)
 map("n", "<c-k>", "<C-w>k", opt)
 map("n", "<c-l>", "<C-w>l", opt)
+
 -- move window 用winshelft替换
--- map("n", "<leader>wh", "<C-w>H", opt)
--- map("n", "<leader>wj", "<C-w>J", opt)
--- map("n", "<leader>wk", "<C-w>K", opt)
--- map("n", "<leader>wl", "<C-w>L", opt)
+map("n", "M", "<cmd>WinShift<cr>", opt)
+map("n", "mH", "<cmd>WinShift left<cr>", opt)
+map("n", "mJ", "<cmd>WinShift down<cr>", opt)
+map("n", "mK", "<cmd>WinShift up<cr>", opt)
+map("n", "mL", "<cmd>WinShift right<cr>", opt)
 
 -- Move Lines
 map("v", "J", ":m '>+1<cr>gv=gv", opts("Move down"))
@@ -56,18 +59,23 @@ map(
 	opts("Redraw / clear hlsearch / diff update")
 )
 
+--keywordprg
+map("n", "<leader>K", "<cmd>norm! K<cr>", { desc = "Keywordprg 查询文档" })
+
 map({ "n", "x" }, "gw", "*N", opts("查询这个单词"))
 
 -- copy from lazygit 不知道具体什么功能
 map({ "n", "x", "o" }, "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
 map({ "n", "x", "o" }, "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev search result" })
 
-map("n", "<leader>K", "<cmd>norm! K<cr>", { desc = "Keywordprg" })
 -- new file
-map("n", "<leader>fn", "<cmd>new<cr>", { desc = "New File" })
+map("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" })
 
-map("n", "<leader>xl", "<cmd>lopen<cr>", { desc = "Location List" })
+map("n", "<leader>xl", "<cmd>lopn<cr>", { desc = "Location List" })
 map("n", "<leader>xq", "<cmd>copen<cr>", { desc = "Quickfix List" })
+
+map("n", "[q", vim.cmd.cprev, { desc = "Previous Quickfix" })
+map("n", "]q", vim.cmd.cnext, { desc = "Next Quickfix" })
 
 -- 左右比例控制
 map("n", "<Left>", ":vertical resize -2<CR>", opt)
@@ -122,19 +130,21 @@ map("n", "<Leader>/", "<leader>f/", { silent = true, remap = true, desc = "文�
 
 pluginKeys.whichkeys = {
 	a = { "<cmd>Alpha<cr>", "Welcome" },
-	--"moll/vim-bbye"
 	b = {
-		q = { "<cmd>Bdelete!<cr>", "Close" },
-		b = { "<cmd>e #<cr>", "与上一个buffer切换" },
-		l = { "<cmd>BufferLineCloseRight<cr>", "Close Right" },
-		h = { "<cmd>BufferLineCloseLeft<cr>", "Close Left" },
-		o = { "<cmd>BufferLineCloseOthers<cr>", "Close Others" },
-		c = { "<cmd>BufferLinePickClose<cr>", "Close" },
-		p = { "<cmd>BufferLinePick<cr>", "Close Pick" },
-		[","] = { "<cmd>BufferLineMovePrev<cr>", "Move Prev" },
-		["."] = { "<cmd>BufferLineMoveNext<cr>", "Move Next" },
-		["["] = { "<cmd>BufferLineCyclePrev<cr>", "Focus Pre" },
-		["]"] = { "<cmd>BufferLineCycleNext<cr>", "Focus Next" },
+		name = "buffer",
+		--"moll/vim-bbye"
+		d = { "<cmd>Bdelete!<cr>", "Close buffer" },
+		D = { "<cmd>bd<cr>", "Close buffer And Window" },
+		b = { "<cmd>e #<cr>", "swap with last buffer" },
+		l = { "<cmd>BufferLineCloseRight<cr>", "Close Right buffers" },
+		h = { "<cmd>BufferLineCloseLeft<cr>", "Close Left buffers" },
+		o = { "<cmd>BufferLineCloseOthers<cr>", "Close Others buffer" },
+		c = { "<cmd>BufferLinePickClose<cr>", "Pick Buffer Close" },
+		p = { "<cmd>BufferLinePick<cr>", "Pick Buffer" },
+		[","] = { "<cmd>BufferLineMovePrev<cr>", "Buffer Move Prev" },
+		["."] = { "<cmd>BufferLineMoveNext<cr>", "Buffer Move Next" },
+		["["] = { "<cmd>BufferLineCyclePrev<cr>", "Focus Pre Buffer" },
+		["]"] = { "<cmd>BufferLineCycleNext<cr>", "Focus Next Buffer" },
 	},
 	d = {
 		name = "Debug",

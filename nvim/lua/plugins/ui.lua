@@ -8,7 +8,7 @@ return {
 	{ --顶部的buffer列表
 		"akinsho/bufferline.nvim",
 		version = "*",
-		dependencies = "nvim-tree/nvim-web-devicons",
+		dependencies = { "nvim-tree/nvim-web-devicons", "https://github.com/moll/vim-bbye" },
 		config = function()
 			local opt = {
 				options = {
