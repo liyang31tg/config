@@ -3,7 +3,7 @@ live_config_reload = true
 
 [window]
 dynamic_title = true
-decorations = "Transparent"
+decorations = "Buttonless"
 startup_mode = "Maximized"
 option_as_alt = "Both"
 blur=true
@@ -16,19 +16,23 @@ x = 0
 y = 1
 
 [font.normal]
-family = "MesloLGS NF"
+# family = "MesloLGS NF"
+family = "JetBrainsMono Nerd Font"
 style = "Regular"
 
 [font.bold]
-family = "MesloLGS NF"
+# family = "MesloLGS NF"
+family = "JetBrainsMono Nerd Font"
 style = "Bold"
 
 [font.italic]
-family = "MesloLGS NF"
+# family = "MesloLGS NF"
+family = "JetBrainsMono Nerd Font"
 style = "Italic"
 
 [font.bold_italic]
-family = "MesloLGS NF"
+# family = "MesloLGS NF"
+family = "JetBrainsMono Nerd Font"
 style = "Bold Italic"
 
 [env]
