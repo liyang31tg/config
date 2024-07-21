@@ -129,156 +129,121 @@ map("n", "<C-f>", "<leader>fg", { silent = true, remap = true })
 map("n", "<Leader>/", "<leader>f/", { silent = true, remap = true, desc = "文件搜索" })
 
 pluginKeys.whichkeys = {
-	a = { "<cmd>Alpha<cr>", "Welcome" },
-	b = {
-		name = "buffer",
-		--"moll/vim-bbye"
-		d = { "<cmd>Bdelete!<cr>", "Close buffer" },
-		D = { "<cmd>bd<cr>", "Close buffer And Window" },
-		b = { "<cmd>e #<cr>", "swap with last buffer" },
-		l = { "<cmd>BufferLineCloseRight<cr>", "Close Right buffers" },
-		h = { "<cmd>BufferLineCloseLeft<cr>", "Close Left buffers" },
-		o = { "<cmd>BufferLineCloseOthers<cr>", "Close Others buffer" },
-		c = { "<cmd>BufferLinePickClose<cr>", "Pick Buffer Close" },
-		p = { "<cmd>BufferLinePick<cr>", "Pick Buffer" },
-		[","] = { "<cmd>BufferLineMovePrev<cr>", "Buffer Move Prev" },
-		["."] = { "<cmd>BufferLineMoveNext<cr>", "Buffer Move Next" },
-		["["] = { "<cmd>BufferLineCyclePrev<cr>", "Focus Pre Buffer" },
-		["]"] = { "<cmd>BufferLineCycleNext<cr>", "Focus Next Buffer" },
+	{ "<leader>a", "<cmd>Alpha<cr>", desc = "Welcome" },
+	{ "<leader>b", group = "Buffer" },
+	{ "<leader>bd", "<cmd>Bdelete!<cr>", desc = "Close buffer" },
+	{ "<leader>bD", "<cmd>bd<cr>", desc = "Close buffer And Window" },
+	{ "<leader>bb", "<cmd>e #<cr>", desc = "swap with last buffer" },
+	{ "<leader>bl", "<cmd>BufferLineCloseRight<cr>", desc = "Close Right buffers" },
+	{ "<leader>bH", "<cmd>BufferLineCloseLeft<cr>", desc = "Close Left buffers" },
+	{ "<leader>bo", "<cmd>BufferLineCloseOthers<cr>", desc = "Close Others buffer" },
+	{ "<leader>bc", "<cmd>BufferLinePickClose<cr>", desc = "Pick Buffer Close" },
+	{ "<leader>bp", "<cmd>BufferLinePick<cr>", desc = "Pick Buffer" },
+	{ "<leader>b,", "<cmd>BufferLineMovePrev<cr>", desc = "Buffer Move Prev" },
+	{ "<leader>b.", "<cmd>BufferLineMoveNext<cr>", desc = "Buffer Move Next" },
+	{ "<leader>b[", "<cmd>BufferLineCyclePrev<cr>", desc = "Focus Pre Buffer" },
+	{ "<leader>b]", "<cmd>BufferLineCycleNext<cr>", desc = "Focus Next Buffer" },
+
+	{ "<leader>d", group = "debug" },
+	{ "<leader>dR", "<cmd>lua require'dap'.run_to_cursor()<cr>", desc = "Run to Cursor" },
+	{ "<leader>dE", "<cmd>lua require'dapui'.eval(vim.fn.input '[Expression] > ')<cr>", desc = "Evaluate Input" },
+	{ "<leader>dX", "<cmd>lua require'dap'.terminate()<cr>", desc = "Terminate" },
+	-- { "<leader>dC", "<cmd>lua require'dap'.set_breakpoint(vim.fn.input '[Condition] > ')<cr>", desc = "Conditional Breakpoint" },
+	{ "<leader>dT", "<cmd>lua require'dapui'.toggle('sidebar')<cr>", desc = "Toggle Sidebar" },
+	{ "<leader>dp", "<cmd>lua require'dap'.pause()<cr>", desc = "Pause" },
+	{ "<leader>dr", "<cmd>lua require'dap'.repl.toggle()<cr>", desc = "Toggle Repl" },
+	{ "<leader>dq", "<cmd>lua require'dap'.close()<cr>", desc = "Quit" },
+
+	{ "<leader>e", "<cmd>NvimTreeToggle<cr>", desc = "Explorer" },
+
+	{ "<leader>f", group = "Telescope" },
+	{ "<leader>fb", "<cmd>lua require('telescope.builtin').buffers()<cr>", desc = "Find Buffers" },
+	{ "<leader>fc", "<cmd>lua require('telescope.builtin').colorscheme()<cr>", desc = "Find Colorscheme" },
+	{ "<leader>fd", "<cmd>lua require('telescope.builtin').diagnostics({bufnr=0})<cr>", desc = "Find Diagnostics" },
+	{ "<leader>fD", "<cmd>lua require('telescope.builtin').diagnostics()<cr>", desc = "Find Diagnostics" },
+	{ "<leader>ff", "<cmd>lua require('telescope.builtin').find_files()<cr>", desc = "Find Files" },
+	{ "<leader>fg", "<cmd>lua require('telescope.builtin').live_grep()<cr>", desc = "Find Grep Str" },
+	{ "<leader>fp", "<cmd>Telescope projects<cr>", desc = "Find Projects" },
+	{ "<leader>fq", "<cmd>lua require('telescope.builtin').autocommands()<cr>", desc = "Find  au" },
+	{
+		"<leader>fs",
+		"<cmd>lua require('telescope.builtin').lsp_document_symbols()<cr>",
+		desc = "Find Document Symbols",
 	},
-	d = {
-		name = "Debug",
-		R = { "<cmd>lua require'dap'.run_to_cursor()<cr>", "Run to Cursor" },
-		E = { "<cmd>lua require'dapui'.eval(vim.fn.input '[Expression] > ')<cr>", "Evaluate Input" },
-		X = { "<cmd>lua require'dap'.terminate()<cr>", "Terminate" },
-		-- C = { "<cmd>lua require'dap'.set_breakpoint(vim.fn.input '[Condition] > ')<cr>", "Conditional Breakpoint" },
-		T = { "<cmd>lua require'dapui'.toggle('sidebar')<cr>", "Toggle Sidebar" },
-		p = { "<cmd>lua require'dap'.pause()<cr>", "Pause" },
-		r = { "<cmd>lua require'dap'.repl.toggle()<cr>", "Toggle Repl" },
-		q = { "<cmd>lua require'dap'.close()<cr>", "Quit" },
-
-		-- b = { "<cmd>lua require'dap'.step_back()<cr>", "Step Back" },
-		-- c = { "<cmd>lua require'dap'.continue()<cr>", "Continue" },
-		-- d = { "<cmd>lua require'dap'.disconnect()<cr>", "Disconnect" },
-		-- e = { "<cmd>lua require'dapui'.eval()<cr>", "Evaluate" },
-		-- g = { "<cmd>lua require'dap'.session()<cr>", "Get Session" },
-		-- h = { "<cmd>lua require'dap.ui.widgets'.hover()<cr>", "Hover Variables" },
-		-- S = { "<cmd>lua require'dap.ui.widgets'.scopes()<cr>", "Scopes" },
-		-- i = { "<cmd>lua require'dap'.step_into()<cr>", "Step Into" },
-		-- o = { "<cmd>lua require'dap'.step_over()<cr>", "Step Over" },
-		-- t = { "<cmd>lua require'dap'.toggle_breakpoint()<cr>", "Toggle Breakpoint" },
-		-- u = { "<cmd>lua require'dap'.step_out()<cr>", "Step Out" },
+	{ "<leader>fw", "<cmd>lua require('telescope.builtin').grep_string()<cr>", desc = "Find Word" },
+	{
+		"<leader>fS",
+		"<cmd>lua require('telescope.builtin').lsp_dynamic_workspace_symbols()<cr>",
+		desc = "Find Workspace Symbols",
 	},
-
-	e = { "<cmd>NvimTreeToggle<cr>", "Explorer" },
-
-	f = {
-		name = "telescope",
-		-- open oldfiles,可以添加
-		b = { "<cmd>lua require('telescope.builtin').buffers()<cr>", "Find buffers" },
-		c = { "<cmd>lua require('telescope.builtin').colorscheme()<cr>", "Find colorscheme" },
-		d = { "<cmd>lua require('telescope.builtin').diagnostics({bufnr=0})<cr>", "Find diagnostics" }, --只针对当前buffer
-		D = { "<cmd>lua require('telescope.builtin').diagnostics()<cr>", "Find diagnostics" }, --只针对一些打开的buffer
-		f = { "<cmd>lua require('telescope.builtin').find_files()<cr>", "Find files" },
-		g = { "<cmd>lua require('telescope.builtin').live_grep()<cr>", "Find grep str" },
-		p = { "<cmd>Telescope projects<cr>", "Projects" },
-		q = { "<cmd>lua require('telescope.builtin').autocommands()<cr>", "Find  au" },
-		s = {
-			"<cmd>lua require('telescope.builtin').lsp_document_symbols()<cr>",
-			"Find Document Symbols",
-		},
-		S = {
-			"<cmd>lua require('telescope.builtin').lsp_dynamic_workspace_symbols()<cr>",
-			"Find Symbols",
-		},
-		["/"] = {
-			"<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<cr>",
-			"Find text in current buffer",
-		},
+	{
+		"<leader>f/",
+		"<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<cr>",
+		desc = "Find in current buffer",
 	},
 
-	g = { --不需要管理git信息,git信息还是用gui管理
-		name = "Git",
-		g = { "<cmd>lua _GITUI_TOGGLE()<CR>", "GUI" },
-		a = { "<cmd>DiffviewOpen<CR>", "Diff Project" }, --当前stage与unstage的版本与HEAD的比较,HEAD可以切换成任意commit的hash
-		b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
-		c = { "<cmd>Telescope git_commits<cr>", "Checkout commit" },
-		d = { "<cmd>Gitsigns diffthis HEAD<cr>", "Diff" }, --当前文件与HEAD的差异
-		f = { "<cmd>DiffviewFileHistory %<cr>", "Current File History" }, --当前文件的历史记录
-		F = { "<cmd>DiffviewFileHistory<cr>", "Files History" }, --历史记录
-		n = { "<cmd>lua require 'gitsigns'.next_hunk()<cr>", "Next Hunk" },
-		p = { "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", "Prev Hunk" },
-		l = { "<cmd>lua require 'gitsigns'.blame_line()<cr>", "Blame" },
-		r = { "<cmd>lua require 'gitsigns'.reset_hunk()<cr>", "Reset Hunk" },
-		R = { "<cmd>lua require 'gitsigns'.reset_buffer()<cr>", "Reset Buffer" },
-		-- s = { "<cmd>lua require 'gitsigns'.stage_hunk()<cr>", "Stage Hunk" },
-		-- S = { "<cmd>lua require 'gitsigns'.stage_buffer()<cr>", "Stage Hunk" },
-		-- u = { "<cmd>lua require 'gitsigns'.undo_stage_hunk()<cr>", "Undo Stage Hunk" },
-		-- U = { "<cmd>lua require 'gitsigns'.undo_stage_hunk()<cr>", "Undo Stage Hunk" },
-		s = { "<cmd>Telescope git_status<cr>", "Open changed file" },
-		x = { "<cmd>DiffviewClose<cr>", "DiffviewClose" },
-	},
+	{ "<leader>g", group = "Git" },
+	{ "<leader>gg", "<cmd>lua _LAZYGIT_TOGGLE()<cr>", desc = "GUI" },
+	{ "<leader>ga", "<cmd>DiffviewOpen<CR>", desc = "Diff Project" },
+	{ "<leader>gb", "<cmd>Telescope git_branches<cr>", desc = "Checkout branch" },
+	{ "<leader>gc", "<cmd>Telescope git_commits<cr>", desc = "Checkout commit" },
+	{ "<leader>gd", "<cmd>Gitsigns diffthis HEAD<cr>", desc = "Diff" },
+	{ "<leader>gf", "<cmd>DiffviewFileHistory %<cr>", desc = "Current File History" }, --当前文件的历史记录
+	{ "<leader>gF", "<cmd>DiffviewFileHistory<cr>", desc = "Files History" }, --历史记录
+	{ "<leader>gn", "<cmd>lua require 'gitsigns'.next_hunk()<cr>", desc = "Next Hunk" },
+	{ "<leader>gp", "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", desc = "Prev Hunk" },
+	{ "<leader>gl", "<cmd>lua require 'gitsigns'.blame_line()<cr>", desc = "Blame" },
+	{ "<leader>gr", "<cmd>lua require 'gitsigns'.reset_hunk()<cr>", desc = "Reset Hunk" },
+	{ "<leader>gR", "<cmd>lua require 'gitsigns'.reset_buffer()<cr>", desc = "Reset Buffer" },
+	{ "<leader>gs", "<cmd>Telescope git_status<cr>", desc = "Open changed file" },
+	{ "<leader>gx", "<cmd>DiffviewClose<cr>", desc = "DiffviewClose" },
 
-	o = { "<cmd>Outline<CR>", "Outline" },
+	{ "<leader>o", "<cmd>Outline<CR>", desc = "Outline" },
 
-	p = {
-		name = "progress",
-		p = { "<cmd>Telescope toggletasks spawn theme=dropdown<cr>", "toggletasks select" },
-		s = { "<cmd>Telescope toggletasks select theme=dropdown<cr>", "toggletasks select running task" },
-		e = { "<cmd>Telescope toggletasks edit theme=dropdown<cr>", "toggletasks edit" },
-	},
+	{ "<leader>p", group = "progress" },
+	{ "<leader>gp", "<cmd>Telescope toggletasks spawn theme=dropdown<cr>", desc = "toggletasks select" },
+	{ "<leader>gs", "<cmd>Telescope toggletasks select theme=dropdown<cr>", desc = "toggletasks select running task" },
+	{ "<leader>ge", "<cmd>Telescope toggletasks edit theme=dropdown<cr>", desc = "toggletasks edit" },
 
-	r = {
-		r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
-	},
+	{ "<leader>rr", "<cmd>Telescope oldfiles<cr>", desc = "Open Recent File" },
 
-	t = {
-		name = "Trouble",
-		t = { "<cmd>Trouble<cr>", "ToggleTrouble" },
-		d = { "<cmd>Trouble document_diagnostics<cr>", "Document Diagnostics" },
-		w = { "<cmd>Trouble workspace_diagnostics<cr>", "Workspace Diagnostics" },
-		q = { "<cmd>Trouble quickfix<cr>", "Quick Fix" },
-		u = { "<cmd>Trouble lsp_references<cr>", "Usage" },
-		g = { "<cmd>Gitsigns setloclist<cr>", "Open changed hunk" },
-	},
+	{ "<leader>t", group = "Trouble" },
+	{ "<leader>tt", "<cmd>Trouble<cr>", desc = "ToggleTrouble" },
+	{ "<leader>tt", "<cmd>Trouble document_diagnostics<cr>", desc = "Document Diagnostics" },
+	{ "<leader>tt", "<cmd>Trouble workspace_diagnostics<cr>", desc = "Workspace Diagnostics" },
+	{ "<leader>tt", "<cmd>Trouble quickfix<cr>", desc = "Quick Fix" },
+	{ "<leader>tt", "<cmd>Trouble lsp_references<cr>", desc = "Usage" },
+	{ "<leader>tt", "<cmd>Gitsigns setloclist<cr>", desc = "Open changed hunk" },
 
-	T = {
-		name = "Terminal",
-		n = { "<cmd>lua _NODE_TOGGLE()<cr>", "Node" },
-		u = { "<cmd>lua _NCDU_TOGGLE()<cr>", "NCDU" },
-		t = { "<cmd>lua _HTOP_TOGGLE()<cr>", "Htop" },
-		p = { "<cmd>lua _PYTHON_TOGGLE()<cr>", "Python" },
-		f = { "<cmd>ToggleTerm direction=float<cr>", "Float" },
-		h = { "<cmd>ToggleTerm size=10 direction=horizontal<cr>", "Horizontal" },
-		v = { "<cmd>ToggleTerm size=80 direction=vertical<cr>", "Vertical" },
-	},
+	{ "<leader>T", group = "Terminal" },
+	{ "<leader>Tn", "<cmd>lua _NODE_TOGGLE()<cr>", desc = "Node" },
+	{ "<leader>Tu", "<cmd>lua _NCDU_TOGGLE()<cr>", desc = "NCDU" },
+	{ "<leader>Tt", "<cmd>lua _HTOP_TOGGLE()<cr>", desc = "Htop" },
+	{ "<leader>Tp", "<cmd>lua _PYTHON_TOGGLE()<cr>", desc = "Python" },
+	{ "<leader>Tf", "<cmd>ToggleTerm direction=float<cr>", desc = "Float" },
+	{ "<leader>Th", "<cmd>ToggleTerm size=10 direction=horizontal<cr>", desc = "Horizontal" },
+	{ "<leader>Tv", "<cmd>ToggleTerm size=80 direction=vertical<cr>", desc = "Vertical" },
 
-	R = {
-		name = "Replace",
-		f = { "<cmd>lua require('spectre').open_file_search()<CR>", "Replace File" },
-		p = { "<cmd>lua require('spectre').open()<CR>", "Replace Project" },
-		s = { "<cmd>lua require('spectre').open_visual({select_word=true})<CR>", "Search" },
-	},
+	{ "<leader>R", group = "Replace" },
+	{ "<leader>Rf", "<cmd>lua require('spectre').open_file_search()<CR>", desc = "Replace File" },
+	{ "<leader>Rp", "<cmd>lua require('spectre').open()<CR>", desc = "Replace Project" },
+	{ "<leader>Rs", "<cmd>lua require('spectre').open_visual({select_word=true})<CR>", desc = "Search" },
 
-	h = {
-		name = "Help",
-		c = { "<cmd>Telescope colorscheme<cr>", "Colorscheme" },
-		h = { "<cmd>Telescope help_tags<cr>", "Find Help" },
-		M = { "<cmd>Telescope man_pages<cr>", "Man Pages" },
-		R = { "<cmd>Telescope registers<cr>", "Registers" },
-		k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
-		C = { "<cmd>Telescope commands<cr>", "Commands" },
-	},
+	{ "<leader>h", group = "Help" },
+	{ "<leader>hc", "<cmd>Telescope colorscheme<cr>", desc = "Colorscheme" },
+	{ "<leader>hh", "<cmd>Telescope help_tags<cr>", desc = "Find Help" },
+	{ "<leader>hM", "<cmd>Telescope man_pages<cr>", desc = "Man Pages" },
+	{ "<leader>hR", "<cmd>Telescope registers<cr>", desc = "Registers" },
+	{ "<leader>hk", "<cmd>Telescope keymaps<cr>", desc = "Keymaps" },
+	{ "<leader>hC", "<cmd>Telescope commands<cr>", desc = "Commands" },
 
-	l = {},
-
-	w = { "<cmd>WinResizerStartMove<cr>", "Move Win" },
-
-	z = { "<cmd>ZenMode<cr>", "ZenMode" },
+	{ "<leader>w", "<cmd>WinResizerStartMove<cr>", desc = "Move Win" },
+	{ "<leader>z", "<cmd>ZenMode<cr>", desc = "ZenMode" },
 }
 
 -- lsp
 -- rename
+--
 map("n", ",rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opt)
 -- code action
 map("n", ",ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opt)
