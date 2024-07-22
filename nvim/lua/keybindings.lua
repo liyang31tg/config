@@ -77,6 +77,26 @@ map("n", "<leader>xq", "<cmd>copen<cr>", { desc = "Quickfix List" })
 map("n", "[q", vim.cmd.cprev, { desc = "Previous Quickfix" })
 map("n", "]q", vim.cmd.cnext, { desc = "Next Quickfix" })
 
+-- diagnostic
+local diagnostic_goto = function(next, severity)
+	local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
+	severity = severity and vim.diagnostic.severity[severity] or nil
+	return function()
+		go({ severity = severity })
+	end
+end
+map("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
+map("n", "]d", diagnostic_goto(true), { desc = "Next Diagnostic" })
+map("n", "[d", diagnostic_goto(false), { desc = "Prev Diagnostic" })
+map("n", "]e", diagnostic_goto(true, "ERROR"), { desc = "Next Error" })
+map("n", "[e", diagnostic_goto(false, "ERROR"), { desc = "Prev Error" })
+map("n", "]w", diagnostic_goto(true, "WARN"), { desc = "Next Warning" })
+map("n", "[w", diagnostic_goto(false, "WARN"), { desc = "Prev Warning" })
+
+-- highlights under cursor
+map("n", "<leader>ui", vim.show_pos, { desc = "Inspect Pos" })
+map("n", "<leader>uI", "<cmd>InspectTree<cr>", { desc = "Inspect Tree" })
+
 -- 左右比例控制
 map("n", "<Left>", ":vertical resize -2<CR>", opt)
 map("n", "<Right>", ":vertical resize +2<CR>", opt)
@@ -98,7 +118,8 @@ map("n", "s=", "<C-w>=", opt)
 -- map("t", "<c-j>", [[ <C-\><C-N><C-w>j ]], opt)
 -- map("t", "<c-k>", [[ <C-\><C-N><C-w>k ]], opt)
 -- map("t", "<c-l>", [[ <C-\><C-N><C-w>l ]], opt)
-map("n", "<c-t>", "<cmd>ToggleTerm<cr>", opt)
+map("n", "<leader>ft", "<cmd>ToggleTerm<cr>", opt)
+map("n", "<leader>fT", "<cmd>ToggleTerm dir=~ name=root<cr>", opt)
 
 -- 在visual 模式里粘贴不要复制
 map("v", "p", '"_dP', opt)
