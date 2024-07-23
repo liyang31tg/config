@@ -156,7 +156,7 @@ pluginKeys.whichkeys = {
 	{ "<leader>bD", "<cmd>bd<cr>", desc = "Close buffer And Window" },
 	{ "<leader>bb", "<cmd>e #<cr>", desc = "swap with last buffer" },
 	{ "<leader>bl", "<cmd>BufferLineCloseRight<cr>", desc = "Close Right buffers" },
-	{ "<leader>bH", "<cmd>BufferLineCloseLeft<cr>", desc = "Close Left buffers" },
+	{ "<leader>bh", "<cmd>BufferLineCloseLeft<cr>", desc = "Close Left buffers" },
 	{ "<leader>bo", "<cmd>BufferLineCloseOthers<cr>", desc = "Close Others buffer" },
 	{ "<leader>bc", "<cmd>BufferLinePickClose<cr>", desc = "Pick Buffer Close" },
 	{ "<leader>bp", "<cmd>BufferLinePick<cr>", desc = "Pick Buffer" },
@@ -263,39 +263,23 @@ pluginKeys.whichkeys = {
 }
 
 -- lsp
--- rename
---
-map("n", ",rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opt)
--- code action
-map("n", ",ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opt)
-
-map("n", ",li", "<cmd>LspInfo<cr>", opt) --show lsp info
--- go xx
-map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opt)
+map("n", ",ci", "<cmd>LspInfo<cr>", opts("Lsp Info")) --show lsp info
+map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts("Goto Definition"))
+map("n", "gI", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts("Goto Implementation"))
+map("n", "gy", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts("Goto Type Definition"))
+map("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts("Goto Declaration"))
+map("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts("Hover"))
+map("n", "gK", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts("Signature Help"))
+map("i", "<c-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts("Signature Help"))
+map("n", ",rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts("Rename"))
+map({ "n", "v" }, ",ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts("Code Action"))
 map("n", "gD", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opt)
 map("n", "gh", "<cmd>lua vim.lsp.buf.hover()<CR>", opt)
-map("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opt)
-map("n", ",D", "<cmd>lua vim.lsp.buf.declaration()<CR>", opt)
-map("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opt)
--- map("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opt)
 map("n", ",gr", "<cmd>TroubleToggle lsp_references<cr>", opt)
 map("n", "gr", "<cmd>Telescope lsp_references<cr>", opt)
--- diagnostic
-map("n", "gp", "<cmd>lua vim.diagnostic.open_float()<CR>", opt)
-map("n", "gk", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opt)
-map("n", "gj", "<cmd>lua vim.diagnostic.goto_next()<CR>", opt)
--- map("n", "gf", "<cmd>lua vim.diagnostic.set_loclist()<CR>", opt) --Quickfix 与文件跳转冲突
--- map("n", "<leader><leader>", "<cmd>lua vim.lsp.buf.format({async = true})<CR>", opt)
 map("n", "<leader><leader>", function()
 	require("conform").format({ async = false })
 end, opts("Format"))
--- 没用到
--- mapbuf('n', '<leader>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opt)
--- mapbuf("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opt)
--- mapbuf('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opt)
--- mapbuf('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opt)
--- mapbuf('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opt)
---
 
 -- nvim-cmp 自动补全
 pluginKeys.cmp = function(cmp, has_words_before, feedkey)
