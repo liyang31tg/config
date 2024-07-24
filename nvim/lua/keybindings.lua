@@ -32,13 +32,6 @@ map("n", "<c-j>", "<C-w>j", opt)
 map("n", "<c-k>", "<C-w>k", opt)
 map("n", "<c-l>", "<C-w>l", opt)
 
--- move window 用winshelft替换
-map("n", "M", "<cmd>WinShift<cr>", opt)
-map("n", "mH", "<cmd>WinShift left<cr>", opt)
-map("n", "mJ", "<cmd>WinShift down<cr>", opt)
-map("n", "mK", "<cmd>WinShift up<cr>", opt)
-map("n", "mL", "<cmd>WinShift right<cr>", opt)
-
 -- Move Lines
 map("v", "J", ":m '>+1<cr>gv=gv", opts("Move down"))
 map("v", "K", ":m '<-2<cr>gv=gv", opts("Move up"))
@@ -140,6 +133,17 @@ map("n", "<F3>", ":NvimTreeToggle<CR>", opt)
 map("n", "<F2>", ":NvimTreeFocus<CR>", opt)
 map({ "n", "i", "v", "c", "t" }, "<c-0>", ":NvimTreeFindFile<CR>", opt)
 
+map("n", "]t", function()
+	require("todo-comments").jump_next()
+end, opts("Next Todo Comment"))
+
+map("n", "[t", function()
+	require("todo-comments").jump_prev()
+end, opts("Previous Todo Comment"))
+
+map("n", "<leader>st", "<cmd>TodoTelescope<cr>", opts("Todo"))
+map("n", "<leader>sT", "<cmd>TodoTelescope keywords=TODO,FIX,FIXME<cr>", opts("Todo/Fix/Fixme"))
+
 -- Telescope
 -- map("n", "<c-p>", ".tt", { silent = true, remap = true })
 -- 查找文件
@@ -225,16 +229,15 @@ pluginKeys.whichkeys = {
 	{ "<leader>gp", "<cmd>Telescope toggletasks spawn theme=dropdown<cr>", desc = "toggletasks select" },
 	{ "<leader>gs", "<cmd>Telescope toggletasks select theme=dropdown<cr>", desc = "toggletasks select running task" },
 	{ "<leader>ge", "<cmd>Telescope toggletasks edit theme=dropdown<cr>", desc = "toggletasks edit" },
-
 	{ "<leader>rr", "<cmd>Telescope oldfiles<cr>", desc = "Open Recent File" },
 
-	{ "<leader>t", group = "Trouble" },
-	{ "<leader>tt", "<cmd>Trouble<cr>", desc = "ToggleTrouble" },
-	{ "<leader>tt", "<cmd>Trouble document_diagnostics<cr>", desc = "Document Diagnostics" },
-	{ "<leader>tt", "<cmd>Trouble workspace_diagnostics<cr>", desc = "Workspace Diagnostics" },
-	{ "<leader>tt", "<cmd>Trouble quickfix<cr>", desc = "Quick Fix" },
-	{ "<leader>tt", "<cmd>Trouble lsp_references<cr>", desc = "Usage" },
-	{ "<leader>tt", "<cmd>Gitsigns setloclist<cr>", desc = "Open changed hunk" },
+	{ "<leader>x", group = "Trouble" },
+	{ "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", desc = "Diagnostics (Trouble)" },
+	{ "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", desc = "Buffer Diagnostics (Trouble)" },
+	{ "<leader>xs", "<cmd>Trouble symbols toggle<cr>", desc = "Symbols (Trouble)" },
+	{ "<leader>xS", "<cmd>Trouble lsp toggle<cr>", desc = "LSP references/definitions/... (Trouble)" },
+	{ "<leader>xL", "<cmd>Trouble loclist toggle<cr>", desc = "Location List (Trouble)" },
+	{ "<leader>xQ", "<cmd>Trouble qflist toggle<cr>", desc = "Quickfix List (Trouble)" },
 
 	{ "<leader>T", group = "Terminal" },
 	{ "<leader>Tn", "<cmd>lua _NODE_TOGGLE()<cr>", desc = "Node" },
@@ -258,7 +261,13 @@ pluginKeys.whichkeys = {
 	{ "<leader>hk", "<cmd>Telescope keymaps<cr>", desc = "Keymaps" },
 	{ "<leader>hC", "<cmd>Telescope commands<cr>", desc = "Commands" },
 
-	{ "<leader>w", "<cmd>WinResizerStartMove<cr>", desc = "Move Win" },
+	{ "<leader>W", "<cmd>WinShift<cr>" }, -- 进入移动窗口的模式
+	{ "<leader>w", group = "Move Win" },
+	{ "<leader>wh", "<cmd>WinShift left<cr>", desc = "Move Win Left" },
+	{ "<leader>wj", "<cmd>WinShift down<cr>", desc = "Move Win down" },
+	{ "<leader>wk", "<cmd>WinShift up<cr>", desc = "Move Win up" },
+	{ "<leader>wl", "<cmd>WinShift right<cr>", desc = "Move Win right" },
+
 	{ "<leader>z", "<cmd>ZenMode<cr>", desc = "ZenMode" },
 }
 
@@ -453,8 +462,6 @@ pluginKeys.mapGo = function()
 	vim.cmd("au FileType go nmap <buffer> <LocalLeader>tw <cmd>lua require('neotest').run.run(vim.fn.getcwd())<cr>") --test workspace
 	vim.cmd("au FileType go nmap <buffer> <LocalLeader>tg :GoTests<cr>")
 end
-
-pluginKeys.mapTrouble = function() end
 
 pluginKeys.mapJavascript = function()
 	vim.cmd("au FileType javascript nmap <buffer> <silent> <LocalLeader>r :!node  %<cr>")
