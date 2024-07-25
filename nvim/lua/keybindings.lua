@@ -153,6 +153,17 @@ map("n", "<C-f>", "<leader>fg", { silent = true, remap = true })
 --buffer 搜索
 map("n", "<Leader>/", "<leader>f/", { silent = true, remap = true, desc = "文件搜索" })
 
+local function get_args(config)
+	local args = type(config.args) == "function" and (config.args() or {}) or config.args or {}
+	config = vim.deepcopy(config)
+	---@cast args string[]
+	config.args = function()
+		local new_args = vim.fn.input("Run with args: ", table.concat(args, " ")) --[[@as string]]
+		return vim.split(vim.fn.expand(new_args) --[[@as string]], " ")
+	end
+	return config
+end
+
 pluginKeys.whichkeys = {
 	{ "<leader>a", "<cmd>Alpha<cr>", desc = "Welcome" },
 	{ "<leader>b", group = "Buffer" },
@@ -168,16 +179,9 @@ pluginKeys.whichkeys = {
 	{ "<leader>b.", "<cmd>BufferLineMoveNext<cr>", desc = "Buffer Move Next" },
 	{ "<leader>b[", "<cmd>BufferLineCyclePrev<cr>", desc = "Focus Pre Buffer" },
 	{ "<leader>b]", "<cmd>BufferLineCycleNext<cr>", desc = "Focus Next Buffer" },
+	{ "<leader>d", "", desc = "+debug", mode = { "n", "v" } },
 
-	{ "<leader>d", group = "debug" },
-	{ "<leader>dR", "<cmd>lua require'dap'.run_to_cursor()<cr>", desc = "Run to Cursor" },
-	{ "<leader>dE", "<cmd>lua require'dapui'.eval(vim.fn.input '[Expression] > ')<cr>", desc = "Evaluate Input" },
-	{ "<leader>dX", "<cmd>lua require'dap'.terminate()<cr>", desc = "Terminate" },
-	-- { "<leader>dC", "<cmd>lua require'dap'.set_breakpoint(vim.fn.input '[Condition] > ')<cr>", desc = "Conditional Breakpoint" },
-	{ "<leader>dT", "<cmd>lua require'dapui'.toggle('sidebar')<cr>", desc = "Toggle Sidebar" },
-	{ "<leader>dp", "<cmd>lua require'dap'.pause()<cr>", desc = "Pause" },
-	{ "<leader>dr", "<cmd>lua require'dap'.repl.toggle()<cr>", desc = "Toggle Repl" },
-	{ "<leader>dq", "<cmd>lua require'dap'.close()<cr>", desc = "Quit" },
+	{ ",d", group = "Debug" },
 
 	{ "<leader>e", "<cmd>NvimTreeToggle<cr>", desc = "Explorer" },
 
@@ -333,108 +337,121 @@ pluginKeys.cmp = function(cmp, has_words_before, feedkey)
 end
 
 -- dap
-pluginKeys.unmapTmpDAP = function()
-	print("unmapBufferDAP")
-	unmap("n", ",de", {})
-	-- remap("n", ",de", "<cmd>echo 'dddd'<cr>", opt)
-
-	unmap("n", "<leader>j", {})
-	unmap("n", "<cr>", {})
-	unmap("n", "<leader>k", {})
-	unmap("n", "J", {})
-	unmap({ "n", "v" }, ",dh", {})
-	unmap("n", ",ds", {})
-	unmap("n", ",da", {})
+pluginKeys.DAPTmpunmap = function()
+	unmap("n", ",dg", {})
+	unmap("n", ",dG", {})
 	unmap("n", ",dr", {})
+	unmap("n", ",dR", {})
+	unmap("n", "<F10>", {})
+	unmap("n", "<F11>", {})
+	unmap("n", "<F12>", {})
+
+	unmap("n", ",di", {})
+	unmap("n", ",do", {})
+	unmap("n", "<cr>", {})
+	unmap("n", "<leader><cr>", {})
+	unmap("n", ",dl", {})
+	unmap("n", ",dp", {})
+	unmap("n", ",ds", {})
+	unmap("n", ",de", {})
+	unmap("n", ",du", {})
+	unmap({ "n", "v" }, ",dh", {})
+	unmap("n", ",dS", {})
+	unmap({ "n", "v" }, ",dE", {})
 end
 
-pluginKeys.mapDAP = function()
+pluginKeys.DAPmap = function()
 	map("n", "<F5>", function()
 		require("dap").continue()
 	end, { desc = "启动断点" })
+
+	map("n", ",da", function()
+		require("dap").continue({ before = get_args })
+	end, { desc = "Run with Args" })
+
 	map("n", ",dd", function()
 		require("dap").toggle_breakpoint()
-	end, { desc = "toggle breakpoint" })
+	end, { desc = "Toggle Breakpoint" })
 	--设置条件断点
-	map("n", ",dc", function()
+	map("n", ",dD", function()
 		-- require("dap").set_breakpoint(nil, nil, vim.fn.input("Log point message: "))
 		require("dap").set_breakpoint(vim.fn.input("[Condition] > ")) -- 输入条件eg: a>18
 	end, { desc = "设置条件断点" })
 	--清空所有断点
-	map("n", ",dx", function()
+	map("n", ",dc", function()
 		require("dap").clear_breakpoints()
 	end, { desc = "clear all breakpoints" })
 end
 
-pluginKeys.mapTmpDAP = function()
-	print("mapBufferDAP")
-	-- map("n", "<F4>", function()
-	--     require("dap").terminate()
-	-- end)
+pluginKeys.DAPTmpmap = function()
+	map("n", ",dg", function()
+		require("dap").run_to_cursor()
+	end, { desc = "Run to Cursor" })
 
+	map("n", ",dG", function()
+		require("dap").goto_()
+	end, { desc = "Go to Line (No Execute)" })
 	map("n", ",dr", function()
+		require("dap").repl.toggle()
+	end, { desc = "Toggle REPL" })
+	map("n", ",dR", function()
 		require("dap").restart()
 	end, { desc = "restart" })
+	--  stepOver, stepOut, stepInto
+	map("n", "<F10>", ":lua require'dap'.step_over()<CR>", opt)
+	map("n", "<F11>", ":lua require'dap'.step_into()<CR>", opt)
+	map("n", "<F12>", ":lua require'dap'.step_out()<CR>", opt)
 
-	map("n", "<leader>k", function()
-		require("dap").step_back() -- 单步回退,需要debugger支持才能用
-	end, { desc = "step back" })
+	map("n", ",di", function()
+		require("dap").step_into()
+	end, { desc = "Step Into" })
+
+	map("n", ",do", function()
+		require("dap").step_out()
+	end, { desc = "Step Out" })
 
 	map("n", "<cr>", function()
-		require("dap").step_into() --进入断点函数
-	end, { desc = "step into" })
+		require("dap").step_over() -- 单步
+	end, { desc = "Step Over" })
 
-	map("n", "<leader>j", function()
-		require("dap").step_over() -- 单步,如果一个函数里,有断点,单步调试的时候也会进入该函数
-	end, { desc = "step over" })
+	map("n", "<leader><cr>", function()
+		require("dap").step_back() -- 单步回退,需要debugger支持才能用
+	end, { desc = "Step Back" })
 
-	map("n", "J", function()
-		require("dap").step_out() --下一个断点
-	end, { desc = "step out" })
+	map("n", ",dl", function()
+		require("dap").run_last()
+	end, { desc = "Run Last" })
+
+	map("n", ",dp", function()
+		require("dap").pause()
+	end, { desc = "Pause" })
+
+	map("n", ",ds", function()
+		require("dap").session()
+	end, { desc = "Session" })
+
+	--结束调试
+	map("n", ",de", function()
+		require("dap").terminate()
+	end, { desc = "Terminate", silent = true })
 
 	map({ "n", "v" }, ",dh", function()
 		require("dap.ui.widgets").hover()
 	end, { desc = "hover" })
 
-	-- map({ "n", "v" }, ",dp", function()
-	--     require("dap.ui.widgets").preview()
-	-- end)
+	map("n", ",du", function()
+		require("dap").toggle({})
+	end, { desc = "Dap UI", silent = true })
 
-	map("n", ",ds", function()
+	map("n", ",dS", function()
 		local widgets = require("dap.ui.widgets")
 		widgets.centered_float(widgets.frames) --将栈信息显示在屏幕中间
 	end, { desc = "show stack info" })
 
-	map("n", ",da", function()
-		local widgets = require("dap.ui.widgets")
-		widgets.centered_float(widgets.scopes) --将变量信息显示在屏幕中间
-	end, { desc = "show variable info" })
-
-	--结束调试
-	map(
-		"n",
-		",de",
-		":lua require'dap'.terminate()<CR>",
-		-- .. ":lua require'dap'.close()<CR>"
-		-- .. ":lua require'dap.repl'.close()<CR>"
-		-- .. ":lua require'dapui'.close()<CR>"
-		-- .. "<C-w>o<CR>",
-		{ desc = "end debug", silent = true }
-	)
-	-- 开始调试
-	-- map("n", "<F5>", ":lua require'dap'.continue()<CR>", opt)
-	-- --  stepOver, stepOut, stepInto
-	-- map("n", "<F9>", ":lua require'dap'.step_over()<CR>", opt)
-	-- map("n", "<F10>", ":lua require'dap'.step_into()<CR>", opt)
-	-- map("n", "<F12>", ":lua require'dap'.step_out()<CR>", opt)
-	-- -- 设置断点
-	-- map("n", "<leader>dd", ":lua require('dap').toggle_breakpoint()<CR>", opt)
-	-- map("n", "<leader>dc", ":lua require('dap').clear_breakpoints()<CR>", opt)
-	-- -- 弹窗
-	-- map("n", "<leader>dh", ":lua require'dapui'.eval()<CR>", opt)
+	map({ "n", "v" }, ",dE", function()
+		require("dapui").eval()
+	end, { desc = "Eval" })
 end
--- map  test
-pluginKeys.mapTEST = function() end
 
 pluginKeys.mapFanYi = function()
 	map("n", "fy", "<cmd>TransToZH<CR>", opt)

@@ -17,7 +17,7 @@ local obj = {
 				}),
 			},
 		})
-		require("keybindings").mapTEST()
+		-- require("keybindings").mapTEST()
 	end,
 }
 
