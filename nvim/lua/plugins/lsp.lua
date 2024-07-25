@@ -1,51 +1,54 @@
-local servers = {
-	lua_ls = {
-		settings = {
-			Lua = {
-				workspace = { checkThirdParty = false },
-				telemetry = { enable = false },
-				diagnostics = {
-					globals = { "vim" },
+function GenServers()
+	local servers = {
+		lua_ls = {
+			settings = {
+				Lua = {
+					workspace = { checkThirdParty = false },
+					telemetry = { enable = false },
+					diagnostics = {
+						globals = { "vim" },
+					},
 				},
 			},
 		},
-	},
-	gopls = {},
-	vimls = {},
-	cssls = {},
-	html = {},
-	bashls = {},
-	jsonls = {},
-	tsserver = {},
-	yamlls = {},
-	volar = {}, --masoninstall vue-language-server@1.8.27, up this version not work in vue3
-	-- "vuels"
-	-- "denols",这个不能安装，会强制import以./ ../ 等开头的问
-	dockerls = {},
-	docker_compose_language_service = {},
+		gopls = {},
+		vimls = {},
+		cssls = {},
+		html = {},
+		bashls = {},
+		jsonls = {},
+		tsserver = {},
+		yamlls = {},
+		volar = {}, --masoninstall vue-language-server@1.8.27, up this version not work in vue3
+		-- "vuels"
+		-- "denols",这个不能安装，会强制import以./ ../ 等开头的问
+		dockerls = {},
+		docker_compose_language_service = {},
 
-	clangd = {
-		cmd = {
-			"clangd",
-			"--header-insertion=never",
-			"--query-driver=/opt/homebrew/opt/llvm/bin/clang",
-			"--all-scopes-completion",
-			"--completion-style=detailed",
+		clangd = {
+			cmd = {
+				"clangd",
+				"--header-insertion=never",
+				"--query-driver=/opt/homebrew/opt/llvm/bin/clang",
+				"--all-scopes-completion",
+				"--completion-style=detailed",
+			},
+			filetypes = { "c", "cpp", "objc", "objcpp", "cuda", "proto" },
+			root_dir = require("lspconfig").util.root_pattern(
+				"CMakeLists.txt",
+				".clangd",
+				".clang-tidy",
+				".clang-format",
+				"compile_commands.json",
+				"compile_flags.txt",
+				"configure.ac",
+				".git"
+			),
+			single_file_support = true,
 		},
-		filetypes = { "c", "cpp", "objc", "objcpp", "cuda", "proto" },
-		root_dir = require("lspconfig").util.root_pattern(
-			"CMakeLists.txt",
-			".clangd",
-			".clang-tidy",
-			".clang-format",
-			"compile_commands.json",
-			"compile_flags.txt",
-			"configure.ac",
-			".git"
-		),
-		single_file_support = true,
-	},
-}
+	}
+	return servers
+end
 
 local init_null_ls = function()
 	local null_ls = require("null-ls")
@@ -144,6 +147,7 @@ local obj = {
 		-- init_null_ls()
 		require("lsp_signature").setup()
 		require("mason").setup()
+		local servers = GenServers()
 		require("mason-lspconfig").setup({
 			ensure_installed = vim.tbl_keys(servers),
 		})

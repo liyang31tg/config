@@ -553,15 +553,15 @@ pluginKeys.mapFanYi = function()
 end
 
 pluginKeys.mapGo = function()
-	vim.cmd("au FileType go nmap <buffer> <silent> <LocalLeader>r :GoRun -F %:p:h<cr>")
+	vim.cmd("au FileType go nmap <buffer> <silent> <LocalLeader>r :!go run %:p:h<cr>")
 	-- vim.cmd("au FileType go nmap <buffer> <LocalLeader>b :GoBuild -o cc %:p:h<cr>")
 	vim.cmd("au FileType go nmap <buffer> <LocalLeader>b :!go build -o /tmp/ %:p:h<cr>")
-	vim.cmd("au FileType go nmap <buffer> <LocalLeader>tb :GoAddTag bson<cr>")
-	vim.cmd("au FileType go nmap <buffer> <LocalLeader>tj :GoAddTag json<cr>")
-	-- vim.cmd("au FileType go nmap <buffer> <LocalLeader>tt :GoAddTag toml<cr>")
-	vim.cmd("au FileType go nmap <buffer> <LocalLeader>ty :GoAddTag yaml<cr>")
-	vim.cmd("au FileType go nmap <buffer> <LocalLeader>tx :GoAddTag xml<cr>")
-	vim.cmd("au FileType go nmap <buffer> <LocalLeader>tc :GoClearTag <cr>")
+	vim.cmd("au FileType go nmap <buffer> <LocalLeader>tb :GoTagAdd bson<cr>")
+	vim.cmd("au FileType go nmap <buffer> <LocalLeader>tj :GoTagAdd json<cr>")
+	-- vim.cmd("au FileType go nmap <buffer> <LocalLeader>tt :GoTagAdd toml<cr>")
+	vim.cmd("au FileType go nmap <buffer> <LocalLeader>ty :GoTagAdd yaml<cr>")
+	vim.cmd("au FileType go nmap <buffer> <LocalLeader>tx :GoTagAdd xml<cr>")
+	vim.cmd("au FileType go nmap <buffer> <LocalLeader>tc :GoTagRm <cr>")
 
 	vim.cmd("au FileType go nmap <buffer> <LocalLeader>tg :GoTests<cr>")
 end
