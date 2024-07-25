@@ -136,6 +136,9 @@ local obj = {
 		"ray-x/lsp_signature.nvim",
 		"jose-elias-alvarez/null-ls.nvim", --有些lsp的供应商无法提供,formatter,code action,diagnostics的时候,由这个插件注入对应的功能,因为维护过大,作者已经放弃,暂时可用.
 	},
+	opts = {
+		document_highlight = { enabled = false },
+	},
 	config = function()
 		require("neodev").setup()
 		-- init_null_ls()

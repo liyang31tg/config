@@ -100,6 +100,7 @@ local obj = {
 			"theHamsta/nvim-dap-virtual-text", --显示调试旁边的虚拟字体
 			"rcarriga/nvim-dap-ui",
 			"nvim-neotest/nvim-nio",
+			"mfussenegger/nvim-dap",
 		},
 		config = function()
 			local dap, dapui = require("dap"), require("dapui")
@@ -137,42 +138,69 @@ local obj = {
 			-- `${workspaceFolderBasename}`: The name of the folder opened in Neovim
 			-- `${command:pickProcess}`: Open dialog to pick process using |vim.ui.select|
 			-- `${env:Name}`: Environment variable named `Name`, for example: `${env:HOME}`.
-
-			-- dap.configurations.go = {
-			-- 	{
-			-- 		type = "delve",
-			-- 		name = "Debug package",
-			-- 		request = "launch",
-			-- 		program = "${fileDirname}",
-			-- 	},
-			-- 	{
-			-- 		type = "delve",
-			-- 		name = "Debug file",
-			-- 		request = "launch",
-			-- 		program = "${file}",
-			-- 	},
-			-- 	{
-			-- 		type = "delve",
-			-- 		name = "Debug Workspace (go.mod)",
-			-- 		request = "launch",
-			-- 		program = "${workspaceFolder}",
-			-- 	},
-			-- 	{
-			-- 		type = "delve",
-			-- 		name = "Debug test", -- configuration for debugging test files
-			-- 		request = "launch",
-			-- 		mode = "test",
-			-- 		program = "${file}",
-			-- 	},
-			-- 	-- works with go.mod packages and sub packages
-			-- 	{
-			-- 		type = "delve",
-			-- 		name = "Debug test (go.mod)",
-			-- 		request = "launch",
-			-- 		mode = "test",
-			-- 		program = "./${relativeFileDirname}",
-			-- 	},
+			-- launch.json 中的一些写法
+			-- {
+			--     "version": "0.2.0",
+			--     "configurations": [
+			--         {
+			--             "type": "delve",
+			--             "name": "Debug",
+			--             "request": "launch",
+			--             "program": "${file}"
+			--         },
+			--         {
+			--             "type": "delve",
+			--             "name": "Debug test",
+			--             "request": "launch",
+			--             "mode": "test",
+			--             "program": "${fileDirname}"
+			--         },
+			--         {
+			--             "type": "delve",
+			--             "name": "Debug test (go.mod)",
+			--             "request": "launch",
+			--             "mode": "test",
+			--             "program": "./${relativeFileDirname}"
+			--         }
+			--     ]
 			-- }
+
+			-- 可以覆写,通过上面的launch.json来配置
+			dap.configurations.go = {
+				{
+					type = "delve",
+					name = "Debug file",
+					request = "launch",
+					program = "${file}",
+				},
+				{
+					type = "delve",
+					name = "Debug Package",
+					request = "launch",
+					program = "${fileDirname}",
+				},
+				{
+					type = "delve",
+					name = "Debug Workspace (go.mod)",
+					request = "launch",
+					program = "${workspaceFolder}",
+				},
+				{
+					type = "delve",
+					name = "Debug test", -- configuration for debugging test files
+					request = "launch",
+					mode = "test",
+					program = "${file}",
+				},
+				-- works with go.mod packages and sub packages
+				{
+					type = "delve",
+					name = "Debug test (go.mod)",
+					request = "launch",
+					mode = "test",
+					program = "./${relativeFileDirname}",
+				},
+			}
 
 			dapui.setup(dapui_opt)
 			require("keybindings").DAPmap()

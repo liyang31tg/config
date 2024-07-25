@@ -1,20 +1,29 @@
+local go_opts = { -- Specify configuration
+	go_test_args = {
+		"-v",
+		"-race",
+		"-count=1",
+		"-coverprofile=" .. vim.fn.getcwd() .. "/coverage.out",
+	},
+}
 local obj = {
 	"nvim-neotest/neotest",
 	dependencies = {
+		"nvim-neotest/nvim-nio",
 		"nvim-lua/plenary.nvim",
 		"antoinemadec/FixCursorHold.nvim",
 		"nvim-treesitter/nvim-treesitter",
-		"nvim-neotest/neotest-go",
+		{
+			"fredrikaverpil/neotest-golang", -- Installation
+			dependencies = {
+				"leoluz/nvim-dap-go",
+			},
+		},
 	},
 	config = function()
 		require("neotest").setup({
 			adapters = {
-				require("neotest-go")({
-					experimental = {
-						test_table = true,
-					},
-					args = { "-v", "-count=1", "-timeout=60s" },
-				}),
+				require("neotest-golang")(go_opts),
 			},
 		})
 		-- require("keybindings").mapTEST()

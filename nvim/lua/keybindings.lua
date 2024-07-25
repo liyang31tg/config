@@ -227,7 +227,14 @@ pluginKeys.whichkeys = {
 	{ "<leader>gs", "<cmd>Telescope git_status<cr>", desc = "Open changed file" },
 	{ "<leader>gx", "<cmd>DiffviewClose<cr>", desc = "DiffviewClose" },
 
-	{ "<leader>o", "<cmd>Outline<CR>", desc = "Outline" },
+	{ "<leader>o", group = "Task" },
+	{ "<leader>ow", "<cmd>OverseerToggle<cr>", desc = "Task list" },
+	{ "<leader>oo", "<cmd>OverseerRun<cr>", desc = "Run task" },
+	{ "<leader>oq", "<cmd>OverseerQuickAction<cr>", desc = "Action recent task" },
+	{ "<leader>oi", "<cmd>OverseerInfo<cr>", desc = "Overseer Info" },
+	{ "<leader>ob", "<cmd>OverseerBuild<cr>", desc = "Task builder" },
+	{ "<leader>ot", "<cmd>OverseerTaskAction<cr>", desc = "Task action" },
+	{ "<leader>oc", "<cmd>OverseerClearCache<cr>", desc = "Clear cache" },
 
 	{ "<leader>p", group = "progress" },
 	{ "<leader>gp", "<cmd>Telescope toggletasks spawn theme=dropdown<cr>", desc = "toggletasks select" },
@@ -242,6 +249,92 @@ pluginKeys.whichkeys = {
 	{ "<leader>xS", "<cmd>Trouble lsp toggle<cr>", desc = "LSP references/definitions/... (Trouble)" },
 	{ "<leader>xL", "<cmd>Trouble loclist toggle<cr>", desc = "Location List (Trouble)" },
 	{ "<leader>xQ", "<cmd>Trouble qflist toggle<cr>", desc = "Quickfix List (Trouble)" },
+
+	{ "<leader>t", group = "Test" },
+	{
+		"<leader>ta",
+		function()
+			require("neotest").run.attach()
+		end,
+		desc = "[t]est [a]ttach",
+	},
+	{
+		"<leader>tf",
+		function()
+			require("neotest").run.run(vim.fn.expand("%"))
+		end,
+		desc = "[t]est run [f]ile",
+	},
+	{
+		"<leader>tA",
+		function()
+			require("neotest").run.run(vim.uv.cwd())
+		end,
+		desc = "[t]est [A]ll files",
+	},
+	{
+		"<leader>tS",
+		function()
+			require("neotest").run.run({ suite = true })
+		end,
+		desc = "[t]est [S]uite",
+	},
+	{
+		"<leader>tf", --运行当前方法
+		function()
+			require("neotest").run.run()
+		end,
+		desc = "[t]est [n]earest",
+	},
+	{
+		"<leader>tl",
+		function()
+			require("neotest").run.run_last()
+		end,
+		desc = "[t]est [l]ast",
+	},
+	{
+		"<leader>ts",
+		function()
+			require("neotest").summary.toggle()
+		end,
+		desc = "[t]est [s]ummary",
+	},
+	{
+		"<leader>to",
+		function()
+			require("neotest").output.open({ enter = true, auto_close = true })
+		end,
+		desc = "[t]est [o]utput",
+	},
+	{
+		"<leader>tO",
+		function()
+			require("neotest").output_panel.toggle()
+		end,
+		desc = "[t]est [O]utput panel",
+	},
+	{
+		"<leader>tc",
+		function()
+			require("neotest").output_panel.clear()
+		end,
+		desc = "clear [O]utput panel",
+	},
+	{
+		"<leader>te",
+		function()
+			require("neotest").run.stop()
+		end,
+		desc = "[t]est [t]erminate",
+	},
+	{
+		"<leader>td",
+		function()
+			require("neotest").run.run({ suite = false, strategy = "dap" })
+		end,
+		desc = "Debug nearest test",
+	},
 
 	{ "<leader>T", group = "Terminal" },
 	{ "<leader>Tn", "<cmd>lua _NODE_TOGGLE()<cr>", desc = "Node" },
@@ -274,6 +367,8 @@ pluginKeys.whichkeys = {
 
 	{ "<leader>z", "<cmd>ZenMode<cr>", desc = "ZenMode" },
 }
+
+map("n", ",o", "<cmd>Outline<CR>", opts("Outline"))
 
 -- lsp
 map("n", ",ci", "<cmd>LspInfo<cr>", opts("Lsp Info")) --show lsp info
@@ -467,16 +562,7 @@ pluginKeys.mapGo = function()
 	vim.cmd("au FileType go nmap <buffer> <LocalLeader>ty :GoAddTag yaml<cr>")
 	vim.cmd("au FileType go nmap <buffer> <LocalLeader>tx :GoAddTag xml<cr>")
 	vim.cmd("au FileType go nmap <buffer> <LocalLeader>tc :GoClearTag <cr>")
-	-- vim.cmd("au FileType go nmap <buffer> <LocalLeader>tf :GoTest -v -n 1 -f<cr>")
-	vim.cmd("au FileType go nmap <buffer> <silent> K :lua vim.lsp.buf.hover()<CR>") --借用了上面的lsp，只是希望这个只在go这个文件生效
-	-- vim.cmd("au FileType go nmap <buffer> <LocalLeader>gt :<c-u>GoAddTest<cr>")
-	-- vim.cmd("au FileType go nmap <buffer> <LocalLeader>gt <cmd>lua require('neotest').summary.toggle()<cr>")
-	vim.cmd("au FileType go nmap <buffer> <LocalLeader>ts <cmd>lua require('neotest').summary.toggle()<cr>")
-	vim.cmd("au FileType go nmap <buffer> <LocalLeader>to <cmd>lua require('neotest').output_panel.toggle()<cr>")
-	vim.cmd("au FileType go nmap <buffer> <LocalLeader>td <cmd>lua require('neotest').output_panel.clear()<cr>")
-	vim.cmd("au FileType go nmap <buffer> <LocalLeader>tt <cmd>lua require('neotest').run.run()<cr>") --test single func
-	vim.cmd("au FileType go nmap <buffer> <LocalLeader>tf <cmd>lua require('neotest').run.run(vim.fn.expand('%'))<cr>") --test single file
-	vim.cmd("au FileType go nmap <buffer> <LocalLeader>tw <cmd>lua require('neotest').run.run(vim.fn.getcwd())<cr>") --test workspace
+
 	vim.cmd("au FileType go nmap <buffer> <LocalLeader>tg :GoTests<cr>")
 end
 

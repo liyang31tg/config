@@ -96,13 +96,15 @@ return {
 	},
 	{ --hilight sameid
 		"RRethy/vim-illuminate",
-		config = function()
-			require("illuminate").configure({
-				providers = {
-					"lsp",
-				},
-				delay = 100,
-			})
+		opts = {
+			delay = 200,
+			providers = {
+				"lsp",
+			},
+			large_file_cutoff = 2000,
+		},
+		config = function(_, opts)
+			require("illuminate").configure(opts)
 		end,
 	},
 	{
