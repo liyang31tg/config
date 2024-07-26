@@ -179,7 +179,7 @@ pluginKeys.whichkeys = {
 	{ "<leader>fb", "<cmd>lua require('telescope.builtin').buffers()<cr>", desc = "Find Buffers" },
 	{ "<leader>fr", "<cmd>lua require('telescope.builtin').oldfiles()<cr>", desc = "Find Buffers" },
 	{ "<leader>fg", "<cmd>lua require('telescope.builtin').git_files()<cr>", desc = "Find Git Files" },
-	{ "<leader>fp", "<cmd>Telescope projects<cr>", desc = "Find Projects" },
+	{ "<leader>fp", "<cmd>Telescope projects<cr>", desc = "Find Projects file" },
 	{ "<leader>ft", "<cmd>ToggleTerm<cr>", desc = "Terminal" },
 	{ "<leader>fT", "<cmd>ToggleTerm dir=~ name=root<cr>", desc = "Terminal root" },
 	{
@@ -199,7 +199,6 @@ pluginKeys.whichkeys = {
 	},
 
 	{ "<leader>g", group = "Git" },
-	{ "<leader>gg", "<cmd>lua _LAZYGIT_TOGGLE()<cr>", desc = "GUI" },
 	{ "<leader>ga", "<cmd>DiffviewOpen<CR>", desc = "Diff Project" },
 	{ "<leader>gb", "<cmd>Telescope git_branches<cr>", desc = "Checkout branch" },
 	{ "<leader>gc", "<cmd>Telescope git_commits<cr>", desc = "Checkout commit" },
@@ -208,7 +207,7 @@ pluginKeys.whichkeys = {
 	{ "<leader>gF", "<cmd>DiffviewFileHistory<cr>", desc = "Files History" }, --历史记录
 	{ "<leader>gn", "<cmd>lua require 'gitsigns'.next_hunk()<cr>", desc = "Next Hunk" },
 	{ "<leader>gp", "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", desc = "Prev Hunk" },
-	{ "<leader>gl", "<cmd>lua require 'gitsigns'.blame_line()<cr>", desc = "Blame" },
+	{ "<leader>gl", "<cmd>lua require 'gitsigns'.blame_line()<cr>", desc = "提交信息" },
 	{ "<leader>gr", "<cmd>lua require 'gitsigns'.reset_hunk()<cr>", desc = "Reset Hunk" },
 	{ "<leader>gR", "<cmd>lua require 'gitsigns'.reset_buffer()<cr>", desc = "Reset Buffer" },
 	{ "<leader>gs", "<cmd>Telescope git_status<cr>", desc = "Open changed file" },
