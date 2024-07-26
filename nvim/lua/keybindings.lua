@@ -103,17 +103,6 @@ map("n", "<Up>", ":resize -2<CR>", opt)
 -- 等比例
 map("n", "s=", "<C-w>=", opt)
 
--- Terminal相关
--- map("n", "<c-t>", ":sp | terminal<CR>", opt)
--- map("n", "<leader>vt", ":vsp | terminal<CR>", opt)
--- map("t", "<Esc>", "<C-\\><C-n>", opt)
--- map("t", "<c-h>", [[ <C-\><C-N><C-w>h ]], opt)
--- map("t", "<c-j>", [[ <C-\><C-N><C-w>j ]], opt)
--- map("t", "<c-k>", [[ <C-\><C-N><C-w>k ]], opt)
--- map("t", "<c-l>", [[ <C-\><C-N><C-w>l ]], opt)
-map("n", "<leader>ft", "<cmd>ToggleTerm<cr>", opt)
-map("n", "<leader>fT", "<cmd>ToggleTerm dir=~ name=root<cr>", opt)
-
 -- 在visual 模式里粘贴不要复制
 map("v", "p", '"_dP', opt)
 
@@ -147,9 +136,10 @@ map("n", "<leader>sT", "<cmd>TodoTelescope keywords=TODO,FIX,FIXME<cr>", opts("T
 -- Telescope
 -- map("n", "<c-p>", ".tt", { silent = true, remap = true })
 -- 查找文件
-map("n", "<c-p>", "<leader>ff", { silent = true, remap = true })
+map("n", "<c-p>", "<cmd>lua require('telescope.builtin').find_files()<cr>", opts("Find File"))
 -- 全局搜索
-map("n", "<C-f>", "<leader>fg", { silent = true, remap = true })
+map("n", "<C-f>", "<cmd>lua require('telescope.builtin').live_grep()<cr>", opts("Find Str"))
+map("n", "<leader><space>", "<cmd>lua require('telescope.builtin').grep_string()<cr>", { desc = "Grep String" })
 --buffer 搜索
 map("n", "<Leader>/", "<leader>f/", { silent = true, remap = true, desc = "文件搜索" })
 
@@ -187,19 +177,16 @@ pluginKeys.whichkeys = {
 
 	{ "<leader>f", group = "Telescope" },
 	{ "<leader>fb", "<cmd>lua require('telescope.builtin').buffers()<cr>", desc = "Find Buffers" },
-	{ "<leader>fc", "<cmd>lua require('telescope.builtin').colorscheme()<cr>", desc = "Find Colorscheme" },
-	{ "<leader>fd", "<cmd>lua require('telescope.builtin').diagnostics({bufnr=0})<cr>", desc = "Find Diagnostics" },
-	{ "<leader>fD", "<cmd>lua require('telescope.builtin').diagnostics()<cr>", desc = "Find Diagnostics" },
-	{ "<leader>ff", "<cmd>lua require('telescope.builtin').find_files()<cr>", desc = "Find Files" },
-	{ "<leader>fg", "<cmd>lua require('telescope.builtin').live_grep()<cr>", desc = "Find Grep Str" },
+	{ "<leader>fr", "<cmd>lua require('telescope.builtin').oldfiles()<cr>", desc = "Find Buffers" },
+	{ "<leader>fg", "<cmd>lua require('telescope.builtin').git_files()<cr>", desc = "Find Git Files" },
 	{ "<leader>fp", "<cmd>Telescope projects<cr>", desc = "Find Projects" },
-	{ "<leader>fq", "<cmd>lua require('telescope.builtin').autocommands()<cr>", desc = "Find  au" },
+	{ "<leader>ft", "<cmd>ToggleTerm<cr>", desc = "Terminal" },
+	{ "<leader>fT", "<cmd>ToggleTerm dir=~ name=root<cr>", desc = "Terminal root" },
 	{
 		"<leader>fs",
 		"<cmd>lua require('telescope.builtin').lsp_document_symbols()<cr>",
 		desc = "Find Document Symbols",
 	},
-	{ "<leader>fw", "<cmd>lua require('telescope.builtin').grep_string()<cr>", desc = "Find Word" },
 	{
 		"<leader>fS",
 		"<cmd>lua require('telescope.builtin').lsp_dynamic_workspace_symbols()<cr>",
@@ -235,12 +222,6 @@ pluginKeys.whichkeys = {
 	{ "<leader>ob", "<cmd>OverseerBuild<cr>", desc = "Task builder" },
 	{ "<leader>ot", "<cmd>OverseerTaskAction<cr>", desc = "Task action" },
 	{ "<leader>oc", "<cmd>OverseerClearCache<cr>", desc = "Clear cache" },
-
-	{ "<leader>p", group = "progress" },
-	{ "<leader>gp", "<cmd>Telescope toggletasks spawn theme=dropdown<cr>", desc = "toggletasks select" },
-	{ "<leader>gs", "<cmd>Telescope toggletasks select theme=dropdown<cr>", desc = "toggletasks select running task" },
-	{ "<leader>ge", "<cmd>Telescope toggletasks edit theme=dropdown<cr>", desc = "toggletasks edit" },
-	{ "<leader>rr", "<cmd>Telescope oldfiles<cr>", desc = "Open Recent File" },
 
 	{ "<leader>x", group = "Trouble" },
 	{ "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", desc = "Diagnostics (Trouble)" },
@@ -357,6 +338,7 @@ pluginKeys.whichkeys = {
 	{ "<leader>hR", "<cmd>Telescope registers<cr>", desc = "Registers" },
 	{ "<leader>hk", "<cmd>Telescope keymaps<cr>", desc = "Keymaps" },
 	{ "<leader>hC", "<cmd>Telescope commands<cr>", desc = "Commands" },
+	{ "<leader>ha", "<cmd>lua require('telescope.builtin').autocommands()<cr>", desc = "Find  au" },
 
 	{ "<leader>W", "<cmd>WinShift<cr>" }, -- 进入移动窗口的模式
 	{ "<leader>w", group = "Move Win" },
@@ -385,9 +367,9 @@ map("n", "gD", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opt)
 map("n", "gh", "<cmd>lua vim.lsp.buf.hover()<CR>", opt)
 map("n", ",gr", "<cmd>TroubleToggle lsp_references<cr>", opt)
 map("n", "gr", "<cmd>Telescope lsp_references<cr>", opt)
-map("n", "<leader><leader>", function()
-	require("conform").format({ async = false })
-end, opts("Format"))
+-- map("n", "<leader><leader>", function()
+-- 	require("conform").format({ async = false })
+-- end, opts("Format"))
 
 -- nvim-cmp 自动补全
 pluginKeys.cmp = function(cmp, has_words_before, feedkey)

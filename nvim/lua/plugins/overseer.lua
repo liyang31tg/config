@@ -1,5 +1,3 @@
-local opt = {}
-
 local obj = {
 	{
 		"stevearc/overseer.nvim",
