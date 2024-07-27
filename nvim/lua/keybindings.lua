@@ -13,6 +13,9 @@ local function opts(desc)
 	return { remap = false, silent = true, desc = desc }
 end
 
+unmap("n", "gc", {})
+unmap("n", "gcc", {})
+
 -- map("n", "`", "~", opt) `是mark的前缀
 --莫名多一个空格,用原生实现
 map("n", "\\s", [[  :<c-u>%s//g<left><left> ]], { noremap = true })
@@ -35,10 +38,8 @@ map("n", "<c-l>", "<C-w>l", opt)
 -- Move Lines
 map("v", "J", ":m '>+1<cr>gv=gv", opts("Move down"))
 map("v", "K", ":m '<-2<cr>gv=gv", opts("Move up"))
-map("v", "H", "<gv", opt)
-map("v", "L", ">gv", opt)
-map("v", "<", "<gv", opt)
-map("v", ">", ">gv", opt)
+map("v", "H", "<gv", opts("Move left"))
+map("v", "L", ">gv", opts("Move right"))
 
 -- bufferline
 -- 左右Tab切换
@@ -169,7 +170,6 @@ pluginKeys.whichkeys = {
 	{ "<leader>b.", "<cmd>BufferLineMoveNext<cr>", desc = "Buffer Move Next" },
 	{ "<leader>b[", "<cmd>BufferLineCyclePrev<cr>", desc = "Focus Pre Buffer" },
 	{ "<leader>b]", "<cmd>BufferLineCycleNext<cr>", desc = "Focus Next Buffer" },
-	{ "<leader>d", "", desc = "+debug", mode = { "n", "v" } },
 
 	{ ",d", group = "Debug" },
 
@@ -352,7 +352,7 @@ pluginKeys.whichkeys = {
 map("n", ",o", "<cmd>Outline<CR>", opts("Outline"))
 
 -- lsp
-map("n", ",ci", "<cmd>LspInfo<cr>", opts("Lsp Info")) --show lsp info
+map("n", "gci", "<cmd>LspInfo<cr>", opts("Lsp Info")) --show lsp info
 map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts("Goto Definition"))
 map("n", "gI", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts("Goto Implementation"))
 map("n", "gy", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts("Goto Type Definition"))
@@ -361,12 +361,12 @@ map("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts("Hover"))
 map("n", "gK", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts("Signature Help"))
 map("i", "<c-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts("Signature Help"))
 map("n", ",rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts("Rename"))
-map({ "n", "v" }, ",ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts("Code Action"))
+map({ "n", "v" }, "gca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts("Code Action"))
 map("n", "gD", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opt)
 map("n", "gh", "<cmd>lua vim.lsp.buf.hover()<CR>", opt)
 map("n", ",gr", "<cmd>TroubleToggle lsp_references<cr>", opt)
 map("n", "gr", "<cmd>Telescope lsp_references<cr>", opt)
--- map("n", "<leader><leader>", function()
+-- -- map("n", "<leader><leader>", function()
 -- 	require("conform").format({ async = false })
 -- end, opts("Format"))
 
