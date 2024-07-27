@@ -199,19 +199,18 @@ pluginKeys.whichkeys = {
 	},
 
 	{ "<leader>g", group = "Git" },
-	{ "<leader>ga", "<cmd>DiffviewOpen<CR>", desc = "Diff Project" },
 	{ "<leader>gb", "<cmd>Telescope git_branches<cr>", desc = "Checkout branch" },
 	{ "<leader>gc", "<cmd>Telescope git_commits<cr>", desc = "Checkout commit" },
-	{ "<leader>gd", "<cmd>Gitsigns diffthis HEAD<cr>", desc = "Diff" },
+	{ "<leader>gd", "<cmd>DiffviewOpen<CR>", desc = "Diff Project" },
 	{ "<leader>gf", "<cmd>DiffviewFileHistory %<cr>", desc = "Current File History" }, --当前文件的历史记录
 	{ "<leader>gF", "<cmd>DiffviewFileHistory<cr>", desc = "Files History" }, --历史记录
+	{ "<leader>gx", "<cmd>DiffviewClose<cr>", desc = "DiffviewClose" },
 	{ "<leader>gn", "<cmd>lua require 'gitsigns'.next_hunk()<cr>", desc = "Next Hunk" },
 	{ "<leader>gp", "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", desc = "Prev Hunk" },
 	{ "<leader>gl", "<cmd>lua require 'gitsigns'.blame_line()<cr>", desc = "提交信息" },
 	{ "<leader>gr", "<cmd>lua require 'gitsigns'.reset_hunk()<cr>", desc = "Reset Hunk" },
 	{ "<leader>gR", "<cmd>lua require 'gitsigns'.reset_buffer()<cr>", desc = "Reset Buffer" },
 	{ "<leader>gs", "<cmd>Telescope git_status<cr>", desc = "Open changed file" },
-	{ "<leader>gx", "<cmd>DiffviewClose<cr>", desc = "DiffviewClose" },
 
 	{ "<leader>o", group = "Task" },
 	{ "<leader>ow", "<cmd>OverseerToggle<cr>", desc = "Task list" },
