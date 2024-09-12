@@ -17,7 +17,8 @@ function GenServers()
 		html = {},
 		bashls = {},
 		jsonls = {},
-		tsserver = {},
+		-- tsserver = {},
+		ts_ls = {},
 		yamlls = {},
 		volar = {}, --masoninstall vue-language-server@1.8.27, up this version not work in vue3
 		-- "vuels"
