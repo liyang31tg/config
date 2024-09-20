@@ -325,6 +325,8 @@ pluginKeys.whichkeys = {
 	{ "<leader>Tv", "<cmd>ToggleTerm size=80 direction=vertical<cr>", desc = "Vertical" },
 
 	{ "<leader>R", group = "Replace" },
+	{ "<leader>Rr", "<cmd>lua require('spectre').toggle()<CR>", desc = "Toggle Spectre" },
+	{ "<leader>Rx", "<cmd>lua require('spectre').toggle()<CR>", desc = "Toggle Spectre" },
 	{ "<leader>Rf", "<cmd>lua require('spectre').open_file_search()<CR>", desc = "Replace File" },
 	{ "<leader>Rp", "<cmd>lua require('spectre').open()<CR>", desc = "Replace Project" },
 	{ "<leader>Rs", "<cmd>lua require('spectre').open_visual({select_word=true})<CR>", desc = "Search" },
