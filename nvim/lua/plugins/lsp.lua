@@ -25,6 +25,7 @@ function GenServers()
 		-- "denols",这个不能安装，会强制import以./ ../ 等开头的问
 		dockerls = {},
 		docker_compose_language_service = {},
+		basedpyright = {},
 
 		clangd = {
 			cmd = {
