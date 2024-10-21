@@ -69,7 +69,7 @@ action = "DecreaseFontSize"
 [[keyboard.bindings]]
 key = "S"
 mods = "Command"
-chars = "\u001b:silent w\r"
+chars = "\u001b:silent w!\r"
 
 [[keyboard.bindings]]
 key = "H"

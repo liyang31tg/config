@@ -60,7 +60,7 @@ alias dot=dotnet
 # 命令替换start
 # https://github.com/sigoden/aichat #ai工具
 eval "$(zoxide init zsh)"
-# alias cd="z" #z is zoxide
+alias cd="z" #z is zoxide
 alias ls="lsd"
 alias ll="ls -lah"
 alias du="dust"
@@ -188,6 +188,10 @@ function za(){
 # zellij end
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=off
 export useryy=12 #这是一个标识，表示只在本机
+
+# install starship
+# brew install starship
+eval "$(starship init zsh)"
 
 neofetch
 

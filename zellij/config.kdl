@@ -291,8 +291,8 @@ default_layout "zjstatus"
 // Options:
 //   - true (default)
 //   - false
-//
-mouse_mode true
+// 关闭才能支持双击选中文本,打开不知道有什么作用就先关闭吧
+mouse_mode false
 
 // Configure the scroll back buffer size
 // This is the number of lines zellij stores for each pane in the scroll back
