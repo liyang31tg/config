@@ -202,13 +202,14 @@ local obj = {
 			})
 		end,
 	},
-	{ --全局搜索替换
-		"nvim-pack/nvim-spectre",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-		},
+	{
+		"MagicDuck/grug-far.nvim", --"nvim-pack/nvim-spectre", 替换这个
 		config = function()
-			require("spectre").setup()
+			require("grug-far").setup({
+				-- options, see Configuration section below
+				-- there are no required options atm
+				-- engine = 'ripgrep' is default, but 'astgrep' can be specified
+			})
 		end,
 	},
 }

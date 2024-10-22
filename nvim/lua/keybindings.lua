@@ -324,13 +324,6 @@ pluginKeys.whichkeys = {
 	{ "<leader>Th", "<cmd>ToggleTerm size=10 direction=horizontal<cr>", desc = "Horizontal" },
 	{ "<leader>Tv", "<cmd>ToggleTerm size=80 direction=vertical<cr>", desc = "Vertical" },
 
-	{ "<leader>R", group = "Replace" },
-	{ "<leader>Rr", "<cmd>lua require('spectre').toggle()<CR>", desc = "Toggle Spectre" },
-	{ "<leader>Rx", "<cmd>lua require('spectre').toggle()<CR>", desc = "Toggle Spectre" },
-	{ "<leader>Rf", "<cmd>lua require('spectre').open_file_search()<CR>", desc = "Replace File" },
-	{ "<leader>Rp", "<cmd>lua require('spectre').open()<CR>", desc = "Replace Project" },
-	{ "<leader>Rs", "<cmd>lua require('spectre').open_visual({select_word=true})<CR>", desc = "Search" },
-
 	{ "<leader>h", group = "Help" },
 	{ "<leader>hc", "<cmd>Telescope colorscheme<cr>", desc = "Colorscheme" },
 	{ "<leader>hh", "<cmd>Telescope help_tags<cr>", desc = "Find Help" },
@@ -351,6 +344,17 @@ pluginKeys.whichkeys = {
 }
 
 map("n", ",o", "<cmd>Outline<CR>", opts("Outline"))
+
+map({ "n", "v" }, "<Leader>sr", function()
+	local grug = require("grug-far")
+	local ext = vim.bo.buftype == "" and vim.fn.expand("%:e")
+	grug.open({
+		transient = true,
+		prefills = {
+			filesFilter = ext and ext ~= "" and "*." .. ext or nil,
+		},
+	})
+end, opts("Search and Replace"))
 
 -- lsp
 map("n", "gci", "<cmd>LspInfo<cr>", opts("Lsp Info")) --show lsp info
