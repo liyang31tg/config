@@ -204,7 +204,7 @@ simplified_ui false
 // Choose the path to the default shell that zellij will use for opening new panes
 // Default: $SHELL
 //
-// default_shell "fish"
+default_shell "zsh"
 
 // Choose the path to override cwd that zellij will use for opening new panes
 //
@@ -283,7 +283,7 @@ default_layout "zjstatus"
 // Choose the mode that zellij uses when starting up.
 // Default: normal
 //
-// default_mode "locked"
+//default_mode "locked"
 
 // Toggle enabling the mouse mode.
 // On certain configurations, or terminals this could
@@ -292,7 +292,7 @@ default_layout "zjstatus"
 //   - true (default)
 //   - false
 // 关闭才能支持双击选中文本,打开不知道有什么作用就先关闭吧
-mouse_mode false
+mouse_mode true
 
 // Configure the scroll back buffer size
 // This is the number of lines zellij stores for each pane in the scroll back
@@ -340,10 +340,18 @@ scrollback_editor "/usr/local/bin/nvim"
 
 // The folder in which Zellij will look for layouts
 //
-// layout_dir "/path/to/my/layout_dir"
+//layout_dir "~/.config/zellij/layouts"
 
 // The folder in which Zellij will look for themes
 //
-// theme_dir "/path/to/my/theme_dir"
+//theme_dir "~/.config/zellij/themes"
+
+//设置键值对环境变量到zellij的环境中
+env {
+    FOO "bar"
+}
+
+
+
 
 session_serialization false
