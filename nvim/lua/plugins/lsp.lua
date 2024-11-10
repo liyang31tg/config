@@ -24,7 +24,7 @@ function GenServers()
 		yamlls = {},
 		volar = {}, --masoninstall vue-language-server@1.8.27, up this version not work in vue3
 		-- "vuels"
-		denols = {}, --这个不能安装，会强制import以./ ../ 等开头的问
+		-- denols = {}, --这个不能安装，会强制import以./ ../ 等开头的问
 		dockerls = {},
 		docker_compose_language_service = {},
 		basedpyright = {},
