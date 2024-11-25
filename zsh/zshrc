@@ -197,4 +197,7 @@ neofetch
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
+# 表示本机
+useryy=18
+
 
