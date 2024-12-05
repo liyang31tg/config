@@ -58,7 +58,7 @@ local opt = {
 		-- 隐藏 .文件
 		dotfiles = true,
 		-- 隐藏 node_modules 文件夹
-		custom = { "node_modules", "meta" },
+		custom = { "node_modules" },
 	},
 	view = {
 		-- 宽度

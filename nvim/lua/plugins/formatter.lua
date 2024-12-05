@@ -1,6 +1,7 @@
 local obj = {
 	"stevearc/conform.nvim",
 	opts = {
+		debug = true,
 		--set ft? 获取文件的ft
 		formatters_by_ft = {
 			lua = { "stylua" },
@@ -21,7 +22,7 @@ local obj = {
 				end
 			end,
 			json = { "my_prettierd" },
-			yaml = { "my_prettierd" },
+			yaml = { "yamlfmt" }, -- go install github.com/google/yamlfmt/cmd/yamlfmt@latest
 			xml = { "xmlformat" },
 			csv = { "prettierd" },
 			sh = { "shfmt" },
