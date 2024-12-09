@@ -1,3 +1,4 @@
+
 "复制来源https://github.com/theniceboy/vimrc-example/blob/master/vimrc
 "作者 https://www.bilibili.com/video/BV1e4411V7AA?spm_id_from=333.1007.top_right_bar_window_history.content.click
 filetype on
@@ -42,12 +43,12 @@ noremap \p :echo expand('%:p')<CR>
 " hi IlluminatedWordRead ctermfg=Cyan guifg=#FF7373 gui=bold
 " hi IlluminatedWordWrite ctermfg=Cyan guifg=#FF7373 gui=bold
 
-augroup filetypedetect
+
+
+augroup tmplFileTypeDetect
     autocmd!
     autocmd BufNewFile,BufRead *.tmpl set filetype=html
 augroup END
-
-
 
 
 
