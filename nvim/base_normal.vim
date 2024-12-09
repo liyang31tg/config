@@ -42,6 +42,11 @@ noremap \p :echo expand('%:p')<CR>
 " hi IlluminatedWordRead ctermfg=Cyan guifg=#FF7373 gui=bold
 " hi IlluminatedWordWrite ctermfg=Cyan guifg=#FF7373 gui=bold
 
+augroup filetypedetect
+    autocmd!
+    autocmd BufNewFile,BufRead *.tmpl set filetype=html
+augroup END
+
 
 
 
