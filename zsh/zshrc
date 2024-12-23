@@ -9,16 +9,20 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 PLUGINS_PATH=$HOME/.local/share/zsh/plugins
+#git clone --depth=1 https://gitee.com/romkatv/powerlevel10k.git ${PLUGINS_PATH}/powerlevel10k
 source ${PLUGINS_PATH}/powerlevel10k/powerlevel10k.zsh-theme
+#git clone https://github.com/zsh-users/zsh-autosuggestions ${PLUGINS_PATH}/zsh-autosuggestions
 source ${PLUGINS_PATH}/zsh-autosuggestions/zsh-autosuggestions.zsh
 # do this in terminal when fzf-tab not working
 autoload -U compinit
 compinit
+#git clone https://github.com/Aloxaf/fzf-tab ${PLUGINS_PATH}/fzf-tab
 source ${PLUGINS_PATH}/fzf-tab/fzf-tab.plugin.zsh
 source $HOME/.config/zsh/fzf-tab.sh # 针对fzf-tab一些独立的配置
 [ -f $HOME/.fzf.zsh ] && source $HOME/.fzf.zsh
 
 
+#git clone https://github.com/zdharma-continuum/fast-syntax-highlighting ${PLUGINS_PATH}/fast-syntax-highlighting
 source ${PLUGINS_PATH}/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh #命令高亮
 # brew install autojump 这个插件不需要注入到这个文件里
 # 插件end
