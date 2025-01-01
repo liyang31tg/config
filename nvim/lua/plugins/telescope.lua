@@ -88,6 +88,7 @@ local obj = {
 				"go.sum",
 				"go.work",
 				".csproj",
+				"deno.json",
 				"Unity.Neovim.Editor.csproj",
 			},
 		}

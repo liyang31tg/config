@@ -35,14 +35,27 @@ noremap \s :<c-u>%s//g<left><left>
 " noremap <silent> <M-s> :w<cr>
 " 被zellij占用<m-s>,用于显示会话信息了
 "noremap <M-9> <esc>:<c-u>w<cr>
-autocmd FileType cs nnoremap <leader>r :set splitbelow<cr> :sp <CR> :term dotnet run % <CR>a
-autocmd FileType typescript nnoremap <leader>r :set splitbelow<cr> :sp <CR> :term deno run % <CR>a
 noremap \p :echo expand('%:p')<CR>
 
 " hi IlluminatedWordText ctermfg=Cyan guifg=#FF7373 gui=bold
 " hi IlluminatedWordRead ctermfg=Cyan guifg=#FF7373 gui=bold
 " hi IlluminatedWordWrite ctermfg=Cyan guifg=#FF7373 gui=bold
 
+augroup csharp_terminal
+    autocmd!
+    autocmd FileType cs nnoremap <leader>r :set splitbelow<cr> :sp <CR> :term dotnet run % <CR>a
+augroup END
+
+augroup typescript_terminal
+    autocmd!
+    autocmd FileType typescript nnoremap <leader>r :set splitbelow<cr> :sp <CR> :term deno run % <CR>a
+augroup END
+
+augroup python_terminal
+    autocmd!
+    autocmd FileType python nnoremap <leader>r :set splitbelow<cr> :sp <CR> :term python % <cr>a
+    autocmd FileType python nnoremap <localleader>r :set splitbelow<cr> :sp <CR> :term python3 % <cr>a
+augroup END
 
 
 augroup tmplFileTypeDetect
