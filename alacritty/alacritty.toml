@@ -1,7 +1,7 @@
 
 [window]
 dynamic_title = true
-decorations = "Buttonless"
+decorations = "Transparent"
 startup_mode = "Maximized"
 option_as_alt = "Both"
 blur=true
@@ -64,10 +64,16 @@ mods = "Command"
 action = "DecreaseFontSize"
 
 
+# [[keyboard.bindings]]
+# key = "S"
+# mods = "Command"
+# chars = "\u001b:silent w!\r"
+
 [[keyboard.bindings]]
 key = "S"
 mods = "Command"
-chars = "\u001b:silent w!\r"
+chars = "\u001b[24~"
+
 
 [[keyboard.bindings]]
 key = "H"
@@ -88,6 +94,21 @@ chars = "\u001b:OutlineFocus\r"
 key = "."
 mods = "Control"
 chars = "\u001b:OutlineFocus\r"
+
+
+[[keyboard.bindings]]
+key = "T"
+mods = "Command"
+chars = "\u001b[25~"
+
+[general]
+live_config_reload = true
+import = [ "~/.config/alacritty/themes/themes/nord.toml" ]
+# import = [ "~/.config/alacritty/themes/themes/nord_light.toml" ]
+
+[terminal]
+# chars = "\u001b[1;2Q" #esc+f14
+
 
 #ANSI 转义 chars的内容 [:转义开始 ~:转义结束
 #需要与\u001b配合使用
@@ -116,17 +137,38 @@ chars = "\u001b:OutlineFocus\r"
 # F22	[36~
 # F23	[23~
 # F24	[24~
-[[keyboard.bindings]]
-key = "T"
-mods = "Command"
-chars = "\u001b[25~"
-
-[general]
-live_config_reload = true
-import = [ "~/.config/alacritty/themes/themes/nord.toml" ]
-# import = [ "~/.config/alacritty/themes/themes/nord_light.toml" ]
-
-[terminal]
-# chars = "\u001b[1;2Q" #esc+f14
-
+# 功能键   ANSI 转义序列
+# Ctrl + @ (或 Ctrl + Space)  0x00
+# Ctrl + A                    0x01
+# Ctrl + B                    0x02
+# Ctrl + C                    0x03
+# Ctrl + D                    0x04
+# Ctrl + E                    0x05
+# Ctrl + F                    0x06
+# Ctrl + G                    0x07
+# Ctrl + H                    0x08
+# Ctrl + I (Tab)              0x09
+# Ctrl + J (LF)               0x0A
+# Ctrl + K                    0x0B
+# Ctrl + L                    0x0C
+# Ctrl + M (CR)               0x0D
+# Ctrl + N                    0x0E
+# Ctrl + O                    0x0F
+# Ctrl + P                    0x10
+# Ctrl + Q                    0x11
+# Ctrl + R                    0x12
+# Ctrl + S                    0x13
+# Ctrl + T                    0x14
+# Ctrl + U                    0x15
+# Ctrl + V                    0x16
+# Ctrl + W                    0x17
+# Ctrl + X                    0x18
+# Ctrl + Y                    0x19
+# Ctrl + Z                    0x1A
+# Ctrl + [                   0x1B
+# Ctrl + \                   0x1C
+# Ctrl + ]                   0x1D
+# Ctrl + ^                   0x1E
+# Ctrl + _                   0x1F
+# Delete (DEL)               0x7F
 

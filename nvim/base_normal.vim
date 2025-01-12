@@ -53,7 +53,7 @@ augroup END
 
 augroup python_terminal
     autocmd!
-    autocmd FileType python nnoremap <leader>r :set splitbelow<cr> :sp <CR> :term python % <cr>a
+    autocmd FileType python nnoremap <leader>r :set splitbelow<cr> :sp <CR> :term python3 % <cr>a
     autocmd FileType python nnoremap <localleader>r :set splitbelow<cr> :sp <CR> :term python3 % <cr>a
 augroup END
 
