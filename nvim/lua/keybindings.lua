@@ -344,7 +344,9 @@ pluginKeys.whichkeys = {
 }
 
 map("n", ",o", "<cmd>Outline<CR>", opts("Outline"))
+map("n", "<leader>/", "<cmd>OutlineFocus<CR>", opts("OutlineFocus"))
 
+-- 黑苹果不支持,m1芯片是支持的
 map({ "n", "i", "v" }, "<D-s>", function()
 	vim.cmd("silent! write")
 end, opts("save"))
