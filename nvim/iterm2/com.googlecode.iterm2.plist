@@ -9,7 +9,7 @@
 	<key>AlternateMouseScrollStringForUp</key>
 	<string>\k</string>
 	<key>AutoHideTmuxClientSession</key>
-	<true/>
+	<false/>
 	<key>Command</key>
 	<string>echo"cc"</string>
 	<key>Custom Color Presets</key>
@@ -71647,12 +71647,14 @@
 		<dict>
 			<key>Action</key>
 			<integer>38</integer>
-			<key>Label</key>
-			<string></string>
+			<key>Apply Mode</key>
+			<integer>0</integer>
+			<key>Escaping</key>
+			<integer>2</integer>
 			<key>Text</key>
-			<string>\x1b:NvimTreeFindFile\x0d</string>
+			<string>\e[15;2~</string>
 			<key>Version</key>
-			<integer>1</integer>
+			<integer>2</integer>
 		</dict>
 		<key>0x44-0x120000-0x2</key>
 		<dict>
@@ -72021,7 +72023,7 @@
 			<key>Columns</key>
 			<integer>180</integer>
 			<key>Command</key>
-			<string>/bin/zsh --login -c "zellij attach -c item2"</string>
+			<string>/bin/zsh --login -c "zellij"</string>
 			<key>Cursor Color</key>
 			<dict>
 				<key>Alpha Component</key>
@@ -72062,7 +72064,7 @@
 				<real>0.96546226739883423</real>
 			</dict>
 			<key>Custom Command</key>
-			<string>Yes</string>
+			<string>No</string>
 			<key>Custom Directory</key>
 			<string>No</string>
 			<key>Default Bookmark</key>
@@ -72412,7 +72414,7 @@
 			<key>Non-ASCII Anti Aliased</key>
 			<true/>
 			<key>Normal Font</key>
-			<string>MesloLGS-NF-Regular 16</string>
+			<string>MesloLGS-NF-Regular 18</string>
 			<key>Option Key Sends</key>
 			<integer>2</integer>
 			<key>Prompt Before Closing 2</key>
@@ -72787,7 +72789,7 @@
 	<key>SeparateWindowTitlePerTab</key>
 	<true/>
 	<key>ShowFullScreenTabBar</key>
-	<true/>
+	<false/>
 	<key>ShowPaneTitles</key>
 	<true/>
 	<key>SmartPlacement</key>
@@ -72810,12 +72812,20 @@
 	<integer>5</integer>
 	<key>TerminalVMargin</key>
 	<integer>0</integer>
+	<key>TmuxUsesDedicatedProfile</key>
+	<false/>
+	<key>TmuxWarnBeforePausing</key>
+	<false/>
+	<key>TripleClickSelectsFullWrappedLines</key>
+	<true/>
 	<key>UIElementRequiresHotkeys</key>
 	<false/>
 	<key>UseBorder</key>
 	<false/>
 	<key>UseLionStyleFullscreen</key>
 	<true/>
+	<key>UseTmuxStatusBar</key>
+	<false/>
 	<key>VisualIndicatorForEsc</key>
 	<false/>
 	<key>WindowNumber</key>

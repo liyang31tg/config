@@ -348,10 +348,15 @@ map("n", ",o", "<cmd>Outline<CR>", opts("Outline"))
 map({ "n", "i", "v" }, "<D-s>", function()
 	vim.cmd("silent! write")
 end, opts("save"))
--- 桥接使用,因为黑苹果不支持上面的<D-s>,又不想使用:w的方式,因为想屏蔽小命令行
-map({ "n", "i", "v" }, "<F12>", function()
+
+-- 桥接使用,因为黑苹果不支持上面的<D-s>,又不d想使用:w的方式,因为想屏蔽小命令行
+map({ "n", "i", "v" }, "<F14>", function()
 	vim.cmd("silent! write")
 end, opts("save"))
+
+map({ "n", "i", "v" }, "<F15>", function()
+	vim.cmd("silent! NvimTreeFindFile")
+end, opts("NvimTreeFindFile"))
 
 map({ "n", "v" }, "<Leader>sr", function()
 	local grug = require("grug-far")
