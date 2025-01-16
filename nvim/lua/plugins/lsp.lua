@@ -1,4 +1,8 @@
 function GenServers()
+	local vue_typescript_plugin = require("mason-registry").get_package("vue-language-server"):get_install_path()
+		.. "/node_modules/@vue/language-server"
+		.. "/node_modules/@vue/typescript-plugin"
+	-- .local/share/nvim/mason/packages/vue-language-server/node_modules/@vue/language-server/node_modules/@vue/typescript-plugin
 	local servers = {
 		lua_ls = {
 			settings = {
@@ -20,9 +24,28 @@ function GenServers()
 		-- tsserver = {},
 		ts_ls = {
 			single_file_support = false,
+			-- https://lsp-zero.netlify.app/blog/configure-volar-v2.html  参考文章
+			init_options = {
+				plugins = {
+					{
+						name = "@vue/typescript-plugin",
+						location = vue_typescript_plugin,
+						languages = { "javascript", "typescript", "vue" },
+					},
+				},
+			},
+			filetypes = {
+				"javascript",
+				"javascriptreact",
+				"javascript.jsx",
+				"typescript",
+				"typescriptreact",
+				"typescript.tsx",
+				"vue",
+			},
 		},
+		volar = {}, --masoninstall vue-language-server@1.8.27, up this version not work in vue3 . 这个错误是因为2.0.0以后得版本不再内嵌ts
 		yamlls = {},
-		volar = {}, --masoninstall vue-language-server@1.8.27, up this version not work in vue3
 		-- "vuels"
 		-- denols = {}, --这个不能安装，会强制import以./ ../ 等开头的问
 		dockerls = {},
