@@ -1,0 +1,8 @@
+syntax on
+set nu rnu
+set cursorline
+set showcmd
+set wildmenu
+map R :source $MYVIMRC<cr>
+map <c-2> :echo "test"<cr>
+
