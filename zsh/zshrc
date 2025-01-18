@@ -51,7 +51,7 @@ function fg() {
 
 # alias start
 alias vi=nvim
-alias vim=nvim
+alias vim=vim
 alias neococos="nvim --listen 127.0.0.1:6553"
 # alias ls="ls --color=auto"
 alias r="source $HOME/.zshrc"

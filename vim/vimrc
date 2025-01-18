@@ -1,3 +1,8 @@
+"查看属性值,直接设置属性名后面加?, eg: :set nu?"
+"设置属性值为true,直接set 属性名, eg: :set nu"
+"设置属性值为false,在属性名前加no, eg: :set nonu"
+set nocompatible "是否兼容"vi"编辑器"
+set mouse=a "是否启用鼠标"
 syntax on
 set nu rnu
 set cursorline
