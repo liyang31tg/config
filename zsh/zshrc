@@ -74,6 +74,7 @@ alias top="btm" #brew install bottom
 alias cat="bat --color never"
 alias grep="rg"
 alias diff="delta"
+alias merge="meld"
 # alias sed="sd"
 alias df="duf"
 alias t="tldr" #brew install tealdeer #命令的常用语法
