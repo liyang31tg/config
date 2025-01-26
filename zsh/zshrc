@@ -80,7 +80,7 @@ alias df="duf"
 alias t="tldr" #brew install tealdeer #命令的常用语法
 alias ps="procs"
 alias find="fd"
-alias s="neofetch"
+alias s="spf"
 # 命令替换end
 #
 
