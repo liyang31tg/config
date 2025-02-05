@@ -9,7 +9,7 @@ local global = vim.g
 
 -- 使用增强状态栏插件后不再需要 vim 的模式提示
 option.showmode = false
-option.backspace = { "indent", "eol", "start" }
+-- option.backspace = { "indent", "eol", "start" }
 
 -- 缩进2个空格等于一个Tab
 -- vim.o.ts = 4
