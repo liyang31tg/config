@@ -113,7 +113,7 @@ map("n", ",q", ":q!<CR>", opt)
 map("n", "Q", ":qa!<CR>", opt)
 
 -- insert 模式下，跳到行首行尾
-map({ "n", "i" }, "<c-e>", "<ESC>A", opt) --now work
+map({ "i" }, "<c-e>", "<ESC>A", opt)
 map({ "n", "i" }, "<c-a>", "<ESC>I", opt)
 
 --第三方插件的快捷键银蛇如下
@@ -139,8 +139,8 @@ map("n", "<leader>sT", "<cmd>TodoTelescope keywords=TODO,FIX,FIXME<cr>", opts("T
 -- 查找文件
 map("n", "<c-p>", "<cmd>lua require('telescope.builtin').find_files()<cr>", opts("Find File"))
 -- 全局搜索
-map("n", "<C-f>", "<cmd>lua require('telescope.builtin').live_grep()<cr>", opts("Find Str"))
-map("n", "<leader><space>", "<cmd>lua require('telescope.builtin').grep_string()<cr>", { desc = "Grep String" })
+map("n", "<leader><space>", "<cmd>lua require('telescope.builtin').live_grep()<cr>", opts("Find Str"))
+-- map("n", "<leader><space>", "<cmd>lua require('telescope.builtin').grep_string()<cr>", { desc = "Grep String" })
 --buffer 搜索
 map("n", "<Leader>/", "<leader>f/", { silent = true, remap = true, desc = "文件搜索" })
 
