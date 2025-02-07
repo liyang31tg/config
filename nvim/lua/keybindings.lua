@@ -53,6 +53,8 @@ map(
 	opts("Redraw / clear hlsearch / diff update")
 )
 
+map("c", "<c-a>", "<Home>", { desc = "Home" })
+
 --keywordprg
 map("n", "<leader>K", "<cmd>norm! K<cr>", { desc = "Keywordprg 查询文档" })
 
