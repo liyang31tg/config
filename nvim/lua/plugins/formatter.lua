@@ -1,14 +1,14 @@
 local obj = {
 	"stevearc/conform.nvim",
 	opts = {
+		stop_after_first = false,
 		debug = true,
 		--set ft? 获取文件的ft
 		formatters_by_ft = {
 			lua = { "stylua" },
 			-- Conform will run multiple formatters sequentially
 			go = { "goimports", "gofmt" },
-			-- Use a sub-list to run only the first available formatter
-			javascript = { { "my_prettierd", "prettier" } },
+			javascript = { "my_prettierd" },
 			typescript = { "my_prettierd" },
 			vue = { "my_prettierd" },
 			html = { "my_prettierd" },
@@ -34,11 +34,11 @@ local obj = {
 			-- have other formatters configured.
 			["_"] = { "trim_whitespace" },
 		},
-		-- format_on_save = {
-		-- I recommend these options. See :help conform.format for details.
-		-- lsp_fallback = true,
-		-- timeout_ms = 500,
-		-- },
+		format_on_save = {
+			-- These options will be passed to conform.format()
+			timeout_ms = 500,
+			lsp_format = "fallback", -- "never", "always", "fallback",这个是优先使用lsp的格式化工具
+		},
 		formatters = {
 			my_prettierd = {
 				-- This can be a string or a function that returns a string.

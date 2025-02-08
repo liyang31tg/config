@@ -115,7 +115,6 @@ fd1() {
 export LC_ALL=zh_CN.UTF-8
 export LANG=zh_CN.UTF-8
 export DENO_INSTALL="/Users/mac/.deno"
-export PATH="$DENO_INSTALL/bin:$PATH"
 
 # pnpm
 export PNPM_HOME="$HOME/.pnpm"
@@ -195,14 +194,13 @@ eval "$(starship init zsh)"
 neofetch
 
 
-# bun completions
-[ -s "/Users/mac/.bun/_bun" ] && source "/Users/mac/.bun/_bun"
-
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
 
 # 表示本机
 useryy=18
+
+
+[ -e $HOME/.config/zsh/zsh_tool.sh ] && source $HOME/.config/zsh/zsh_tool.sh
+
+
 
 
