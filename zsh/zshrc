@@ -5,10 +5,8 @@
 # 插件目录 .local/share/zsh/plugins
 # 插件开始
 export PATH=$PATH:/opt/homebrew/bin
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
 PLUGINS_PATH=$HOME/.local/share/zsh/plugins
+[ -e $HOME/.config/zsh/zsh_tool.sh ] && source $HOME/.config/zsh/zsh_tool.sh
 #git clone --depth=1 https://gitee.com/romkatv/powerlevel10k.git ${PLUGINS_PATH}/powerlevel10k
 source ${PLUGINS_PATH}/powerlevel10k/powerlevel10k.zsh-theme
 #git clone https://github.com/zsh-users/zsh-autosuggestions ${PLUGINS_PATH}/zsh-autosuggestions
@@ -85,7 +83,7 @@ alias s="spf"
 #
 
 function ip(){
-  curl cip.cc
+  curl ipinfo.io
 }
 
 
@@ -140,10 +138,6 @@ if [[ -e $HOME/.zshrc_local ]]; then
 	source $HOME/.zshrc_local
 fi
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-# enable-fzf-tab
-
 
 # zellij start
 # 自动启动zellij
@@ -184,22 +178,23 @@ function za(){
     fi
 }
 # zellij end
-typeset -g POWERLEVEL9K_INSTANT_PROMPT=off
 export useryy=12 #这是一个标识，表示只在本机
 
 # install starship
 # brew install starship
-eval "$(starship init zsh)"
+# eval "$(starship init zsh)"
 
-neofetch
-
-
-
-# 表示本机
-useryy=18
+# neofetch
 
 
-[ -e $HOME/.config/zsh/zsh_tool.sh ] && source $HOME/.config/zsh/zsh_tool.sh
+
+
+# 启动时自动运行 Zellij
+# if [[ -z "$ZELLIJ" ]]; then
+#     zellij attach -c default
+# fi
+
+
 
 
 
