@@ -82,9 +82,6 @@ alias s="spf"
 # 命令替换end
 #
 
-function ip(){
-  curl ipinfo.io
-}
 
 
 
@@ -184,7 +181,7 @@ export useryy=12 #这是一个标识，表示只在本机
 # brew install starship
 # eval "$(starship init zsh)"
 
-# neofetch
+neofetch
 
 
 
@@ -197,5 +194,20 @@ export useryy=12 #这是一个标识，表示只在本机
 
 
 
+function proxy_on(){
+    export http_proxy=http://127.0.0.1:7890
+    export https_proxy=http://127.0.0.1:7890
+    export all_proxy=socks5://127.0.0.1:7890
+}
+
+function proxy_off(){
+    unset http_proxy
+    unset https_proxy
+    unset all_proxy
+}
+
+function ip(){
+  curl ipinfo.io
+}
 
 

@@ -10,35 +10,29 @@ if ! type fanyi &>/dev/null; then
     bun i fanyi -g
 fi
 
-if ! type gitui &> /dev/null;then
-    echo "Installing gitui..."
-    brew install gitui
-fi
+# 工具列表数组（可自由扩展）
+declare -a tools=(
+  "bat"       # 语法高亮cat替代
+  "zoxide"    # 智能目录跳转
+  "fzf"       # 模糊搜索工具
+  "zk"
+  "lsd"
+  "neofetch"
+  "starship"
+  "gitui"
+)
 
-if ! type starship &> /dev/null;then
-    echo "Installing starship..."
-    brew install starship
-fi
-
-if ! type neofetch &> /dev/null;then
-    echo "Installing neofetch..."
-    brew install neofetch
-fi
-
-if ! type lsd &> /dev/null;then
-    echo "Installing lsd.."
-    brew install lsd
-fi
-
-if ! type zk &> /dev/null;then
-    echo "Installing zk.."
-    brew install zk
-fi
-
-if ! type bat &> /dev/null;then
-    echo "Installing bat.."
-    brew install bat
-fi
+# 带进度提示的安装循环
+for tool in "${tools[@]}"; do
+  if ! command -v "${tool}" >/dev/null 2>&1; then
+    echo -e "\033[1;33m⇒\033[0m Installing \033[1;36m${tool}\033[0m..."
+    if ! brew install "${tool}"; then
+      echo -e "\033[1;31m✗ Failed to install ${tool}\033[0m" >&2
+      exit 1
+    fi
+    echo -e "\033[1;32m✓ ${tool} installed\033[0m"
+  fi
+done
 
 
 if [[ ! -e ${PLUGINS_PATH}/powerlevel10k/powerlevel10k.zsh-theme ]];then

@@ -29,3 +29,5 @@ nvim/plugin/packer_compiled.lua
 .undodir
 undodir
 .lazy-lock.json
+iterm2
+!/**/iterm2
