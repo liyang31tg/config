@@ -1,17 +1,24 @@
 -- m 映射的是alt控制键
 -- c 映射的是ctrl控制键
-local map = vim.keymap.set --该api不支持noremap属性,相反的你需要递归映射的就需要指定remap属性,类似一下面的remap=true
-local unmap = vim.keymap.del
-local remap = function(modes, lhs, rhs, opts)
-	unmap(modes, lhs, opts)
-	map(modes, lhs, rhs, opts)
-end
--- local mapapi = vim.api.nvim_set_keymap
-local opt = { remap = false, silent = true }
+-- 定义 map 函数，带有默认选项
+local function map(mode, lhs, rhs, opts)
+    -- 设置默认选项
+    local default_opts = { remap = false, silent = true, unique = false }
 
-local function opts(desc)
-	return { remap = false, silent = true, desc = desc }
+    -- 如果 opts 是字符串，将其转换为包含 desc 的表
+    if type(opts) == "string" then
+        opts = { desc = opts }
+    end
+
+    -- 将传入的 opts 合并到默认选项中
+    opts = vim.tbl_extend("force", default_opts, opts or {})
+
+    -- 设置键映射
+    vim.keymap.set(mode, lhs, rhs, opts)
 end
+
+
+local unmap = vim.keymap.del
 
 unmap("n", "gc", {})
 unmap("n", "gcc", {})
@@ -22,24 +29,24 @@ map("n", "\\s", [[  :<c-u>%s//g<left><left> ]], { noremap = true })
 map({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and Clear hlsearch" })
 
 -- windows 分屏快捷键
-map("n", "sl", ":vsp<CR>", opt)
-map("n", "s|", ":vsp<CR>", opt)
-map("n", "sj", ":sp<CR>", opt)
-map("n", "s-", ":sp<CR>", opt)
+map("n", "sl", ":vsp<CR>")
+map("n", "s|", ":vsp<CR>")
+map("n", "sj", ":sp<CR>")
+map("n", "s-", ":sp<CR>")
 -- 关闭其他
-map("n", "so", "<c-w>o", opt)
+map("n", "so", "<c-w>o")
 -- Alt + hjkl  窗口之间跳转
 --map("n", "<A-h>", "<C-w>h", opt)
-map("n", "<c-h>", "<C-w>h", opt)
-map("n", "<c-j>", "<C-w>j", opt)
-map("n", "<c-k>", "<C-w>k", opt)
-map("n", "<c-l>", "<C-w>l", opt)
+map("n", "<c-h>", "<C-w>h")
+map("n", "<c-j>", "<C-w>j")
+map("n", "<c-k>", "<C-w>k")
+map("n", "<c-l>", "<C-w>l")
 
 -- Move Lines
-map("v", "J", ":m '>+1<cr>gv=gv", opts("Move down"))
-map("v", "K", ":m '<-2<cr>gv=gv", opts("Move up"))
-map("v", "H", "<gv", opts("Move left"))
-map("v", "L", ">gv", opts("Move right"))
+map("v", "J", ":m '>+1<cr>gv=gv", "Move down")
+map("v", "K", ":m '<-2<cr>gv=gv", "Move up")
+map("v", "H", "<gv", "Move left")
+map("v", "L", ">gv", "Move right")
 
 -- bufferline
 -- 左右Tab切换
@@ -47,10 +54,10 @@ map("n", "[b", "<leader>b[", { silent = true, remap = true })
 map("n", "]b", "<leader>b]", { silent = true, remap = true })
 
 map(
-	"n",
-	"<leader>ur",
-	"<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>",
-	opts("Redraw / clear hlsearch / diff update")
+    "n",
+    "<leader>ur",
+    "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>",
+    "Redraw / clear hlsearch / diff update"
 )
 
 map("c", "<c-a>", "<Home>", { desc = "Home" })
@@ -58,7 +65,7 @@ map("c", "<c-a>", "<Home>", { desc = "Home" })
 --keywordprg
 map("n", "<leader>K", "<cmd>norm! K<cr>", { desc = "Keywordprg 查询文档" })
 
-map({ "n", "x" }, "gw", "*N", opts("查询这个单词"))
+map({ "n", "x" }, "gw", "*N", "查询这个单词")
 
 -- copy from lazygit 不知道具体什么功能
 map({ "n", "x", "o" }, "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
@@ -75,11 +82,11 @@ map("n", "]q", vim.cmd.cnext, { desc = "Next Quickfix" })
 
 -- diagnostic
 local diagnostic_goto = function(next, severity)
-	local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
-	severity = severity and vim.diagnostic.severity[severity] or nil
-	return function()
-		go({ severity = severity })
-	end
+    local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
+    severity = severity and vim.diagnostic.severity[severity] or nil
+    return function()
+        go({ severity = severity })
+    end
 end
 map("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
 map("n", "]d", diagnostic_goto(true), { desc = "Next Diagnostic" })
@@ -94,496 +101,496 @@ map("n", "<leader>ui", vim.show_pos, { desc = "Inspect Pos" })
 map("n", "<leader>uI", "<cmd>InspectTree<cr>", { desc = "Inspect Tree" })
 
 -- 左右比例控制
-map("n", "<Left>", ":vertical resize -2<CR>", opt)
-map("n", "<Right>", ":vertical resize +2<CR>", opt)
-map("n", "<C-Left>", ":vertical resize -20<CR>", opt)
-map("n", "<C-Right>", ":vertical resize +20<CR>", opt)
+map("n", "<Left>", ":vertical resize -2<CR>")
+map("n", "<Right>", ":vertical resize +2<CR>")
+map("n", "<C-Left>", ":vertical resize -20<CR>")
+map("n", "<C-Right>", ":vertical resize +20<CR>")
 -- 上下比例
-map("n", "<C-Down>", ":resize +10<CR>", opt)
-map("n", "<C-Up>", ":resize -10<CR>", opt)
-map("n", "<Down>", ":resize +2<CR>", opt)
-map("n", "<Up>", ":resize -2<CR>", opt)
+map("n", "<C-Down>", ":resize +10<CR>")
+map("n", "<C-Up>", ":resize -10<CR>")
+map("n", "<Down>", ":resize +2<CR>")
+map("n", "<Up>", ":resize -2<CR>")
 -- 等比例
-map("n", "s=", "<C-w>=", opt)
+map("n", "s=", "<C-w>=")
 
 -- 在visual 模式里粘贴不要复制
-map("v", "p", '"_dP', opt)
+map("v", "p", '"_dP')
 
 -- 退出
-map("n", "<leader>q", ":q<CR>", opt)
-map("n", ",q", ":q!<CR>", opt)
-map("n", "Q", ":qa!<CR>", opt)
+map("n", "<leader>q", ":q<CR>")
+map("n", ",q", ":q!<CR>")
+map("n", "Q", ":qa!<CR>")
 
 -- insert 模式下，跳到行首行尾
-map({ "i" }, "<c-e>", "<ESC>A", opt)
-map({ "n", "i" }, "<c-a>", "<ESC>I", opt)
+map({ "i" }, "<c-e>", "<ESC>A")
+map({ "n", "i" }, "<c-a>", "<ESC>I")
 
 --第三方插件的快捷键银蛇如下
 local pluginKeys = {}
 --nvim-tree
-map("n", "<F3>", ":NvimTreeToggle<CR>", opt)
-map("n", "<F2>", ":NvimTreeFocus<CR>", opt)
-map({ "n", "i", "v", "c", "t" }, "<c-0>", ":NvimTreeFindFile<CR>", opt)
+map("n", "<F3>", ":NvimTreeToggle<CR>")
+map("n", "<F2>", ":NvimTreeFocus<CR>")
+map({ "n", "i", "v", "c", "t" }, "<c-0>", ":NvimTreeFindFile<CR>")
 
 map("n", "]t", function()
-	require("todo-comments").jump_next()
-end, opts("Next Todo Comment"))
+    require("todo-comments").jump_next()
+end, "Next Todo Comment")
 
 map("n", "[t", function()
-	require("todo-comments").jump_prev()
-end, opts("Previous Todo Comment"))
+    require("todo-comments").jump_prev()
+end, "Previous Todo Comment")
 
-map("n", "<leader>st", "<cmd>TodoTelescope<cr>", opts("Todo"))
-map("n", "<leader>sT", "<cmd>TodoTelescope keywords=TODO,FIX,FIXME<cr>", opts("Todo/Fix/Fixme"))
+map("n", "<leader>st", "<cmd>TodoTelescope<cr>", "Todo")
+map("n", "<leader>sT", "<cmd>TodoTelescope keywords=TODO,FIX,FIXME<cr>", "Todo/Fix/Fixme")
 
 -- Telescope
 -- map("n", "<c-p>", ".tt", { silent = true, remap = true })
 -- 查找文件
-map("n", "<c-p>", "<cmd>lua require('telescope.builtin').find_files()<cr>", opts("Find File"))
+map("n", "<c-p>", "<cmd>lua require('telescope.builtin').find_files()<cr>", "Find File")
 -- 全局搜索
-map("n", "<leader><space>", "<cmd>lua require('telescope.builtin').live_grep()<cr>", opts("Find Str"))
+map("n", "<leader><space>", "<cmd>lua require('telescope.builtin').live_grep()<cr>", "Find Str")
 -- map("n", "<leader><space>", "<cmd>lua require('telescope.builtin').grep_string()<cr>", { desc = "Grep String" })
 --buffer 搜索
 map("n", "<Leader>/", "<leader>f/", { silent = true, remap = true, desc = "文件搜索" })
 
 local function get_args(config)
-	local args = type(config.args) == "function" and (config.args() or {}) or config.args or {}
-	config = vim.deepcopy(config)
-	---@cast args string[]
-	config.args = function()
-		local new_args = vim.fn.input("Run with args: ", table.concat(args, " ")) --[[@as string]]
-		return vim.split(vim.fn.expand(new_args) --[[@as string]], " ")
-	end
-	return config
+    local args = type(config.args) == "function" and (config.args() or {}) or config.args or {}
+    config = vim.deepcopy(config)
+    ---@cast args string[]
+    config.args = function()
+        local new_args = vim.fn.input("Run with args: ", table.concat(args, " ")) --[[@as string]]
+        return vim.split(vim.fn.expand(new_args) --[[@as string]], " ")
+    end
+    return config
 end
 
 pluginKeys.whichkeys = {
-	{ "<leader>a", "<cmd>Alpha<cr>", desc = "Welcome" },
-	{ "<leader>b", group = "Buffer" },
-	{ "<leader>bd", "<cmd>Bdelete!<cr>", desc = "Close buffer" },
-	{ "<leader>bD", "<cmd>bd<cr>", desc = "Close buffer And Window" },
-	{ "<leader>bb", "<cmd>e #<cr>", desc = "swap with last buffer" },
-	{ "<leader>bl", "<cmd>BufferLineCloseRight<cr>", desc = "Close Right buffers" },
-	{ "<leader>bh", "<cmd>BufferLineCloseLeft<cr>", desc = "Close Left buffers" },
-	{ "<leader>bo", "<cmd>BufferLineCloseOthers<cr>", desc = "Close Others buffer" },
-	{ "<leader>bc", "<cmd>BufferLinePickClose<cr>", desc = "Pick Buffer Close" },
-	{ "<leader>bp", "<cmd>BufferLinePick<cr>", desc = "Pick Buffer" },
-	{ "<leader>b,", "<cmd>BufferLineMovePrev<cr>", desc = "Buffer Move Prev" },
-	{ "<leader>b.", "<cmd>BufferLineMoveNext<cr>", desc = "Buffer Move Next" },
-	{ "<leader>b[", "<cmd>BufferLineCyclePrev<cr>", desc = "Focus Pre Buffer" },
-	{ "<leader>b]", "<cmd>BufferLineCycleNext<cr>", desc = "Focus Next Buffer" },
+    { "<leader>a",  "<cmd>Alpha<cr>",                                        desc = "Welcome" },
+    { "<leader>b",  group = "Buffer" },
+    { "<leader>bd", "<cmd>Bdelete!<cr>",                                     desc = "Close buffer" },
+    { "<leader>bD", "<cmd>bd<cr>",                                           desc = "Close buffer And Window" },
+    { "<leader>bb", "<cmd>e #<cr>",                                          desc = "swap with last buffer" },
+    { "<leader>bl", "<cmd>BufferLineCloseRight<cr>",                         desc = "Close Right buffers" },
+    { "<leader>bh", "<cmd>BufferLineCloseLeft<cr>",                          desc = "Close Left buffers" },
+    { "<leader>bo", "<cmd>BufferLineCloseOthers<cr>",                        desc = "Close Others buffer" },
+    { "<leader>bc", "<cmd>BufferLinePickClose<cr>",                          desc = "Pick Buffer Close" },
+    { "<leader>bp", "<cmd>BufferLinePick<cr>",                               desc = "Pick Buffer" },
+    { "<leader>b,", "<cmd>BufferLineMovePrev<cr>",                           desc = "Buffer Move Prev" },
+    { "<leader>b.", "<cmd>BufferLineMoveNext<cr>",                           desc = "Buffer Move Next" },
+    { "<leader>b[", "<cmd>BufferLineCyclePrev<cr>",                          desc = "Focus Pre Buffer" },
+    { "<leader>b]", "<cmd>BufferLineCycleNext<cr>",                          desc = "Focus Next Buffer" },
 
-	{ ",d", group = "Debug" },
+    { ",d",         group = "Debug" },
 
-	{ "<leader>e", "<cmd>NvimTreeToggle<cr>", desc = "Explorer" },
+    { "<leader>e",  "<cmd>NvimTreeToggle<cr>",                               desc = "Explorer" },
 
-	{ "<leader>f", group = "Telescope" },
-	{ "<leader>fb", "<cmd>lua require('telescope.builtin').buffers()<cr>", desc = "Find Buffers" },
-	{ "<leader>fr", "<cmd>lua require('telescope.builtin').oldfiles()<cr>", desc = "Find Buffers" },
-	{ "<leader>fg", "<cmd>lua require('telescope.builtin').git_files()<cr>", desc = "Find Git Files" },
-	{ "<leader>fp", "<cmd>Telescope projects<cr>", desc = "Find Projects file" },
-	{ "<leader>ft", "<cmd>ToggleTerm<cr>", desc = "Terminal" },
-	{ "<leader>fT", "<cmd>ToggleTerm dir=~ name=root<cr>", desc = "Terminal root" },
-	{
-		"<leader>fs",
-		"<cmd>lua require('telescope.builtin').lsp_document_symbols()<cr>",
-		desc = "Find Document Symbols",
-	},
-	{
-		"<leader>fS",
-		"<cmd>lua require('telescope.builtin').lsp_dynamic_workspace_symbols()<cr>",
-		desc = "Find Workspace Symbols",
-	},
-	{
-		"<leader>f/",
-		"<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<cr>",
-		desc = "Find in current buffer",
-	},
+    { "<leader>f",  group = "Telescope" },
+    { "<leader>fb", "<cmd>lua require('telescope.builtin').buffers()<cr>",   desc = "Find Buffers" },
+    { "<leader>fr", "<cmd>lua require('telescope.builtin').oldfiles()<cr>",  desc = "Find Buffers" },
+    { "<leader>fg", "<cmd>lua require('telescope.builtin').git_files()<cr>", desc = "Find Git Files" },
+    { "<leader>fp", "<cmd>Telescope projects<cr>",                           desc = "Find Projects file" },
+    { "<leader>ft", "<cmd>ToggleTerm<cr>",                                   desc = "Terminal" },
+    { "<leader>fT", "<cmd>ToggleTerm dir=~ name=root<cr>",                   desc = "Terminal root" },
+    {
+        "<leader>fs",
+        "<cmd>lua require('telescope.builtin').lsp_document_symbols()<cr>",
+        desc = "Find Document Symbols",
+    },
+    {
+        "<leader>fS",
+        "<cmd>lua require('telescope.builtin').lsp_dynamic_workspace_symbols()<cr>",
+        desc = "Find Workspace Symbols",
+    },
+    {
+        "<leader>f/",
+        "<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<cr>",
+        desc = "Find in current buffer",
+    },
 
-	{ "<leader>g", group = "Git" },
-	{ "<leader>gb", "<cmd>Telescope git_branches<cr>", desc = "Checkout branch" },
-	{ "<leader>gc", "<cmd>Telescope git_commits<cr>", desc = "Checkout commit" },
-	{ "<leader>gd", "<cmd>DiffviewOpen<CR>", desc = "Diff Project" }, --工作区与暂存区的区别,暂存区与本地git仓库的区别
-	{ "<leader>gf", "<cmd>DiffviewFileHistory %<cr>", desc = "Current File History" }, --git本地仓库中,当前文件的commit记录与上次commit之间的区别 ,这个只正对当前文件
-	{ "<leader>gF", "<cmd>DiffviewFileHistory<cr>", desc = "Files History" }, --git本地仓库中,当前文件的commit记录与上次commit之间的区别,这个是所有文件的
-	{ "<leader>gx", "<cmd>DiffviewClose<cr>", desc = "DiffviewClose" },
-	{ "<leader>gn", "<cmd>lua require 'gitsigns'.next_hunk()<cr>", desc = "Next Hunk" },
-	{ "<leader>gp", "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", desc = "Prev Hunk" },
-	{ "<leader>gl", "<cmd>lua require 'gitsigns'.blame_line()<cr>", desc = "提交信息" },
-	{ "<leader>gr", "<cmd>lua require 'gitsigns'.reset_hunk()<cr>", desc = "Reset Hunk" },
-	{ "<leader>gR", "<cmd>lua require 'gitsigns'.reset_buffer()<cr>", desc = "Reset Buffer" },
-	{ "<leader>gs", "<cmd>Telescope git_status<cr>", desc = "Open changed file" },
+    { "<leader>g", group = "Git" },
+    { "<leader>gb", "<cmd>Telescope git_branches<cr>", desc = "Checkout branch" },
+    { "<leader>gc", "<cmd>Telescope git_commits<cr>", desc = "Checkout commit" },
+    { "<leader>gd", "<cmd>DiffviewOpen<CR>", desc = "Diff Project" },                  --工作区与暂存区的区别,暂存区与本地git仓库的区别
+    { "<leader>gf", "<cmd>DiffviewFileHistory %<cr>", desc = "Current File History" }, --git本地仓库中,当前文件的commit记录与上次commit之间的区别 ,这个只正对当前文件
+    { "<leader>gF", "<cmd>DiffviewFileHistory<cr>", desc = "Files History" },          --git本地仓库中,当前文件的commit记录与上次commit之间的区别,这个是所有文件的
+    { "<leader>gx", "<cmd>DiffviewClose<cr>", desc = "DiffviewClose" },
+    { "<leader>gn", "<cmd>lua require 'gitsigns'.next_hunk()<cr>", desc = "Next Hunk" },
+    { "<leader>gp", "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", desc = "Prev Hunk" },
+    { "<leader>gl", "<cmd>lua require 'gitsigns'.blame_line()<cr>", desc = "提交信息" },
+    { "<leader>gr", "<cmd>lua require 'gitsigns'.reset_hunk()<cr>", desc = "Reset Hunk" },
+    { "<leader>gR", "<cmd>lua require 'gitsigns'.reset_buffer()<cr>", desc = "Reset Buffer" },
+    { "<leader>gs", "<cmd>Telescope git_status<cr>", desc = "Open changed file" },
 
-	{ "<leader>o", group = "Task" },
-	{ "<leader>ow", "<cmd>OverseerToggle<cr>", desc = "Task list" },
-	{ "<leader>oo", "<cmd>OverseerRun<cr>", desc = "Run task" },
-	{ "<leader>oq", "<cmd>OverseerQuickAction<cr>", desc = "Action recent task" },
-	{ "<leader>oi", "<cmd>OverseerInfo<cr>", desc = "Overseer Info" },
-	{ "<leader>ob", "<cmd>OverseerBuild<cr>", desc = "Task builder" },
-	{ "<leader>ot", "<cmd>OverseerTaskAction<cr>", desc = "Task action" },
-	{ "<leader>oc", "<cmd>OverseerClearCache<cr>", desc = "Clear cache" },
+    { "<leader>o", group = "Task" },
+    { "<leader>ow", "<cmd>OverseerToggle<cr>", desc = "Task list" },
+    { "<leader>oo", "<cmd>OverseerRun<cr>", desc = "Run task" },
+    { "<leader>oq", "<cmd>OverseerQuickAction<cr>", desc = "Action recent task" },
+    { "<leader>oi", "<cmd>OverseerInfo<cr>", desc = "Overseer Info" },
+    { "<leader>ob", "<cmd>OverseerBuild<cr>", desc = "Task builder" },
+    { "<leader>ot", "<cmd>OverseerTaskAction<cr>", desc = "Task action" },
+    { "<leader>oc", "<cmd>OverseerClearCache<cr>", desc = "Clear cache" },
 
-	{ "<leader>x", group = "Trouble" },
-	{ "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", desc = "Diagnostics (Trouble)" },
-	{ "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", desc = "Buffer Diagnostics (Trouble)" },
-	{ "<leader>xs", "<cmd>Trouble symbols toggle<cr>", desc = "Symbols (Trouble)" },
-	{ "<leader>xS", "<cmd>Trouble lsp toggle<cr>", desc = "LSP references/definitions/... (Trouble)" },
-	{ "<leader>xL", "<cmd>Trouble loclist toggle<cr>", desc = "Location List (Trouble)" },
-	{ "<leader>xQ", "<cmd>Trouble qflist toggle<cr>", desc = "Quickfix List (Trouble)" },
+    { "<leader>x", group = "Trouble" },
+    { "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", desc = "Diagnostics (Trouble)" },
+    { "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", desc = "Buffer Diagnostics (Trouble)" },
+    { "<leader>xs", "<cmd>Trouble symbols toggle<cr>", desc = "Symbols (Trouble)" },
+    { "<leader>xS", "<cmd>Trouble lsp toggle<cr>", desc = "LSP references/definitions/... (Trouble)" },
+    { "<leader>xL", "<cmd>Trouble loclist toggle<cr>", desc = "Location List (Trouble)" },
+    { "<leader>xQ", "<cmd>Trouble qflist toggle<cr>", desc = "Quickfix List (Trouble)" },
 
-	{ "<leader>t", group = "Test" },
-	{
-		"<leader>ta",
-		function()
-			require("neotest").run.attach()
-		end,
-		desc = "[t]est [a]ttach",
-	},
-	{
-		"<leader>tf",
-		function()
-			require("neotest").run.run(vim.fn.expand("%"))
-		end,
-		desc = "[t]est run [f]ile",
-	},
-	{
-		"<leader>tA",
-		function()
-			require("neotest").run.run(vim.uv.cwd())
-		end,
-		desc = "[t]est [A]ll files",
-	},
-	{
-		"<leader>tS",
-		function()
-			require("neotest").run.run({ suite = true })
-		end,
-		desc = "[t]est [S]uite",
-	},
-	{
-		"<leader>tt", --运行当前方法
-		function()
-			require("neotest").run.run()
-		end,
-		desc = "[t]est [n]earest",
-	},
-	{
-		"<leader>tl",
-		function()
-			require("neotest").run.run_last()
-		end,
-		desc = "[t]est [l]ast",
-	},
-	{
-		"<leader>ts",
-		function()
-			require("neotest").summary.toggle()
-		end,
-		desc = "[t]est [s]ummary",
-	},
-	{
-		"<leader>to",
-		function()
-			require("neotest").output.open({ enter = true, auto_close = true })
-		end,
-		desc = "[t]est [o]utput",
-	},
-	{
-		"<leader>tO",
-		function()
-			require("neotest").output_panel.toggle()
-		end,
-		desc = "[t]est [O]utput panel",
-	},
-	{
-		"<leader>tc",
-		function()
-			require("neotest").output_panel.clear()
-		end,
-		desc = "clear [O]utput panel",
-	},
-	{
-		"<leader>te",
-		function()
-			require("neotest").run.stop()
-		end,
-		desc = "[t]est [t]erminate",
-	},
-	{
-		"<leader>td",
-		function()
-			require("neotest").run.run({ suite = false, strategy = "dap" })
-		end,
-		desc = "Debug nearest test",
-	},
+    { "<leader>t", group = "Test" },
+    {
+        "<leader>ta",
+        function()
+            require("neotest").run.attach()
+        end,
+        desc = "[t]est [a]ttach",
+    },
+    {
+        "<leader>tf",
+        function()
+            require("neotest").run.run(vim.fn.expand("%"))
+        end,
+        desc = "[t]est run [f]ile",
+    },
+    {
+        "<leader>tA",
+        function()
+            require("neotest").run.run(vim.uv.cwd())
+        end,
+        desc = "[t]est [A]ll files",
+    },
+    {
+        "<leader>tS",
+        function()
+            require("neotest").run.run({ suite = true })
+        end,
+        desc = "[t]est [S]uite",
+    },
+    {
+        "<leader>tt", --运行当前方法
+        function()
+            require("neotest").run.run()
+        end,
+        desc = "[t]est [n]earest",
+    },
+    {
+        "<leader>tl",
+        function()
+            require("neotest").run.run_last()
+        end,
+        desc = "[t]est [l]ast",
+    },
+    {
+        "<leader>ts",
+        function()
+            require("neotest").summary.toggle()
+        end,
+        desc = "[t]est [s]ummary",
+    },
+    {
+        "<leader>to",
+        function()
+            require("neotest").output.open({ enter = true, auto_close = true })
+        end,
+        desc = "[t]est [o]utput",
+    },
+    {
+        "<leader>tO",
+        function()
+            require("neotest").output_panel.toggle()
+        end,
+        desc = "[t]est [O]utput panel",
+    },
+    {
+        "<leader>tc",
+        function()
+            require("neotest").output_panel.clear()
+        end,
+        desc = "clear [O]utput panel",
+    },
+    {
+        "<leader>te",
+        function()
+            require("neotest").run.stop()
+        end,
+        desc = "[t]est [t]erminate",
+    },
+    {
+        "<leader>td",
+        function()
+            require("neotest").run.run({ suite = false, strategy = "dap" })
+        end,
+        desc = "Debug nearest test",
+    },
 
-	{ "<leader>T", group = "Terminal" },
-	{ "<leader>Tn", "<cmd>lua _NODE_TOGGLE()<cr>", desc = "Node" },
-	{ "<leader>Tu", "<cmd>lua _NCDU_TOGGLE()<cr>", desc = "NCDU" },
-	{ "<leader>Tt", "<cmd>lua _HTOP_TOGGLE()<cr>", desc = "Htop" },
-	{ "<leader>Tp", "<cmd>lua _PYTHON_TOGGLE()<cr>", desc = "Python" },
-	{ "<leader>Tf", "<cmd>ToggleTerm direction=float<cr>", desc = "Float" },
-	{ "<leader>Th", "<cmd>ToggleTerm size=10 direction=horizontal<cr>", desc = "Horizontal" },
-	{ "<leader>Tv", "<cmd>ToggleTerm size=80 direction=vertical<cr>", desc = "Vertical" },
+    { "<leader>T",  group = "Terminal" },
+    { "<leader>Tn", "<cmd>lua _NODE_TOGGLE()<cr>",                              desc = "Node" },
+    { "<leader>Tu", "<cmd>lua _NCDU_TOGGLE()<cr>",                              desc = "NCDU" },
+    { "<leader>Tt", "<cmd>lua _HTOP_TOGGLE()<cr>",                              desc = "Htop" },
+    { "<leader>Tp", "<cmd>lua _PYTHON_TOGGLE()<cr>",                            desc = "Python" },
+    { "<leader>Tf", "<cmd>ToggleTerm direction=float<cr>",                      desc = "Float" },
+    { "<leader>Th", "<cmd>ToggleTerm size=10 direction=horizontal<cr>",         desc = "Horizontal" },
+    { "<leader>Tv", "<cmd>ToggleTerm size=80 direction=vertical<cr>",           desc = "Vertical" },
 
-	{ "<leader>h", group = "Help" },
-	{ "<leader>hc", "<cmd>Telescope colorscheme<cr>", desc = "Colorscheme" },
-	{ "<leader>hh", "<cmd>Telescope help_tags<cr>", desc = "Find Help" },
-	{ "<leader>hM", "<cmd>Telescope man_pages<cr>", desc = "Man Pages" },
-	{ "<leader>hR", "<cmd>Telescope registers<cr>", desc = "Registers" },
-	{ "<leader>hk", "<cmd>Telescope keymaps<cr>", desc = "Keymaps" },
-	{ "<leader>hC", "<cmd>Telescope commands<cr>", desc = "Commands" },
-	{ "<leader>ha", "<cmd>lua require('telescope.builtin').autocommands()<cr>", desc = "Find  au" },
+    { "<leader>h",  group = "Help" },
+    { "<leader>hc", "<cmd>Telescope colorscheme<cr>",                           desc = "Colorscheme" },
+    { "<leader>hh", "<cmd>Telescope help_tags<cr>",                             desc = "Find Help" },
+    { "<leader>hM", "<cmd>Telescope man_pages<cr>",                             desc = "Man Pages" },
+    { "<leader>hR", "<cmd>Telescope registers<cr>",                             desc = "Registers" },
+    { "<leader>hk", "<cmd>Telescope keymaps<cr>",                               desc = "Keymaps" },
+    { "<leader>hC", "<cmd>Telescope commands<cr>",                              desc = "Commands" },
+    { "<leader>ha", "<cmd>lua require('telescope.builtin').autocommands()<cr>", desc = "Find  au" },
 
-	{ "<leader>W", "<cmd>WinShift<cr>" }, -- 进入移动窗口的模式
-	{ "<leader>w", group = "Move Win" },
-	{ "<leader>wh", "<cmd>WinShift left<cr>", desc = "Move Win Left" },
-	{ "<leader>wj", "<cmd>WinShift down<cr>", desc = "Move Win down" },
-	{ "<leader>wk", "<cmd>WinShift up<cr>", desc = "Move Win up" },
-	{ "<leader>wl", "<cmd>WinShift right<cr>", desc = "Move Win right" },
+    { "<leader>W",  "<cmd>WinShift<cr>" }, -- 进入移动窗口的模式
+    { "<leader>w",  group = "Move Win" },
+    { "<leader>wh", "<cmd>WinShift left<cr>",                                   desc = "Move Win Left" },
+    { "<leader>wj", "<cmd>WinShift down<cr>",                                   desc = "Move Win down" },
+    { "<leader>wk", "<cmd>WinShift up<cr>",                                     desc = "Move Win up" },
+    { "<leader>wl", "<cmd>WinShift right<cr>",                                  desc = "Move Win right" },
 
-	{ "<leader>z", "<cmd>ZenMode<cr>", desc = "ZenMode" },
+    { "<leader>z",  "<cmd>ZenMode<cr>",                                         desc = "ZenMode" },
 }
 
-map("n", ",o", "<cmd>Outline<CR>", opts("Outline"))
-map("n", "<leader>/", "<cmd>OutlineFocus<CR>", opts("OutlineFocus"))
+map("n", ",o", "<cmd>Outline<CR>", "Outline")
+map("n", "<leader>/", "<cmd>OutlineFocus<CR>", "OutlineFocus")
 
 -- 黑苹果不支持,m1芯片是支持的
 map({ "n", "i", "v" }, "<D-s>", function()
-	vim.cmd("silent! write")
-end, opts("save"))
+    vim.cmd("silent! write")
+end, "save")
 
 -- 桥接使用,因为黑苹果不支持上面的<D-s>,又不d想使用:w的方式,因为想屏蔽小命令行
 map({ "n", "i", "v" }, "<F14>", function()
-	vim.cmd("silent! write")
-end, opts("save"))
+    vim.cmd("silent! write")
+end, "save")
 
 map({ "n", "i", "v" }, "<F15>", function()
-	vim.cmd("silent! NvimTreeFindFile")
-end, opts("NvimTreeFindFile"))
+    vim.cmd("silent! NvimTreeFindFile")
+end, "NvimTreeFindFile")
 
 map({ "n", "v" }, "<Leader>sr", function()
-	local grug = require("grug-far")
-	local ext = vim.bo.buftype == "" and vim.fn.expand("%:e")
-	grug.open({
-		transient = true,
-		prefills = {
-			filesFilter = ext and ext ~= "" and "*." .. ext or nil,
-		},
-	})
-end, opts("Search and Replace"))
+    local grug = require("grug-far")
+    local ext = vim.bo.buftype == "" and vim.fn.expand("%:e")
+    grug.open({
+        transient = true,
+        prefills = {
+            filesFilter = ext and ext ~= "" and "*." .. ext or nil,
+        },
+    })
+end, "Search and Replace")
 
 -- lsp
-map("n", "gci", "<cmd>LspInfo<cr>", opts("Lsp Info")) --show lsp info
-map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts("Goto Definition"))
-map("n", "gI", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts("Goto Implementation"))
-map("n", "gy", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts("Goto Type Definition"))
-map("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts("Goto Declaration"))
-map("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts("Hover"))
-map("n", "gK", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts("Signature Help"))
-map("i", "<c-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts("Signature Help"))
-map("n", ",rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts("Rename"))
-map({ "n", "v" }, "gca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts("Code Action"))
-map("n", "gD", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opt)
-map("n", "gh", "<cmd>lua vim.lsp.buf.hover()<CR>", opt)
-map("n", ",gr", "<cmd>TroubleToggle lsp_references<cr>", opt)
-map("n", "gr", "<cmd>Telescope lsp_references<cr>", opt)
+map("n", "gci", "<cmd>LspInfo<cr>", "Lsp Info") --show lsp info
+map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", "Goto Definition")
+map("n", "gI", "<cmd>lua vim.lsp.buf.implementation()<CR>", "Goto Implementation")
+map("n", "gy", "<cmd>lua vim.lsp.buf.type_definition()<CR>", "Goto Type Definition")
+map("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", "Goto Declaration")
+map("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", "Hover")
+map("n", "gK", "<cmd>lua vim.lsp.buf.signature_help()<CR>", "Signature Help")
+map("i", "<c-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", "Signature Help")
+map("n", ",rn", "<cmd>lua vim.lsp.buf.rename()<CR>", "Rename")
+map({ "n", "v" }, "gca", "<cmd>lua vim.lsp.buf.code_action()<CR>", "Code Action")
+map("n", "gD", "<cmd>lua vim.lsp.buf.type_definition()<CR>")
+map("n", "gh", "<cmd>lua vim.lsp.buf.hover()<CR>")
+map("n", ",gr", "<cmd>TroubleToggle lsp_references<cr>")
+map("n", "gr", "<cmd>Telescope lsp_references<cr>")
 -- -- map("n", "<leader><leader>", function()
 -- 	require("conform").format({ async = false })
 -- end, opts("Format"))
 
 -- nvim-cmp 自动补全
 pluginKeys.cmp = function(cmp, has_words_before, feedkey)
-	return {
-		-- 出现补全
-		["<c-.>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
-		-- 取消
-		["<c-,>"] = cmp.mapping({
-			i = cmp.mapping.abort(),
-			c = cmp.mapping.close(),
-		}),
-		-- 上一个
-		["<C-k>"] = cmp.mapping.select_prev_item(),
-		["<C-p>"] = cmp.mapping.select_prev_item(),
-		-- 下一个
-		["<C-j>"] = cmp.mapping.select_next_item(),
-		["<C-n>"] = cmp.mapping.select_next_item(),
-		-- 确认
-		["<CR>"] = cmp.mapping.confirm({
-			select = true,
-			behavior = cmp.ConfirmBehavior.Replace,
-		}),
-		-- 如果窗口内容太多，可以滚动
-		["<C-u>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
-		["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
-		["<c-l>"] = cmp.mapping(function(fallback)
-			if vim.fn["vsnip#available"](1) == 1 then
-				feedkey("<Plug>(vsnip-expand-or-jump)", "")
-				-- elseif has_words_before() then
-				--     cmp.complete()
-			else
-				fallback() -- The fallback function sends a already mapped key. In this case, it's probably `<Tab>`.
-			end
-		end, { "i", "s" }),
+    return {
+        -- 出现补全
+        ["<c-.>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
+        -- 取消
+        ["<c-,>"] = cmp.mapping({
+            i = cmp.mapping.abort(),
+            c = cmp.mapping.close(),
+        }),
+        -- 上一个
+        ["<C-k>"] = cmp.mapping.select_prev_item(),
+        ["<C-p>"] = cmp.mapping.select_prev_item(),
+        -- 下一个
+        ["<C-j>"] = cmp.mapping.select_next_item(),
+        ["<C-n>"] = cmp.mapping.select_next_item(),
+        -- 确认
+        ["<CR>"] = cmp.mapping.confirm({
+            select = true,
+            behavior = cmp.ConfirmBehavior.Replace,
+        }),
+        -- 如果窗口内容太多，可以滚动
+        ["<C-u>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
+        ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
+        ["<c-l>"] = cmp.mapping(function(fallback)
+            if vim.fn["vsnip#available"](1) == 1 then
+                feedkey("<Plug>(vsnip-expand-or-jump)", "")
+                -- elseif has_words_before() then
+                --     cmp.complete()
+            else
+                fallback() -- The fallback function sends a already mapped key. In this case, it's probably `<Tab>`.
+            end
+        end, { "i", "s" }),
 
-		["<c-h>"] = cmp.mapping(function()
-			if vim.fn["vsnip#jumpable"](-1) == 1 then
-				feedkey("<Plug>(vsnip-jump-prev)", "")
-			end
-		end, { "i", "s" }),
-	}
+        ["<c-h>"] = cmp.mapping(function()
+            if vim.fn["vsnip#jumpable"](-1) == 1 then
+                feedkey("<Plug>(vsnip-jump-prev)", "")
+            end
+        end, { "i", "s" }),
+    }
 end
 
 -- dap
 pluginKeys.DAPTmpunmap = function()
-	unmap("n", ",dg", {})
-	unmap("n", ",dG", {})
-	unmap("n", ",dr", {})
-	unmap("n", ",dR", {})
-	unmap("n", "<F10>", {})
-	unmap("n", "<F11>", {})
-	unmap("n", "<F12>", {})
+    unmap("n", ",dg", {})
+    unmap("n", ",dG", {})
+    unmap("n", ",dr", {})
+    unmap("n", ",dR", {})
+    unmap("n", "<F10>", {})
+    unmap("n", "<F11>", {})
+    unmap("n", "<F12>", {})
 
-	unmap("n", ",di", {})
-	unmap("n", ",do", {})
-	unmap("n", "<cr>", {})
-	unmap("n", "<leader><cr>", {})
-	unmap("n", ",dl", {})
-	unmap("n", ",dp", {})
-	unmap("n", ",ds", {})
-	unmap("n", ",de", {})
-	unmap("n", ",du", {})
-	unmap({ "n", "v" }, ",dh", {})
-	unmap("n", ",dS", {})
-	unmap({ "n", "v" }, ",dE", {})
+    unmap("n", ",di", {})
+    unmap("n", ",do", {})
+    unmap("n", "<cr>", {})
+    unmap("n", "<leader><cr>", {})
+    unmap("n", ",dl", {})
+    unmap("n", ",dp", {})
+    unmap("n", ",ds", {})
+    unmap("n", ",de", {})
+    unmap("n", ",du", {})
+    unmap({ "n", "v" }, ",dh", {})
+    unmap("n", ",dS", {})
+    unmap({ "n", "v" }, ",dE", {})
 end
 
 pluginKeys.DAPmap = function()
-	map("n", "<F5>", function()
-		require("dap").continue()
-	end, { desc = "启动断点" })
+    map("n", "<F5>", function()
+        require("dap").continue()
+    end, { desc = "启动断点" })
 
-	map("n", ",da", function()
-		require("dap").continue({ before = get_args })
-	end, { desc = "Run with Args" })
+    map("n", ",da", function()
+        require("dap").continue({ before = get_args })
+    end, { desc = "Run with Args" })
 
-	map("n", ",dd", function()
-		require("dap").toggle_breakpoint()
-	end, { desc = "Toggle Breakpoint" })
-	--设置条件断点
-	map("n", ",dD", function()
-		-- require("dap").set_breakpoint(nil, nil, vim.fn.input("Log point message: "))
-		require("dap").set_breakpoint(vim.fn.input("[Condition] > ")) -- 输入条件eg: a>18
-	end, { desc = "设置条件断点" })
-	--清空所有断点
-	map("n", ",dc", function()
-		require("dap").clear_breakpoints()
-	end, { desc = "clear all breakpoints" })
+    map("n", ",dd", function()
+        require("dap").toggle_breakpoint()
+    end, { desc = "Toggle Breakpoint" })
+    --设置条件断点
+    map("n", ",dD", function()
+        -- require("dap").set_breakpoint(nil, nil, vim.fn.input("Log point message: "))
+        require("dap").set_breakpoint(vim.fn.input("[Condition] > ")) -- 输入条件eg: a>18
+    end, { desc = "设置条件断点" })
+    --清空所有断点
+    map("n", ",dc", function()
+        require("dap").clear_breakpoints()
+    end, { desc = "clear all breakpoints" })
 end
 
 pluginKeys.DAPTmpmap = function()
-	map("n", ",dg", function()
-		require("dap").run_to_cursor()
-	end, { desc = "Run to Cursor" })
+    map("n", ",dg", function()
+        require("dap").run_to_cursor()
+    end, { desc = "Run to Cursor" })
 
-	map("n", ",dG", function()
-		require("dap").goto_()
-	end, { desc = "Go to Line (No Execute)" })
-	map("n", ",dr", function()
-		require("dap").repl.toggle()
-	end, { desc = "Toggle REPL" })
-	map("n", ",dR", function()
-		require("dap").restart()
-	end, { desc = "restart" })
-	--  stepOver, stepOut, stepInto
-	map("n", "<F10>", ":lua require'dap'.step_over()<CR>", opt)
-	map("n", "<F11>", ":lua require'dap'.step_into()<CR>", opt)
-	map("n", "<F12>", ":lua require'dap'.step_out()<CR>", opt)
+    map("n", ",dG", function()
+        require("dap").goto_()
+    end, { desc = "Go to Line (No Execute)" })
+    map("n", ",dr", function()
+        require("dap").repl.toggle()
+    end, { desc = "Toggle REPL" })
+    map("n", ",dR", function()
+        require("dap").restart()
+    end, { desc = "restart" })
+    --  stepOver, stepOut, stepInto
+    map("n", "<F10>", ":lua require'dap'.step_over()<CR>")
+    map("n", "<F11>", ":lua require'dap'.step_into()<CR>")
+    map("n", "<F12>", ":lua require'dap'.step_out()<CR>")
 
-	map("n", ",di", function()
-		require("dap").step_into()
-	end, { desc = "Step Into" })
+    map("n", ",di", function()
+        require("dap").step_into()
+    end, { desc = "Step Into" })
 
-	map("n", ",do", function()
-		require("dap").step_out()
-	end, { desc = "Step Out" })
+    map("n", ",do", function()
+        require("dap").step_out()
+    end, { desc = "Step Out" })
 
-	map("n", "<cr>", function()
-		require("dap").step_over() -- 单步
-	end, { desc = "Step Over" })
+    map("n", "<cr>", function()
+        require("dap").step_over() -- 单步
+    end, { desc = "Step Over" })
 
-	map("n", "<leader><cr>", function()
-		require("dap").step_back() -- 单步回退,需要debugger支持才能用
-	end, { desc = "Step Back" })
+    map("n", "<leader><cr>", function()
+        require("dap").step_back() -- 单步回退,需要debugger支持才能用
+    end, { desc = "Step Back" })
 
-	map("n", ",dl", function()
-		require("dap").run_last()
-	end, { desc = "Run Last" })
+    map("n", ",dl", function()
+        require("dap").run_last()
+    end, { desc = "Run Last" })
 
-	map("n", ",dp", function()
-		require("dap").pause()
-	end, { desc = "Pause" })
+    map("n", ",dp", function()
+        require("dap").pause()
+    end, { desc = "Pause" })
 
-	map("n", ",ds", function()
-		require("dap").session()
-	end, { desc = "Session" })
+    map("n", ",ds", function()
+        require("dap").session()
+    end, { desc = "Session" })
 
-	--结束调试
-	map("n", ",de", function()
-		require("dap").terminate()
-	end, { desc = "Terminate", silent = true })
+    --结束调试
+    map("n", ",de", function()
+        require("dap").terminate()
+    end, { desc = "Terminate", silent = true })
 
-	map({ "n", "v" }, ",dh", function()
-		require("dap.ui.widgets").hover()
-	end, { desc = "hover" })
+    map({ "n", "v" }, ",dh", function()
+        require("dap.ui.widgets").hover()
+    end, { desc = "hover" })
 
-	map("n", ",du", function()
-		require("dap").toggle({})
-	end, { desc = "Dap UI", silent = true })
+    map("n", ",du", function()
+        require("dap").toggle({})
+    end, { desc = "Dap UI", silent = true })
 
-	map("n", ",dS", function()
-		local widgets = require("dap.ui.widgets")
-		widgets.centered_float(widgets.frames) --将栈信息显示在屏幕中间
-	end, { desc = "show stack info" })
+    map("n", ",dS", function()
+        local widgets = require("dap.ui.widgets")
+        widgets.centered_float(widgets.frames) --将栈信息显示在屏幕中间
+    end, { desc = "show stack info" })
 
-	map({ "n", "v" }, ",dE", function()
-		require("dapui").eval()
-	end, { desc = "Eval" })
+    map({ "n", "v" }, ",dE", function()
+        require("dapui").eval()
+    end, { desc = "Eval" })
 end
 
 pluginKeys.mapFanYi = function()
-	map("n", "fy", "<cmd>TransToZH<CR>", opt)
+    map("n", "fy", "<cmd>TransToZH<CR>")
 end
 
 pluginKeys.mapGo = function()
-	vim.cmd("au FileType go nmap <buffer> <silent> <LocalLeader>r :GoRun -F %:p:h<cr>")
-	-- vim.cmd("au FileType go nmap <buffer> <LocalLeader>b :GoBuild -o cc %:p:h<cr>")
-	vim.cmd("au FileType go nmap <buffer> <LocalLeader>b :!go build -o /tmp/ %:p:h<cr>")
-	vim.cmd("au FileType go nmap <buffer> <LocalLeader>tb :GoAddTag bson<cr>")
-	vim.cmd("au FileType go nmap <buffer> <LocalLeader>tj :GoAddTag json<cr>")
-	-- vim.cmd("au FileType go nmap <buffer> <LocalLeader>tt :GoAddTag toml<cr>")
-	vim.cmd("au FileType go nmap <buffer> <LocalLeader>ty :GoAddTag yaml<cr>")
-	vim.cmd("au FileType go nmap <buffer> <LocalLeader>tx :GoAddTag xml<cr>")
-	vim.cmd("au FileType go nmap <buffer> <LocalLeader>tc :GoClearTag <cr>")
+    vim.cmd("au FileType go nmap <buffer> <silent> <LocalLeader>r :GoRun -F %:p:h<cr>")
+    -- vim.cmd("au FileType go nmap <buffer> <LocalLeader>b :GoBuild -o cc %:p:h<cr>")
+    vim.cmd("au FileType go nmap <buffer> <LocalLeader>b :!go build -o /tmp/ %:p:h<cr>")
+    vim.cmd("au FileType go nmap <buffer> <LocalLeader>tb :GoAddTag bson<cr>")
+    vim.cmd("au FileType go nmap <buffer> <LocalLeader>tj :GoAddTag json<cr>")
+    -- vim.cmd("au FileType go nmap <buffer> <LocalLeader>tt :GoAddTag toml<cr>")
+    vim.cmd("au FileType go nmap <buffer> <LocalLeader>ty :GoAddTag yaml<cr>")
+    vim.cmd("au FileType go nmap <buffer> <LocalLeader>tx :GoAddTag xml<cr>")
+    vim.cmd("au FileType go nmap <buffer> <LocalLeader>tc :GoClearTag <cr>")
 
-	vim.cmd("au FileType go nmap <buffer> <LocalLeader>tg :GoTests<cr>")
+    vim.cmd("au FileType go nmap <buffer> <LocalLeader>tg :GoTests<cr>")
 end
 
 pluginKeys.mapJavascript = function()
-	vim.cmd("au FileType javascript nmap <buffer> <silent> <LocalLeader>r :!node  %<cr>")
-	vim.cmd("au FileType typescript nmap <buffer> <silent> <LocalLeader>r :!ts-node  %<cr>")
+    vim.cmd("au FileType javascript nmap <buffer> <silent> <LocalLeader>r :!node  %<cr>")
+    vim.cmd("au FileType typescript nmap <buffer> <silent> <LocalLeader>r :!ts-node  %<cr>")
 end
 
 vim.cmd("au FileType lua nmap <buffer> <silent> <LocalLeader>r :!lua  %<cr>")
 
 pluginKeys.accelerated = function()
-	map("n", "j", "<Plug>(accelerated_jk_gj)", opt)
-	map("n", "k", "<Plug>(accelerated_jk_gk)", opt)
+    map("n", "j", "<Plug>(accelerated_jk_gj)")
+    map("n", "k", "<Plug>(accelerated_jk_gk)")
 end
 
 pluginKeys.mapTerminal = function()
-	vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
-	map({ "n", "o" }, "<F13>", [[<cmd>lua _BottomTerminal_TOGGLE() <cr>]], opt)
+    vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
+    map({ "n", "o" }, "<F13>", [[<cmd>lua _BottomTerminal_TOGGLE() <cr>]])
 end
 
 return pluginKeys

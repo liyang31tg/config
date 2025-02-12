@@ -10,8 +10,12 @@ if ! type fanyi &>/dev/null; then
     bun i fanyi -g
 fi
 
+# im-select 需要
+brew tap daipeihust/tap
+
 # 工具列表数组（可自由扩展）
 declare -a tools=(
+  "jq"
   "bat"       # 语法高亮cat替代
   "zoxide"    # 智能目录跳转
   "fzf"       # 模糊搜索工具
@@ -20,17 +24,31 @@ declare -a tools=(
   "neofetch"
   "starship"
   "gitui"
+  "im-select"
+  '{"ripgrep": "rg"}'
 )
 
 # 带进度提示的安装循环
 for tool in "${tools[@]}"; do
-  if ! command -v "${tool}" >/dev/null 2>&1; then
-    echo -e "\033[1;33m⇒\033[0m Installing \033[1;36m${tool}\033[0m..."
-    if ! brew install "${tool}"; then
-      echo -e "\033[1;31m✗ Failed to install ${tool}\033[0m" >&2
+
+  if [[ "$tool" == '{'* ]]; then
+    # 解析JSON对象
+    install_tool=$(echo "$tool" | jq -r 'keys[0]')
+    check_cmd=$(echo "$tool" | jq -r '.[keys[0]]')
+  else
+    # 普通字符串
+    install_tool="$tool"
+    check_cmd="$tool"
+  fi
+
+
+  if ! command -v "${check_cmd}" >/dev/null 2>&1; then
+    echo -e "\033[1;33m⇒\033[0m Installing \033[1;36m${install_tool}\033[0m..."
+    if ! brew install "${install_tool}"; then
+      echo -e "\033[1;31m✗ Failed to install ${install_tool}\033[0m" >&2
       exit 1
     fi
-    echo -e "\033[1;32m✓ ${tool} installed\033[0m"
+    echo -e "\033[1;32m✓ ${install_tool} installed\033[0m"
   fi
 done
 
