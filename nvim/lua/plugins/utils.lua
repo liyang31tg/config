@@ -49,13 +49,13 @@ local obj = {
 				mappings = {
 					-- Toggle comment (like `gcip` - comment inner paragraph) for both
 					-- Normal and Visual modes
-					comment = ",c",
+					comment = "<leader>c",
 					-- Toggle comment on current line
-					comment_line = ",cc",
+					comment_line = "<leader>cc",
 					-- Toggle comment on visual selection
-					comment_visual = ",c",
+					comment_visual = "<leader>c",
 					-- Define 'comment' textobject (like `dgc` - delete whole comment block)
-					textobject = ",c",
+					textobject = "<leader>c",
 				},
 			}
 			require("mini.comment").setup(opt)

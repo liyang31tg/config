@@ -80,6 +80,12 @@ key = "H"
 mods = "Command"
 action = "None"
 
+# 默认的行为会退出
+[[keyboard.bindings]]
+key = "q"
+mods = "Control"
+chars = "None"
+
 [[keyboard.bindings]]
 key = "Key0"
 mods = "Control"

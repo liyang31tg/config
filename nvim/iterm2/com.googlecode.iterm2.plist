@@ -2038,7 +2038,7 @@
 			<key>Non-ASCII Anti Aliased</key>
 			<true/>
 			<key>Normal Font</key>
-			<string>JetBrainsMonoNLNFM-Regular 15</string>
+			<string>JetBrainsMonoNLNFM-Regular 17</string>
 			<key>Option Key Sends</key>
 			<integer>0</integer>
 			<key>Prompt Before Closing 2</key>
@@ -2931,11 +2931,11 @@
 			<key>HotKey Alternate Shortcuts</key>
 			<array/>
 			<key>HotKey Characters</key>
-			<string>/</string>
+			<string>.</string>
 			<key>HotKey Characters Ignoring Modifiers</key>
-			<string>/</string>
+			<string>.</string>
 			<key>HotKey Key Code</key>
-			<integer>44</integer>
+			<integer>47</integer>
 			<key>HotKey Modifier Activation</key>
 			<integer>0</integer>
 			<key>HotKey Modifier Flags</key>
