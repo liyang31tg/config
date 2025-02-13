@@ -3,13 +3,6 @@
 "作者 https://www.bilibili.com/video/BV1e4411V7AA?spm_id_from=333.1007.top_right_bar_window_history.content.click
 " filetype plugin indent on
 let &t_ut='' "vim.opt.t_ut设置报错,就再这里设置吧,不知道干啥用
-" set tw=0
-" set indentexpr=
-" set foldmethod=indent
-" set foldlevel=99
-" set laststatus=2
-" set ts=4 "设置tab为4个空格
-" set expandtab "将tab展开为空格
 nnoremap <leader>rc :e $HOME/.config/nvim/init.vim<cr>
 nnoremap <leader>so :source $MYVIMRC<cr>
 augroup NVIMRC
