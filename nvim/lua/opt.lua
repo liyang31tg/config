@@ -1,20 +1,19 @@
-local opt = vim.opt            --等价于 set opt = value
+local opt = vim.opt --等价于 set opt = value
 local optlocal = vim.opt_local --等价于 setlocal opt = value
 local buffer = vim.b
 local global = vim.g
 
 -- 启用文件类型插件和基于文件类型的缩进规则
-vim.cmd('filetype plugin indent on')
-
+vim.cmd("filetype plugin indent on")
 
 -- 将文本宽度设置为 0，禁用自动换行
 opt.textwidth = 0
 
 -- 清空缩进表达式
-opt.indentexpr = ''
+opt.indentexpr = ""
 
 -- 将折叠方法设置为基于缩进
-opt.foldmethod = 'indent'
+opt.foldmethod = "indent"
 
 -- 将折叠级别设置为 99，展开所有折叠块
 opt.foldlevel = 99
@@ -114,3 +113,4 @@ buffer.fileencoding = "utf-8"
 
 --global
 global.mapleader = " "
+-- global.maplocalleader = ","

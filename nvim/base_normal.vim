@@ -11,7 +11,7 @@ augroup NVIMRC
 augroup END
 
 "无法转成lua，有bug
-noremap \s :<c-u>%s//g<left><left>
+" noremap \s :<c-u>%s//g<left><left>
 
 noremap \p :echo expand('%:pp')<CR>
 
