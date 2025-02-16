@@ -113,4 +113,4 @@ buffer.fileencoding = "utf-8"
 
 --global
 global.mapleader = " "
--- global.maplocalleader = ","
+global.maplocalleader = ","
