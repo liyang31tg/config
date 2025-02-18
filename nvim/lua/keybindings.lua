@@ -84,16 +84,10 @@ map("c", "<c-a>", "<Home>", { silent = false, desc = "Home" })
 --keywordprg
 map("n", "<leader>K", "<cmd>normal! K<cr>", { desc = "Keywordprg 查询文档" })
 
-map({ "n", "x" }, "gw", "*N", "查询这个单词")
+map({ "n", "x" }, "*", "*N", "高亮这个单词")
 
 -- new file
 map("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" })
-
-map("n", "<leader>xl", "<cmd>lopn<cr>", { desc = "Location List" })
-map("n", "<leader>xq", "<cmd>copen<cr>", { desc = "Quickfix List" })
-
-map("n", "[q", vim.cmd.cprev, { desc = "Previous Quickfix" })
-map("n", "]q", vim.cmd.cnext, { desc = "Next Quickfix" })
 
 -- diagnostic
 local diagnostic_goto = function(next, severity)
@@ -111,17 +105,17 @@ map("n", "[e", diagnostic_goto(false, "ERROR"), { desc = "Prev Error" })
 map("n", "]w", diagnostic_goto(true, "WARN"), { desc = "Next Warning" })
 map("n", "[w", diagnostic_goto(false, "WARN"), { desc = "Prev Warning" })
 
--- highlights under cursor
-map("n", "<leader>ui", vim.show_pos, { desc = "Inspect Pos" })
-map("n", "<leader>uI", "<cmd>InspectTree<cr>", { desc = "Inspect Tree" })
+-- highlights under cursor not work
+-- map("n", "<leader>ui", vim.show_pos, { desc = "Inspect Pos" })
+-- map("n", "<leader>uI", "<cmd>InspectTree<cr>", { desc = "Inspect Tree" })
 
 -- 在visual 模式里粘贴不要复制
 map("v", "p", '"_dP')
 
 -- 退出
-map("n", "<leader>q", ":q<CR>")
-map("n", ",q", ":q!<CR>")
-map("n", "Q", ":qa!<CR>")
+map("n", "<leader>q", ":q<CR>", "退出")
+map("n", "<leader>Q", ":q!<CR>", "强制退出")
+map("n", "Q", ":qa!<CR>", "关闭所有")
 
 -- insert 模式下，跳到行首行尾
 map({ "i" }, "<c-e>", "<ESC>A")
