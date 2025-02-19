@@ -2,42 +2,72 @@
 local function my_on_attach(bufnr)
 	local api = require("nvim-tree.api")
 
-	local function opts(desc)
-		return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+	local function map(mode, lhs, rhs, opts)
+		-- 设置默认选项
+		local default_opts = {
+			remap = false,
+			buffer = bufnr,
+			silent = true,
+			nowait = true,
+		}
+
+		-- 如果 opts 是字符串，将其转换为包含 desc 的表
+		if type(opts) == "string" then
+			opts = { desc = "nvim-tree: " .. opts }
+		end
+
+		-- 将传入的 opts 合并到默认选项中
+		opts = vim.tbl_extend("force", default_opts, opts or {})
+
+		-- 设置键映射
+		vim.keymap.set(mode, lhs, rhs, opts)
+	end
+	local function unmap(lhs)
+		vim.keymap.del("n", lhs, { buffer = bufnr })
 	end
 
 	api.config.mappings.default_on_attach(bufnr)
 
-	--vim.keymap.set('n', 'O', '', { buffer = bufnr })
-	--vim.keymap.del('n', 'O', { buffer = bufnr })
-	--vim.keymap.set('n', '<2-RightMouse>', '', { buffer = bufnr })
-	--vim.keymap.del('n', '<2-RightMouse>', { buffer = bufnr })
-	vim.keymap.del("n", "<C-t>", { buffer = bufnr })
-	vim.keymap.set("n", "D", "", { buffer = bufnr })
-	vim.keymap.del("n", "D", { buffer = bufnr })
-	vim.keymap.del("n", "d", { buffer = bufnr })
-	vim.keymap.del("n", "<c-x>", { buffer = bufnr })
+	unmap("<c-e>")
+	unmap("o")
+	unmap("<c-t>")
+	unmap("D")
+	unmap("d")
+	unmap("<c-x>")
 	--抹掉bookmark功能
-	vim.keymap.del("n", "M", { buffer = bufnr })
-	vim.keymap.del("n", "m", { buffer = bufnr })
-	vim.keymap.del("n", "bd", { buffer = bufnr })
-	vim.keymap.del("n", "bt", { buffer = bufnr })
-	vim.keymap.del("n", "bmv", { buffer = bufnr })
+	unmap("M")
+	unmap("m")
+	unmap("bd")
+	unmap("bt")
+	unmap("bmv")
+	map("n", "o", function()
+		local node = api.tree.get_node_under_cursor()
+		if node then
+			if node.nodes ~= nil then
+				--展开目录
+				api.node.open.edit()
+			else
+				--预览文件
+				api.node.open.preview()
+			end
+		else
+			print("No node under cursor.")
+		end
+	end, "Print Node Path")
 
-	vim.keymap.set("n", "<c-h>", api.node.open.horizontal, opts("open horizontal"))
-	vim.keymap.set("n", "x", api.node.navigate.parent_close, opts("关闭父级目录"))
-	vim.keymap.set("n", "d", api.fs.trash, opts("删除到回收站"))
-	vim.keymap.set("n", "<CR>", api.node.open.no_window_picker, opts("直接打开"))
-	vim.keymap.set("n", "O", api.tree.expand_all, opts("Expand All"))
-	vim.keymap.set("n", "?", api.tree.toggle_help, opts("Help"))
-	vim.keymap.set("n", "C", api.tree.change_root_to_node, opts("CD"))
-	vim.keymap.set("n", "u", api.tree.change_root_to_parent, opts("Up"))
-	vim.keymap.set("n", "P", function()
+	map("n", "<c-h>", api.node.open.horizontal, "open horizontal")
+	map("n", "x", api.node.navigate.parent_close, "关闭父级目录")
+	map("n", "d", api.fs.trash, "删除到回收站")
+	map("n", "<CR>", api.node.open.no_window_picker, "直接打开")
+	map("n", "O", api.tree.expand_all, "Expand All")
+	map("n", "?", api.tree.toggle_help, "Help")
+	map("n", "C", api.tree.change_root_to_node, "CD")
+	map("n", "u", api.tree.change_root_to_parent, "Up")
+	map("n", "P", function()
 		local node = api.tree.get_node_under_cursor()
 		print(node.absolute_path)
-	end, opts("Print Node Path"))
-
-	vim.keymap.set("n", "Z", api.node.run.system, opts("Run System"))
+	end, "Print Node Path")
+	map("n", "Z", api.node.run.system, "Run System")
 end
 
 local opt = {
@@ -46,10 +76,9 @@ local opt = {
 	disable_netrw = true,
 	-- 不显示 git 状态图标
 	git = {
-		enable = false,
+		enable = true,
 	},
 	--project plugin 需要这样设置
-	update_cwd = true,
 	update_focused_file = {
 		enable = true,
 		update_cwd = true,

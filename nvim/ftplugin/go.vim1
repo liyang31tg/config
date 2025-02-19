@@ -1,5 +1,0 @@
-let maplocalleader = ","
-
-echo "ddd"
-nmap <buffer> <silent> <LocalLeader>r :GoRun -F %:p:h<cr>
-
