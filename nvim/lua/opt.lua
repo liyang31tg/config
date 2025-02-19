@@ -113,4 +113,4 @@ buffer.fileencoding = "utf-8"
 
 --global
 global.mapleader = " "
-global.maplocalleader = ","
+global.maplocalleader = "," --虽然这个都好在f查找的时候,有逆向查找的意思,但是我们可以用F代替,向上查找.所有这里就抹掉用来当localleader了

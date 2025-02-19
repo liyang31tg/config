@@ -33,6 +33,7 @@ declare -a tools=(
     "stylua"
     "yamlfmt"
     '{"ripgrep": "rg"}'
+    '{"universal-ctags": "ctags"}'
 )
 
 # 带进度提示的安装循环

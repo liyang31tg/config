@@ -27,6 +27,8 @@ end
 unmap("n", "gc")
 unmap("n", "gcc")
 
+--默认行为有个:tag的意思,容易引起误会
+map("n", "<c-t>", "<Nop>")
 --莫名多一个空格,用原生实现
 map("n", "\\s", ":<c-u>%s//g<left><left>", { silent = false, remap = false })
 map({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", "Escape and Clear hlsearch")
