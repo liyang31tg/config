@@ -22,29 +22,36 @@ local function my_on_attach(bufnr)
 		-- 设置键映射
 		vim.keymap.set(mode, lhs, rhs, opts)
 	end
-	local function unmap(lhs)
-		vim.keymap.del("n", lhs, { buffer = bufnr })
-	end
 
-	api.config.mappings.default_on_attach(bufnr)
+	-- api.config.mappings.default_on_attach(bufnr)
+	-- 定义自定义函数以关闭所有展开的目录
 
-	unmap("<c-]>")
-	unmap("<c-e>")
-	unmap("<c-r>")
-	unmap("o")
-	unmap("<c-t>")
-	unmap("D")
-	unmap("d")
-	unmap("<c-x>")
-	--抹掉bookmark功能
-	unmap("M")
-	unmap("m")
-	unmap("bd")
-	unmap("bt")
-	unmap("bmv")
 	map("n", "C", api.tree.change_root_to_node, "修改跟目录")
 	map("n", "<c-k>", api.node.show_info_popup, "节点信息")
 	map("n", "<c-t>", api.node.open.tab, "打开到tab")
+	map("n", "<c-v>", api.node.open.vertical, "open vertical")
+	map("n", "<c-h>", api.node.open.horizontal, "open horizontal")
+	map("n", "<BS>", api.node.navigate.parent_close, "关闭父级目录")
+	map("n", "<CR>", api.node.open.no_window_picker, "Open")
+	map("n", "<Tab>", api.node.open.preview, "从上一个窗口中打开")
+	map("n", "<c-r>", api.node.run.cmd, "Run Command")
+	map("n", "u", api.tree.change_root_to_parent, "Up")
+	map("n", "a", api.fs.create, "Create File Or Directory")
+	--bookmark start
+	map("n", "bd", api.marks.bulk.delete, "Delete Bookmarked")
+	map("n", "bt", api.marks.bulk.trash, "Trash Bookmarked 到回收站")
+	map("n", "bmv", api.marks.bulk.move, "Move Bookmarked 到指定目录下")
+	map("n", "m", api.marks.toggle, "Toggle Bookmark")
+	--bookmark end
+	--toggle filter start
+	map("n", "M", api.tree.toggle_no_bookmark_filter, "Toggle Filter: No Bookmark")
+	-- map("n", "G", api.tree.toggle_git_clean_filter, "Toggle Filter: Git Clean 没测试成功")
+	map("n", ".", api.tree.toggle_hidden_filter, "Toggle Filter: Dotfiles")
+	map("n", "I", api.tree.toggle_gitignore_filter, "Toggle Filter: Git Ignore")
+	map("n", "H", api.tree.toggle_custom_filter, "Toggle Filter: Hidden")
+
+	--toggle filter end
+	map("n", "c", api.fs.copy.node, "Copy")
 	map("n", "o", function()
 		local node = api.tree.get_node_under_cursor()
 		if node then
@@ -58,20 +65,38 @@ local function my_on_attach(bufnr)
 		else
 			print("No node under cursor.")
 		end
-	end, "Print Node Path")
-
-	map("n", "<c-h>", api.node.open.horizontal, "open horizontal")
-	map("n", "x", api.node.navigate.parent_close, "关闭父级目录")
+	end, "edit or preview")
+	-- map("n", "d", api.fs.remove, "Delete") --这个是删除了就不存在了,无法在回收站找到
 	map("n", "d", api.fs.trash, "删除到回收站")
-	map("n", "<CR>", api.node.open.no_window_picker, "直接打开")
-	map("n", "O", api.tree.expand_all, "Expand All")
+	map("n", "e", api.node.open.edit, "edit")
+	map("n", "F", api.live_filter.clear, "Live Filter: Clear")
+	map("n", "f", api.live_filter.start, "Live Filter: Start")
 	map("n", "?", api.tree.toggle_help, "Help")
-	map("n", "u", api.tree.change_root_to_parent, "Up")
-	map("n", "P", function()
+	map("n", "gy", api.fs.copy.basename, "Copy Basename")
+	map("n", "y", api.fs.copy.filename, "Copy Name")
+	map("n", "Y", api.fs.copy.relative_path, "Copy Relative Path")
+	map("n", "<c-y>", api.fs.copy.absolute_path, "Copy Absolute Path")
+	map("n", "J", api.node.navigate.sibling.last, "Last Sibling")
+	map("n", "K", api.node.navigate.sibling.first, "First Sibling")
+	map("n", "L", api.node.navigate.sibling.first, "Toggle Group Empty")
+	map("n", "p", api.fs.paste, "Paste")
+	map("n", "P", api.node.navigate.parent, "Parent Directory")
+	map("n", "q", api.tree.close, "Close")
+	map("n", "r", api.fs.rename, "Rename")
+	map("n", "U", api.tree.reload, "Refresh, 超级更新,就是Update,所以用U")
+	map("n", "R", api.fs.rename_full, "Rename: Full Path")
+
+	map("n", "X", api.tree.collapse_all, "关闭所有目录")
+	map("n", "x", api.node.navigate.parent_close, "关闭父级目录")
+	map("n", "<c-x>", api.fs.cut, "Cut")
+	map("n", "O", api.tree.expand_all, "Expand All")
+	map("n", "<c-o>", api.node.run.system, "Run System")
+	map("n", "\\p", function()
 		local node = api.tree.get_node_under_cursor()
 		print(node.absolute_path)
 	end, "Print Node Path")
-	map("n", "Z", api.node.run.system, "Run System")
+	map("n", "<2-LeftMouse>", api.node.open.edit, "Open")
+	map("n", "<2-RightMouse>", api.tree.change_root_to_node, "CD")
 end
 
 local opt = {

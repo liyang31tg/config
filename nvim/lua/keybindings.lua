@@ -62,10 +62,10 @@ map("n", "<Up>", ":resize -2<CR>")
 map("n", "s=", "<C-w>=")
 -- 交换窗口
 map("n", "<leader>ww", "<cmd>WinShift<cr>", "进入分屏模式")
-map("n", "<leader>wh", "<C-w>h", "Move Win Left")
-map("n", "<leader>wj", "<C-w>j", "Move Win down")
-map("n", "<leader>wk", "<C-w>k", "Move Win up")
-map("n", "<leader>wl", "<C-w>l", "Move Win right")
+map("n", "<leader>wh", "<cmd>WinShift left<cr>", "Move Win Left")
+map("n", "<leader>wj", "<cmd>WinShift down<cr>", "Move Win down")
+map("n", "<leader>wk", "<cmd>WinShift up<cr>", "Move Win up")
+map("n", "<leader>wl", "<cmd>WinShift right<cr>", "Move Win right")
 
 -- Move Lines
 map("v", "J", ":m '>+1<cr>gv=gv", "Move down")
