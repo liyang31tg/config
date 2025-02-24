@@ -113,6 +113,7 @@ map("n", "[w", diagnostic_goto(false, "WARN"), { desc = "Prev Warning" })
 
 -- 在visual 模式里粘贴不要复制
 map("v", "p", '"_dP')
+map("n", "d", '"_d') --阐述的时候不要复制
 
 -- 退出
 map("n", "<leader>q", ":q<CR>", "退出")
@@ -120,36 +121,84 @@ map("n", "<leader>Q", ":q!<CR>", "强制退出")
 map("n", "Q", ":qa!<CR>", "关闭所有")
 
 -- insert 模式下，跳到行首行尾
+-- 还原终端下的某些行为
 map({ "i" }, "<c-e>", "<ESC>A")
 map({ "n", "i" }, "<c-a>", "<ESC>I")
+map("i", "<c-f>", "<right>")
+map("i", "<c-b>", "<left>")
 
 --第三方插件的快捷键银蛇如下
 local pluginKeys = {}
 --nvim-tree
-map("n", "<F3>", ":NvimTreeToggle<CR>")
-map("n", "<F2>", ":NvimTreeFocus<CR>")
 map({ "n", "i", "v", "c", "t" }, "<c-0>", ":NvimTreeFindFile<CR>")
+map("n", "<leader>e", "<cmd>NvimTreeToggle<cr>", "Explorer")
 
 map("n", "]t", function()
 	require("todo-comments").jump_next()
-end, "Next Todo Comment")
+end, "Next Todo Comment in current buffer")
 
 map("n", "[t", function()
 	require("todo-comments").jump_prev()
-end, "Previous Todo Comment")
-
-map("n", "<leader>st", "<cmd>TodoTelescope<cr>", "Todo")
-map("n", "<leader>sT", "<cmd>TodoTelescope keywords=TODO,FIX,FIXME<cr>", "Todo/Fix/Fixme")
+end, "Previous Todo Comment in current buffer")
 
 -- Telescope
--- map("n", "<c-p>", ".tt", { silent = true, remap = true })
--- 查找文件
-map("n", "<c-p>", "<cmd>lua require('telescope.builtin').find_files()<cr>", "Find File")
--- 全局搜索
-map("n", "<leader><space>", "<cmd>lua require('telescope.builtin').live_grep()<cr>", "Find Str")
--- map("n", "<leader><space>", "<cmd>lua require('telescope.builtin').grep_string()<cr>", { desc = "Grep String" })
---buffer 搜索
-map("n", "<Leader>/", "<leader>f/", { silent = true, remap = true, desc = "文件搜索" })
+map("n", "<leader>f", "<Nop>", "检索")
+map("n", "<c-p>", "<cmd>Telescope find_files<cr>", "检索文件")
+map("n", "<leader><space>", "<cmd>Telescope live_grep<cr>", "模糊的全局搜索")
+map(
+	"n",
+	"<c-/>",
+	"<cmd>lua require('telescope.builtin').grep_string()<cr>",
+	{ desc = "检索光标下的单词,再过滤选择" }
+)
+map("n", "<leader>/", "<cmd>Telescope current_buffer_fuzzy_find()<cr>", "Find in current buffer")
+map("n", "<leader>fb", "<cmd>Telescope buffers()<cr>", "Find Buffers")
+map("n", "<leader>fo", "<cmd>Telescope oldfiles()<cr>", "Find old files")
+map("n", "<leader>fc", "<cmd>Telescope colorscheme<cr>", "List Colorscheme")
+map("n", "<leader>fp", "<cmd>Telescope projects<cr>", "Find Projects file")
+map("n", "<leader>ft", "<cmd>TodoTelescope<cr>", "Todo in Workspace")
+map("n", "<leader>fT", "<cmd>TodoTelescope keywords=TODO,FIX,FIXME<cr>", "Todo/Fix/Fixme in Workspace")
+map("n", "<leader>fg", "<Nop>", "Git 检索")
+map("n", "<leader>fgf", "<cmd>Telescope git_files<cr>", "Find Git Files")
+map("n", "<leader>fgb", "<cmd>Telescope git_branches<cr>", "list git branch")
+map("n", "<leader>fgc", "<cmd>Telescope git_commits<cr>", "list git commit")
+map("n", "<leader>fgs", "<cmd>Telescope git_status<cr>", "list git status")
+map("n", "<leader>fgt", "<cmd>Telescope git_stash<cr>", "list git stash")
+map("n", "<leader>l", "<Nop>", "LSP 检索")
+map("n", "<leader>li", "<cmd>Telescope lsp_incoming_calls<cr>", "list lsp_incoming_calls")
+map("n", "<leader>lo", "<cmd>Telescope lsp_outgoing_calls<cr>", "list lsp_outgoing_calls")
+map("n", "<leader>ls", "<cmd>Telescope lsp_document_symbols<cr>", "list lsp_document_symbols")
+map("n", "<leader>lS", "<cmd>Telescope lsp_workspace_symbols<cr>", "list lsp_workspace_symbols")
+map("n", "<leader>lw", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", "list lsp_dynamic_workspace_symbols")
+-- map("n", "<leader>ft", "<cmd>ToggleTerm<cr>", "Terminal")
+-- map("n", "<leader>fT", "<cmd>ToggleTerm dir=~ name=root<cr>", "Terminal root")
+map("n", "<leader>a", "<cmd>Alpha<cr>", "Welcome")
+map("n", "<leader>b", "<Nop>", "Buffer")
+map("n", "<leader>bd", "<cmd>Bdelete!<cr>", "Close buffer")
+map("n", "<leader>bq", "<cmd>bd<cr>", "Close buffer And Window")
+map("n", "<leader>bb", "<cmd>e #<cr>", "swap with last buffer")
+map("n", "<leader>bl", "<cmd>BufferLineCloseRight<cr>", "Close Right buffers")
+map("n", "<leader>bh", "<cmd>BufferLineCloseLeft<cr>", "Close Left buffers")
+map("n", "<leader>bo", "<cmd>BufferLineCloseOthers<cr>", "Close Others buffer")
+map("n", "<leader>bc", "<cmd>BufferLinePickClose<cr>", "Pick Buffer Close")
+map("n", "<leader>bp", "<cmd>BufferLinePick<cr>", "Pick Buffer")
+map("n", "<leader>b,", "<cmd>BufferLineMovePrev<cr>", "Buffer Move Prev")
+map("n", "<leader>b.", "<cmd>BufferLineMoveNext<cr>", "Buffer Move Next")
+map("n", "<leader>b[", "<cmd>BufferLineCyclePrev<cr>", "Focus Pre Buffer")
+map("n", "<leader>b]", "<cmd>BufferLineCycleNext<cr>", "Focus Next Buffer")
+
+map("n", "<leader>g", "<Nop>", "Git")
+map("n", "<leader>gd", "<cmd>DiffviewOpen<CR>", "Diff Project") --工作区与暂存区的区别,暂存区与本地git仓库的
+map("n", "<leader>gf", "<cmd>DiffviewFileHistory %<cr>", "Current File History") --git本地仓库中,当前文件的commit记录与上次commit之间的区别 ,这个只正对当前文件
+map("n", "<leader>gF", "<cmd>DiffviewFileHistory<cr>", "Files History") --git本地仓库中,当前文件的commit记录与上次commit之间的区别,这个是所有文件的
+map("n", "<leader>gx", "<cmd>DiffviewClose<cr>", "DiffviewClose")
+map("n", "<leader>gn", "<cmd>lua require 'gitsigns'.next_hunk()<cr>", "Next Hunk")
+map("n", "<leader>gp", "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", "Prev Hunk")
+map("n", "]g", "<cmd>lua require 'gitsigns'.next_hunk()<cr>", "Next Hunk")
+map("n", "[g", "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", "Prev Hunk")
+map("n", "<leader>gl", "<cmd>lua require 'gitsigns'.blame_line()<cr>", "提交信息")
+map("n", "<leader>gr", "<cmd>lua require 'gitsigns'.reset_hunk()<cr>", "Reset Hunk")
+map("n", "<leader>gR", "<cmd>lua require 'gitsigns'.reset_buffer()<cr>", "Reset Buffer")
 
 local function get_args(config)
 	local args = type(config.args) == "function" and (config.args() or {}) or config.args or {}
@@ -163,61 +212,6 @@ local function get_args(config)
 end
 
 pluginKeys.whichkeys = {
-	{ "<leader>a", "<cmd>Alpha<cr>", desc = "Welcome" },
-	{ "<leader>b", group = "Buffer" },
-	{ "<leader>bd", "<cmd>Bdelete!<cr>", desc = "Close buffer" },
-	{ "<leader>bD", "<cmd>bd<cr>", desc = "Close buffer And Window" },
-	{ "<leader>bb", "<cmd>e #<cr>", desc = "swap with last buffer" },
-	{ "<leader>bl", "<cmd>BufferLineCloseRight<cr>", desc = "Close Right buffers" },
-	{ "<leader>bh", "<cmd>BufferLineCloseLeft<cr>", desc = "Close Left buffers" },
-	{ "<leader>bo", "<cmd>BufferLineCloseOthers<cr>", desc = "Close Others buffer" },
-	{ "<leader>bc", "<cmd>BufferLinePickClose<cr>", desc = "Pick Buffer Close" },
-	{ "<leader>bp", "<cmd>BufferLinePick<cr>", desc = "Pick Buffer" },
-	{ "<leader>b,", "<cmd>BufferLineMovePrev<cr>", desc = "Buffer Move Prev" },
-	{ "<leader>b.", "<cmd>BufferLineMoveNext<cr>", desc = "Buffer Move Next" },
-	{ "<leader>b[", "<cmd>BufferLineCyclePrev<cr>", desc = "Focus Pre Buffer" },
-	{ "<leader>b]", "<cmd>BufferLineCycleNext<cr>", desc = "Focus Next Buffer" },
-
-	{ ",d", group = "Debug" },
-
-	{ "<leader>e", "<cmd>NvimTreeToggle<cr>", desc = "Explorer" },
-
-	{ "<leader>f", group = "Telescope" },
-	{ "<leader>fb", "<cmd>lua require('telescope.builtin').buffers()<cr>", desc = "Find Buffers" },
-	{ "<leader>fr", "<cmd>lua require('telescope.builtin').oldfiles()<cr>", desc = "Find Buffers" },
-	{ "<leader>fg", "<cmd>lua require('telescope.builtin').git_files()<cr>", desc = "Find Git Files" },
-	{ "<leader>fp", "<cmd>Telescope projects<cr>", desc = "Find Projects file" },
-	{ "<leader>ft", "<cmd>ToggleTerm<cr>", desc = "Terminal" },
-	{ "<leader>fT", "<cmd>ToggleTerm dir=~ name=root<cr>", desc = "Terminal root" },
-	{
-		"<leader>fs",
-		"<cmd>lua require('telescope.builtin').lsp_document_symbols()<cr>",
-		desc = "Find Document Symbols",
-	},
-	{
-		"<leader>fS",
-		"<cmd>lua require('telescope.builtin').lsp_dynamic_workspace_symbols()<cr>",
-		desc = "Find Workspace Symbols",
-	},
-	{
-		"<leader>f/",
-		"<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<cr>",
-		desc = "Find in current buffer",
-	},
-
-	{ "<leader>g", group = "Git" },
-	{ "<leader>gb", "<cmd>Telescope git_branches<cr>", desc = "Checkout branch" },
-	{ "<leader>gc", "<cmd>Telescope git_commits<cr>", desc = "Checkout commit" },
-	{ "<leader>gd", "<cmd>DiffviewOpen<CR>", desc = "Diff Project" }, --工作区与暂存区的区别,暂存区与本地git仓库的区别
-	{ "<leader>gf", "<cmd>DiffviewFileHistory %<cr>", desc = "Current File History" }, --git本地仓库中,当前文件的commit记录与上次commit之间的区别 ,这个只正对当前文件
-	{ "<leader>gF", "<cmd>DiffviewFileHistory<cr>", desc = "Files History" }, --git本地仓库中,当前文件的commit记录与上次commit之间的区别,这个是所有文件的
-	{ "<leader>gx", "<cmd>DiffviewClose<cr>", desc = "DiffviewClose" },
-	{ "<leader>gn", "<cmd>lua require 'gitsigns'.next_hunk()<cr>", desc = "Next Hunk" },
-	{ "<leader>gp", "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", desc = "Prev Hunk" },
-	{ "<leader>gl", "<cmd>lua require 'gitsigns'.blame_line()<cr>", desc = "提交信息" },
-	{ "<leader>gr", "<cmd>lua require 'gitsigns'.reset_hunk()<cr>", desc = "Reset Hunk" },
-	{ "<leader>gR", "<cmd>lua require 'gitsigns'.reset_buffer()<cr>", desc = "Reset Buffer" },
-	{ "<leader>gs", "<cmd>Telescope git_status<cr>", desc = "Open changed file" },
 
 	{ "<leader>o", group = "Task" },
 	{ "<leader>ow", "<cmd>OverseerToggle<cr>", desc = "Task list" },
@@ -344,7 +338,7 @@ pluginKeys.whichkeys = {
 }
 
 map("n", ",o", "<cmd>Outline<CR>", "Outline")
-map("n", "<leader>/", "<cmd>OutlineFocus<CR>", "OutlineFocus")
+-- map("n", "<leader>/", "<cmd>OutlineFocus<CR>", "OutlineFocus")
 
 -- 黑苹果不支持,m1芯片是支持的
 map({ "n", "i", "v" }, "<D-s>", function()

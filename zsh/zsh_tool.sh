@@ -27,6 +27,7 @@ declare -a tools=(
     "im-select"
     "black"
     "isort"
+    "fd"
     "buf"
     "prettierd"
     "shfmt"

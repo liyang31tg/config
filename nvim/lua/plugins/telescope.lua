@@ -5,20 +5,22 @@ local opt = {
 		-- 窗口内快捷键
 		mappings = {
 			i = {
+				-- 关闭窗口
+				["<C-c>"] = "close",
+				["<esc>"] = "close",
 				-- 上下移动
 				["<C-j>"] = "move_selection_next",
 				["<C-k>"] = "move_selection_previous",
 				["<Down>"] = "move_selection_next",
 				["<Up>"] = "move_selection_previous",
-				-- 历史记录
-				["<C-n>"] = "cycle_history_next",
-				["<C-p>"] = "cycle_history_prev",
-				-- 关闭窗口
-				["<C-c>"] = "close",
-				["<esc>"] = "close",
+				["<C-n>"] = "move_selection_next",
+				["<C-p>"] = "move_selection_previous",
 				-- 预览窗口上下滚动
 				["<C-u>"] = "preview_scrolling_up",
 				["<C-d>"] = "preview_scrolling_down",
+				["<cr>"] = "select_default",
+				["<c-v>"] = "select_vertical",
+				["<c-h>"] = "select_horizontal",
 			},
 		},
 		preview = {
@@ -69,6 +71,7 @@ local obj = {
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 		"ahmedkhalf/project.nvim",
+		{ "nvim-tree/nvim-web-devicons", opts = {} },
 	},
 	config = function(_, opts)
 		local telescope = require("telescope")
