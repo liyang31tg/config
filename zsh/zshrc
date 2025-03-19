@@ -49,6 +49,15 @@ function fg() {
     fi
 }
 
+export EDITOR=nvim #yazi打开的默认编辑器
+function f() {
+    local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+    yazi "$@" --cwd-file="$tmp"
+    if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+        builtin cd -- "$cwd"
+    fi
+    rm -f -- "$tmp"
+}
 # alias start
 alias e=nvim
 alias vi=nvim
@@ -157,9 +166,26 @@ function proxy_on() {
     if [ $# -eq 1 ]; then
         port=$1
     fi
-    export http_proxy=http://127.0.0.1:7890
-    export https_proxy=http://127.0.0.1:7890
-    export all_proxy=socks5://127.0.0.1:7890
+    export http_proxy=http://127.0.0.1:$port
+    export https_proxy=http://127.0.0.1:$port
+    export all_proxy=socks5://127.0.0.1:$port
+}
+
+function proxy_http_on() {
+    local port=7890
+    if [ $# -eq 1 ]; then
+        port=$1
+    fi
+    export http_proxy=http://127.0.0.1:$port
+    export https_proxy=http://127.0.0.1:$port
+}
+
+function proxy_all_on() {
+    local port=7890
+    if [ $# -eq 1 ]; then
+        port=$1
+    fi
+    export all_proxy=socks5://127.0.0.1:$port
 }
 
 function proxy_off() {
