@@ -44,4 +44,7 @@
 
     abort_merge: Some(( code: Char('M'), modifiers: "SHIFT")),
 
+    newline: Some(( code: Char('d'), modifiers: "CONTROL")),
+
+    commit: Some(( code: Enter, modifiers: "")),
 )
