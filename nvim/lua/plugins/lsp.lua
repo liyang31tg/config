@@ -6,6 +6,13 @@ function GenServers()
 	local vue_language_server_path = vim.fn.expand("$MASON/packages")
 		.. "/vue-language-server"
 		.. "/node_modules/@vue/language-server"
+	-- local vue_language_server_path = '/path/to/@vue/language-server'
+	local vue_plugin = {
+		name = "@vue/typescript-plugin",
+		location = vue_language_server_path,
+		languages = { "vue" },
+		configNamespace = "typescript",
+	}
 
 	local servers = {
 		lua_ls = {
@@ -49,7 +56,45 @@ function GenServers()
 				"vue",
 			},
 		},
-		volar = {}, --masoninstall vue-language-server@1.8.27, up this version not work in vue3 . 这个错误是因为2.0.0以后得版本不再内嵌ts
+		--好像下面2个不作用于vue
+		vtsls = {
+			init_options = {
+				plugins = {
+					vue_plugin,
+				},
+			},
+			filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
+		},
+		vue_ls = {
+			on_init = function(client)
+				client.handlers["tsserver/request"] = function(_, result, context)
+					local clients = vim.lsp.get_clients({ bufnr = context.bufnr, name = "vtsls" })
+					if #clients == 0 then
+						vim.notify(
+							"Could not found `vtsls` lsp client, vue_lsp would not work with it.",
+							vim.log.levels.ERROR
+						)
+						return
+					end
+					local ts_client = clients[1]
+
+					local param = unpack(result)
+					local id, command, payload = unpack(param)
+					ts_client:exec_cmd({
+						command = "typescript.tsserverRequest",
+						arguments = {
+							command,
+							payload,
+						},
+					}, { bufnr = context.bufnr }, function(_, r)
+						local response_data = { { id, r.body } }
+						---@diagnostic disable-next-line: param-type-mismatch
+						client:notify("tsserver/response", response_data)
+					end)
+				end
+			end,
+		},
+		-- volar = {}, --masoninstall vue-language-server@1.8.27, up this version not work in vue3 . 这个错误是因为2.0.0以后得版本不再内嵌ts
 		yamlls = {},
 		-- "vuels"
 		-- denols = {}, --这个不能安装，会强制import以./ ../ 等开头的问
