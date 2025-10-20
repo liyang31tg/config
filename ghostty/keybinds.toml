@@ -1,0 +1,21 @@
+# keybind = ctrl+d=text:\x15
+# ignore start ================================
+keybind = super+alt+arrow_down=ignore
+keybind = super+alt+arrow_left=ignore
+keybind = super+alt+arrow_right=ignore
+keybind = super+alt+arrow_up=ignore
+# ignore end ================================
+
+# super + alt   + arrow_down      goto_split:down
+# super + alt   + arrow_left      goto_split:left
+# super + alt   + arrow_right     goto_split:right
+# super + alt   + arrow_up        goto_split:up
+
+keybind = super+h=goto_split:left
+keybind = super+j=goto_split:down
+keybind = super+k=goto_split:up
+keybind = super+l=goto_split:right
+keybind = ctrl+k=clear_screen
+keybind = super+shift+semicolon=move_tab:-1
+keybind = super+shift+quote=move_tab:1
+keybind = super+x=close_tab
