@@ -4,6 +4,12 @@ keybind = super+alt+arrow_down=ignore
 keybind = super+alt+arrow_left=ignore
 keybind = super+alt+arrow_right=ignore
 keybind = super+alt+arrow_up=ignore
+keybind = super+ctrl+arrow_down=ignore
+keybind = super+ctrl+arrow_left=ignore
+keybind = super+ctrl+arrow_right=ignore
+keybind = super+ctrl+arrow_up=ignore
+keybind = super+ctrl+equal=ignore
+keybind = super+shift+enter=ignore
 # ignore end ================================
 
 # super + alt   + arrow_down      goto_split:down
@@ -19,3 +25,9 @@ keybind = ctrl+k=clear_screen
 keybind = super+shift+semicolon=move_tab:-1
 keybind = super+shift+quote=move_tab:1
 keybind = super+x=close_tab
+keybind = super+shift+equal=equalize_splits
+keybind = super+shift+arrow_down=resize_split:down,10
+keybind = super+shift+arrow_left=resize_split:left,10
+keybind = super+shift+arrow_right=resize_split:right,10
+keybind = super+shift+arrow_up=resize_split:up,10
+keybind = super+enter=toggle_split_zoom

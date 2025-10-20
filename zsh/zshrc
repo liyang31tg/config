@@ -119,7 +119,7 @@ if [[ -e $HOME/.zshrc_local ]]; then
 fi
 
 # zellij start
-# 自动启动zellij
+# 自动启动zellij ,已经在各个终端配置好了，不需要再这里启动了
 # eval "$(zellij setup --generate-auto-start zsh)"
 #
 #打开默认
