@@ -548,7 +548,7 @@ pluginKeys.mapFanYi = function()
 end
 
 pluginKeys.mapGo = function()
-	vim.cmd("au FileType go nmap <buffer> <silent> <LocalLeader>r :GoRun -F %:p:h<cr>")
+	vim.cmd("au FileType go nmap <buffer> <silent> <LocalLeader>r :GoRun -F %:p<cr>")
 	-- vim.cmd("au FileType go nmap <buffer> <LocalLeader>b :GoBuild -o cc %:p:h<cr>")
 	vim.cmd("au FileType go nmap <buffer> <LocalLeader>b :!go build -o /tmp/ %:p:h<cr>")
 	vim.cmd("au FileType go nmap <buffer> <LocalLeader>tb :GoAddTag bson<cr>")
