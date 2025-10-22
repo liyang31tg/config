@@ -1,6 +1,6 @@
 background = 282c38
 foreground = ffffff
-font-size = 19
+font-size = 18
 macos-titlebar-style = tabs
 macos-icon = custom
 macos-custom-icon = ~/.config/ghostty/iTerm2.icns
