@@ -105,6 +105,7 @@ alias d="kitty +kitten diff"
 alias ts=ts-node
 alias tr="ts-node-dev  -r tsconfig-paths/register  --respawn --transpile-only" #tsconfig-paths/register 是为了解决tsconfig-paths的问题
 alias pn="pnpm"
+alias ssh="TERM=xterm-256color ssh"
 # kitty end
 #
 
