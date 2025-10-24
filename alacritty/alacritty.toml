@@ -7,7 +7,7 @@ option_as_alt = "Both"
 blur=true
 
 [font]
-size = 18
+size = 15
 
 [font.offset]
 x = 0
