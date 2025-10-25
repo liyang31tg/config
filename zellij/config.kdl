@@ -30,6 +30,7 @@ keybinds clear-defaults=true {
         bind "k" { Resize "Increase up"; }
         bind "l" { Resize "Increase right"; }
         bind "Alt r" "esc" { SwitchToMode "normal"; }
+        bind "Ctrl r"  { SwitchToMode "normal"; }
     }
     pane {
         bind "Alt p" "esc" { SwitchToMode "Normal"; }
@@ -145,8 +146,8 @@ keybinds clear-defaults=true {
         bind "Alt J" { MovePane "down"; }
         bind "Alt K" { MovePane "up"; }
         bind "Alt L" { MovePane "right"; }
-        bind "Alt [" { GoToPreviousTab; }
-        bind "Alt ]" { GoToNextTab; }
+        // bind "Alt [" { GoToPreviousTab; }
+        // bind "Alt ]" { GoToNextTab; }
         bind "Alt d" { NewPane "right"; SwitchToMode "normal"; }
         bind "Alt f" { ToggleFocusFullscreen; }
         bind "Alt h" { MoveFocus "left"; }
@@ -162,8 +163,10 @@ keybinds clear-defaults=true {
             SwitchToMode "normal"
         }
         bind "Alt t" { NewTab; SwitchToMode "normal"; }
-        bind "Alt {" { MoveFocusOrTab "left"; }
-        bind "Alt }" { MoveFocusOrTab "right"; }
+        bind "Alt Shift ]" { GoToNextTab; }
+        bind "Alt Shift [" { GoToPreviousTab; }
+        bind "Alt Shift '" { MoveTab "right"; }
+        bind "Alt Shift ;" { MoveTab "left"; }
     }
     shared_except "locked" {
         bind "Ctrl g" { SwitchToMode "locked"; }
@@ -177,6 +180,7 @@ keybinds clear-defaults=true {
     }
     shared_except "locked" "resize" {
         bind "Alt r" { SwitchToMode "resize"; }
+        bind "Ctrl r" { SwitchToMode "resize"; }
     }
 
     shared_except "locked" "pane" {
