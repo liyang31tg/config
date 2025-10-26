@@ -5,4 +5,4 @@ macos-titlebar-style = tabs
 macos-icon = custom
 macos-custom-icon = ~/.config/ghostty/iTerm2.icns
 macos-option-as-alt = true
-
+maximize = true
