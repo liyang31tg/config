@@ -140,20 +140,27 @@ keybinds clear-defaults=true {
 
     shared_among "normal" "locked" {
         bind "Alt D" { NewPane "down"; SwitchToMode "normal"; }
+        bind "Alt d" { NewPane "right"; SwitchToMode "normal"; }
         bind "Alt F" { ToggleFloatingPanes; SwitchToMode "normal"; }
-        bind "Alt H" { MovePane "left"; }
         bind "Alt I" { SwitchToMode "renametab"; TabNameInput 0; }
-        bind "Alt J" { MovePane "down"; }
-        bind "Alt K" { MovePane "up"; }
-        bind "Alt L" { MovePane "right"; }
+        bind "shift H" { MovePane "left"; }
+        bind "shift J" { MovePane "down"; }
+        bind "shift K" { MovePane "up"; }
+        bind "shift L" { MovePane "right"; }
         // bind "Alt [" { GoToPreviousTab; }
         // bind "Alt ]" { GoToNextTab; }
-        bind "Alt d" { NewPane "right"; SwitchToMode "normal"; }
         bind "Alt f" { ToggleFocusFullscreen; }
         bind "Alt h" { MoveFocus "left"; }
         bind "Alt j" { MoveFocus "down"; }
         bind "Alt k" { MoveFocus "up"; }
         bind "Alt l" { MoveFocus "right"; }
+
+        bind "Alt Left" { Resize "Increase left"; }
+        bind "Alt Down" { Resize "Increase down"; }
+        bind "Alt Up" { Resize "Increase up"; }
+        bind "Alt Right" { Resize "Increase right"; }
+
+
         bind "Alt n" { NewPane; }
         bind "Alt s" {
             LaunchOrFocusPlugin "zellij:session-manager" {
@@ -170,7 +177,7 @@ keybinds clear-defaults=true {
     }
     shared_except "locked" {
         bind "Ctrl g" { SwitchToMode "locked"; }
-        bind "Ctrl q" { Quit; }
+        bind "Alt Shift q"  { Quit; }
     }
     shared_except "locked" "scroll" {
         bind "Alt e" { SwitchToMode "scroll"; }
