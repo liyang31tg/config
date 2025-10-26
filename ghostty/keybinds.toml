@@ -11,10 +11,11 @@ keybind = super+ctrl+arrow_up=ignore
 keybind = super+ctrl+equal=ignore
 keybind = super+shift+enter=ignore
 keybind = ctrl+k=unbind
-keybind = alt+arrow_down=unbind #再zellij里面用来指定尺寸的，所有注释掉
-keybind = alt+arrow_left=unbind #同上
-keybind = alt+arrow_right=unbind #同上
-keybind = alt+arrow_up=unbind #同上
+#再zellij里面用来指定尺寸的，所有注释掉
+keybind = alt+arrow_down=unbind
+keybind = alt+arrow_left=unbind
+keybind = alt+arrow_right=unbind
+keybind = alt+arrow_up=unbind
 # ignore end ================================
 
 # super + alt   + arrow_down      goto_split:down
