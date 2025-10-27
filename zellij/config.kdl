@@ -170,6 +170,7 @@ keybinds clear-defaults=true {
             SwitchToMode "normal"
         }
         bind "Alt t" { NewTab; SwitchToMode "normal"; }
+        bind "Alt Shift x" { CloseTab; SwitchToMode "normal"; }
         bind "Alt Shift ]" { GoToNextTab; }
         bind "Alt Shift [" { GoToPreviousTab; }
         bind "Alt Shift '" { MoveTab "right"; }
