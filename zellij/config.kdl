@@ -10,7 +10,7 @@ keybinds clear-defaults=true {
         bind "Alt f" "Super f" { SwitchToMode "EnterSearch"; SearchInput 0; }
     }
     locked {
-        bind "Ctrl g" { SwitchToMode "normal"; }
+        bind "Ctrl g" "Alt g" { SwitchToMode "normal"; }
         bind "Alt f" "Super f" { SwitchToMode "EnterSearch"; SearchInput 0; }
     }
     resize {
@@ -30,7 +30,7 @@ keybinds clear-defaults=true {
         bind "k" { Resize "Increase up"; }
         bind "l" { Resize "Increase right"; }
         bind "Alt r" "esc" { SwitchToMode "normal"; }
-        bind "Ctrl r"  { SwitchToMode "normal"; }
+        // bind "Ctrl r"  { SwitchToMode "normal"; }
     }
     pane {
         bind "Alt p" "esc" { SwitchToMode "Normal"; }
@@ -143,10 +143,10 @@ keybinds clear-defaults=true {
         bind "Alt d" { NewPane "right"; SwitchToMode "normal"; }
         bind "Alt F" { ToggleFloatingPanes; SwitchToMode "normal"; }
         bind "Alt I" { SwitchToMode "renametab"; TabNameInput 0; }
-        bind "shift H" { MovePane "left"; }
-        bind "shift J" { MovePane "down"; }
-        bind "shift K" { MovePane "up"; }
-        bind "shift L" { MovePane "right"; }
+        bind "shift Left" { MovePane "left"; }
+        bind "shift Down" { MovePane "down"; }
+        bind "shift Up" { MovePane "up"; }
+        bind "shift Right" { MovePane "right"; }
         // bind "Alt [" { GoToPreviousTab; }
         // bind "Alt ]" { GoToNextTab; }
         bind "Alt f" { ToggleFocusFullscreen; }
@@ -177,18 +177,18 @@ keybinds clear-defaults=true {
         bind "Alt Shift ;" { MoveTab "left"; }
     }
     shared_except "locked" {
-        bind "Ctrl g" { SwitchToMode "locked"; }
+        bind "Ctrl g" "Alt g" { SwitchToMode "locked"; }
         bind "Alt Shift q"  { Quit; }
     }
     shared_except "locked" "scroll" {
         bind "Alt e" { SwitchToMode "scroll"; }
     }
     shared_except "locked" "tab" {
-        bind "Ctrl t" { SwitchToMode "tab"; }
+        bind "Alt Shift t" { SwitchToMode "tab"; }
     }
     shared_except "locked" "resize" {
         bind "Alt r" { SwitchToMode "resize"; }
-        bind "Ctrl r" { SwitchToMode "resize"; }
+        // bind "Ctrl r" { SwitchToMode "resize"; }
     }
 
     shared_except "locked" "pane" {

@@ -6,5 +6,6 @@ macos-icon = custom
 macos-custom-icon = ~/.config/ghostty/iTerm2.icns
 macos-option-as-alt = true
 maximize = true
+fullscreen = true
 cursor-style = bar
 # cursor-color = #FF0000
