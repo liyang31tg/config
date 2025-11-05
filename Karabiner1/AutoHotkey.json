@@ -1,0 +1,14 @@
+{
+    "description": "实现了window上一个autohotkey的一个功能，ctrl与esc共用一个按键",
+    "manipulators": [
+        {
+            "from": {
+                "key_code": "left_control",
+                "modifiers": { "optional": ["any"] }
+            },
+            "to": [{ "key_code": "left_control" }],
+            "to_if_alone": [{ "key_code": "escape" }],
+            "type": "basic"
+        }
+    ]
+}

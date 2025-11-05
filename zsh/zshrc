@@ -160,6 +160,9 @@ function za() {
 # zellij end
 export useryy=12 #这是一个标识，表示只在本机
 
+# set -o emacs 与bindkey -e 等价的，二选一即可，都是为了使用emacs模式，就是说常用的ctrl+a,e之类的快捷键
+bindkey -e
+
 # neofetch
 # brew install fastfetch
 fastfetch
@@ -199,4 +202,8 @@ function proxy_off() {
 
 function ip() {
     curl ipinfo.io
+}
+
+function wk() {
+    ssh wk
 }
