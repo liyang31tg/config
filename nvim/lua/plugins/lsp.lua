@@ -1,8 +1,4 @@
 function GenServers()
-	-- local vue_typescript_plugin = require("mason-registry").get_package("vue-language-server"):get_installed_path()
-	-- 	.. "/node_modules/@vue/language-server"
-	-- 	.. "/node_modules/@vue/typescript-plugin"
-	-- .local/share/nvim/mason/packages/vue-language-server/node_modules/@vue/language-server/node_modules/@vue/typescript-plugin
 	local vue_language_server_path = vim.fn.expand("$MASON/packages")
 		.. "/vue-language-server"
 		.. "/node_modules/@vue/language-server"
@@ -26,7 +22,20 @@ function GenServers()
 				},
 			},
 		},
-		gopls = {},
+		gopls = {
+			settings = {
+				gopls = {
+					completeUnimported = true,
+					usePlaceholders = true,
+					analyses = {
+						unusedparams = true,
+					},
+				},
+			},
+			cmd = { "gopls" },
+			-- 1. 修正文件类型
+			filetypes = { "go", "gomod", "gowork", "gotmpl" },
+		},
 		vimls = {},
 		cssls = {},
 		html = {},
@@ -132,32 +141,24 @@ local obj = {
 	dependencies = {
 		"hrsh7th/cmp-nvim-lsp",
 		"williamboman/mason.nvim",
-		-- "williamboman/mason-lspconfig.nvim", --mason2.0这个配置已经没用了
 		"folke/neodev.nvim",
 		"ray-x/lsp_signature.nvim",
-		-- "jose-elias-alvarez/null-ls.nvim", --有些lsp的供应商无法提供,formatter,code action,diagnostics的时候,由这个插件注入对应的功能,因为维护过大,作者已经放弃,暂时可用.
 	},
 	opts = {
 		document_highlight = { enabled = false },
 	},
 	config = function()
 		require("neodev").setup()
-		-- init_null_ls()
 		require("lsp_signature").setup()
 		require("mason").setup()
+		-- 3. 引入 lspconfig 插件
+		local lspconfig = require("lspconfig")
 		local servers = GenServers()
 		for server, config in pairs(servers) do
-			vim.lsp.config(server, config)
-			vim.lsp.enable(server)
+			lspconfig[server].setup(config)
+			-- vim.lsp.config(server, config) 原生的需要手动注入一些配置,而使用上面这种插件注入,会有一些默认配置省略了很多配置
+			-- vim.lsp.enable(server)
 		end
-		-- require("mason-lspconfig").setup({
-		-- 	ensure_installed = vim.tbl_keys(servers),
-		-- })
-		-- 这条可能可以删除
-		-- local capabilities = require("cmp_nvim_lsp").default_capabilities()
-		-- for server, config in pairs(servers) do
-		-- 	require("lspconfig")[server].setup(vim.tbl_deep_extend("keep", { capabilities = capabilities }, config))
-		-- end
 	end,
 }
 
