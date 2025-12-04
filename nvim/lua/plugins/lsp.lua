@@ -152,12 +152,12 @@ local obj = {
 		require("lsp_signature").setup()
 		require("mason").setup()
 		-- 3. 引入 lspconfig 插件
-		local lspconfig = require("lspconfig")
+		-- local lspconfig = require("lspconfig")
 		local servers = GenServers()
 		for server, config in pairs(servers) do
-			lspconfig[server].setup(config)
-			-- vim.lsp.config(server, config) 原生的需要手动注入一些配置,而使用上面这种插件注入,会有一些默认配置省略了很多配置
-			-- vim.lsp.enable(server)
+			-- lspconfig[server].setup(config)
+			vim.lsp.config(server, config) --原生的需要手动注入一些配置,而使用上面这种插件注入,会有一些默认配置省略了很多配置
+			vim.lsp.enable(server)
 		end
 	end,
 }
