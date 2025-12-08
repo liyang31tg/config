@@ -71,7 +71,7 @@ local obj = {
 
 				["<CR>"] = cmp.mapping.confirm({
 					select = true,
-					behavior = cmp.ConfirmBehavior.Replace,
+					-- behavior = cmp.ConfirmBehavior.Replace,
 				}),
 
 				-- 【修改点5】：修复后的 Tab 逻辑 (Super Tab)
