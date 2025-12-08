@@ -75,7 +75,7 @@ local obj = {
 				}),
 
 				-- 【修改点5】：修复后的 Tab 逻辑 (Super Tab)
-				["<Tab>"] = cmp.mapping(function(fallback)
+				["<C-f>"] = cmp.mapping(function(fallback)
 					if cmp.visible() then
 						-- 1. 如果补全菜单可见，选下一个
 						cmp.select_next_item()
@@ -88,7 +88,8 @@ local obj = {
 					end
 				end, { "i", "s" }),
 
-				["<S-Tab>"] = cmp.mapping(function(fallback)
+				-- ["<S-Tab>"] = cmp.mapping(function(fallback)
+				["<C-b>"] = cmp.mapping(function(fallback)
 					if cmp.visible() then
 						cmp.select_prev_item()
 					elseif luasnip.jumpable(-1) then
