@@ -386,6 +386,7 @@ map("n", "gr", "<cmd>Telescope lsp_references<cr>")
 
 -- nvim-cmp 自动补全
 pluginKeys.cmp = function(cmp, has_words_before, feedkey)
+	local luasnip = require("luasnip")
 	return {
 		-- 出现补全
 		["<c-.>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
@@ -421,6 +422,29 @@ pluginKeys.cmp = function(cmp, has_words_before, feedkey)
 		["<c-h>"] = cmp.mapping(function()
 			if vim.fn["vsnip#jumpable"](-1) == 1 then
 				feedkey("<Plug>(vsnip-jump-prev)", "")
+			end
+		end, { "i", "s" }),
+		-- 【关键修复】：配置 Tab 键逻辑
+		["<Tab>"] = cmp.mapping(function(fallback)
+			if cmp.visible() then
+				-- 1. 如果补全菜单可见，选择下一个
+				cmp.select_next_item()
+			elseif luasnip.expand_or_jumpable() then
+				-- 2. 【核心】如果处于 Snippet 中且可以跳转，则跳转到下一个占位符
+				luasnip.expand_or_jump()
+			else
+				fallback() -- 否则执行默认 Tab 行为（缩进）
+			end
+		end, { "i", "s" }), -- 注意这里要包含 "s" (select mode)，因为占位符通常处于选中状态
+
+		-- 配置 Shift+Tab 往回跳
+		["<S-Tab>"] = cmp.mapping(function(fallback)
+			if cmp.visible() then
+				cmp.select_prev_item()
+			elseif luasnip.jumpable(-1) then
+				luasnip.jump(-1)
+			else
+				fallback()
 			end
 		end, { "i", "s" }),
 	}
@@ -548,7 +572,28 @@ pluginKeys.mapFanYi = function()
 end
 
 pluginKeys.mapGo = function()
-	vim.cmd("au FileType go nmap <buffer> <silent> <LocalLeader>r :GoRun -F %:p<cr>")
+	-- vim.cmd("au FileType go nmap <buffer> <silent> <LocalLeader>r :GoRun -F %:p:h<cr>")
+	-- vim.cmd([[au FileType go nmap <buffer> <silent> <LocalLeader>r :execute 'GoRun -F ./' . expand('%:h')<CR>]])
+	-- vim.cmd([[au FileType go nmap <buffer> <silent> <LocalLeader>r :execute 'GoRun -F ./' . fnamemodify(expand('%'), ':.:h')<CR>]])
+
+	vim.api.nvim_create_autocmd("FileType", {
+		pattern = "go",
+		callback = function()
+			vim.keymap.set("n", "<LocalLeader>r", function()
+				-- 核心修正：fnamemodify(..., ":.:h")
+				-- :.  表示相对于当前 CWD (Current Working Directory)
+				-- :h  表示取目录头
+				local relative_dir = vim.fn.fnamemodify(vim.fn.expand("%"), ":.:h")
+
+				-- 拼接成 ./test/slog
+				local cmd = "GoRun -F ./" .. relative_dir
+
+				vim.cmd(cmd)
+				print("Running: " .. cmd) -- 打印出来，让你看到这次跑的是对的
+			end, { buffer = true, silent = true, desc = "Go Run Relative" })
+		end,
+	})
+
 	-- vim.cmd("au FileType go nmap <buffer> <LocalLeader>b :GoBuild -o cc %:p:h<cr>")
 	vim.cmd("au FileType go nmap <buffer> <LocalLeader>b :!go build -o /tmp/ %:p:h<cr>")
 	vim.cmd("au FileType go nmap <buffer> <LocalLeader>tb :GoAddTag bson<cr>")
