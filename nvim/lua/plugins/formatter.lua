@@ -8,9 +8,9 @@ local obj = {
 			lua = { "stylua" },
 			-- Conform will run multiple formatters sequentially
 			go = { "goimports", "gofmt" },
-			javascript = { "my_prettierd" },
-			typescript = { "my_prettierd" },
-			vue = { "my_prettierd" },
+			javascript = { "prettierd" },
+			typescript = { "prettierd" },
+			vue = { "prettierd" },
 			html = { "my_prettierd" },
 			css = { "my_prettierd" },
 			-- You can use a function here to determine the formatters dynamically
@@ -40,6 +40,19 @@ local obj = {
 			lsp_format = "fallback", -- "never", "always", "fallback",这个是优先使用lsp的格式化工具
 		},
 		formatters = {
+			prettierd = {
+				-- 继承内置 prettierd 的默认配置（关键：内置格式化器可以开 inherit）
+				inherit = true,
+				-- 方式1：通过环境变量指定全局配置文件（推荐）
+				env = {
+					PRETTIERD_DEFAULT_CONFIG = vim.fn.expand("~/.config/nvim/lua/utils/linter-config/.prettierrc.json"),
+				},
+				-- 方式2：（备选）通过参数直接指定配置文件（二选一即可）
+				-- prepend_args = {
+				--   "--config",
+				--   vim.fn.expand("~/.config/nvim/lua/utils/linter-config/.prettierrc.json")
+				-- },
+			},
 			my_prettierd = {
 				-- This can be a string or a function that returns a string.
 				-- When defining a new formatter, this is the only field that is required
