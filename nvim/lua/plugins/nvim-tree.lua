@@ -1,3 +1,41 @@
+local function expand_collapse_open()
+	local api = require("nvim-tree.api")
+	local node = api.tree.get_node_under_cursor()
+	if node == nil then
+		return
+	end
+	if node.nodes ~= nil then
+		if node.open then
+			api.tree.collapse_all()
+		else
+			api.tree.expand_all()
+		end
+	else --- 预览文件
+		api.node.open.preview()
+	end
+end
+
+local function toggle_gitignore_custom_hidden_filter()
+	local api = require("nvim-tree.api")
+	api.tree.toggle_hidden_filter()
+	api.tree.toggle_gitignore_filter()
+	api.tree.toggle_custom_filter()
+end
+
+local function open()
+	local api = require("nvim-tree.api")
+	local node = api.tree.get_node_under_cursor()
+	if node then
+		if node.nodes ~= nil then
+			--展开目录
+			api.node.open.edit()
+		else
+			--预览文件
+			api.node.open.preview()
+		end
+	end
+end
+
 -- 列表操作快捷键
 local function my_on_attach(bufnr)
 	local api = require("nvim-tree.api")
@@ -38,8 +76,7 @@ local function my_on_attach(bufnr)
 	map("n", "u", api.tree.change_root_to_parent, "Up 到上一级")
 	map("n", "a", api.fs.create, "Create File Or Directory")
 	--bookmark start
-	map("n", "bd", api.marks.bulk.delete, "Delete Bookmarked")
-	map("n", "bt", api.marks.bulk.trash, "Trash Bookmarked 到回收站")
+	map("n", "bd", api.marks.bulk.trash, "Trash Bookmarked 到回收站")
 	map("n", "bmv", api.marks.bulk.move, "Move Bookmarked 到指定目录下")
 	map("n", "m", api.marks.toggle, "Toggle Bookmark")
 	--bookmark end
@@ -47,30 +84,14 @@ local function my_on_attach(bufnr)
 	map("n", "B", api.tree.toggle_no_buffer_filter, "Toggle Filter: 是否只显示已经打开的buffer")
 	map("n", "M", api.tree.toggle_no_bookmark_filter, "Toggle Filter: No Bookmark")
 	-- map("n", "G", api.tree.toggle_git_clean_filter, "Toggle Filter: Git Clean 没测试成功")
-	map("n", ".", api.tree.toggle_hidden_filter, "Toggle Filter: Dotfiles")
-	map("n", "I", api.tree.toggle_gitignore_filter, "Toggle Filter: Git Ignore")
-	map("n", "H", api.tree.toggle_custom_filter, "Toggle Filter: Hidden")
+	map("n", ".", toggle_gitignore_custom_hidden_filter, "Toggle Filter: Dotfiles")
 
 	--toggle filter end
 	map("n", "c", api.fs.copy.node, "Copy")
-	map("n", "o", function()
-		local node = api.tree.get_node_under_cursor()
-		if node then
-			if node.nodes ~= nil then
-				--展开目录
-				api.node.open.edit()
-			else
-				--预览文件
-				api.node.open.preview()
-			end
-		else
-			print("No node under cursor.")
-		end
-	end, "edit or preview")
+	map("n", "o", open, "edit or preview")
 	-- map("n", "d", api.fs.remove, "Delete") --这个是删除了就不存在了,无法在回收站找到
 	map("n", "d", api.fs.trash, "删除到回收站")
 	map("n", "e", api.node.open.edit, "edit")
-	map("n", "F", api.live_filter.clear, "Live Filter: Clear")
 	map("n", "f", api.live_filter.start, "Live Filter: Start")
 	map("n", "?", api.tree.toggle_help, "Help")
 	map("n", "gy", api.fs.copy.basename, "Copy Basename")
@@ -83,14 +104,13 @@ local function my_on_attach(bufnr)
 	map("n", "P", api.node.navigate.parent, "Parent Directory")
 	map("n", "q", api.tree.close, "Close")
 	map("n", "r", api.fs.rename, "Rename")
-	map("n", "U", api.tree.reload, "Refresh, 超级更新,就是Update,所以用U")
 	map("n", "R", api.fs.rename_full, "Rename: Full Path")
-	map("n", "X", api.tree.collapse_all, "关闭所有目录")
+	map("n", "U", api.tree.reload, "Refresh, 超级更新,就是Update,所以用U")
 	map("n", "x", api.node.navigate.parent_close, "关闭父级目录")
 	map("n", "<c-x>", api.fs.cut, "Cut")
-	map("n", "O", api.tree.expand_all, "Expand All")
+	map("n", "O", expand_collapse_open, "toggle Expand/Collapse All")
 	map("n", "<c-o>", api.node.run.system, "Run System")
-	map("n", "\\p", function()
+	map("n", "<c-p>", function()
 		local node = api.tree.get_node_under_cursor()
 		print(node.absolute_path)
 	end, "Print Node Path")
@@ -225,6 +245,13 @@ local opt = {
 -- 自动关闭
 vim.cmd([[
   autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif
+]])
+
+vim.cmd([[
+    :hi      NvimTreeExecFile    guifg=#ffa0a0
+    :hi      NvimTreeSpecialFile guifg=#ff80ff gui=underline
+    :hi      NvimTreeSymlink     guifg=Yellow  gui=italic
+    :hi link NvimTreeImageFile   Title
 ]])
 
 local obj = {
