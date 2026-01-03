@@ -36,6 +36,13 @@ local function open()
 	end
 end
 
+local function print_node()
+	local api = require("nvim-tree.api")
+	local node = api.tree.get_node_under_cursor()
+	if node then
+		print(node.absolute_path)
+	end
+end
 -- 列表操作快捷键
 local function my_on_attach(bufnr)
 	local api = require("nvim-tree.api")
@@ -110,12 +117,8 @@ local function my_on_attach(bufnr)
 	map("n", "<c-x>", api.fs.cut, "Cut")
 	map("n", "O", expand_collapse_open, "toggle Expand/Collapse All")
 	map("n", "<c-o>", api.node.run.system, "Run System")
-	map("n", "<c-p>", function()
-		local node = api.tree.get_node_under_cursor()
-		print(node.absolute_path)
-	end, "Print Node Path")
+	map("n", "<c-p>", print_node, "Print Node Path")
 	map("n", "<2-LeftMouse>", api.node.open.edit, "Open")
-	map("n", "<2-RightMouse>", api.tree.change_root_to_node, "CD")
 end
 
 local opt = {
