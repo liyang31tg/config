@@ -174,9 +174,7 @@ function proxy_on() {
     if [ $# -eq 1 ]; then
         port=$1
     fi
-    export http_proxy=http://127.0.0.1:$port
-    export https_proxy=http://127.0.0.1:$port
-    export all_proxy=socks5://127.0.0.1:$port
+    export all_proxy=socks5://0.0.0.0:$port
 }
 
 function proxy_http_on() {
@@ -193,7 +191,9 @@ function proxy_all_on() {
     if [ $# -eq 1 ]; then
         port=$1
     fi
-    export all_proxy=socks5://0.0.0.0:$port
+    export http_proxy=http://127.0.0.1:$port
+    export https_proxy=http://127.0.0.1:$port
+    export all_proxy=socks5://127.0.0.1:$port
 }
 
 function proxy_off() {
