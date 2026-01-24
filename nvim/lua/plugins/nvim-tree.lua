@@ -99,6 +99,7 @@ local function my_on_attach(bufnr)
 	-- map("n", "d", api.fs.remove, "Delete") --这个是删除了就不存在了,无法在回收站找到
 	map("n", "d", api.fs.trash, "删除到回收站")
 	map("n", "e", api.node.open.edit, "edit")
+	map("n", "<c-c>", api.live_filter.clear, "Live Filter: Clear")
 	map("n", "f", api.live_filter.start, "Live Filter: Start")
 	map("n", "?", api.tree.toggle_help, "Help")
 	map("n", "gy", api.fs.copy.basename, "Copy Basename")
