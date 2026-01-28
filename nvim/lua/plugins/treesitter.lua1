@@ -1,0 +1,53 @@
+return {
+	"nvim-treesitter/nvim-treesitter",
+	lazy = false,
+	-- 仅保留基础 build 逻辑，避免 API 调用
+	build = ":TSUpdate",
+	config = function()
+		-- 1. 最基础的高亮启用（兼容所有版本）
+		vim.cmd("set syntax=off") -- 关闭原生语法高亮
+
+		-- 2. 手动安装 Go 解析器（仅用 Vim 命令，无 Lua API）
+		local install_go = function()
+			-- 用静默命令安装，避免弹窗
+			vim.cmd("silent! TSInstall go")
+			vim.notify("Go 解析器已安装/更新完成", vim.log.levels.INFO)
+		end
+
+		-- 启动时自动安装 Go 解析器
+		install_go()
+
+		require("nvim-treesitter").setup({})
+
+		-- 3. 强制启用 Go 高亮（仅用最基础的自动命令 + 核心调用）
+		-- vim.api.nvim_create_autocmd({ "FileType", "BufEnter" }, {
+		-- 	pattern = "*.go",
+		-- 	callback = function()
+		-- 		-- 兜底关闭原生语法
+		-- 		vim.cmd("setlocal syntax=off")
+		-- 		-- 最基础的 tree-sitter 启动方式（兼容所有版本）
+		-- 		local ok = pcall(function()
+		-- 			-- 直接启动当前缓冲区的 tree-sitter（不指定层级）
+		-- 			vim.treesitter.start(0, "go")
+		-- 		end)
+		-- 		if ok then
+		-- 			vim.notify("Go 高亮已启用", vim.log.levels.INFO)
+		-- 		else
+		-- 			vim.notify("Go 高亮启用失败，已自动重试安装解析器", vim.log.levels.ERROR)
+		-- 			install_go() -- 重试安装
+		-- 		end
+		-- 	end,
+		-- })
+		--
+		-- -- 4. 极简版 TSInfo 命令（仅验证 Go 解析器）
+		-- vim.api.nvim_create_user_command("TSInfo", function()
+		-- 	-- 仅检查 Go 解析器状态（避免遍历所有解析器的复杂 API）
+		-- 	local go_ok = pcall(vim.treesitter.get_parser, 0, "go")
+		-- 	if go_ok then
+		-- 		print("✅ Go 解析器已安装并加载")
+		-- 	else
+		-- 		print("❌ Go 解析器未安装，执行 :TSInstall go 安装")
+		-- 	end
+		-- end, { desc = "查看 Go 解析器状态" })
+	end,
+}
