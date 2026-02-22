@@ -1,4 +1,4 @@
 require("opt")
-require("keybindings")
+require("keymap")
 require("lazy_init")
 require("autocmd")

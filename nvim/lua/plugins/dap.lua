@@ -203,7 +203,7 @@ local obj = {
 			}
 
 			dapui.setup(dapui_opt)
-			require("keybindings").DAPmap()
+			require("keymap").DAPmap()
 			--不能针对某个buffer设置起属性,因为代码不会在一个文件中写,
 			--解决方案
 			--通常设置一批映射关系
@@ -212,19 +212,19 @@ local obj = {
 
 			dap.listeners.before.attach.dapui_config = function()
 				print("dapui_config")
-				require("keybindings").DAPTmpmap()
+				require("keymap").DAPTmpmap()
 				dapui.open({})
 			end
 
 			dap.listeners.before.launch.dapui_config = function()
 				print("dapui_config1")
-				require("keybindings").DAPTmpmap()
+				require("keymap").DAPTmpmap()
 				dapui.open({})
 			end
 
 			dap.listeners.before.event_terminated.dapui_config = function()
 				print("dapui_config2")
-				require("keybindings").DAPTmpunmap()
+				require("keymap").DAPTmpunmap()
 				dapui.close({})
 				local status_ok, api = pcall(require, "nvim-tree.api")
 				if status_ok then
@@ -235,7 +235,7 @@ local obj = {
 
 			dap.listeners.before.event_exited.dapui_config = function()
 				print("dapui_config2")
-				require("keybindings").DAPTmpunmap()
+				require("keymap").DAPTmpunmap()
 				dapui.close({})
 			end
 

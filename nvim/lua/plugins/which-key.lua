@@ -24,7 +24,7 @@ local obj = {
 		},
 	},
 	config = function()
-		local mappings = require("keybindings").whichkeys
+		local mappings = require("keymap").whichkeys
 		local wk = require("which-key")
 		wk.add(mappings)
 	end,

@@ -108,7 +108,7 @@ map("n", "]w", diagnostic_goto(true, "WARN"), { desc = "Next Warning" })
 map("n", "[w", diagnostic_goto(false, "WARN"), { desc = "Prev Warning" })
 
 -- highlights under cursor not work
--- map("n", "<leader>ui", vim.show_pos, { desc = "Inspect Pos" })
+-- map("n", "<local eader>ui", vim.show_pos, { desc = "Inspect Pos" })
 -- map("n", "<leader>uI", "<cmd>InspectTree<cr>", { desc = "Inspect Tree" })
 
 -- 在visual 模式里粘贴不要复制
@@ -122,10 +122,11 @@ map("n", "Q", ":qa!<CR>", "关闭所有")
 
 -- insert 模式下，跳到行首行尾
 -- 还原终端下的某些行为
-map({ "i" }, "<c-e>", "<ESC>A")
-map({ "n", "i" }, "<c-a>", "<ESC>I")
-map("i", "<c-f>", "<right>")
-map("i", "<c-b>", "<left>")
+map({ "n" }, "<c-a>", "<ESC>I")
+map({ "i", "c" }, "<c-f>", "<right>")
+map({ "i", "c" }, "<c-b>", "<left>")
+map({ "i", "c" }, "<c-a>", "<home>")
+map({ "i", "c" }, "<c-e>", "<end>")
 
 --第三方插件的快捷键银蛇如下
 local pluginKeys = {}

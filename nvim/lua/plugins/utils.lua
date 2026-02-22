@@ -2,7 +2,7 @@ local obj = {
 	{ --加强jk
 		"rhysd/accelerated-jk",
 		config = function()
-			require("keybindings").accelerated()
+			require("keymap").accelerated()
 		end,
 	},
 	{ --保证文件打开的位置

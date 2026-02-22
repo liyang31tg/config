@@ -26,7 +26,7 @@ local obj = {
 				require("neotest-golang")(go_opts),
 			},
 		})
-		-- require("keybindings").mapTEST()
+		-- require("keymap").mapTEST()
 	end,
 }
 

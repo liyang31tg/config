@@ -1,3 +1,2 @@
-require("keybindings").mapJavascript()
+require("keymap").mapJavascript()
 return {}
-

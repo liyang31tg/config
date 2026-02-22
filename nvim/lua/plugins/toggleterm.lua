@@ -41,7 +41,7 @@ local obj = {
 		end
 
 		-- vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
-		require("keybindings").mapTerminal()
+		require("keymap").mapTerminal()
 
 		local Terminal = require("toggleterm.terminal").Terminal
 

@@ -35,7 +35,7 @@ local obj = {
 	config = function()
 		require("go").setup(opt)
 		require("gotests").setup()
-		require("keybindings").mapGo()
+		require("keymap").mapGo()
 	end,
 	event = { "CmdlineEnter" },
 	ft = { "go", "gomod" },
@@ -82,7 +82,7 @@ return obj
 -- 		vim.cmd.GoInstallDeps()
 -- 	end,
 -- 	config = function()
--- 		require("keybindings").mapGo()
+-- 		require("keymap").mapGo()
 -- 	end,
 -- 	opts = opt,
 -- }
