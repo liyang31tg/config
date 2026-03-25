@@ -112,7 +112,7 @@ map("n", "[w", diagnostic_goto(false, "WARN"), { desc = "Prev Warning" })
 -- map("n", "<leader>uI", "<cmd>InspectTree<cr>", { desc = "Inspect Tree" })
 
 -- 在visual 模式里粘贴不要复制
-map("v", "p", '"_dP')
+map("x", "p", '"_dP')
 -- map("n", "d", '"_d') --阐述的时候不要复制
 
 -- 退出
