@@ -1,3 +1,8 @@
+function _G.log(...)
+	local msg = vim.inspect({ ... }) -- 自动格式化任何变量
+	vim.notify(msg, vim.log.levels.INFO) -- 右上角弹出通知
+	print("[LOG]", msg) -- 命令行 :messages 里也能看到
+end
 -- m 映射的是alt控制键
 -- c 映射的是ctrl控制键
 -- 定义 map 函数，带有默认选项
@@ -341,15 +346,16 @@ pluginKeys.whichkeys = {
 map("n", ",o", "<cmd>Outline<CR>", "Outline")
 -- map("n", "<leader>/", "<cmd>OutlineFocus<CR>", "OutlineFocus")
 
--- 黑苹果不支持,m1芯片是支持的
+-- 黑苹果不支持,m1芯片是支持的 zellij 0.43.1 支持,0.44有bug
 map({ "n", "i", "v" }, "<D-s>", function()
 	vim.cmd("silent! write")
 end, "save")
 
 -- 桥接使用,因为黑苹果不支持上面的<D-s>,又不d想使用:w的方式,因为想屏蔽小命令行
-map({ "n", "i", "v" }, "<F14>", function()
-	vim.cmd("silent! write")
-end, "save")
+-- map({ "n", "i", "v" }, "<F14>", function()
+-- 	log("ted<F14>st")
+-- 	vim.cmd("silent! write")
+-- end, "save")
 
 map({ "n", "i", "v" }, "<F15>", function()
 	vim.cmd("silent! NvimTreeFindFile")
