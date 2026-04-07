@@ -114,6 +114,9 @@ map("n", "[w", diagnostic_goto(false, "WARN"), { desc = "Prev Warning" })
 -- 在visual 模式里粘贴不要复制
 map("v", "p", '"_dP')
 -- map("n", "d", '"_d') --阐述的时候不要复制
+map("n", "<C-S-F>", function()
+	require("grug-far").open({})
+end, "全局替换（仅当前工作目录）")
 
 -- 退出
 map("n", "<leader>q", ":q<CR>", "退出")

@@ -7,7 +7,7 @@ option_as_alt = "Both"
 blur=true
 
 [font]
-size = 15
+size = 19
 
 [font.offset]
 x = 0
@@ -43,9 +43,9 @@ blink_interval = 500
 shape = "Beam"
 blinking="Always"
 
-[terminal.shell]
-program = "/bin/zsh"
-args = [ "--login" ,"-c", "zellij attach -c default" ]
+# [terminal.shell]
+# program = "/bin/zsh"
+# args = [ "--login" ,"-c", "zellij attach -c default" ]
 
 # \u001b = ESC
 [[keyboard.bindings]]
@@ -62,6 +62,24 @@ action = "IncreaseFontSize"
 key = "Minus"
 mods = "Command"
 action = "DecreaseFontSize"
+
+[[ keyboard.bindings]]
+key = "F"
+mods = "Control|Shift"
+action = "CreateNewWindow"
+# chars = "\u001b[29~"
+
+[[ keyboard.bindings]]
+key = "F"
+mods = "Command|Shift"
+chars = "\u001b[29~"
+
+
+
+[[ keyboard.bindings]]
+key = "F"
+mods = "Control"
+chars = "\u001b[29~"
 
 
 # [[keyboard.bindings]]

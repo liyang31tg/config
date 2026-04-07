@@ -204,11 +204,23 @@ local obj = {
 	},
 	{
 		"MagicDuck/grug-far.nvim", --"nvim-pack/nvim-spectre", 替换这个
+		dependencies = {
+			"nvim-lua/plenary.nvim", -- 仅需基础依赖（多数环境已装）
+		},
 		config = function()
 			require("grug-far").setup({
 				-- options, see Configuration section below
 				-- there are no required options atm
 				-- engine = 'ripgrep' is default, but 'astgrep' can be specified
+				default_opts = {
+					cwd = vim.fn.getcwd(), -- 核心：限定替换范围为当前工作目录
+					filter = "", -- 可选：过滤文件（比如只替换lua文件写 *.lua）
+				},
+				keymaps = {
+					close = "q", -- 关闭面板
+					replace_all = "<leader>ra", -- 全部替换
+					replace_confirm = "<CR>", -- 确认单个替换
+				},
 			})
 		end,
 	},
