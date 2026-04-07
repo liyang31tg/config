@@ -87,10 +87,11 @@ chars = "\u001b[29~"
 # mods = "Command"
 # chars = "\u001b:silent w!\r"
 
-[[keyboard.bindings]]
-key = "S"
-mods = "Command"
-chars = "\u001b[26~"
+# f14 桥接不需要了,不是黑苹果,白苹果neovim原生支持<d-s>
+# [[keyboard.bindings]]
+# key = "S"
+# mods = "Command"
+# chars = "\u001b[26~"
 
 
 [[keyboard.bindings]]
