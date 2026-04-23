@@ -43,9 +43,9 @@ blink_interval = 500
 shape = "Beam"
 blinking="Always"
 
-# [terminal.shell]
-# program = "/bin/zsh"
-# args = [ "--login" ,"-c", "zellij attach -c default" ]
+[terminal.shell]
+program = "/bin/zsh"
+args = [ "--login" ,"-c", "zellij attach -c default" ]
 
 # \u001b = ESC
 [[keyboard.bindings]]
@@ -63,23 +63,22 @@ key = "Minus"
 mods = "Command"
 action = "DecreaseFontSize"
 
-[[ keyboard.bindings]]
-key = "F"
-mods = "Control|Shift"
-action = "CreateNewWindow"
+# [[ keyboard.bindings]]
+# key = "F"
+# mods = "Control|Shift"
+# action = "CreateNewWindow"
+
+# [[ keyboard.bindings]]
+# key = "F"
+# mods = "Command|Shift"
 # chars = "\u001b[29~"
 
-[[ keyboard.bindings]]
-key = "F"
-mods = "Command|Shift"
-chars = "\u001b[29~"
 
 
-
-[[ keyboard.bindings]]
-key = "F"
-mods = "Control"
-chars = "\u001b[29~"
+# [[ keyboard.bindings]]
+# key = "F"
+# mods = "Control"
+# chars = "\u001b[29~"
 
 
 # [[keyboard.bindings]]

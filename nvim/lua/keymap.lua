@@ -1,8 +1,3 @@
-function _G.log(...)
-	local msg = vim.inspect({ ... }) -- 自动格式化任何变量
-	vim.notify(msg, vim.log.levels.INFO) -- 右上角弹出通知
-	print("[LOG]", msg) -- 命令行 :messages 里也能看到
-end
 -- m 映射的是alt控制键
 -- c 映射的是ctrl控制键
 -- 定义 map 函数，带有默认选项
@@ -119,7 +114,7 @@ map("n", "[w", diagnostic_goto(false, "WARN"), { desc = "Prev Warning" })
 -- 在visual 模式里粘贴不要复制
 map("x", "p", '"_dP')
 -- map("n", "d", '"_d') --阐述的时候不要复制
-map("n", "<C-S-F>", function()
+map("n", "<D-S-f>", function()
 	require("grug-far").open({})
 end, "全局替换（仅当前工作目录）")
 
