@@ -16,6 +16,7 @@ export PATH="$PATH:$HOME/Library/Android/sdk/build-tools/30.0.3"
 export PATH="$PATH:$HOME/Library/Android/sdk/platform-tools:/usr/local/bin"
 export PATH=$PATH:/opt/homebrew/bin
 export PATH=$HOME/.local/bin:$PATH
+export PATH=$HOME/.local/share/nvim/mason/bin:$PATH
 
 #PATH end
 # 插件目录 .local/share/zsh/plugins

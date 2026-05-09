@@ -31,6 +31,7 @@ local obj = {
 		function _G.set_terminal_keymaps()
 			local optss = { noremap = true }
 			vim.api.nvim_buf_set_keymap(0, "t", "<esc>", [[<C-\><C-n>]], optss)
+			vim.api.nvim_buf_set_keymap(0, "n", "q", [[<cmd>close <cr>]], optss)
 			-- vim.api.nvim_buf_set_keymap(0, "t", "<C-h>", [[<C-\><C-n><C-W>h]], optss)
 			-- vim.api.nvim_buf_set_keymap(0, "t", "<C-j>", [[<C-\><C-n><C-W>j]], optss)
 			-- vim.api.nvim_buf_set_keymap(0, "t", "<C-k>", [[<C-\><C-n><C-W>k]], optss)

@@ -23,6 +23,11 @@ return {
 			},
 		},
 
+		-- provider = "opencode", -- 用 Zen 网关
+		-- acp_providers = {
+		-- 	["opencode"] = { command = "opencode", args = { "acp" } },
+		-- },
+
 		-- 快捷键保持不变
 		mappings = {
 			ask = "<leader>aa",

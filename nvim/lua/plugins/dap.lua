@@ -110,10 +110,7 @@ local obj = {
 			-- 	return vim.json.decode(json.json_strip_comments(str, {}))
 			-- end
 
-			-- Extends dap.configurations with entries read from .vscode/launch.json
-			if vim.fn.filereadable(".vscode/launch.json") then
-				vscode.load_launchjs()
-			end
+			-- .vscode/launch.json 会自动读取，无需手动调用
 			--官方文档copy
 			dap.adapters.delve = {
 				type = "server",
