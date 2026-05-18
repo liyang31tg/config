@@ -1,0 +1,26 @@
+{
+    "$schema": "https://opencode.ai/config.json", //这个配置的验证，都是基于这个配置文件
+    "autoupdate": true, //ccc
+    "default_agent": "plan",
+    "share": "disabled",
+    "compaction": {
+        "auto": true,
+        "prune": true,
+        "reserved": 10000
+    },
+    "mcp": {
+        "modao": {
+            "type": "local",
+            "command": ["npx", "-y", "@modao-mcp/modao-proto-mcp", "--token={env:MODAO_TOKEN}", "--url=https://modao.cc"],
+            "enabled": true,
+            "timeout": 30000
+        }
+    },
+    "watcher": {
+        "ignore": ["**/node_modules/**", "**/dist/**", "**/.git/**"]
+    },
+    "permission": {
+        "read": "allow"
+    },
+    "disabled_providers": ["openai", "gemini"]
+}
