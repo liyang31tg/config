@@ -14,6 +14,18 @@
             "command": ["npx", "-y", "@modao-mcp/modao-proto-mcp", "--token={env:MODAO_TOKEN}", "--url=https://modao.cc"],
             "enabled": true,
             "timeout": 30000
+        },
+        "gopls": {
+            "type": "local",
+            "command": ["gopls", "mcp"],
+            "enabled": true,
+            "timeout": 30000
+        },
+        "ts-mcp-server": {
+            "type": "local",
+            "command": ["npx", "ts-mcp-server"],
+            "enabled": true,
+            "timeout": 30000
         }
     },
     "watcher": {
