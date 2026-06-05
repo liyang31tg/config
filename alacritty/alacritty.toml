@@ -1,51 +1,79 @@
 
+[general]
+live_config_reload = true
+import = [ "~/.config/alacritty/themes/themes/nord.toml" ]
+# import = [ "~/.config/alacritty/themes/themes/nord_light.toml" ]
+[env]
+TERM = "xterm-256color"
+Where = "alacritty" #用作代表终端模拟器是alacritty
+
 [window]
 dynamic_title = true
-decorations = "Transparent"
+decorations ="Buttonless" #"Transparent"
+opacity = 1.0
 startup_mode = "Maximized"
 option_as_alt = "Both"
 blur=true
+
+[scrolling]
+history = 10000
+multiplier = 3
 
 [font]
 size = 16
 
 [font.offset]
 x = 0
-y = 1
+y = 0
 
 [font.normal]
-# family = "MesloLGS NF"
 family = "JetBrainsMono Nerd Font"
 style = "Regular"
 
 [font.bold]
-# family = "MesloLGS NF"
 family = "JetBrainsMono Nerd Font"
 style = "Bold"
 
 [font.italic]
-# family = "MesloLGS NF"
 family = "JetBrainsMono Nerd Font"
 style = "Italic"
 
 [font.bold_italic]
-# family = "MesloLGS NF"
 family = "JetBrainsMono Nerd Font"
 style = "Bold Italic"
 
-[env]
-TERM = "xterm-256color"
+
+[ bell ] #echo -e `\a`  触发响铃
+animation = "EaseOutExpo"
+duration = 200   # >0开启闪屏，毫秒
+color = "#42a5f5"
+command = "None"
+
+# [ selection ]
+# save_to_clipboard = true
+
 
 [cursor]
 blink_interval = 500
+thickness = 0.15 #光标的宽度
 
 [cursor.style]
 shape = "Beam"
-blinking="Always"
+blinking="Always" #闪烁
 
-[terminal.shell]
-program = "/bin/zsh"
-args = [ "--login" ,"-c", "zellij attach -c default" ]
+# [terminal.shell]
+# program = "/bin/zsh"
+# args = [ "--login" ,"-c", "zellij attach -c default" ]
+
+[mouse]
+hide_when_typing = true
+
+
+[[keyboard.bindings]]
+key = ";"
+mods = "Command"
+action = "ToggleViMode"
+mode = "~Alt"
 
 # \u001b = ESC
 [[keyboard.bindings]]
@@ -109,15 +137,11 @@ key = "Key0"
 mods = "Control"
 chars = "\u001b[28~"
 
-[[keyboard.bindings]]
-key = "T"
-mods = "Command"
-chars = "\u001b[25~"
+# [[keyboard.bindings]]
+# key = "T"
+# mods = "Command"
+# chars = "\u001b[25~"
 
-[general]
-live_config_reload = true
-import = [ "~/.config/alacritty/themes/themes/nord.toml" ]
-# import = [ "~/.config/alacritty/themes/themes/nord_light.toml" ]
 
 [terminal]
 # chars = "\u001b[1;2Q" #esc+f14
@@ -126,62 +150,34 @@ import = [ "~/.config/alacritty/themes/themes/nord.toml" ]
 #ANSI 转义 chars的内容 [:转义开始 ~:转义结束
 #需要与\u001b配合使用
 # 功能键	ANSI 转义序列
-# F1	[11~
-# F2	[12~
-# F3	[13~
-# F4	[14~
-# F5	[15~
-# F6	[17~
-# F7	[18~
-# F8	[19~
-# F9	[20~
-# F10	[21~
-# F11	[23~
-# F12	[24~
-# F13	[25~
-# F14	[26~
-# F15	[28~
-# F16	[29~
-# F17	[31~
-# F18	[32~
-# F19	[33~
-# F20	[34~
-# F21	[35~
-# F22	[36~
-# F23	[23~
-# F24	[24~
-# 功能键   ANSI 转义序列
-# Ctrl + @ (或 Ctrl + Space)  0x00
-# Ctrl + A                    0x01
-# Ctrl + B                    0x02
-# Ctrl + C                    0x03
-# Ctrl + D                    0x04
-# Ctrl + E                    0x05
-# Ctrl + F                    0x06
-# Ctrl + G                    0x07
-# Ctrl + H                    0x08
-# Ctrl + I (Tab)              0x09
-# Ctrl + J (LF)               0x0A
-# Ctrl + K                    0x0B
-# Ctrl + L                    0x0C
-# Ctrl + M (CR)               0x0D
-# Ctrl + N                    0x0E
-# Ctrl + O                    0x0F
-# Ctrl + P                    0x10
-# Ctrl + Q                    0x11
-# Ctrl + R                    0x12
-# Ctrl + S                    0x13
-# Ctrl + T                    0x14
-# Ctrl + U                    0x15
-# Ctrl + V                    0x16
-# Ctrl + W                    0x17
-# Ctrl + X                    0x18
-# Ctrl + Y                    0x19
-# Ctrl + Z                    0x1A
-# Ctrl + [                   0x1B
-# Ctrl + \                   0x1C
-# Ctrl + ]                   0x1D
-# Ctrl + ^                   0x1E
-# Ctrl + _                   0x1F
-# Delete (DEL)               0x7F
+# F1	\u001b[11~
+# F2	\u001b[12~
+# F3	\u001b[13~
+# F4	\u001b[14~
+# F5	\u001b[15~
+# F6	\u001b[17~
+# F7	\u001b[18~
+# F8	\u001b[19~
+# F9	\u001b[20~
+# F10	\u001b[21~
+# F11	\u001b[23~
+# F12	\u001b[24~
+# F13	\u001b[25~
+# F14	\u001b[26~
+# F15	\u001b[28~
+# F16	\u001b[29~
+# F17	\u001b[31~
+# F18	\u001b[32~
+# F19	\u001b[33~
+# F20	\u001b[34~
+# F21	\u001b[35~
+# F22	\u001b[36~
+# F23	\u001b[37~
+# F24	\u001b[38~
+# F25	\u001b[50~
+# F26	\u001b[51~
+# F27	\u001b[52~
+# F28	\u001b[53~
+# F29	\u001b[54~
+# F30	\u001b[55~
 
