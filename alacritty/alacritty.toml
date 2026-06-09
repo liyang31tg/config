@@ -61,9 +61,9 @@ thickness = 0.15 #光标的宽度
 shape = "Beam"
 blinking="Always" #闪烁
 
-# [terminal.shell]
-# program = "/bin/zsh"
-# args = [ "--login" ,"-c", "zellij attach -c default" ]
+[terminal.shell]
+program = "/bin/zsh"
+args = [ "--login" ,"-c", "zellij attach -c default" ]
 
 [mouse]
 hide_when_typing = true
