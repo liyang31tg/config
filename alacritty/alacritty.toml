@@ -62,8 +62,11 @@ shape = "Beam"
 blinking="Always" #闪烁
 
 [terminal.shell]
-program = "/bin/zsh"
-args = [ "--login" ,"-c", "zellij attach -c default" ]
+# program = "/bin/zsh" #这种写法是完美再套了一层壳
+# args = [ "-c", "zellij attach -c default" ]
+# program = "/Users/liyang/.cargo/bin/zellij"
+program = "zellij" #copy zellij to /usr/local/bin/下面
+args = ["attach", "--create", "default"]
 
 [mouse]
 hide_when_typing = true
