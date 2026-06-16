@@ -1,0 +1,10 @@
+# This file contains fish universal variable definitions.
+# VERSION: 3.0
+SETUVAR --export EDITOR:nvim
+SETUVAR --export GOPROXY:https\x3a//goproxy\x2ecn\x2chttps\x3a//mirrors\x2ealiyun\x2ecom/goproxy/\x2cdirect
+SETUVAR --export GO_IPV4_ONLY:1
+SETUVAR --export LANG:en_US\x2eUTF\x2d8
+SETUVAR --export LC_ALL:en_US\x2eUTF\x2d8
+SETUVAR --export PRETTIERD_DEFAULT_CONFIG:/home/ly/\x2econfig/nvim/lua/utils/linter\x2dconfig/\x2eprettierrc\x2ejson
+SETUVAR --export VISUAL:nvim
+SETUVAR __fish_initialized:4300

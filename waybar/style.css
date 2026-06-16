@@ -1,0 +1,65 @@
+* {
+    font-family: "Noto Sans CJK SC", "Font Awesome 6 Free", sans-serif;
+    font-size: 14px;
+}
+
+window#waybar {
+    background: rgba(30, 30, 46, 0.92);
+    border: 1px solid #313244;
+    border-radius: 10px;
+    padding: 4px 12px;
+}
+
+#workspaces button {
+    padding: 0 6px;
+    margin: 0 3px;
+    border-radius: 6px;
+    color: #ffffff;
+}
+#workspaces button:hover {
+    background: #45475a;
+}
+#workspaces button.active {
+    background: #89b4fa;
+    color: #1e1e2e;
+}
+
+#window,
+#pulseaudio,
+#network,
+#battery,
+#cpu,
+#memory,
+#clock {
+    margin: 0 6px;
+    padding: 0 8px;
+    border-radius: 6px;
+}
+#window:hover,
+#pulseaudio:hover,
+#network:hover,
+#battery:hover,
+#cpu:hover,
+#memory:hover,
+#clock:hover {
+    background: #313244;
+}
+
+#tray {
+    padding: 0 6px;
+}
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+}
+
+tooltip {
+    background: #1e1e2e;
+    border: 1px solid #45475a;
+    border-radius: 8px;
+}
+tooltip label {
+    color: #cdd6f4;
+}

@@ -61,9 +61,9 @@ thickness = 0.15 #光标的宽度
 shape = "Beam"
 blinking="Always" #闪烁
 
-[terminal.shell]
-program = "/bin/zsh"
-args = [ "--login" ,"-c", "zellij attach -c default" ]
+# [terminal.shell]
+# program = "zellij"
+# args = ["attach", "-c", "default" ]
 
 [mouse]
 hide_when_typing = true
@@ -136,6 +136,12 @@ chars = "None"
 key = "Key0"
 mods = "Control"
 chars = "\u001b[28~"
+
+
+[[keyboard.bindings]] #需要保留这个，arch的super+c = control+insert = 5~
+key = "Insert"
+mods = "Control"
+action = "copy"
 
 # [[keyboard.bindings]]
 # key = "T"

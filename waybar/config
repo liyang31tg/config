@@ -1,0 +1,107 @@
+{
+  "layer": "top",
+  "position": "top",
+  "height": 36,
+  "spacing": 8,
+  "margin": "0 0 0 0",
+  "opacity": 0.8,
+  "padding": "4px 12px",
+  "border-radius": "10px",
+  "background": "#1e1e2e",
+  "foreground": "#cdd6f4",
+  "border": "1px solid #313244",
+  "css": "~/.config/waybar/style.css",
+  "modules-left": [
+    "hyprland/window"
+  ],
+  "modules-center": [
+    "hyprland/workspaces"
+  ],
+  "modules-right": [
+    "pulseaudio",
+    "network",
+    "battery",
+    "cpu",
+    "memory",
+    "clock",
+    "tray"
+  ],
+  "hyprland/workspaces": {
+    "format": "{icon}",
+    "icons": {
+      "1": "󰎤",
+      "2": "󰎧",
+      "3": "󰎪",
+      "4": "󰎭",
+      "5": "󰎱"
+    },
+    "active-border": "#89b4fa",
+    "active-format": "<span color='#1e1e2e'>{icon}</span>",
+    "inactive-format": "<span color='#ffffff'>{icon}</span>",
+    "persistent-workspaces": {
+      "*": 10
+    }
+  },
+  "hyprland/window": {
+    "max-length": 40,
+    "format": "<span color='#4cd964'>{title}</span>",
+    "format-empty": "<span color='#777777'>桌面</span>"
+  },
+  "clock": {
+    "interval": 1,
+    "format": "<span color='#89ddff'> {:%m-%d %H:%M:%S}</span>",
+    "tooltip-format": "{calendar}",
+    "calendar": {
+      "mode": "month",
+      "format": {
+        "today": "<span color='#f38ba8'><b>{}</b></span>"
+      }
+    },
+    "on-click": "yad --calendar --undecorated --fixed  --width=420 --height=320 --calendar-color=#89b4fa --bg=#1e1e2e --fg=#cdd6f4 --today-color=#f38ba8"
+  },
+  "pulseaudio": {
+    "format": "<span color='#cba6f7'>{volume}% {icon}</span>",
+    "format-bluetooth": "<span color='#cba6f7'>{volume}% {icon} {bluetooth_device}</span>",
+    "format-muted": "<span color='#f38ba8'>󰖁 MUTE</span>",
+    "icons": {
+      "headphones": "󰋋",
+      "speaker": "󰓃",
+      "bluetooth": "󰂯"
+    }
+  },
+  "network": {
+    "interval": 3,
+    "family": "ipv4",
+    "format-wifi": "<span color='#82aaff'>󰤥 {essid} {ipaddr}</span>",
+    "format-ethernet": "<span color='#c3e88d'>󰈳 ETH {ipaddr}</span>",
+    "format-disconnected": "<span color='#ff5370'>󰤭 OFF</span>",
+    "tooltip-format": "{ifname}: {ipaddr}",
+    "on-click": "nm-connection-editor"
+  },
+  "battery": {
+    "states": {
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "<span color='#f9e2af'>{icon} {capacity}%</span>",
+    "format-charging": "<span color='#a6e3a1'>󰂄 {capacity}%</span>",
+    "format-plugged": "<span color='#a6e3a1'>󰂅 {capacity}%</span>",
+    "icons": {
+      "full": "󰁹",
+      "good": "󰁾",
+      "warning": "󰁻",
+      "critical": "󰁺"
+    }
+  },
+  "cpu": {
+    "format": "<span color='#fab387'>󰍛 {usage}%</span>",
+    "on-click": "alacritty -e htop"
+  },
+  "memory": {
+    "format": "<span color='#fab387'>󰓏 {used:0.1f}G</span>"
+  },
+  "tray": {
+    "icon-size": 16,
+    "spacing": 6
+  }
+}
