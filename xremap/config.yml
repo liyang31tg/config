@@ -1,0 +1,88 @@
+# 全局GUI：Super=C/V 等价 Ctrl=C/V
+keymap:
+  - name: gui-mac-copy
+    application:
+      not: [Alacritty, kitty, foot, Ghostty, wezterm]
+    remap:
+      super-c: ctrl-c
+      super-v: ctrl-v
+      super-a: ctrl-a
+      super-x: ctrl-x
+      super-z: ctrl-z
+      super-shift-z: ctrl-shift-z
+      super-a: ctrl-a
+      # super-s: ctrl-s
+      super-f: ctrl-f
+      # super-t: ctrl-t
+      super-w: ctrl-w
+      super-shift-t: ctrl-shift-t
+      # Emacs全局光标（对应Mac全软件生效）
+      ctrl-a: home
+      ctrl-e: end
+      ctrl-b: left
+      ctrl-f: right
+      #       # Alt 单词左右跳转
+      alt-b: ctrl-left
+      alt-f: ctrl-right
+      #       # Ctrl+k 删除到行尾、Ctrl+u 删除到行首
+      ctrl-k: [shift-end, backspace]
+      ctrl-u: [shift-home, backspace]
+      #       # Ctrl+d 删除当前字符
+      ctrl-d: delete
+  - name: terminal-mac-copy
+    application:
+      only: [Alacritty, kitty, foot, Ghostty, wezterm]
+    remap:
+      # Super+C = 终端标准复制
+      super-c: ctrl-shift-c
+      # Super+V = 终端标准粘贴
+      super-v: ctrl-shift-v
+      super-z: ctrl-z
+# ====================== 1. GUI全局Mac编辑快捷键 + Emacs光标 ======================
+# keymap:
+#   - name: gui-mac-emacs
+#     application:
+#       # 排除所有终端，保留终端原生Ctrl+a/e
+#       not: [Alacritty, kitty, foot, Ghostty, wezterm]
+#     remap:
+#       super-c: ctrl-c # Mac Cmd基础操作 Super=Command
+#       super-v: ctrl-v
+#       super-x: ctrl-x
+#       super-z: ctrl-z
+#       super-shift-z: ctrl-shift-z
+#       super-a: ctrl-a
+#       super-s: ctrl-s
+#       super-f: ctrl-f
+#       super-t: ctrl-t
+#       super-w: ctrl-w
+#       super-shift-t: ctrl-shift-t
+#       # Emacs全局光标（对应Mac全软件生效）
+#       ctrl-a: home
+#       ctrl-e: end
+#       ctrl-b: left
+#       ctrl-f: right
+#       # Alt 单词左右跳转
+#       alt-b: ctrl-left
+#       alt-f: ctrl-right
+#       # Ctrl+k 删除到行尾、Ctrl+u 删除到行首
+#       ctrl-k: [shift, end, backspace]
+#       ctrl-u: [home, shift, end, backspace]
+#       # Ctrl+d 删除当前字符
+#       ctrl-d: delete
+#       # ====================== 2. 终端单独规则，不破坏shell原生快捷键 ======================
+#   - name: terminal-native
+#     application:
+#       only: [Alacritty, kitty, foot, Ghostty, wezterm]
+#     remap:
+#       # Super 映射终端标准复制粘贴
+#       super-c: ctrl-shift-c
+#       super-v: ctrl-shift-v
+#       super-x: ctrl-shift-x
+#       super-z: ctrl-z
+#       super-shift-z: ctrl-shift-z
+#       super-a: ctrl-a
+#       super-s: ctrl-s
+#       super-f: ctrl-f
+#       super-t: ctrl-shift-t
+#       super-w: ctrl-shift-w
+#       # 终端所有Ctrl+字母完全放行，不拦截，保留shell原生Emacs
