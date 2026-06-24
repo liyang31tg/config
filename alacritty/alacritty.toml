@@ -61,12 +61,17 @@ thickness = 0.15 #光标的宽度
 shape = "Beam"
 blinking="Always" #闪烁
 
-# [terminal.shell]
-# program = "zellij"
-# args = ["attach", "-c", "default" ]
+[terminal.shell]
+program = "/opt/homebrew/bin/zellij"
+args = ["attach", "-c", "default" ]
 
 [mouse]
 hide_when_typing = true
+
+[[keyboard.bindings]]
+key = "F"
+mods = "Command"
+action = "ReceiveChar"
 
 
 [[keyboard.bindings]]
@@ -124,7 +129,7 @@ action = "DecreaseFontSize"
 [[keyboard.bindings]]
 key = "H"
 mods = "Command"
-action = "None"
+action = "ReceiveChar"
 
 # 默认的行为会退出
 [[keyboard.bindings]]
