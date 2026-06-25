@@ -73,6 +73,22 @@ key = "F"
 mods = "Command"
 action = "ReceiveChar"
 
+[[keyboard.bindings]]
+key = "T"
+mods = "Command"
+action = "ReceiveChar"
+
+[[keyboard.bindings]]
+key = "K"
+mods = "Command"
+action = "ReceiveChar"
+
+[[keyboard.bindings]]
+key = "N"
+mods = "Command"
+action = "ReceiveChar"
+
+
 
 [[keyboard.bindings]]
 key = ";"

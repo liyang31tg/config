@@ -10,10 +10,12 @@ keybinds clear-defaults=true {
         bind "Alt p" { SwitchToMode "pane";  }
         bind "Alt r" { SwitchToMode "resize";  }
         bind "Alt t" { SwitchToMode "tab";  }
-        bind "Alt s" { SwitchToMode "scroll"; SearchInput 0; }
+        bind "Alt x" { CloseTab; SwitchToMode "normal"; }
+        bind "Alt v" { SwitchToMode "scroll"; }
         bind "Super Enter" { ToggleFocusFullscreen;  }
         bind "Super f" { SwitchToMode "EnterSearch"; SearchInput 0; }
         bind "Super e" { EditScrollback; SwitchToMode "normal"; }
+        bind "Super t" { NewTab;  }
     }
 
     locked {
@@ -21,7 +23,7 @@ keybinds clear-defaults=true {
     }
 
     resize {
-        bind "esc" { SwitchToMode "normal"; }
+        bind "esc" "Alt r" { SwitchToMode "normal"; }
         bind "left" { Resize "Increase left"; }
         bind "down" { Resize "Increase down"; }
         bind "up" { Resize "Increase up"; }
@@ -34,27 +36,32 @@ keybinds clear-defaults=true {
     }
 
     pane {
-        bind "esc" { SwitchToMode "Normal"; }
-        bind "h" "Left" { MoveFocus "Left"; }
-        bind "l" "Right" { MoveFocus "Right"; }
-        bind "j" "Down" { MoveFocus "Down"; }
-        bind "k" "Up" { MoveFocus "Up"; }
-        bind "p" { SwitchFocus; }
+        bind "esc" "Alt p" { SwitchToMode "Normal"; }
+        bind "h" { MoveFocus "Left"; }
+        bind "l" { MoveFocus "Right"; }
+        bind "j" { MoveFocus "Down"; }
+        bind "k" { MoveFocus "Up"; }
+        bind "H" "Left" { MovePane "Left"; }
+        bind "L" "Right" { MovePane "Right"; }
+        bind "J" "Down" { MovePane "Down"; }
+        bind "K" "Up" { MovePane "Up"; }
         bind "n" { NewPane; SwitchToMode "Normal"; }
         bind "d" { NewPane "Down"; SwitchToMode "Normal"; }
         bind "r" { NewPane "Right"; SwitchToMode "Normal"; }
         bind "s" { NewPane "stacked"; SwitchToMode "Normal"; }
         bind "x" { CloseFocus; SwitchToMode "Normal"; }
-        bind "Enter" { ToggleFocusFullscreen; }
-        bind "z" { TogglePaneFrames; SwitchToMode "Normal"; }
-        bind "w" { ToggleFloatingPanes; SwitchToMode "Normal"; }
-        bind "f" { TogglePaneEmbedOrFloating;  }
+        bind "Enter" { ToggleFocusFullscreen; SwitchToMode "Normal"; }
+        bind "z" { TogglePaneFrames;  }  //是否显示边框
+        bind "w" { ToggleFloatingPanes;  } //是否显示浮动窗口,不存在就创建一个新的
+        bind "f" { TogglePaneEmbedOrFloating;  } //是否将当前窗口浮动或者内嵌
         bind "r" { SwitchToMode "RenamePane"; PaneNameInput 0;}
-        bind "i" { TogglePanePinned; SwitchToMode "Normal"; }
+        bind "p" { TogglePanePinned; SwitchToMode "Normal"; } //是否钉住这个pane
+        bind "," { BreakPaneLeft;  }
+        bind "." { BreakPaneRight; }
     }
 
     move {
-        bind "Alt m" "esc" { SwitchToMode "Normal"; }
+        bind "esc" "Alt m" { SwitchToMode "Normal"; }
         bind "n" "Tab" { MovePane; }
         bind "p" { MovePaneBackwards; }
         bind "h" "Left" { MovePane "Left"; }
@@ -77,8 +84,6 @@ keybinds clear-defaults=true {
         bind "7" { GoToTab 7; SwitchToMode "normal"; }
         bind "8" { GoToTab 8; SwitchToMode "normal"; }
         bind "9" { GoToTab 9; SwitchToMode "normal"; }
-        bind "[" { BreakPaneLeft; SwitchToMode "normal"; }
-        bind "]" { BreakPaneRight; SwitchToMode "normal"; }
         bind "b" { BreakPane; SwitchToMode "normal"; }
         bind "h" { GoToPreviousTab; }
         bind "j" { GoToNextTab; }
@@ -87,14 +92,14 @@ keybinds clear-defaults=true {
         bind "n" { NewTab; SwitchToMode "normal"; }
         bind "r" { SwitchToMode "renametab"; TabNameInput 0; }
         bind "s" { ToggleActiveSyncTab; SwitchToMode "normal"; }
-        bind "Ctrl t" "esc" { SwitchToMode "normal"; }
+        bind "esc" "Alt t" { SwitchToMode "normal"; }
         bind "x" { CloseTab; SwitchToMode "normal"; }
         bind "tab" { ToggleTab; }
     }
     scroll {
         bind "/" { SwitchToMode "EnterSearch"; SearchInput 0; }
         bind "e" { EditScrollback; SwitchToMode "normal"; }
-        bind "esc" { SwitchToMode "normal"; }
+        bind "esc" "Alt v" { SwitchToMode "normal"; }
         bind "s" { SwitchToMode "EnterSearch"; SearchInput 0; }
         bind "Ctrl c" { ScrollToBottom; SwitchToMode "Normal"; }
         bind "j" "Down" { ScrollDown; }
@@ -128,7 +133,7 @@ keybinds clear-defaults=true {
         bind "esc" { UndoRenameTab; SwitchToMode "normal"; }
     }
     renamepane {
-
+        bind "esc" { UndoRenameTab; SwitchToMode "normal"; }
     }
 
     session {
@@ -143,10 +148,9 @@ keybinds clear-defaults=true {
     }
 
     shared_among "normal" "locked" {
-        bind "Alt D" { NewPane "down"; SwitchToMode "normal"; }
-        bind "Alt d" { NewPane "right"; SwitchToMode "normal"; }
-        bind "Alt F" { ToggleFloatingPanes; SwitchToMode "normal"; }
-        bind "Alt I" { SwitchToMode "renametab"; TabNameInput 0; }
+        bind "Super D" { NewPane "down";  }
+        bind "Super d" { NewPane "right";  }
+        bind "Super Shift i" { SwitchToMode "renametab"; TabNameInput 0; }
         bind "shift h" { MovePane "left"; }
         bind "shift j" { MovePane "down"; }
         bind "shift k" { MovePane "up"; }
@@ -169,33 +173,8 @@ keybinds clear-defaults=true {
             }
             SwitchToMode "normal"
         }
-        bind "Alt t" { NewTab; SwitchToMode "normal"; }
-        bind "Alt x" { CloseTab; SwitchToMode "normal"; }
-    }
-    shared_except "locked" "scroll" {
-        bind "Alt e" { SwitchToMode "scroll"; }
-    }
-    shared_except "locked" "tab" {
-        bind "Alt Shift t" { SwitchToMode "tab"; }
-    }
-    shared_except "locked" "resize" {
-        bind "Alt r" { SwitchToMode "resize"; }
-        // bind "Ctrl r" { SwitchToMode "resize"; }
     }
 
-    shared_except "locked" "pane" {
-        bind "Alt p" { SwitchToMode "pane"; }
-    }
-
-    shared_except "normal" "locked" "entersearch" {
-        bind "enter" { SwitchToMode "normal"; }
-    }
-    shared_except "normal" "locked" "scroll" "entersearch" "renametab" "renamepane" {
-        bind "esc" { SwitchToMode "normal"; }
-    }
-    shared_among "scroll" "renamepane" {
-        bind "esc" { UndoRenamePane; SwitchToMode "normal"; }
-    }
     shared_among "renametab" "renamepane" {
         bind "Ctrl c" { SwitchToMode "normal"; }
     }
@@ -321,6 +300,7 @@ copy_on_select true
 // Default: $EDITOR or $VISUAL
 // scrollback_editor "/usr/local/bin/nvim"
 
+scrollback_editor "/opt/homebrew/bin/nvim"
 
 // When attaching to an existing session with other users, should the session be mirrored (true) or
 // should each user have their own cursor (false) Default: false

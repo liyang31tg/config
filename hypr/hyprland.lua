@@ -39,20 +39,21 @@ local menu = "fuzzel" --"hyprlauncher"
 -- Autostart necessary processes (like notifications daemons, status bars, etc.)
 -- Or execute your favorite apps at launch like this:
 --
-os.execute([[
-copyq config hide_main_window true
-copyq config close_on_unfocus true
-copyq config popup_on_new false
-copyq config notifications_max_lines 0
-]])
+-- os.execute([[
+-- copyq config hide_main_window true
+-- copyq config close_on_unfocus true
+-- copyq config popup_on_new false
+-- copyq config notifications_max_lines 0
+-- ]])
 
 hl.on("hyprland.start", function()
 	hl.exec_cmd("fcitx5")
 	hl.exec_cmd(terminal)
 	-- hl.exec_cmd("nm-applet") --waybar管理
 	hl.exec_cmd("waybar & hyprpaper")
-	hl.exec_cmd("wl-clip-persist --clipboard regular")
-	hl.exec_cmd("copyq --start-server")
+	hl.exec_cmd("xremap --watch ~/.config/xremap/config.yml")
+	-- hl.exec_cmd("wl-clip-persist --clipboard regular")
+	-- hl.exec_cmd("copyq --start-server")
 end)
 
 -------------------------------
@@ -68,7 +69,7 @@ hl.env("QT_IM_MODULE", "fcitx5")
 hl.env("XMODIFIERS", "@im=fcitx5")
 hl.env("INPUT_METHOD", "fcitx5")
 hl.env("GTK_IM_MODULE", "wayland")
-hl.env("QT_QPA_PLATFORM", "wayland copyq")
+-- hl.env("QT_QPA_PLATFORM", "wayland copyq")
 
 -----------------------
 ----- PERMISSIONS -----
@@ -233,7 +234,6 @@ hl.config({
 		kb_rules = "",
 
 		follow_mouse = 1,
-
 		sensitivity = 0.5, -- -1.0 - 1.0, 0 means no modification.
 		repeat_rate = 50,
 		repeat_delay = 300,
@@ -262,33 +262,6 @@ hl.device({
 ---------------------
 
 local mainMod = "SUPER" -- Sets "Windows" key as main modifier
-
-hl.bind(
-	mainMod .. " + C",
-	hl.dsp.send_shortcut({
-		mods = "CTRL",
-		key = "INSERT",
-	})
-)
-
-hl.bind(
-	mainMod .. " + V",
-	hl.dsp.send_shortcut({
-		mods = "SHIFT",
-		key = "INSERT",
-	})
-)
-
--- Super+C：复制选中内容到系统剪贴板
---hl.bind(mainMod.." + C", hl.dsp.exec_cmd("copyq copy"))
-
--- Super+V：粘贴系统剪贴板内容
---hl.bind(mainMod.." + V", hl.dsp.exec_cmd("copyq paste"))
---hl.bind("SUPER + V", hl.dsp.exec_cmd("copyq menu && sleep 0.1 && ydotool key ctrl+v"))
---hl.bind(mainMod.." + SHIFT + V", hl.dsp.exec_cmd("copyq toggle"))
-
--- 配套 Mac 风格剪切、全选
-hl.bind(mainMod .. " + X", function() end)
 
 -- Example binds, see https://wiki.hypr.land/Configuring/Basics/Binds/ for more
 hl.bind(mainMod .. " + T", hl.dsp.exec_cmd(terminal))
@@ -319,7 +292,7 @@ for i = 1, 10 do
 end
 
 -- Example special workspace (scratchpad)
-hl.bind(mainMod .. " + S", hl.dsp.workspace.toggle_special("magic"))
+-- hl.bind(mainMod .. " + S", hl.dsp.workspace.toggle_special("magic"))
 hl.bind(mainMod .. " + SHIFT + S", hl.dsp.window.move({ workspace = "special:magic" }))
 
 -- Scroll through existing workspaces with mainMod + scroll
