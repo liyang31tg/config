@@ -9,7 +9,17 @@ maximize = true
 # fullscreen = true
 cursor-style = bar
 mouse-hide-while-typing = true
-theme = Nord Light
-macos-titlebar-style = native
-theme = dark:Nord Light,light:Nord Light
+#native
+
+# 隐藏顶部标题栏，保留圆角边框
+macos-titlebar-style = hidden
+window-decoration = none
+
+# 1个Tab隐藏标签栏，≥2个自动弹出标签栏
+window-show-tab-bar = auto
+
+# 可选：隐藏左上角红绿灯
+macos-window-buttons = hidden
+# window-decoration = none
+theme = dark:Nord,light:Nord Light
 # cursor-color = #FF0000

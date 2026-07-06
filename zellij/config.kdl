@@ -131,9 +131,11 @@ keybinds clear-defaults=true {
     }
     renametab {
         bind "esc" { UndoRenameTab; SwitchToMode "normal"; }
+        bind "enter" { SwitchToMode "normal"; }
     }
     renamepane {
         bind "esc" { UndoRenameTab; SwitchToMode "normal"; }
+        bind "enter" {  SwitchToMode "normal"; }
     }
 
     session {
@@ -151,18 +153,21 @@ keybinds clear-defaults=true {
         bind "Super D" { NewPane "down";  }
         bind "Super d" { NewPane "right";  }
         bind "Super Shift i" { SwitchToMode "renametab"; TabNameInput 0; }
-        bind "shift h" { MovePane "left"; }
-        bind "shift j" { MovePane "down"; }
-        bind "shift k" { MovePane "up"; }
-        bind "shift l" { MovePane "right"; }
+        bind "Alt D" { NewPane "down";  }
+        bind "Alt d" { NewPane "right";  }
+        bind "Alt Shift i" { SwitchToMode "renametab"; TabNameInput 0; }
+        bind "Alt shift h" { MovePane "left"; }   //shift h vim里面可能用
+        bind "Alt shift j" { MovePane "down"; }
+        bind "Alt shift k" { MovePane "up"; }
+        bind "Alt shift l" { MovePane "right"; }
         bind "Super h" { MoveFocus "left"; }
         bind "Super j" { MoveFocus "down"; }
         bind "Super k" { MoveFocus "up"; }
         bind "Super l" { MoveFocus "right"; }
         bind "Super Shift ]" { GoToNextTab; }
         bind "Super Shift [" { GoToPreviousTab; }
-        bind "Super Shift ," { MoveTab "right"; }
-        bind "Super Shift ." { MoveTab "left"; }
+        bind "Super Shift ," { MoveTab "left"; }
+        bind "Super Shift ." { MoveTab "right"; }
 
 
 

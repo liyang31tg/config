@@ -1,7 +1,19 @@
-[plugin]
-deps = []
+[[plugin.deps]]
+use = "yazi-rs/plugins:piper"
+rev = "39aaf6d"
+hash = "12126fca34f9f1802bb57b88292f57af"
 
 [[flavor.deps]]
 use = "AdithyanA2005/nord"
 rev = "34970be"
 hash = "6e1d257f00b540acbeb194082ce073c2"
+
+[[flavor.deps]]
+use = "CFY98/synthwave84"
+rev = "b7bb92e"
+hash = "71390657660b3639d1a3caec3f734511"
+
+[[flavor.deps]]
+use = "Mintass/rose-pine-dawn"
+rev = "d82f54f"
+hash = "15ae5f83d3770b9ffc276af77f642e2b"

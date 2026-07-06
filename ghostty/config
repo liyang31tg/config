@@ -1,3 +1,2 @@
 config-file = opt.toml
 config-file = keybinds.toml
-theme = dark:Nord Light,light:Nord Light
