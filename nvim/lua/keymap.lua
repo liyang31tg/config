@@ -26,7 +26,6 @@ end
 -- comment or uncomment 已经使用<leader>cc替换
 unmap("n", "gc")
 unmap("n", "gcc")
-
 --默认行为有个:tag的意思,容易引起误会
 map("n", "<c-t>", "<Nop>")
 --莫名多一个空格,用原生实现
@@ -385,20 +384,19 @@ map({ "n", "v" }, "<Leader>sr", function()
 end, "Search and Replace")
 
 -- lsp
-map("n", "gci", "<cmd>LspInfo<cr>", "Lsp Info") --show lsp info
+map({ "n", "v" }, "gra", "<cmd>lua vim.lsp.buf.code_action()<CR>", "Code Action")
+map("n", "gri", "<cmd>Telescope lsp_implementations<CR>", "Goto Implementation") --lua vim.lsp.buf.implementation()
+map("n", "grn", "<cmd>lua vim.lsp.buf.rename()<CR>", "Rename")
+map("n", "gr", "<cmd>Telescope lsp_references<cr>") --<cmd>Trouble lsp_references<cr>
 map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", "Goto Definition")
-map("n", "gI", "<cmd>lua vim.lsp.buf.implementation()<CR>", "Goto Implementation")
-map("n", "gy", "<cmd>lua vim.lsp.buf.type_definition()<CR>", "Goto Type Definition")
+map("n", "gD", "<cmd>lua vim.lsp.buf.type_definition()<CR>", "Goto Type Definition")
+
+map("n", "gci", "<cmd>LspInfo<cr>", "Lsp Info") --show lsp info
 map("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", "Goto Declaration")
 map("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", "Hover")
 map("n", "gK", "<cmd>lua vim.lsp.buf.signature_help()<CR>", "Signature Help")
 map("i", "<c-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", "Signature Help")
-map("n", ",rn", "<cmd>lua vim.lsp.buf.rename()<CR>", "Rename")
-map({ "n", "v" }, "gca", "<cmd>lua vim.lsp.buf.code_action()<CR>", "Code Action")
-map("n", "gD", "<cmd>lua vim.lsp.buf.type_definition()<CR>")
 -- map("n", "gh", "<cmd>lua vim.lsp.buf.hover()<CR>") --gh 是进入select模式
-map("n", ",gr", "<cmd>TroubleToggle lsp_references<cr>")
-map("n", "gr", "<cmd>Telescope lsp_references<cr>")
 -- -- map("n", "<leader><leader>", function()
 -- 	require("conform").format({ async = false })
 -- end, opts("Format"))
