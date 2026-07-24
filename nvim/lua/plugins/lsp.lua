@@ -115,7 +115,7 @@ end
 local obj = {
 	"williamboman/mason.nvim",
 	dependencies = {
-		"hrsh7th/cmp-nvim-lsp",
+		-- "hrsh7th/cmp-nvim-lsp",
 		"ray-x/lsp_signature.nvim",
 	},
 	config = function()
@@ -127,8 +127,15 @@ local obj = {
 		vim.env.PATH = mason_bin .. ":" .. vim.env.PATH
 
 		-- 全局默认 capabilities，确保 nvim-cmp 能收到补全触发
+		-- local base_capabilities = require("cmp_nvim_lsp").default_capabilities()
+		local base_capabilities = vim.lsp.protocol.make_client_capabilities()
+
+		base_capabilities.textDocument.foldingRange = {
+			dynamicRegistration = false,
+			lineFoldingOnly = true,
+		}
 		vim.lsp.config["*"] = {
-			capabilities = require("cmp_nvim_lsp").default_capabilities(),
+			capabilities = base_capabilities,
 		}
 
 		-- 延迟启动

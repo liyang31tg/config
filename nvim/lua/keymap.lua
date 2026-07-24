@@ -390,16 +390,10 @@ map("n", "grn", "<cmd>lua vim.lsp.buf.rename()<CR>", "Rename")
 map("n", "gr", "<cmd>Telescope lsp_references<cr>") --<cmd>Trouble lsp_references<cr>
 map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", "Goto Definition")
 map("n", "gD", "<cmd>lua vim.lsp.buf.type_definition()<CR>", "Goto Type Definition")
-
-map("n", "gci", "<cmd>LspInfo<cr>", "Lsp Info") --show lsp info
-map("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", "Goto Declaration")
-map("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", "Hover")
-map("n", "gK", "<cmd>lua vim.lsp.buf.signature_help()<CR>", "Signature Help")
-map("i", "<c-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", "Signature Help")
--- map("n", "gh", "<cmd>lua vim.lsp.buf.hover()<CR>") --gh 是进入select模式
--- -- map("n", "<leader><leader>", function()
--- 	require("conform").format({ async = false })
--- end, opts("Format"))
+map("n", "gO", "<cmd>lua vim.lsp.buf.document_symbol()<CR>", "Goto document_symbol") --gx 进入文档链接
+map("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", "Hover") --hover 不能识别你正在输入第几个参数；
+map("i", "<c-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", "Signature Help") --signature_help 专门服务「边写参数边看形参」这个编码场景；
+map("n", "gh", "<cmd>lua vim.lsp.buf.declaration()<CR>", "Goto Declaration")
 
 -- nvim-cmp 自动补全
 pluginKeys.cmp = function(cmp, has_words_before, feedkey)
@@ -468,28 +462,6 @@ pluginKeys.cmp = function(cmp, has_words_before, feedkey)
 end
 
 -- dap
-pluginKeys.DAPTmpunmap = function()
-	unmap("n", ",dg", {})
-	unmap("n", ",dG", {})
-	unmap("n", ",dr", {})
-	unmap("n", ",dR", {})
-	unmap("n", "<F10>", {})
-	unmap("n", "<F11>", {})
-	unmap("n", "<F12>", {})
-
-	unmap("n", ",di", {})
-	unmap("n", ",do", {})
-	unmap("n", "<cr>", {})
-	unmap("n", "<leader><cr>", {})
-	unmap("n", ",dl", {})
-	unmap("n", ",dp", {})
-	unmap("n", ",ds", {})
-	unmap("n", ",de", {})
-	unmap("n", ",du", {})
-	unmap({ "n", "v" }, ",dh", {})
-	unmap("n", ",dS", {})
-	unmap({ "n", "v" }, ",dE", {})
-end
 
 pluginKeys.DAPmap = function()
 	map("n", "<F5>", function()
@@ -514,74 +486,87 @@ pluginKeys.DAPmap = function()
 	end, { desc = "clear all breakpoints" })
 end
 
-pluginKeys.DAPTmpmap = function()
-	map("n", ",dg", function()
+pluginKeys.DAPTmpmap = function(bufnr)
+	bufnr = bufnr or 0 -- 默认当前 buffer
+	local opts = { buffer = bufnr, noremap = true, silent = true }
+
+	vim.keymap.set("n", ",dg", function()
 		require("dap").run_to_cursor()
-	end, { desc = "Run to Cursor" })
+	end, opts)
 
-	map("n", ",dG", function()
+	vim.keymap.set("n", ",dG", function()
 		require("dap").goto_()
-	end, { desc = "Go to Line (No Execute)" })
-	map("n", ",dr", function()
+	end, opts)
+
+	vim.keymap.set("n", ",dr", function()
 		require("dap").repl.toggle()
-	end, { desc = "Toggle REPL" })
-	map("n", ",dR", function()
+	end, opts)
+
+	vim.keymap.set("n", ",dR", function()
 		require("dap").restart()
-	end, { desc = "restart" })
-	--  stepOver, stepOut, stepInto
-	map("n", "<F10>", ":lua require'dap'.step_over()<CR>")
-	map("n", "<F11>", ":lua require'dap'.step_into()<CR>")
-	map("n", "<F12>", ":lua require'dap'.step_out()<CR>")
+	end, opts)
 
-	map("n", ",di", function()
+	vim.keymap.set("n", "<F10>", function()
+		require("dap").step_over()
+	end, opts)
+
+	vim.keymap.set("n", "<F11>", function()
 		require("dap").step_into()
-	end, { desc = "Step Into" })
+	end, opts)
 
-	map("n", ",do", function()
+	vim.keymap.set("n", "<F12>", function()
 		require("dap").step_out()
-	end, { desc = "Step Out" })
+	end, opts)
 
-	map("n", "<cr>", function()
-		require("dap").step_over() -- 单步
-	end, { desc = "Step Over" })
+	vim.keymap.set("n", ",di", function()
+		require("dap").step_into()
+	end, opts)
 
-	map("n", "<leader><cr>", function()
-		require("dap").step_back() -- 单步回退,需要debugger支持才能用
-	end, { desc = "Step Back" })
+	vim.keymap.set("n", ",do", function()
+		require("dap").step_out()
+	end, opts)
 
-	map("n", ",dl", function()
+	-- 注意：<CR> 可能会覆盖太多，建议只在调试时用
+	vim.keymap.set("n", "<CR>", function()
+		require("dap").step_over()
+	end, opts)
+
+	vim.keymap.set("n", "<leader><CR>", function()
+		require("dap").step_back()
+	end, opts)
+
+	vim.keymap.set("n", ",dl", function()
 		require("dap").run_last()
-	end, { desc = "Run Last" })
+	end, opts)
 
-	map("n", ",dp", function()
+	vim.keymap.set("n", ",dp", function()
 		require("dap").pause()
-	end, { desc = "Pause" })
+	end, opts)
 
-	map("n", ",ds", function()
+	vim.keymap.set("n", ",ds", function()
 		require("dap").session()
-	end, { desc = "Session" })
+	end, opts)
 
-	--结束调试
-	map("n", ",de", function()
+	vim.keymap.set("n", ",de", function()
 		require("dap").terminate()
-	end, { desc = "Terminate", silent = true })
+	end, opts)
 
-	map({ "n", "v" }, ",dh", function()
+	vim.keymap.set({ "n", "v" }, ",dh", function()
 		require("dap.ui.widgets").hover()
-	end, { desc = "hover" })
+	end, opts)
 
-	map("n", ",du", function()
+	vim.keymap.set("n", ",du", function()
 		require("dap").toggle({})
-	end, { desc = "Dap UI", silent = true })
+	end, opts)
 
-	map("n", ",dS", function()
+	vim.keymap.set("n", ",dS", function()
 		local widgets = require("dap.ui.widgets")
-		widgets.centered_float(widgets.frames) --将栈信息显示在屏幕中间
-	end, { desc = "show stack info" })
+		widgets.centered_float(widgets.frames)
+	end, opts)
 
-	map({ "n", "v" }, ",dE", function()
+	vim.keymap.set({ "n", "v" }, ",dE", function()
 		require("dapui").eval()
-	end, { desc = "Eval" })
+	end, opts)
 end
 
 pluginKeys.mapFanYi = function()

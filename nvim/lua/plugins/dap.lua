@@ -103,21 +103,73 @@ local obj = {
 			"mfussenegger/nvim-dap",
 		},
 		config = function()
+			-- dap.lua
 			local dap, dapui = require("dap"), require("dapui")
-			local vscode = require("dap.ext.vscode")
-			-- local json = require("plenary.json")
-			-- vscode.json_decode = function(str)
-			-- 	return vim.json.decode(json.json_strip_comments(str, {}))
-			-- end
 
-			-- .vscode/launch.json 会自动读取，无需手动调用
-			--官方文档copy
-			dap.adapters.delve = {
-				type = "server",
-				port = "${port}",
-				executable = {
-					command = "dlv",
-					args = { "dap", "-l", "127.0.0.1:${port}", "--log", "--log-output='dap'" },
+			-- 1. 适配器配置
+			dap.adapters.delve = function(callback, config)
+				local port = 38697
+				callback({
+					type = "server",
+					port = port,
+					executable = {
+						command = "dlv",
+						args = { "dap", "-l", "127.0.0.1:" .. port },
+					},
+					options = {
+						outputMode = "remote", -- 关键配置
+					},
+				})
+			end
+
+			-- plugins/dap.lua
+			dap.configurations.go = {
+				-- ============ 调试可执行程序 ============
+				{
+					type = "delve",
+					name = "Debug file",
+					request = "launch",
+					program = "${file}",
+				},
+				{
+					type = "delve",
+					name = "Debug Package",
+					request = "launch",
+					program = "${fileDirname}",
+				},
+				{
+					type = "delve",
+					name = "Debug Workspace",
+					request = "launch",
+					program = "${workspaceFolder}",
+				},
+
+				-- ============ 调试测试 ============
+				-- 注意：这个配置只在 _test.go 文件中可用
+				{
+					type = "delve",
+					name = "Debug test (current package)",
+					request = "launch",
+					mode = "test",
+					program = "${fileDirname}",
+				},
+				-- 带参数的测试
+				{
+					type = "delve",
+					name = "Debug test with args",
+					request = "launch",
+					mode = "test",
+					program = "${fileDirname}",
+					args = { "-test.v", "-test.run", "TestMyFunction" },
+				},
+				-- 调试当前文件下的所有测试（包括子包）
+				{
+					type = "delve",
+					name = "Debug all tests",
+					request = "launch",
+					mode = "test",
+					program = "./...",
+					cwd = "${workspaceFolder}",
 				},
 			}
 
@@ -163,43 +215,77 @@ local obj = {
 			-- }
 
 			-- 可以覆写,通过上面的launch.json来配置
-			dap.configurations.go = {
-				{
-					type = "delve",
-					name = "Debug file",
-					request = "launch",
-					program = "${file}",
-				},
-				{
-					type = "delve",
-					name = "Debug Package",
-					request = "launch",
-					program = "${fileDirname}",
-				},
-				{
-					type = "delve",
-					name = "Debug Workspace (go.mod)",
-					request = "launch",
-					program = "${workspaceFolder}",
-				},
-				{
-					type = "delve",
-					name = "Debug test", -- configuration for debugging test files
-					request = "launch",
-					mode = "test",
-					program = "${file}",
-				},
-				-- works with go.mod packages and sub packages
-				{
-					type = "delve",
-					name = "Debug test (go.mod)",
-					request = "launch",
-					mode = "test",
-					program = "./${relativeFileDirname}",
-				},
-			}
-
+			-- dap.configurations.go = {
+			-- 	{
+			-- 		type = "delve",
+			-- 		name = "Debug file",
+			-- 		request = "launch",
+			-- 		program = "${file}",
+			-- 	},
+			-- 	{
+			-- 		type = "delve",
+			-- 		name = "Debug Package",
+			-- 		request = "launch",
+			-- 		program = "${fileDirname}",
+			-- 	},
+			-- 	{
+			-- 		type = "delve",
+			-- 		name = "Debug Workspace (go.mod)",
+			-- 		request = "launch",
+			-- 		program = "${workspaceFolder}",
+			-- 	},
+			-- 	{
+			-- 		type = "delve",
+			-- 		name = "Debug test", -- configuration for debugging test files
+			-- 		request = "launch",
+			-- 		mode = "test",
+			-- 		program = "${file}",
+			-- 	},
+			-- 	-- works with go.mod packages and sub packages
+			-- 	{
+			-- 		type = "delve",
+			-- 		name = "Debug test (go.mod)",
+			-- 		request = "launch",
+			-- 		mode = "test",
+			-- 		program = "./${relativeFileDirname}",
+			-- 	},
 			dapui.setup(dapui_opt)
+
+			-- 5. 虚拟文本
+			require("nvim-dap-virtual-text").setup({
+				commented = true,
+				virt_text_pos = "eol", -- 显示在行尾，更清晰
+			})
+
+			dap.listeners.after.event_initialized["dapui_config"] = function()
+				-- 在当前代码 buffer 中设置临时映射
+				local bufnr = vim.api.nvim_get_current_buf()
+				require("keymap").DAPTmpmap(bufnr) -- 传入 bufnr
+
+				-- 打开 dapui
+				vim.defer_fn(function()
+					require("dapui").open({})
+				end, 100)
+			end
+
+			dap.listeners.before.event_terminated["dapui_config"] = function()
+				require("dapui").close({})
+				-- 不需要 DAPTmpunmap！buffer 销毁时映射自动清除
+				local ok, api = pcall(require, "nvim-tree.api")
+				if ok then
+					api.tree.close()
+				end
+			end
+
+			dap.listeners.before.event_exited["dapui_config"] = function()
+				require("dapui").close({})
+				-- 同样不需要 unmap
+				local ok, api = pcall(require, "nvim-tree.api")
+				if ok then
+					api.tree.close()
+				end
+			end
+
 			require("keymap").DAPmap()
 			--不能针对某个buffer设置起属性,因为代码不会在一个文件中写,
 			--解决方案
@@ -207,38 +293,38 @@ local obj = {
 			--检测dap开启,覆盖这批映射关系
 			--检测dap关闭,删除关闭这批dap映射关系,并且还原普通的映射关系
 
-			dap.listeners.before.attach.dapui_config = function()
-				print("dapui_config")
-				require("keymap").DAPTmpmap()
-				dapui.open({})
-			end
-
-			dap.listeners.before.launch.dapui_config = function()
-				print("dapui_config1")
-				require("keymap").DAPTmpmap()
-				dapui.open({})
-			end
-
-			dap.listeners.before.event_terminated.dapui_config = function()
-				print("dapui_config2")
-				require("keymap").DAPTmpunmap()
-				dapui.close({})
-				local status_ok, api = pcall(require, "nvim-tree.api")
-				if status_ok then
-					api.tree.close()
-					return
-				end
-			end
-
-			dap.listeners.before.event_exited.dapui_config = function()
-				print("dapui_config2")
-				require("keymap").DAPTmpunmap()
-				dapui.close({})
-			end
-
-			require("nvim-dap-virtual-text").setup({
-				commented = true,
-			})
+			-- dap.listeners.before.attach.dapui_config = function()
+			-- 	print("dapui_config")
+			-- 	require("keymap").DAPTmpmap()
+			-- 	dapui.open({})
+			-- end
+			--
+			-- dap.listeners.before.launch.dapui_config = function()
+			-- 	print("dapui_config1")
+			-- 	require("keymap").DAPTmpmap()
+			-- 	dapui.open({})
+			-- end
+			--
+			-- dap.listeners.before.event_terminated.dapui_config = function()
+			-- 	print("dapui_config2")
+			-- 	require("keymap").DAPTmpunmap()
+			-- 	dapui.close({})
+			-- 	local status_ok, api = pcall(require, "nvim-tree.api")
+			-- 	if status_ok then
+			-- 		api.tree.close()
+			-- 		return
+			-- 	end
+			-- end
+			--
+			-- dap.listeners.before.event_exited.dapui_config = function()
+			-- 	print("dapui_config2")
+			-- 	require("keymap").DAPTmpunmap()
+			-- 	dapui.close({})
+			-- end
+			--
+			-- require("nvim-dap-virtual-text").setup({
+			-- 	commented = true,
+			-- })
 		end,
 	},
 	{
