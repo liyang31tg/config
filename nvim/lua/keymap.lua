@@ -486,9 +486,41 @@ pluginKeys.DAPmap = function()
 	end, { desc = "clear all breakpoints" })
 end
 
-pluginKeys.DAPTmpmap = function(bufnr)
-	bufnr = bufnr or 0 -- 默认当前 buffer
-	local opts = { buffer = bufnr, noremap = true, silent = true }
+-- 调试期间保存/恢复全局快捷键，避免覆盖已有映射
+local dap_saved_maps = {}
+local dap_debug_keys = {
+	{ "n", ",dg" },
+	{ "n", ",dG" },
+	{ "n", ",dr" },
+	{ "n", ",dR" },
+	{ "n", "<F10>" },
+	{ "n", "<F11>" },
+	{ "n", "<F12>" },
+	{ "n", ",di" },
+	{ "n", ",do" },
+	{ "n", ",dl" },
+	{ "n", ",dp" },
+	{ "n", ",ds" },
+	{ "n", ",de" },
+	{ "n", ",du" },
+	{ "n", ",dS" },
+	{ "n", ",dh" },
+	{ "v", ",dh" },
+	{ "n", ",dE" },
+	{ "v", ",dE" },
+}
+
+pluginKeys.DAPTmpmap = function()
+	dap_saved_maps = {}
+	for _, k in ipairs(dap_debug_keys) do
+		local mode, lhs = k[1], k[2]
+		local existing = vim.fn.maparg(lhs, mode, false, true)
+		if existing and existing.lhs then
+			dap_saved_maps[mode .. ":" .. lhs] = existing
+		end
+	end
+
+	local opts = { noremap = true, silent = true }
 
 	vim.keymap.set("n", ",dg", function()
 		require("dap").run_to_cursor()
@@ -526,15 +558,6 @@ pluginKeys.DAPTmpmap = function(bufnr)
 		require("dap").step_out()
 	end, opts)
 
-	-- 注意：<CR> 可能会覆盖太多，建议只在调试时用
-	vim.keymap.set("n", "<CR>", function()
-		require("dap").step_over()
-	end, opts)
-
-	vim.keymap.set("n", "<leader><CR>", function()
-		require("dap").step_back()
-	end, opts)
-
 	vim.keymap.set("n", ",dl", function()
 		require("dap").run_last()
 	end, opts)
@@ -567,6 +590,27 @@ pluginKeys.DAPTmpmap = function(bufnr)
 	vim.keymap.set({ "n", "v" }, ",dE", function()
 		require("dapui").eval()
 	end, opts)
+end
+
+pluginKeys.DAPTmpunmap = function()
+	for _, k in ipairs(dap_debug_keys) do
+		local mode, lhs = k[1], k[2]
+		pcall(vim.keymap.del, mode, lhs)
+		local saved = dap_saved_maps[mode .. ":" .. lhs]
+		if saved then
+			local restore_opts = {}
+			if saved.silent == 1 then restore_opts.silent = true end
+			if saved.noremap == 1 then restore_opts.noremap = true end
+			if saved.expr == 1 then restore_opts.expr = true end
+			if saved.desc and saved.desc ~= "" then restore_opts.desc = saved.desc end
+			if saved.callback then
+				vim.keymap.set(mode, lhs, saved.callback, restore_opts)
+			else
+				vim.keymap.set(mode, lhs, saved.rhs, restore_opts)
+			end
+		end
+	end
+	dap_saved_maps = {}
 end
 
 pluginKeys.mapFanYi = function()

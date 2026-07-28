@@ -53,7 +53,6 @@ local dapui_opt = {
 		{
 			elements = {
 				"repl",
-				"console",
 			},
 			size = 12,
 			position = "bottom",
@@ -100,7 +99,6 @@ local obj = {
 			"theHamsta/nvim-dap-virtual-text", --显示调试旁边的虚拟字体
 			"rcarriga/nvim-dap-ui",
 			"nvim-neotest/nvim-nio",
-			"mfussenegger/nvim-dap",
 		},
 		config = function()
 			-- dap.lua
@@ -108,18 +106,23 @@ local obj = {
 
 			-- 1. 适配器配置
 			dap.adapters.delve = function(callback, config)
-				local port = 38697
-				callback({
-					type = "server",
-					port = port,
-					executable = {
-						command = "dlv",
-						args = { "dap", "-l", "127.0.0.1:" .. port },
-					},
-					options = {
-						outputMode = "remote", -- 关键配置
-					},
-				})
+				if config.mode == "remote" and config.request == "attach" then
+					callback({
+						type = "server",
+						host = config.host or "127.0.0.1",
+						port = config.port or "38697",
+					})
+				else
+					callback({
+						type = "server",
+						port = "${port}",
+						executable = {
+							command = "dlv",
+							args = { "dap", "-l", "127.0.0.1:${port}", "--log", "--log-output=dap" },
+							detached = vim.fn.has("win32") == 0,
+						},
+					})
+				end
 			end
 
 			-- plugins/dap.lua
@@ -130,18 +133,21 @@ local obj = {
 					name = "Debug file",
 					request = "launch",
 					program = "${file}",
+					outputMode = "remote", --加了这个日志标准输出才会在repl中显示
 				},
 				{
 					type = "delve",
 					name = "Debug Package",
 					request = "launch",
 					program = "${fileDirname}",
+					outputMode = "remote",
 				},
 				{
 					type = "delve",
 					name = "Debug Workspace",
 					request = "launch",
 					program = "${workspaceFolder}",
+					outputMode = "remote",
 				},
 
 				-- ============ 调试测试 ============
@@ -152,6 +158,7 @@ local obj = {
 					request = "launch",
 					mode = "test",
 					program = "${fileDirname}",
+					outputMode = "remote",
 				},
 				-- 带参数的测试
 				{
@@ -161,6 +168,7 @@ local obj = {
 					mode = "test",
 					program = "${fileDirname}",
 					args = { "-test.v", "-test.run", "TestMyFunction" },
+					outputMode = "remote",
 				},
 				-- 调试当前文件下的所有测试（包括子包）
 				{
@@ -170,6 +178,7 @@ local obj = {
 					mode = "test",
 					program = "./...",
 					cwd = "${workspaceFolder}",
+					outputMode = "remote",
 				},
 			}
 
@@ -259,8 +268,7 @@ local obj = {
 
 			dap.listeners.after.event_initialized["dapui_config"] = function()
 				-- 在当前代码 buffer 中设置临时映射
-				local bufnr = vim.api.nvim_get_current_buf()
-				require("keymap").DAPTmpmap(bufnr) -- 传入 bufnr
+				require("keymap").DAPTmpmap()
 
 				-- 打开 dapui
 				vim.defer_fn(function()
@@ -270,7 +278,7 @@ local obj = {
 
 			dap.listeners.before.event_terminated["dapui_config"] = function()
 				require("dapui").close({})
-				-- 不需要 DAPTmpunmap！buffer 销毁时映射自动清除
+				require("keymap").DAPTmpunmap()
 				local ok, api = pcall(require, "nvim-tree.api")
 				if ok then
 					api.tree.close()
@@ -279,7 +287,7 @@ local obj = {
 
 			dap.listeners.before.event_exited["dapui_config"] = function()
 				require("dapui").close({})
-				-- 同样不需要 unmap
+				require("keymap").DAPTmpunmap()
 				local ok, api = pcall(require, "nvim-tree.api")
 				if ok then
 					api.tree.close()
