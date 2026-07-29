@@ -3,12 +3,27 @@
 --默认行为有个:tag的意思,容易引起误会
 -- map("n", "<c-t>", "<Nop>")
 --莫名多一个空格,用原生实现
-map("n", "\\s", ":<c-u>%s//g<left><left>", { silent = false })
+map("n", "\\s", ":<c-u>%s//g<left><left>", { silent = false, desc = "文本替换" })
 map({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", "Escape and Clear hlsearch")
 
 -- 修改搜索的时候{n/N}的行为，默认行为，这2个命令的方式是根据/?的搜索来决定的
-map({ "n", "x", "o" }, "n", "'Nn'[v:searchforward]", { expr = true, desc = "下一个搜索" })
-map({ "n", "x", "o" }, "N", "'nN'[v:searchforward]", { expr = true, desc = "上一个搜索" })
+-- map({ "n", "x", "o" }, "n", "'Nn'[v:searchforward]", { expr = true, desc = "下一个搜索" })
+
+map({ "n", "x", "o" }, "n", function()
+	if vim.v.searchforward == 1 then
+		return "n"
+	else
+		return "N"
+	end
+end, { expr = true, desc = "下一个搜索" })
+-- map({ "n", "x", "o" }, "N", "'nN'[v:searchforward]", { expr = true, desc = "上一个搜索" })
+map({ "n", "x", "o" }, "N", function()
+	if vim.v.searchforward == 1 then
+		return "N"
+	else
+		return "n"
+	end
+end, { expr = true, desc = "上一个搜索(逆向搜索)" })
 
 -- windows 分屏快捷键
 map("n", "sh", ":vsp<cr><c-w>h", "左边分屏")
