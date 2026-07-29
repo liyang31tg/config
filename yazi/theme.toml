@@ -1,3 +1,4 @@
 [flavor]
-dark  = "synthwave84"
-light = "`rose-pine-dawn"
+# dark  = "synthwave84"
+dark  = "nord"
+light = "rose-pine-dawn"

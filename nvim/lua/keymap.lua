@@ -1,35 +1,9 @@
--- m 映射的是alt控制键
--- c 映射的是ctrl控制键
--- 定义 map 函数，带有默认选项
-local function map(mode, lhs, rhs, opts)
-	-- 设置默认选项
-	local default_opts = { remap = false, silent = true, unique = false }
-
-	-- 如果 opts 是字符串，将其转换为包含 desc 的表
-	if type(opts) == "string" then
-		opts = { desc = opts }
-	end
-
-	-- 将传入的 opts 合并到默认选项中
-	opts = vim.tbl_extend("force", default_opts, opts or {})
-
-	-- 设置键映射
-	vim.keymap.set(mode, lhs, rhs, opts)
-end
-
-local function unmap(mode, lhs, opts)
-	opts = opts or {}
-	opts.noremap = true
-	vim.keymap.del(mode, lhs, opts)
-end
-
--- comment or uncomment 已经使用<leader>cc替换
-unmap("n", "gc")
-unmap("n", "gcc")
+-- unmap("n", "gc")
+-- unmap("n", "gcc")
 --默认行为有个:tag的意思,容易引起误会
-map("n", "<c-t>", "<Nop>")
+-- map("n", "<c-t>", "<Nop>")
 --莫名多一个空格,用原生实现
-map("n", "\\s", ":<c-u>%s//g<left><left>", { silent = false, remap = false })
+map("n", "\\s", ":<c-u>%s//g<left><left>", { silent = false })
 map({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", "Escape and Clear hlsearch")
 
 -- 修改搜索的时候{n/N}的行为，默认行为，这2个命令的方式是根据/?的搜索来决定的
@@ -161,6 +135,7 @@ end, "Previous Todo Comment in current buffer")
 -- Telescope
 map("n", "<leader>f", "<Nop>", "检索")
 map("n", "<c-p>", "<cmd>Telescope find_files<cr>", "检索文件")
+map("n", "<c-b>", "<cmd>Telescope buffers<cr>", "检索文件")
 map("n", "<leader><space>", "<cmd>Telescope live_grep<cr>", "模糊的全局搜索")
 map(
 	"n",
@@ -475,13 +450,12 @@ pluginKeys.DAPmap = function()
 	map("n", ",dd", function()
 		require("dap").toggle_breakpoint()
 	end, { desc = "Toggle Breakpoint" })
-	--设置条件断点
-	map("n", ",dD", function()
+	map("n", ",dc", function()
 		-- require("dap").set_breakpoint(nil, nil, vim.fn.input("Log point message: "))
 		require("dap").set_breakpoint(vim.fn.input("[Condition] > ")) -- 输入条件eg: a>18
-	end, { desc = "设置条件断点" })
+	end, { desc = "设置条件断点(只能可见当前函数帧里面的变量,全局变量也看不到)" })
 	--清空所有断点
-	map("n", ",dc", function()
+	map("n", ",dx", function()
 		require("dap").clear_breakpoints()
 	end, { desc = "clear all breakpoints" })
 end
@@ -599,10 +573,18 @@ pluginKeys.DAPTmpunmap = function()
 		local saved = dap_saved_maps[mode .. ":" .. lhs]
 		if saved then
 			local restore_opts = {}
-			if saved.silent == 1 then restore_opts.silent = true end
-			if saved.noremap == 1 then restore_opts.noremap = true end
-			if saved.expr == 1 then restore_opts.expr = true end
-			if saved.desc and saved.desc ~= "" then restore_opts.desc = saved.desc end
+			if saved.silent == 1 then
+				restore_opts.silent = true
+			end
+			if saved.noremap == 1 then
+				restore_opts.noremap = true
+			end
+			if saved.expr == 1 then
+				restore_opts.expr = true
+			end
+			if saved.desc and saved.desc ~= "" then
+				restore_opts.desc = saved.desc
+			end
 			if saved.callback then
 				vim.keymap.set(mode, lhs, saved.callback, restore_opts)
 			else
