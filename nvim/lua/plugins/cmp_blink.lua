@@ -25,7 +25,7 @@ return {
 			-- 关键：禁止自动预选第一条，防止菜单弹出直接回车误补全
 			list = {
 				selection = {
-					preselect = true,
+					preselect = false,
 					auto_insert = false,
 				},
 			},
@@ -99,6 +99,12 @@ return {
 				["<CR>"] = { "select_and_accept", "fallback" },
 			},
 			completion = {
+				list = {
+					selection = {
+						preselect = false,
+						auto_insert = false,
+					},
+				},
 				menu = { auto_show = true },
 				trigger = {
 					show_on_blocked_trigger_characters = { "=" },

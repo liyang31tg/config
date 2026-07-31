@@ -26,10 +26,10 @@ map({ "n", "x", "o" }, "N", function()
 end, { expr = true, desc = "上一个搜索(逆向搜索)" })
 
 -- windows 分屏快捷键
-map("n", "sh", ":vsp<cr><c-w>h", "左边分屏")
-map("n", "sj", ":sp<cr>", "下边分屏")
-map("n", "sk", ":sp<cr><c-w>k", "上边分屏")
-map("n", "sl", ":vsp<cr>", "右边分屏")
+map("n", "sh", "<cmd>vsp<cr><c-w>h", "左边分屏")
+map("n", "sj", "<cmd>sp<cr>", "下边分屏")
+map("n", "sk", "<cmd>sp<cr><c-w>k", "上边分屏")
+map("n", "sl", "<cmd>vsp<cr>", "右边分屏")
 map("n", "so", "<c-w>o", "关闭其他")
 -- win 聚焦
 map("n", "<c-h>", "<C-w>h")
@@ -48,6 +48,7 @@ map("n", "<Down>", ":resize +2<CR>")
 map("n", "<Up>", ":resize -2<CR>")
 -- 等比例
 map("n", "s=", "<C-w>=")
+
 -- 交换窗口
 map("n", "<leader>ww", "<cmd>WinShift<cr>", "进入分屏模式")
 map("n", "<leader>wh", "<cmd>WinShift left<cr>", "Move Win Left")
