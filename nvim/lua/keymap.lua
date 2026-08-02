@@ -70,7 +70,11 @@ map("n", "]b", "<leader>b]", { remap = true, desc = "Next Buffer" })
 -- 修复diff对齐点,很少用
 map("n", "<leader>ur", "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>", "Redraw / clear hlsearch / diff update")
 
-map("c", "<c-a>", "<Home>", { silent = false, desc = "Home" })
+map("c", "<c-a>", function()
+	local line = vim.fn.getcmdline()
+	local pos = line:match("^%s*()") or 1
+	vim.fn.setcmdpos(pos)
+end, { desc = "Home (first non-blank)" })
 map("c", "<c-b>", "<Left>", { silent = false, desc = "Left" })
 map("c", "<c-d>", "<Del>", { silent = false, desc = "Del" })
 map("c", "<c-e>", "<End>", { silent = false, desc = "End" })
@@ -131,7 +135,7 @@ map("n", "Q", ":qa!<CR>", "关闭所有")
 map({ "n" }, "<c-a>", "<ESC>I")
 map({ "i", "c" }, "<c-f>", "<right>")
 map({ "i", "c" }, "<c-b>", "<left>")
-map({ "i", "c" }, "<c-a>", "<home>")
+map("i", "<c-a>", "<C-o>^", { desc = "Home (first non-blank)" })
 map({ "i", "c" }, "<c-e>", "<end>")
 
 --第三方插件的快捷键银蛇如下

@@ -19,6 +19,7 @@ return {
 			["<C-e>"] = { "hide", "fallback" },
 			["<C-b>"] = { "scroll_documentation_up", "fallback" },
 			["<C-f>"] = { "scroll_documentation_down", "fallback" },
+			["<CR>"] = { "accept", "hide", "fallback" },
 		},
 
 		completion = {
@@ -90,13 +91,17 @@ return {
 
 		sources = {
 			default = { "lsp", "path", "snippets", "buffer" },
+			providers = {
+				lsp = { score_offset = 15 },
+				buffer = { score_offset = -5 },
+			},
 		},
 
 		cmdline = {
 			keymap = {
 				["<Tab>"] = { "select_next", "fallback" },
 				["<S-Tab>"] = { "select_prev", "fallback" },
-				["<CR>"] = { "select_and_accept", "fallback" },
+				["<CR>"] = { "accept", "hide", "fallback" },
 			},
 			completion = {
 				list = {
