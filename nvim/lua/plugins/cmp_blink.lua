@@ -3,6 +3,7 @@ return {
 	dependencies = {
 		"saghen/blink.lib",
 		"rafamadriz/friendly-snippets",
+		"L3MON4D3/LuaSnip",
 	},
 	opts = {
 		appearance = {
@@ -26,7 +27,7 @@ return {
 			-- 关键：禁止自动预选第一条，防止菜单弹出直接回车误补全
 			list = {
 				selection = {
-					preselect = false,
+					preselect = true,
 					auto_insert = false,
 				},
 			},
@@ -87,7 +88,7 @@ return {
 			},
 		},
 
-		snippets = { preset = "default" },
+		snippets = { preset = "luasnip" }, --引擎要使用这个,官方默认的有问题,存在补全形参高亮不消失的问题
 
 		sources = {
 			default = { "lsp", "path", "snippets", "buffer" },
