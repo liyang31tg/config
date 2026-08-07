@@ -119,7 +119,7 @@ local obj = {
 		"ray-x/lsp_signature.nvim",
 	},
 	config = function()
-		require("lsp_signature").setup()
+		-- require("lsp_signature").setup()
 		require("mason").setup()
 
 		-- 🔥 必须加：让 Neovim 找到 Mason 安装的命令

@@ -1,10 +1,17 @@
 return {
 	"saghen/blink.cmp",
 	dependencies = {
-		"saghen/blink.lib",
+		{ "saghen/blink.lib", branch = "main" },
 		"rafamadriz/friendly-snippets",
 		"L3MON4D3/LuaSnip",
 	},
+	branch = "main",
+	-- build = "cargo build --release", -- main分支必须手动写，无默认
+	build = function()
+		-- build the fuzzy matcher, optionally add a timeout to `pwait(timeout_ms)`
+		-- you can use `gb` in `:Lazy` to rebuild the plugin as needed
+		require("blink.cmp").build():pwait()
+	end,
 	opts = {
 		appearance = {
 			use_nvim_cmp_as_default = true, -- 兼容绝大多数主题高亮
@@ -32,6 +39,18 @@ return {
 				},
 			},
 
+			trigger = {
+				show_on_insert_on_trigger_character = true,
+				-- show_on_blocked_trigger_characters = function(ctx)
+				-- 	local char_before = ctx.cursor_before:sub(-1)
+				-- 	-- 光标前是 ) 空格 \n \t，阻止自动弹出
+				-- 	if char_before == ")" or char_before == " " or char_before == "\n" or char_before == "\t" then
+				-- 		return true
+				-- 	end
+				-- 	return false
+				-- end,
+			},
+
 			-- 自动括号（函数自动追加()，Go/gopls友好）
 			accept = {
 				auto_brackets = { enabled = true },
@@ -50,7 +69,7 @@ return {
 			},
 
 			-- 行内预览灰色文字
-			ghost_text = { enabled = true },
+			ghost_text = { enabled = false },
 
 			menu = {
 				border = "rounded",
@@ -119,7 +138,8 @@ return {
 		},
 
 		fuzzy = {
-			implementation = "lua", -- 不需要rust编译
+			-- implementation = "lua", -- 不需要rust编译
+			implementation = "rust", -- 不需要rust编译
 		},
 
 		-- 你使用 lsp_signature.nvim，关闭blink内置签名窗口，避免双层弹窗冲突

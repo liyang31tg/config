@@ -57,10 +57,10 @@ map("n", "<leader>wk", "<cmd>WinShift up<cr>", "Move Win up")
 map("n", "<leader>wl", "<cmd>WinShift right<cr>", "Move Win right")
 
 -- Move Lines
-map("v", "J", ":m '>+1<cr>gv=gv", "Move down")
-map("v", "K", ":m '<-2<cr>gv=gv", "Move up")
-map("v", "H", "<gv", "Move left")
+map("v", "J", ":move '>+1<cr>gv", "Move down") --不需要缩进,所以删掉了gv=gv,help gv 选中上一次可视区域
+map("v", "K", ":move '<-2<cr>gv", "Move up")
 map("v", "L", ">gv", "Move right")
+map("v", "H", "<gv", "Move left")
 
 -- bufferline
 -- 左右Tab切换
