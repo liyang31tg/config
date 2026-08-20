@@ -130,7 +130,11 @@ return {
 						auto_insert = false,
 					},
 				},
-				menu = { auto_show = true },
+				menu = {
+					auto_show = function()
+						return vim.fn.getcmdtype() ~= "/" and vim.fn.getcmdtype() ~= "?"
+					end,
+				},
 				trigger = {
 					show_on_blocked_trigger_characters = { "=" },
 				},
