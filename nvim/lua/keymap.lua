@@ -62,10 +62,8 @@ map("v", "K", ":move '<-2<cr>gv", "Move up")
 map("v", "L", ">gv", "Move right")
 map("v", "H", "<gv", "Move left")
 
--- bufferline
+-- barbar
 -- 左右Tab切换
-map("n", "[b", "<leader>b[", { remap = true, desc = "Previous Buffer" })
-map("n", "]b", "<leader>b]", { remap = true, desc = "Next Buffer" })
 
 -- 修复diff对齐点,很少用
 map("n", "<leader>ur", "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>", "Redraw / clear hlsearch / diff update")
@@ -184,20 +182,29 @@ map("n", "<leader>lS", "<cmd>Telescope lsp_workspace_symbols<cr>", "list lsp_wor
 map("n", "<leader>lw", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", "list lsp_dynamic_workspace_symbols")
 -- map("n", "<leader>ft", "<cmd>ToggleTerm<cr>", "Terminal")
 -- map("n", "<leader>fT", "<cmd>ToggleTerm dir=~ name=root<cr>", "Terminal root")
+--
 map("n", "<leader>a", "<cmd>Alpha<cr>", "Welcome")
 map("n", "<leader>b", "<Nop>", "Buffer")
-map("n", "<leader>bd", "<cmd>Bdelete!<cr>", "Close buffer")
 map("n", "<leader>bq", "<cmd>bd<cr>", "Close buffer And Window")
 map("n", "<leader>bb", "<cmd>e #<cr>", "swap with last buffer")
 map("n", "<leader>bl", "<cmd>BufferLineCloseRight<cr>", "Close Right buffers")
 map("n", "<leader>bh", "<cmd>BufferLineCloseLeft<cr>", "Close Left buffers")
 map("n", "<leader>bo", "<cmd>BufferLineCloseOthers<cr>", "Close Others buffer")
 map("n", "<leader>bc", "<cmd>BufferLinePickClose<cr>", "Pick Buffer Close")
-map("n", "<leader>bp", "<cmd>BufferLinePick<cr>", "Pick Buffer")
-map("n", "<leader>b,", "<cmd>BufferLineMovePrev<cr>", "Buffer Move Prev")
-map("n", "<leader>b.", "<cmd>BufferLineMoveNext<cr>", "Buffer Move Next")
 map("n", "<leader>b[", "<cmd>BufferLineCyclePrev<cr>", "Focus Pre Buffer")
 map("n", "<leader>b]", "<cmd>BufferLineCycleNext<cr>", "Focus Next Buffer")
+
+map("n", "<leader>bp", "<cmd>BufferPin<cr>", "Pick Buffer")
+map("n", "<leader>bd", "<cmd>BufferClose<cr>", "Close buffer")
+map("n", "[b", "<cmd>BufferPrevious<cr>", "Previous Buffer")
+map("n", "]b", "<cmd>BufferNext<cr>", "Next Buffer")
+map("n", "<leader>b,", "<cmd>BufferMovePrevious<cr>", "BufferMovePrevious")
+map("n", "<leader>b.", "<cmd>BufferMoveNext<cr>", "BufferMoveNext")
+for i = 1, 9 do
+	map("n", string.format("<leader>%d", i), string.format("<cmd>BufferGoto %d<cr>", i), {
+		desc = string.format("BufferGoto %d", i),
+	})
+end
 
 map("n", "<leader>g", "<Nop>", "Git")
 map("n", "<leader>gd", "<cmd>DiffviewOpen<CR>", "Diff Project") --工作区与暂存区的区别,暂存区与本地git仓库的
@@ -224,13 +231,12 @@ local function get_args(config)
 end
 
 pluginKeys.whichkeys = {
-
 	{ "<leader>o", group = "Task" },
 	{ "<leader>ow", "<cmd>OverseerToggle<cr>", desc = "Task list" },
 	{ "<leader>oo", "<cmd>OverseerRun<cr>", desc = "Run task" },
 	{ "<leader>oq", "<cmd>OverseerQuickAction<cr>", desc = "Action recent task" },
 	{ "<leader>oi", "<cmd>OverseerInfo<cr>", desc = "Overseer Info" },
-	{ "<leader>ob", "<cmd>OverseerBuild<cr>", desc = "Task builder" },
+	{ "<leader>ob", "<cmd>OverseerBuild<cr>", desc = "Task kbuilder" },
 	{ "<leader>ot", "<cmd>OverseerTaskAction<cr>", desc = "Task action" },
 	{ "<leader>oc", "<cmd>OverseerClearCache<cr>", desc = "Clear cache" },
 
