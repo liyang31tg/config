@@ -12,6 +12,11 @@ return {
 		-- you can use `gb` in `:Lazy` to rebuild the plugin as needed
 		require("blink.cmp").build():pwait()
 	end,
+	config = function(_, opts)
+		-- 加载 friendly-snippets 的 vscode 风格代码段，否则 luasnip 引擎里是空的
+		require("luasnip.loaders.from_vscode").lazy_load()
+		require("blink.cmp").setup(opts)
+	end,
 	opts = {
 		appearance = {
 			use_nvim_cmp_as_default = true, -- 兼容绝大多数主题高亮

@@ -1,3 +1,12 @@
+--第三方插件的快捷键银蛇如下
+local pluginKeys = {}
+pluginKeys.whichkeys = {}
+
+--用于向whichkeys这个甜蜜组信息
+local function mapwk(lts, opts)
+	table.insert(pluginKeys.whichkeys, vim.tbl_extend("force", { [1] = lts }, opts or {}))
+end
+
 -- unmap("n", "gc")
 -- unmap("n", "gcc")
 --默认行为有个:tag的意思,容易引起误会
@@ -89,7 +98,7 @@ map("c", "<c-k>", function()
 end, { silent = false, desc = "命令行删除光标后所有字符" })
 
 --keywordprg
-map("n", "<leader>K", "<cmd>normal! K<cr>", { desc = "Keywordprg 查询文档" })
+map("n", "<leader>K", "<cmd>normal! K<cr>", { desc = "Keywordprg 查询文档,K的内置作用" })
 
 map({ "n", "x" }, "*", "*N", "高亮这个单词")
 
@@ -112,13 +121,8 @@ map("n", "[e", diagnostic_goto(false, "ERROR"), { desc = "Prev Error" })
 map("n", "]w", diagnostic_goto(true, "WARN"), { desc = "Next Warning" })
 map("n", "[w", diagnostic_goto(false, "WARN"), { desc = "Prev Warning" })
 
--- highlights under cursor not work
--- map("n", "<local eader>ui", vim.show_pos, { desc = "Inspect Pos" })
--- map("n", "<leader>uI", "<cmd>InspectTree<cr>", { desc = "Inspect Tree" })
-
 -- 在visual 模式里粘贴不要复制
 map("x", "p", '"_dP')
--- map("n", "d", '"_d') --阐述的时候不要复制
 map("n", "<D-S-f>", function()
 	require("grug-far").open({})
 end, "全局替换（仅当前工作目录）")
@@ -135,11 +139,10 @@ map({ "i", "c" }, "<c-f>", "<right>")
 map({ "i", "c" }, "<c-b>", "<left>")
 map("i", "<c-a>", "<C-o>^", { desc = "Home (first non-blank)" })
 map({ "i", "c" }, "<c-e>", "<end>")
+map("c", "<c-a>", "<home>")
 
---第三方插件的快捷键银蛇如下
-local pluginKeys = {}
 --nvim-tree
-map({ "n", "i", "v", "c", "t" }, "<c-0>", ":NvimTreeFindFile<CR>")
+map({ "n", "i", "v", "c", "t" }, "<c-0>", "<cmd>NvimTreeFindFile<CR>")
 map("n", "<leader>e", "<cmd>NvimTreeToggle<cr>", "Explorer")
 
 map("n", "]t", function()
@@ -151,24 +154,19 @@ map("n", "[t", function()
 end, "Previous Todo Comment in current buffer")
 
 -- Telescope
-map("n", "<leader>f", "<Nop>", "检索")
+mapwk("<leader>f", { group = "检索", icon = "🔍" })
 map("n", "<c-p>", "<cmd>Telescope find_files<cr>", "检索文件")
-map("n", "<c-b>", "<cmd>Telescope buffers<cr>", "检索文件")
+map("n", "<c-b>", "<cmd>Telescope buffers<cr>", "检索buffers")
 map("n", "<leader><space>", "<cmd>Telescope live_grep<cr>", "模糊的全局搜索")
-map(
-	"n",
-	"<c-/>",
-	"<cmd>lua require('telescope.builtin').grep_string()<cr>",
-	{ desc = "检索光标下的单词,再过滤选择" }
-)
+map("n", "<c-/>", "<cmd>lua require('telescope.builtin').grep_string()<cr>", "检索光标下的单词,再过滤选择")
 map("n", "<leader>/", "<cmd>Telescope current_buffer_fuzzy_find()<cr>", "Find in current buffer")
-map("n", "<leader>fb", "<cmd>Telescope buffers()<cr>", "Find Buffers")
-map("n", "<leader>fo", "<cmd>Telescope oldfiles()<cr>", "Find old files")
+map("n", "<leader>fb", "<cmd>Telescope buffers<cr>", "Find Buffers")
+map("n", "<leader>fo", "<cmd>Telescope oldfiles<cr>", "Find old files")
 map("n", "<leader>fc", "<cmd>Telescope colorscheme<cr>", "List Colorscheme")
 map("n", "<leader>fp", "<cmd>Telescope projects<cr>", "Find Projects file")
 map("n", "<leader>ft", "<cmd>TodoTelescope<cr>", "Todo in Workspace")
 map("n", "<leader>fT", "<cmd>TodoTelescope keywords=TODO,FIX,FIXME<cr>", "Todo/Fix/Fixme in Workspace")
-map("n", "<leader>fg", "<Nop>", "Git 检索")
+mapwk("<leader>fg", { group = "+Git" })
 map("n", "<leader>fgf", "<cmd>Telescope git_files<cr>", "Find Git Files")
 map("n", "<leader>fgb", "<cmd>Telescope git_branches<cr>", "list git branch")
 map("n", "<leader>fgc", "<cmd>Telescope git_commits<cr>", "list git commit")
@@ -184,7 +182,7 @@ map("n", "<leader>lw", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", "list
 -- map("n", "<leader>fT", "<cmd>ToggleTerm dir=~ name=root<cr>", "Terminal root")
 --
 map("n", "<leader>a", "<cmd>Alpha<cr>", "Welcome")
-map("n", "<leader>b", "<Nop>", "Buffer")
+mapwk("<leader>b", { group = "Buffer" })
 map("n", "<leader>bq", "<cmd>bd<cr>", "Close buffer And Window")
 map("n", "<leader>bb", "<cmd>e #<cr>", "swap with last buffer")
 map("n", "<leader>bl", "<cmd>BufferLineCloseRight<cr>", "Close Right buffers")
@@ -230,130 +228,130 @@ local function get_args(config)
 	return config
 end
 
-pluginKeys.whichkeys = {
-	{ "<leader>o", group = "Task" },
-	{ "<leader>ow", "<cmd>OverseerToggle<cr>", desc = "Task list" },
-	{ "<leader>oo", "<cmd>OverseerRun<cr>", desc = "Run task" },
-	{ "<leader>oq", "<cmd>OverseerQuickAction<cr>", desc = "Action recent task" },
-	{ "<leader>oi", "<cmd>OverseerInfo<cr>", desc = "Overseer Info" },
-	{ "<leader>ob", "<cmd>OverseerBuild<cr>", desc = "Task kbuilder" },
-	{ "<leader>ot", "<cmd>OverseerTaskAction<cr>", desc = "Task action" },
-	{ "<leader>oc", "<cmd>OverseerClearCache<cr>", desc = "Clear cache" },
-
-	{ "<leader>x", group = "Trouble" },
-	{ "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", desc = "Diagnostics (Trouble)" },
-	{ "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", desc = "Buffer Diagnostics (Trouble)" },
-	{ "<leader>xs", "<cmd>Trouble symbols toggle<cr>", desc = "Symbols (Trouble)" },
-	{ "<leader>xS", "<cmd>Trouble lsp toggle<cr>", desc = "LSP references/definitions/... (Trouble)" },
-	{ "<leader>xL", "<cmd>Trouble loclist toggle<cr>", desc = "Location List (Trouble)" },
-	{ "<leader>xQ", "<cmd>Trouble qflist toggle<cr>", desc = "Quickfix List (Trouble)" },
-
-	{ "<leader>t", group = "Test" },
-	{
-		"<leader>ta",
-		function()
-			require("neotest").run.attach()
-		end,
-		desc = "[t]est [a]ttach",
-	},
-	{
-		"<leader>tf",
-		function()
-			require("neotest").run.run(vim.fn.expand("%"))
-		end,
-		desc = "[t]est run [f]ile",
-	},
-	{
-		"<leader>tA",
-		function()
-			require("neotest").run.run(vim.uv.cwd())
-		end,
-		desc = "[t]est [A]ll files",
-	},
-	{
-		"<leader>tS",
-		function()
-			require("neotest").run.run({ suite = true })
-		end,
-		desc = "[t]est [S]uite",
-	},
-	{
-		"<leader>tt", --运行当前方法
-		function()
-			require("neotest").run.run()
-		end,
-		desc = "[t]est [n]earest",
-	},
-	{
-		"<leader>tl",
-		function()
-			require("neotest").run.run_last()
-		end,
-		desc = "[t]est [l]ast",
-	},
-	{
-		"<leader>ts",
-		function()
-			require("neotest").summary.toggle()
-		end,
-		desc = "[t]est [s]ummary",
-	},
-	{
-		"<leader>to",
-		function()
-			require("neotest").output.open({ enter = true, auto_close = true })
-		end,
-		desc = "[t]est [o]utput",
-	},
-	{
-		"<leader>tO",
-		function()
-			require("neotest").output_panel.toggle()
-		end,
-		desc = "[t]est [O]utput panel",
-	},
-	{
-		"<leader>tc",
-		function()
-			require("neotest").output_panel.clear()
-		end,
-		desc = "clear [O]utput panel",
-	},
-	{
-		"<leader>te",
-		function()
-			require("neotest").run.stop()
-		end,
-		desc = "[t]est [t]erminate",
-	},
-	{
-		"<leader>td",
-		function()
-			require("neotest").run.run({ suite = false, strategy = "dap" })
-		end,
-		desc = "Debug nearest test",
-	},
-
-	{ "<leader>T", group = "Terminal" },
-	{ "<leader>Tn", "<cmd>lua _NODE_TOGGLE()<cr>", desc = "Node" },
-	{ "<leader>Tu", "<cmd>lua _NCDU_TOGGLE()<cr>", desc = "NCDU" },
-	{ "<leader>Tt", "<cmd>lua _HTOP_TOGGLE()<cr>", desc = "Htop" },
-	{ "<leader>Tp", "<cmd>lua _PYTHON_TOGGLE()<cr>", desc = "Python" },
-	{ "<leader>Tf", "<cmd>ToggleTerm direction=float<cr>", desc = "Float" },
-	{ "<leader>Th", "<cmd>ToggleTerm size=10 direction=horizontal<cr>", desc = "Horizontal" },
-	{ "<leader>Tv", "<cmd>ToggleTerm size=80 direction=vertical<cr>", desc = "Vertical" },
-
-	{ "<leader>h", group = "Help" },
-	{ "<leader>hc", "<cmd>Telescope colorscheme<cr>", desc = "Colorscheme" },
-	{ "<leader>hh", "<cmd>Telescope help_tags<cr>", desc = "Find Help" },
-	{ "<leader>hM", "<cmd>Telescope man_pages<cr>", desc = "Man Pages" },
-	{ "<leader>hR", "<cmd>Telescope registers<cr>", desc = "Registers" },
-	{ "<leader>hk", "<cmd>Telescope keymaps<cr>", desc = "Keymaps" },
-	{ "<leader>hC", "<cmd>Telescope commands<cr>", desc = "Commands" },
-	{ "<leader>ha", "<cmd>lua require('telescope.builtin').autocommands()<cr>", desc = "Find  au" },
-
-	{ "<leader>z", "<cmd>ZenMode<cr>", desc = "ZenMode" },
-}
+-- pluginKeys.whichkeys = {
+-- 	{ "<leader>o", group = "Task" },
+-- 	{ "<leader>ow", "<cmd>OverseerToggle<cr>", desc = "Task list" },
+-- 	{ "<leader>oo", "<cmd>OverseerRun<cr>", desc = "Run task" },
+-- 	{ "<leader>oq", "<cmd>OverseerQuickAction<cr>", desc = "Action recent task" },
+-- 	{ "<leader>oi", "<cmd>OverseerInfo<cr>", desc = "Overseer Info" },
+-- 	{ "<leader>ob", "<cmd>OverseerBuild<cr>", desc = "Task kbuilder" },
+-- 	{ "<leader>ot", "<cmd>OverseerTaskAction<cr>", desc = "Task action" },
+-- 	{ "<leader>oc", "<cmd>OverseerClearCache<cr>", desc = "Clear cache" },
+--
+-- 	{ "<leader>x", group = "Trouble" },
+-- 	{ "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", desc = "Diagnostics (Trouble)" },
+-- 	{ "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", desc = "Buffer Diagnostics (Trouble)" },
+-- 	{ "<leader>xs", "<cmd>Trouble symbols toggle<cr>", desc = "Symbols (Trouble)" },
+-- 	{ "<leader>xS", "<cmd>Trouble lsp toggle<cr>", desc = "LSP references/definitions/... (Trouble)" },
+-- 	{ "<leader>xL", "<cmd>Trouble loclist toggle<cr>", desc = "Location List (Trouble)" },
+-- 	{ "<leader>xQ", "<cmd>Trouble qflist toggle<cr>", desc = "Quickfix List (Trouble)" },
+--
+-- 	{ "<leader>t", group = "Test" },
+-- 	{
+-- 		"<leader>ta",
+-- 		function()
+-- 			require("neotest").run.attach()
+-- 		end,
+-- 		desc = "[t]est [a]ttach",
+-- 	},
+-- 	{
+-- 		"<leader>tf",
+-- 		function()
+-- 			require("neotest").run.run(vim.fn.expand("%"))
+-- 		end,
+-- 		desc = "[t]est run [f]ile",
+-- 	},
+-- 	{
+-- 		"<leader>tA",
+-- 		function()
+-- 			require("neotest").run.run(vim.uv.cwd())
+-- 		end,
+-- 		desc = "[t]est [A]ll files",
+-- 	},
+-- 	{
+-- 		"<leader>tS",
+-- 		function()
+-- 			require("neotest").run.run({ suite = true })
+-- 		end,
+-- 		desc = "[t]est [S]uite",
+-- 	},
+-- 	{
+-- 		"<leader>tt", --运行当前方法
+-- 		function()
+-- 			require("neotest").run.run()
+-- 		end,
+-- 		desc = "[t]est [n]earest",
+-- 	},
+-- 	{
+-- 		"<leader>tl",
+-- 		function()
+-- 			require("neotest").run.run_last()
+-- 		end,
+-- 		desc = "[t]est [l]ast",
+-- 	},
+-- 	{
+-- 		"<leader>ts",
+-- 		function()
+-- 			require("neotest").summary.toggle()
+-- 		end,
+-- 		desc = "[t]est [s]ummary",
+-- 	},
+-- 	{
+-- 		"<leader>to",
+-- 		function()
+-- 			require("neotest").output.open({ enter = true, auto_close = true })
+-- 		end,
+-- 		desc = "[t]est [o]utput",
+-- 	},
+-- 	{
+-- 		"<leader>tO",
+-- 		function()
+-- 			require("neotest").output_panel.toggle()
+-- 		end,
+-- 		desc = "[t]est [O]utput panel",
+-- 	},
+-- 	{
+-- 		"<leader>tc",
+-- 		function()
+-- 			require("neotest").output_panel.clear()
+-- 		end,
+-- 		desc = "clear [O]utput panel",
+-- 	},
+-- 	{
+-- 		"<leader>te",
+-- 		function()
+-- 			require("neotest").run.stop()
+-- 		end,
+-- 		desc = "[t]est [t]erminate",
+-- 	},
+-- 	{
+-- 		"<leader>td",
+-- 		function()
+-- 			require("neotest").run.run({ suite = false, strategy = "dap" })
+-- 		end,
+-- 		desc = "Debug nearest test",
+-- 	},
+--
+-- 	{ "<leader>T", group = "Terminal" },
+-- 	{ "<leader>Tn", "<cmd>lua _NODE_TOGGLE()<cr>", desc = "Node" },
+-- 	{ "<leader>Tu", "<cmd>lua _NCDU_TOGGLE()<cr>", desc = "NCDU" },
+-- 	{ "<leader>Tt", "<cmd>lua _HTOP_TOGGLE()<cr>", desc = "Htop" },
+-- 	{ "<leader>Tp", "<cmd>lua _PYTHON_TOGGLE()<cr>", desc = "Python" },
+-- 	{ "<leader>Tf", "<cmd>ToggleTerm direction=float<cr>", desc = "Float" },
+-- 	{ "<leader>Th", "<cmd>ToggleTerm size=10 direction=horizontal<cr>", desc = "Horizontal" },
+-- 	{ "<leader>Tv", "<cmd>ToggleTerm size=80 direction=vertical<cr>", desc = "Vertical" },
+--
+-- 	{ "<leader>h", group = "Help" },
+-- 	{ "<leader>hc", "<cmd>Telescope colorscheme<cr>", desc = "Colorscheme" },
+-- 	{ "<leader>hh", "<cmd>Telescope help_tags<cr>", desc = "Find Help" },
+-- 	{ "<leader>hM", "<cmd>Telescope man_pages<cr>", desc = "Man Pages" },
+-- 	{ "<leader>hR", "<cmd>Telescope registers<cr>", desc = "Registers" },
+-- 	{ "<leader>hk", "<cmd>Telescope keymaps<cr>", desc = "Keymaps" },
+-- 	{ "<leader>hC", "<cmd>Telescope commands<cr>", desc = "Commands" },
+-- 	{ "<leader>ha", "<cmd>lua require('telescope.builtin').autocommands()<cr>", desc = "Find  au" },
+--
+-- 	{ "<leader>z", "<cmd>ZenMode<cr>", desc = "ZenMode" },
+-- }
 
 map("n", ",o", "<cmd>Outline<CR>", "Outline")
 -- map("n", "<leader>/", "<cmd>OutlineFocus<CR>", "OutlineFocus")
