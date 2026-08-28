@@ -2,9 +2,34 @@
 local pluginKeys = {}
 pluginKeys.whichkeys = {}
 
---用于向whichkeys这个甜蜜组信息
-local function mapwk(lts, opts)
-	table.insert(pluginKeys.whichkeys, vim.tbl_extend("force", { [1] = lts }, opts or {}))
+--- 向 which-key 注册一条映射/展示条目（统一入口）
+---
+--- 行为约定：
+---   - 传入 rhs 时，which-key 会通过 vim.keymap.set 创建真实映射
+---   - 不传 rhs（nil）时，仅作为展示条目（group/占位），不占用真实键位
+---   - opts 为字符串时，等价于 { desc = opts }
+---
+---@param mode string|string[] 模式，同 vim.keymap.set 第一个参数；如 "n" 或 {"n","v"}。可不传
+---@param lhs string 触发键（映射左侧），如 "<leader>bp"
+---@param rhs string|fun()? 映射内容（右侧）；为 nil 时只展示、不创建映射
+---@param opts string|table? 字符串时为描述 desc；表时为 which-key 的 wk.Spec 选项（desc/group/icon/hidden/cond/...）
+---   opts 内也会自动合并 remap=false、silent=true、unique=false 默认值
+local function mapwk(mode, lhs, rhs, opts)
+	local t = { [1] = lhs }
+	if rhs ~= nil then
+		t[2] = rhs
+	end
+	if type(opts) == "string" then
+		opts = { desc = opts }
+	else
+		opts = opts or {}
+	end
+	if mode ~= nil then
+		opts.mode = mode
+	end
+	local default_opts = { remap = false, silent = true, unique = false }
+	opts = vim.tbl_extend("force", default_opts, opts or {})
+	table.insert(pluginKeys.whichkeys, vim.tbl_extend("force", t, opts))
 end
 
 -- unmap("n", "gc")
@@ -154,25 +179,22 @@ map("n", "[t", function()
 end, "Previous Todo Comment in current buffer")
 
 -- Telescope
-mapwk("<leader>f", { group = "检索", icon = "🔍" })
+mapwk("n", "<leader>f", nil, { group = "检索", icon = "🔍" })
 map("n", "<c-p>", "<cmd>Telescope find_files<cr>", "检索文件")
 map("n", "<c-b>", "<cmd>Telescope buffers<cr>", "检索buffers")
 map("n", "<leader><space>", "<cmd>Telescope live_grep<cr>", "模糊的全局搜索")
-map("n", "<c-/>", "<cmd>lua require('telescope.builtin').grep_string()<cr>", "检索光标下的单词,再过滤选择")
-map("n", "<leader>/", "<cmd>Telescope current_buffer_fuzzy_find()<cr>", "Find in current buffer")
+map({ "n", "v" }, "<c-s-8>", function() --<c-*>
+	require("telescope.builtin").grep_string()
+end, "检索光标下的单词,再过滤选择")
+map("n", "<leader>/", "<cmd>Telescope current_buffer_fuzzy_find<cr>", "fuzzy Find in current buffer")
 map("n", "<leader>fb", "<cmd>Telescope buffers<cr>", "Find Buffers")
 map("n", "<leader>fo", "<cmd>Telescope oldfiles<cr>", "Find old files")
 map("n", "<leader>fc", "<cmd>Telescope colorscheme<cr>", "List Colorscheme")
 map("n", "<leader>fp", "<cmd>Telescope projects<cr>", "Find Projects file")
+
 map("n", "<leader>ft", "<cmd>TodoTelescope<cr>", "Todo in Workspace")
 map("n", "<leader>fT", "<cmd>TodoTelescope keywords=TODO,FIX,FIXME<cr>", "Todo/Fix/Fixme in Workspace")
-mapwk("<leader>fg", { group = "+Git" })
-map("n", "<leader>fgf", "<cmd>Telescope git_files<cr>", "Find Git Files")
-map("n", "<leader>fgb", "<cmd>Telescope git_branches<cr>", "list git branch")
-map("n", "<leader>fgc", "<cmd>Telescope git_commits<cr>", "list git commit")
-map("n", "<leader>fgs", "<cmd>Telescope git_status<cr>", "list git status")
-map("n", "<leader>fgt", "<cmd>Telescope git_stash<cr>", "list git stash")
-map("n", "<leader>l", "<Nop>", "LSP 检索")
+mapwk("n", "<leader>l", nil, { group = "LSP 检索" })
 map("n", "<leader>li", "<cmd>Telescope lsp_incoming_calls<cr>", "list lsp_incoming_calls")
 map("n", "<leader>lo", "<cmd>Telescope lsp_outgoing_calls<cr>", "list lsp_outgoing_calls")
 map("n", "<leader>ls", "<cmd>Telescope lsp_document_symbols<cr>", "list lsp_document_symbols")
@@ -182,7 +204,8 @@ map("n", "<leader>lw", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", "list
 -- map("n", "<leader>fT", "<cmd>ToggleTerm dir=~ name=root<cr>", "Terminal root")
 --
 map("n", "<leader>a", "<cmd>Alpha<cr>", "Welcome")
-mapwk("<leader>b", { group = "Buffer" })
+mapwk("n", "<leader>b", nil, { group = "Buffer" })
+
 map("n", "<leader>bq", "<cmd>bd<cr>", "Close buffer And Window")
 map("n", "<leader>bb", "<cmd>e #<cr>", "swap with last buffer")
 map("n", "<leader>bl", "<cmd>BufferLineCloseRight<cr>", "Close Right buffers")
@@ -204,7 +227,14 @@ for i = 1, 9 do
 	})
 end
 
-map("n", "<leader>g", "<Nop>", "Git")
+mapwk("n", "<leader>g", nil, "Git")
+mapwk("n", "<leader>fg", nil, { group = "+Git" })
+map("n", "<leader>fgf", "<cmd>Telescope git_files<cr>", "Find Git Files")
+map("n", "<leader>fgb", "<cmd>Telescope git_branches<cr>", "list git branch")
+map("n", "<leader>fgc", "<cmd>Telescope git_commits<cr>", "list git commit")
+map("n", "<leader>fgs", "<cmd>Telescope git_status<cr>", "list git status")
+map("n", "<leader>fgt", "<cmd>Telescope git_stash<cr>", "list git stash")
+
 map("n", "<leader>gd", "<cmd>DiffviewOpen<CR>", "Diff Project") --工作区与暂存区的区别,暂存区与本地git仓库的
 map("n", "<leader>gf", "<cmd>DiffviewFileHistory %<cr>", "Current File History") --git本地仓库中,当前文件的commit记录与上次commit之间的区别 ,这个只正对当前文件
 map("n", "<leader>gF", "<cmd>DiffviewFileHistory<cr>", "Files History") --git本地仓库中,当前文件的commit记录与上次commit之间的区别,这个是所有文件的
