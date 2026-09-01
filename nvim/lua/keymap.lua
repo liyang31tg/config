@@ -178,45 +178,47 @@ map("n", "[t", function()
 	require("todo-comments").jump_prev()
 end, "Previous Todo Comment in current buffer")
 
--- Telescope
-mapwk("n", "<leader>f", nil, { group = "检索", icon = "🔍" })
 map("n", "<c-p>", "<cmd>Telescope find_files<cr>", "检索文件")
 map("n", "<c-b>", "<cmd>Telescope buffers<cr>", "检索buffers")
 map("n", "<leader><space>", "<cmd>Telescope live_grep<cr>", "模糊的全局搜索")
 map({ "n", "v" }, "<c-s-8>", function() --<c-*>
 	require("telescope.builtin").grep_string()
 end, "检索光标下的单词,再过滤选择")
+--MARK: <leader>f
+mapwk("n", "<leader>f", nil, { group = "检索", icon = "🔍" })
 map("n", "<leader>/", "<cmd>Telescope current_buffer_fuzzy_find<cr>", "fuzzy Find in current buffer")
-map("n", "<leader>fb", "<cmd>Telescope buffers<cr>", "Find Buffers")
 map("n", "<leader>fo", "<cmd>Telescope oldfiles<cr>", "Find old files")
-map("n", "<leader>fc", "<cmd>Telescope colorscheme<cr>", "List Colorscheme")
+map("n", "<leader>fc", "<cmd>Telescope commands<cr>", "List commands")
+map("n", "<leader>fcc", "<cmd>Telescope colorscheme<cr>", "List Colorscheme")
 map("n", "<leader>fp", "<cmd>Telescope projects<cr>", "Find Projects file")
-
+map("n", "<leader>fk", "<cmd>Telescope keymaps<cr>", "Keymaps")
 map("n", "<leader>ft", "<cmd>TodoTelescope<cr>", "Todo in Workspace")
-map("n", "<leader>fT", "<cmd>TodoTelescope keywords=TODO,FIX,FIXME<cr>", "Todo/Fix/Fixme in Workspace")
+map("n", "<leader>fh", "<cmd>Telescope help_tags<cr>", "Find Help")
+map("n", "<leader>fm", "<cmd>Telescope man_pages<cr>", "Man Pages")
+map("n", "<leader>fr", "<cmd>Telescope registers<cr>", "show Registers")
+map("n", "<leader>fa", "<cmd>Telescope autocommands<cr>", "show aucommands")
+
+map("n", "<leader>z", "<cmd>ZenMode<cr>", "ZenMode")
+
 mapwk("n", "<leader>l", nil, { group = "LSP 检索" })
-map("n", "<leader>li", "<cmd>Telescope lsp_incoming_calls<cr>", "list lsp_incoming_calls")
-map("n", "<leader>lo", "<cmd>Telescope lsp_outgoing_calls<cr>", "list lsp_outgoing_calls")
+map("n", "<leader>li", "<cmd>Telescope lsp_incoming_calls<cr>", "谁调用了我")
+map("n", "<leader>lo", "<cmd>Telescope lsp_outgoing_calls<cr>", "我调用了谁")
 map("n", "<leader>ls", "<cmd>Telescope lsp_document_symbols<cr>", "list lsp_document_symbols")
 map("n", "<leader>lS", "<cmd>Telescope lsp_workspace_symbols<cr>", "list lsp_workspace_symbols")
 map("n", "<leader>lw", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", "list lsp_dynamic_workspace_symbols")
--- map("n", "<leader>ft", "<cmd>ToggleTerm<cr>", "Terminal")
--- map("n", "<leader>fT", "<cmd>ToggleTerm dir=~ name=root<cr>", "Terminal root")
---
+
 map("n", "<leader>a", "<cmd>Alpha<cr>", "Welcome")
+
 mapwk("n", "<leader>b", nil, { group = "Buffer" })
-
-map("n", "<leader>bq", "<cmd>bd<cr>", "Close buffer And Window")
-map("n", "<leader>bb", "<cmd>e #<cr>", "swap with last buffer")
-map("n", "<leader>bl", "<cmd>BufferLineCloseRight<cr>", "Close Right buffers")
-map("n", "<leader>bh", "<cmd>BufferLineCloseLeft<cr>", "Close Left buffers")
-map("n", "<leader>bo", "<cmd>BufferLineCloseOthers<cr>", "Close Others buffer")
-map("n", "<leader>bc", "<cmd>BufferLinePickClose<cr>", "Pick Buffer Close")
-map("n", "<leader>b[", "<cmd>BufferLineCyclePrev<cr>", "Focus Pre Buffer")
-map("n", "<leader>b]", "<cmd>BufferLineCycleNext<cr>", "Focus Next Buffer")
-
+map("n", "<leader>bq", "<cmd>BufferClose<cr>", "Close buffer")
+map("n", "<leader>bd", "<cmd>BufferPickDelete<cr>", "Pick Delete")
+map("n", "<leader>bo", "<cmd>BufferCloseAllButCurrent<cr>", "Close Others buffer")
+map("n", "<leader>bh", "<cmd>BufferCloseBuffersLeft<cr>", "Close Left buffers")
+map("n", "<leader>bl", "<cmd>BufferCloseBuffersRight<cr>", "Close Right buffers")
+map("n", "<leader>bv", "<cmd>BufferCloseAllButVisible<cr>", "BufferCloseAllButVisible")
+map("n", "<leader>bcc", "<cmd>BufferCloseAllButCurrentOrPinned<cr>", "Buffer Close 除了pinned and current")
+map("n", "<leader>bcp", "<cmd>BufferCloseAllButPinned<cr>", "Buffer Close 除了pinned")
 map("n", "<leader>bp", "<cmd>BufferPin<cr>", "Pick Buffer")
-map("n", "<leader>bd", "<cmd>BufferClose<cr>", "Close buffer")
 map("n", "[b", "<cmd>BufferPrevious<cr>", "Previous Buffer")
 map("n", "]b", "<cmd>BufferNext<cr>", "Next Buffer")
 map("n", "<leader>b,", "<cmd>BufferMovePrevious<cr>", "BufferMovePrevious")
@@ -370,17 +372,6 @@ end
 -- 	{ "<leader>Tf", "<cmd>ToggleTerm direction=float<cr>", desc = "Float" },
 -- 	{ "<leader>Th", "<cmd>ToggleTerm size=10 direction=horizontal<cr>", desc = "Horizontal" },
 -- 	{ "<leader>Tv", "<cmd>ToggleTerm size=80 direction=vertical<cr>", desc = "Vertical" },
---
--- 	{ "<leader>h", group = "Help" },
--- 	{ "<leader>hc", "<cmd>Telescope colorscheme<cr>", desc = "Colorscheme" },
--- 	{ "<leader>hh", "<cmd>Telescope help_tags<cr>", desc = "Find Help" },
--- 	{ "<leader>hM", "<cmd>Telescope man_pages<cr>", desc = "Man Pages" },
--- 	{ "<leader>hR", "<cmd>Telescope registers<cr>", desc = "Registers" },
--- 	{ "<leader>hk", "<cmd>Telescope keymaps<cr>", desc = "Keymaps" },
--- 	{ "<leader>hC", "<cmd>Telescope commands<cr>", desc = "Commands" },
--- 	{ "<leader>ha", "<cmd>lua require('telescope.builtin').autocommands()<cr>", desc = "Find  au" },
---
--- 	{ "<leader>z", "<cmd>ZenMode<cr>", desc = "ZenMode" },
 -- }
 
 map("n", ",o", "<cmd>Outline<CR>", "Outline")
