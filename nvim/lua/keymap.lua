@@ -229,25 +229,31 @@ for i = 1, 9 do
 	})
 end
 
-mapwk("n", "<leader>g", nil, "Git")
-mapwk("n", "<leader>fg", nil, { group = "+Git" })
-map("n", "<leader>fgf", "<cmd>Telescope git_files<cr>", "Find Git Files")
-map("n", "<leader>fgb", "<cmd>Telescope git_branches<cr>", "list git branch")
-map("n", "<leader>fgc", "<cmd>Telescope git_commits<cr>", "list git commit")
-map("n", "<leader>fgs", "<cmd>Telescope git_status<cr>", "list git status")
-map("n", "<leader>fgt", "<cmd>Telescope git_stash<cr>", "list git stash")
-
-map("n", "<leader>gd", "<cmd>DiffviewOpen<CR>", "Diff Project") --工作区与暂存区的区别,暂存区与本地git仓库的
-map("n", "<leader>gf", "<cmd>DiffviewFileHistory %<cr>", "Current File History") --git本地仓库中,当前文件的commit记录与上次commit之间的区别 ,这个只正对当前文件
-map("n", "<leader>gF", "<cmd>DiffviewFileHistory<cr>", "Files History") --git本地仓库中,当前文件的commit记录与上次commit之间的区别,这个是所有文件的
+mapwk("n", "<leader>g", nil, { group = "+Git" })
+map("n", "<leader>gg", "<cmd>Telescope git_files<cr>", "Find Git Files")
+map("n", "<leader>gb", "<cmd>Telescope git_branches<cr>", "list git branch")
+map("n", "<leader>gc", "<cmd>Telescope git_commits<cr>", "list git commit")
+map("n", "<leader>gs", "<cmd>Telescope git_status<cr>", "list git status")
+map("n", "<leader>gt", "<cmd>Telescope git_stash<cr>", "list git stash")
+map("n", "<leader>gd", "<cmd>DiffviewOpen<CR>", "Diff Project.") --默认工作区与暂存区的区别,暂存区与本地git仓库的.当然通过命令可以工作区与commit之间的比较. eg: DiffviewOpen main
+map("n", "<leader>gh", "<cmd>DiffviewFileHistory %<cr>", "Current File History") --git本地仓库中,当前文件的commit记录与上次commit之间的区别 ,这个只正对当前文件
+map("n", "<leader>gH", "<cmd>DiffviewFileHistory<cr>", "Files History") --git本地仓库中,当前文件的commit记录与上次commit之间的区别,这个是所有文件的
 map("n", "<leader>gx", "<cmd>DiffviewClose<cr>", "DiffviewClose")
 map("n", "<leader>gn", "<cmd>lua require 'gitsigns'.next_hunk()<cr>", "Next Hunk")
 map("n", "<leader>gp", "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", "Prev Hunk")
 map("n", "]g", "<cmd>lua require 'gitsigns'.next_hunk()<cr>", "Next Hunk")
 map("n", "[g", "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", "Prev Hunk")
-map("n", "<leader>gl", "<cmd>lua require 'gitsigns'.blame_line()<cr>", "提交信息")
-map("n", "<leader>gr", "<cmd>lua require 'gitsigns'.reset_hunk()<cr>", "Reset Hunk")
-map("n", "<leader>gR", "<cmd>lua require 'gitsigns'.reset_buffer()<cr>", "Reset Buffer")
+map("n", "<leader>gl", "<cmdd>lua require 'gitsigns'.blame_line()<cr>", "提交信息")
+map("n", "<leader>gr", "<cmdd>lua require 'gitsigns'.reset_hunk()<cr>", "Reset Hunk")
+map("n", "<leader>gR", "<cmd>lua require 'gitsigns'.reset_buffer()<cr>", "Reset Hunk in Buffer")
+
+--telescope 有功能交叉,区别在于telescope是一次性访问,会弹出一个弹窗.这个只会在旁边新开一个buffer来持久显示
+mapwk("n", "<leader>x", nil, { group = "Trouble" })
+map("n", "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", "Diagnostics (Trouble)")
+map("n", "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", "Buffer Diagnostics (Trouble)")
+map("n", "<leader>xi", "<cmd>Trouble lsp_incoming_calls toggle<cr>", "谁调用了我")
+map("n", "<leader>xo", "<cmd>Trouble lsp_outgoing_calls toggle<cr>", "我调用了谁")
+map("n", "<leader>xs", "<cmd>Trouble lsp_document_symbols toggle<cr>", "当前buffer的symbols")
 
 local function get_args(config)
 	local args = type(config.args) == "function" and (config.args() or {}) or config.args or {}
@@ -269,14 +275,6 @@ end
 -- 	{ "<leader>ob", "<cmd>OverseerBuild<cr>", desc = "Task kbuilder" },
 -- 	{ "<leader>ot", "<cmd>OverseerTaskAction<cr>", desc = "Task action" },
 -- 	{ "<leader>oc", "<cmd>OverseerClearCache<cr>", desc = "Clear cache" },
---
--- 	{ "<leader>x", group = "Trouble" },
--- 	{ "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", desc = "Diagnostics (Trouble)" },
--- 	{ "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", desc = "Buffer Diagnostics (Trouble)" },
--- 	{ "<leader>xs", "<cmd>Trouble symbols toggle<cr>", desc = "Symbols (Trouble)" },
--- 	{ "<leader>xS", "<cmd>Trouble lsp toggle<cr>", desc = "LSP references/definitions/... (Trouble)" },
--- 	{ "<leader>xL", "<cmd>Trouble loclist toggle<cr>", desc = "Location List (Trouble)" },
--- 	{ "<leader>xQ", "<cmd>Trouble qflist toggle<cr>", desc = "Quickfix List (Trouble)" },
 --
 -- 	{ "<leader>t", group = "Test" },
 -- 	{
