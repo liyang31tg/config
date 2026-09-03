@@ -204,7 +204,7 @@ mapwk("n", "<leader>l", nil, { group = "LSP 检索" })
 map("n", "<leader>li", "<cmd>Telescope lsp_incoming_calls<cr>", "谁调用了我")
 map("n", "<leader>lo", "<cmd>Telescope lsp_outgoing_calls<cr>", "我调用了谁")
 map("n", "<leader>ls", "<cmd>Telescope lsp_document_symbols<cr>", "list lsp_document_symbols")
-map("n", "<leader>lS", "<cmd>Telescope lsp_workspace_symbols<cr>", "list lsp_workspace_symbols")
+-- map("n", "<leader>lS", "<cmd>Telescope lsp_workspace_symbols<cr>", "list lsp_workspace_symbols") --not work
 map("n", "<leader>lw", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", "list lsp_dynamic_workspace_symbols")
 
 map("n", "<leader>a", "<cmd>Alpha<cr>", "Welcome")
@@ -266,125 +266,61 @@ local function get_args(config)
 	return config
 end
 
--- pluginKeys.whichkeys = {
--- 	{ "<leader>o", group = "Task" },
--- 	{ "<leader>ow", "<cmd>OverseerToggle<cr>", desc = "Task list" },
--- 	{ "<leader>oo", "<cmd>OverseerRun<cr>", desc = "Run task" },
--- 	{ "<leader>oq", "<cmd>OverseerQuickAction<cr>", desc = "Action recent task" },
--- 	{ "<leader>oi", "<cmd>OverseerInfo<cr>", desc = "Overseer Info" },
--- 	{ "<leader>ob", "<cmd>OverseerBuild<cr>", desc = "Task kbuilder" },
--- 	{ "<leader>ot", "<cmd>OverseerTaskAction<cr>", desc = "Task action" },
--- 	{ "<leader>oc", "<cmd>OverseerClearCache<cr>", desc = "Clear cache" },
---
--- 	{ "<leader>t", group = "Test" },
--- 	{
--- 		"<leader>ta",
--- 		function()
--- 			require("neotest").run.attach()
--- 		end,
--- 		desc = "[t]est [a]ttach",
--- 	},
--- 	{
--- 		"<leader>tf",
--- 		function()
--- 			require("neotest").run.run(vim.fn.expand("%"))
--- 		end,
--- 		desc = "[t]est run [f]ile",
--- 	},
--- 	{
--- 		"<leader>tA",
--- 		function()
--- 			require("neotest").run.run(vim.uv.cwd())
--- 		end,
--- 		desc = "[t]est [A]ll files",
--- 	},
--- 	{
--- 		"<leader>tS",
--- 		function()
--- 			require("neotest").run.run({ suite = true })
--- 		end,
--- 		desc = "[t]est [S]uite",
--- 	},
--- 	{
--- 		"<leader>tt", --运行当前方法
--- 		function()
--- 			require("neotest").run.run()
--- 		end,
--- 		desc = "[t]est [n]earest",
--- 	},
--- 	{
--- 		"<leader>tl",
--- 		function()
--- 			require("neotest").run.run_last()
--- 		end,
--- 		desc = "[t]est [l]ast",
--- 	},
--- 	{
--- 		"<leader>ts",
--- 		function()
--- 			require("neotest").summary.toggle()
--- 		end,
--- 		desc = "[t]est [s]ummary",
--- 	},
--- 	{
--- 		"<leader>to",
--- 		function()
--- 			require("neotest").output.open({ enter = true, auto_close = true })
--- 		end,
--- 		desc = "[t]est [o]utput",
--- 	},
--- 	{
--- 		"<leader>tO",
--- 		function()
--- 			require("neotest").output_panel.toggle()
--- 		end,
--- 		desc = "[t]est [O]utput panel",
--- 	},
--- 	{
--- 		"<leader>tc",
--- 		function()
--- 			require("neotest").output_panel.clear()
--- 		end,
--- 		desc = "clear [O]utput panel",
--- 	},
--- 	{
--- 		"<leader>te",
--- 		function()
--- 			require("neotest").run.stop()
--- 		end,
--- 		desc = "[t]est [t]erminate",
--- 	},
--- 	{
--- 		"<leader>td",
--- 		function()
--- 			require("neotest").run.run({ suite = false, strategy = "dap" })
--- 		end,
--- 		desc = "Debug nearest test",
--- 	},
---
--- 	{ "<leader>T", group = "Terminal" },
--- 	{ "<leader>Tn", "<cmd>lua _NODE_TOGGLE()<cr>", desc = "Node" },
--- 	{ "<leader>Tu", "<cmd>lua _NCDU_TOGGLE()<cr>", desc = "NCDU" },
--- 	{ "<leader>Tt", "<cmd>lua _HTOP_TOGGLE()<cr>", desc = "Htop" },
--- 	{ "<leader>Tp", "<cmd>lua _PYTHON_TOGGLE()<cr>", desc = "Python" },
--- 	{ "<leader>Tf", "<cmd>ToggleTerm direction=float<cr>", desc = "Float" },
--- 	{ "<leader>Th", "<cmd>ToggleTerm size=10 direction=horizontal<cr>", desc = "Horizontal" },
--- 	{ "<leader>Tv", "<cmd>ToggleTerm size=80 direction=vertical<cr>", desc = "Vertical" },
--- }
+-- Test（neotest）
+mapwk("n", "<leader>t", nil, { group = "Test" })
+map("n", "<leader>ta", function()
+	require("neotest").run.attach()
+end, "[t]est [a]ttach")
+map("n", "<leader>tf", function()
+	require("neotest").run.run(vim.fn.expand("%"))
+end, "[t]est run [f]ile")
+map("n", "<leader>tA", function()
+	require("neotest").run.run(vim.uv.cwd())
+end, "[t]est [A]ll files")
+map("n", "<leader>tS", function()
+	require("neotest").run.run({ suite = true })
+end, "[t]est [S]uite")
+map("n", "<leader>tt", function() --运行当前方法
+	require("neotest").run.run()
+end, "[t]est [n]earest")
+map("n", "<leader>tl", function()
+	require("neotest").run.run_last()
+end, "[t]est [l]ast")
+map("n", "<leader>ts", function()
+	require("neotest").summary.toggle()
+end, "[t]est [s]ummary")
+map("n", "<leader>to", function()
+	require("neotest").output.open({ enter = true, auto_close = true })
+end, "[t]est [o]utput")
+map("n", "<leader>tO", function()
+	require("neotest").output_panel.toggle()
+end, "[t]est [O]utput panel")
+map("n", "<leader>tc", function()
+	require("neotest").output_panel.clear()
+end, "clear [O]utput panel")
+map("n", "<leader>te", function()
+	require("neotest").run.stop()
+end, "[t]est [t]erminate")
+map("n", "<leader>td", function()
+	require("neotest").run.run({ suite = false, strategy = "dap" })
+end, "Debug nearest test")
+
+-- Terminal（toggleterm）
+mapwk("n", "<leader>T", nil, { group = "Terminal" })
+map("n", "<leader>Tn", "<cmd>lua _NODE_TOGGLE()<cr>", "Node")
+map("n", "<leader>Tu", "<cmd>lua _NCDU_TOGGLE()<cr>", "NCDU")
+map("n", "<leader>Tt", "<cmd>lua _HTOP_TOGGLE()<cr>", "Htop")
+map("n", "<leader>Tp", "<cmd>lua _PYTHON_TOGGLE()<cr>", "Python")
+map("n", "<leader>Tf", "<cmd>ToggleTerm direction=float<cr>", "Float")
+map("n", "<leader>Th", "<cmd>ToggleTerm size=10 direction=horizontal<cr>", "Horizontal")
+map("n", "<leader>Tv", "<cmd>ToggleTerm size=80 direction=vertical<cr>", "Vertical")
 
 map("n", ",o", "<cmd>Outline<CR>", "Outline")
--- map("n", "<leader>/", "<cmd>OutlineFocus<CR>", "OutlineFocus")
 
 -- 黑苹果不支持,m1芯片是支持的 zellij 0.43.1 支持,0.44有bug
 map({ "n", "i", "v" }, "<D-s>", function()
 	vim.cmd("silent! write")
 end, "save")
-
--- 桥接使用,因为黑苹果不支持上面的<D-s>,又不d想使用:w的方式,因为想屏蔽小命令行
--- map({ "n", "i", "v" }, "<F14>", function()
--- 	log("ted<F14>st")
--- 	vim.cmd("silent! write")
--- end, "save")
 
 map({ "n", "i", "v" }, "<F15>", function()
 	vim.cmd("silent! NvimTreeFindFile")
