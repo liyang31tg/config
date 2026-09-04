@@ -1,36 +1,71 @@
-local go_opts = { -- Specify configuration
-	go_test_args = {
-		"-v",
-		"-race",
-		"-count=1",
-		"-coverprofile=" .. vim.fn.getcwd() .. "/coverage.out",
-	},
-}
-local obj = {
-	"nvim-neotest/neotest",
-	dependencies = {
-		"nvim-neotest/nvim-nio",
-		"nvim-lua/plenary.nvim",
-		"antoinemadec/FixCursorHold.nvim",
-		"nvim-treesitter/nvim-treesitter",
-		{
-			"fredrikaverpil/neotest-golang", -- Installation
-			dependencies = {
-				"leoluz/nvim-dap-go",
+-- local go_opts = { -- Specify configuration
+-- 	go_test_args = {
+-- 		"-v",
+-- 		"-race",
+-- 		"-count=1",
+-- 		"-coverprofile=" .. vim.fn.getcwd() .. "/coverage.out",
+-- 	},
+-- }
+-- local obj = {
+-- 	"nvim-neotest/neotest",
+-- 	dependencies = {
+-- 		"nvim-neotest/nvim-nio",
+-- 		"nvim-lua/plenary.nvim",
+-- 		"antoinemadec/FixCursorHold.nvim",
+-- 		"nvim-treesitter/nvim-treesitter",
+-- 		{
+-- 			"fredrikaverpil/neotest-golang", -- Installation
+-- 			dependencies = {
+-- 				"leoluz/nvim-dap-go",
+-- 			},
+-- 		},
+-- 	},
+-- 	config = function()
+-- 		require("neotest").setup({
+-- 			adapters = {
+-- 				require("neotest-golang")(go_opts),
+-- 			},
+-- 		})
+-- 		-- require("keymap").mapTEST()
+-- 	end,
+-- }
+--
+-- return obj
+
+return {
+	{
+		"nvim-neotest/neotest",
+		dependencies = {
+			"nvim-neotest/nvim-nio",
+			"nvim-lua/plenary.nvim",
+			"antoinemadec/FixCursorHold.nvim",
+			{
+				"nvim-treesitter/nvim-treesitter", -- Optional, but recommended
+				branch = "main", -- NOTE; not the master branch!
+				build = function()
+					vim.cmd(":TSUpdate go")
+				end,
+			},
+			{
+				"fredrikaverpil/neotest-golang",
+				version = "*", -- Optional, but recommended; track releases
+				build = function()
+					vim.system({ "go", "install", "gotest.tools/gotestsum@latest" }):wait() -- Optional, but recommended
+				end,
 			},
 		},
+		config = function()
+			local config = {
+				runner = "gotestsum", -- Optional, but recommended
+			}
+			require("neotest").setup({
+				adapters = {
+					require("neotest-golang")(config),
+				},
+			})
+		end,
 	},
-	config = function()
-		require("neotest").setup({
-			adapters = {
-				require("neotest-golang")(go_opts),
-			},
-		})
-		-- require("keymap").mapTEST()
-	end,
 }
-
-return obj
 
 -- Test single function
 -- To test a single test hover over the test and run require('neotest').run.run()
