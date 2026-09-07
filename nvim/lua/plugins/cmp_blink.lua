@@ -18,6 +18,15 @@ return {
 		require("blink.cmp").setup(opts)
 	end,
 	opts = {
+
+		enabled = function()
+			-- nvim-tree rename/create/confirm 都是 buftype=nofile
+			if vim.bo.buftype == "nofile" then --nvim-tree的添加与删除文件都没有补全
+				return false
+			end
+			-- 保留 buffer 局部开关 vim.b.completion
+			return vim.F.if_nil(vim.b.completion, true)
+		end,
 		appearance = {
 			use_nvim_cmp_as_default = true, -- 兼容绝大多数主题高亮
 			nerd_font_variant = "mono", -- 等宽NerdFont，图标对齐
