@@ -99,6 +99,10 @@ local obj = {
 			"theHamsta/nvim-dap-virtual-text", --显示调试旁边的虚拟字体
 			"rcarriga/nvim-dap-ui",
 			"nvim-neotest/nvim-nio",
+			{
+				"leoluz/nvim-dap-go",
+				opts = {},
+			},
 		},
 		config = function()
 			-- dap.lua
