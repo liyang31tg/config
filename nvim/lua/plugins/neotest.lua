@@ -49,6 +49,12 @@ return {
 			{
 				"fredrikaverpil/neotest-golang",
 				version = "*", -- Optional, but recommended; track releases
+				dependencies = {
+					{
+						"leoluz/nvim-dap-go",
+						opts = {},
+					},
+				},
 				build = function()
 					vim.system({ "go", "install", "gotest.tools/gotestsum@latest" }):wait() -- Optional, but recommended
 				end,
@@ -57,6 +63,12 @@ return {
 		config = function()
 			local config = {
 				runner = "gotestsum", -- Optional, but recommended
+				go_test_args = {
+					"-v",
+					"-race",
+					"-count=1",
+					"-coverprofile=" .. vim.fn.getcwd() .. "/coverage.out",
+				},
 			}
 			require("neotest").setup({
 				adapters = {

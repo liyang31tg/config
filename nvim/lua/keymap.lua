@@ -268,21 +268,33 @@ end
 
 -- Test（neotest）
 mapwk("n", "<leader>t", nil, { group = "Test" })
-map("n", "<leader>ta", function()
-	require("neotest").run.attach()
-end, "[t]est [a]ttach")
-map("n", "<leader>tf", function()
-	require("neotest").run.run(vim.fn.expand("%"))
-end, "[t]est run [f]ile")
-map("n", "<leader>tA", function()
-	require("neotest").run.run(vim.uv.cwd())
-end, "[t]est [A]ll files")
-map("n", "<leader>tS", function()
-	require("neotest").run.run({ suite = true })
-end, "[t]est [S]uite")
 map("n", "<leader>tt", function() --运行当前方法
 	require("neotest").run.run()
 end, "[t]est [n]earest")
+
+map("n", "<leader>td", function()
+	require("neotest").run.run({ suite = false, strategy = "dap" })
+end, "Debug nearest test")
+
+map("n", "<leader>tf", function()
+	require("neotest").run.run(vim.fn.expand("%"))
+end, "[t]est run [f]ile")
+
+map("n", "<leader>te", function()
+	require("neotest").run.stop()
+end, "[t]est [t]erminate")
+
+map("n", "<leader>ta", function()
+	require("neotest").run.attach()
+end, "[t]est [a]ttach")
+
+map("n", "<leader>tA", function()
+	require("neotest").run.run(vim.uv.cwd())
+end, "[t]est [A]ll files")
+
+map("n", "<leader>tS", function()
+	require("neotest").run.run({ suite = true })
+end, "[t]est [S]uite")
 map("n", "<leader>tl", function()
 	require("neotest").run.run_last()
 end, "[t]est [l]ast")
@@ -298,12 +310,6 @@ end, "[t]est [O]utput panel")
 map("n", "<leader>tc", function()
 	require("neotest").output_panel.clear()
 end, "clear [O]utput panel")
-map("n", "<leader>te", function()
-	require("neotest").run.stop()
-end, "[t]est [t]erminate")
-map("n", "<leader>td", function()
-	require("neotest").run.run({ suite = false, strategy = "dap" })
-end, "Debug nearest test")
 
 -- Terminal（toggleterm）
 mapwk("n", "<leader>T", nil, { group = "Terminal" })
