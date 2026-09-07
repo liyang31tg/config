@@ -294,7 +294,7 @@ end, "[t]est [A]ll files")
 
 map("n", "<leader>tS", function()
 	require("neotest").run.run({ suite = true })
-end, "[t]est [S]uite")
+end, "[t]est [S]uite") -- <leader>tA等价
 map("n", "<leader>tl", function()
 	require("neotest").run.run_last()
 end, "[t]est [l]ast")
