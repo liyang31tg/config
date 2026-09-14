@@ -3,7 +3,6 @@ export HOMEBREW_NO_AUTO_UPDATE=1
 export GOPATH="$HOME/go"
 export GOBIN="$GOPATH/bin"
 export GO111MODULE=on
-export GOPROXY="https://goproxy.cn"
 export PATH=$PATH:$GOBIN
 export PATH="$PATH:$HOME/.rvm/bin"
 export PATH="$HOME/.cargo/bin:$PATH"

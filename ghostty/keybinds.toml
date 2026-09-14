@@ -16,6 +16,9 @@ keybind = alt+arrow_down=unbind
 keybind = alt+arrow_left=unbind
 keybind = alt+arrow_right=unbind
 keybind = alt+arrow_up=unbind
+keybind = super+shift+[=unbind
+keybind = super+shift+]=unbind
+keybind = super+t=unbind
 # ignore end ================================
 
 # super + alt   + arrow_down      goto_split:down
@@ -23,10 +26,16 @@ keybind = alt+arrow_up=unbind
 # super + alt   + arrow_right     goto_split:right
 #dd  super + alt   + arrow_up        goto_split:up
 
-keybind = super+h=goto_split:left
-keybind = super+j=goto_split:down
-keybind = super+k=goto_split:up
-keybind = super+l=goto_split:right
+# keybind = super+h=goto_split:left
+# keybind = super+j=goto_split:down
+# keybind = super+k=goto_split:up
+# keybind = super+l=goto_split:right
+keybind = super+h=unbind
+keybind = super+j=unbind
+keybind = super+k=unbind
+keybind = super+l=unbind
+keybind = super+d=unbind
+keybind = super+shift+d=unbind
 # keybind = super+ctrl+k=clear_screen
 keybind = super+shift+semicolon=move_tab:-1
 keybind = super+shift+quote=move_tab:1
