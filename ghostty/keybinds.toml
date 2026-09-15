@@ -19,6 +19,8 @@ keybind = alt+arrow_up=unbind
 keybind = super+shift+[=unbind
 keybind = super+shift+]=unbind
 keybind = super+t=unbind
+keybind = super+shift+,=unbind
+keybind = super+shift+.=unbind
 # ignore end ================================
 
 # super + alt   + arrow_down      goto_split:down
@@ -37,8 +39,8 @@ keybind = super+l=unbind
 keybind = super+d=unbind
 keybind = super+shift+d=unbind
 # keybind = super+ctrl+k=clear_screen
-keybind = super+shift+semicolon=move_tab:-1
-keybind = super+shift+quote=move_tab:1
+# keybind = super+shift+semicolon=move_tab:-1
+# keybind = super+shift+quote=move_tab:1
 keybind = super+shift+x=close_tab
 keybind = super+shift+equal=equalize_splits
 keybind = super+arrow_down=resize_split:down,10
