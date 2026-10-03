@@ -251,9 +251,9 @@ theme "nord"
 // The name of the default layout to load on startup
 // Default: "default"
 //
-// default_layout "zjstatus"
+default_layout "zjstatus"
 // default_layout "compact"
-default_layout "disable-status-bar"
+// default_layout "disable-status-bar"
 
 // Choose the base input mode of zellij.
 // Default: normal
