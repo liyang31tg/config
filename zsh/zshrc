@@ -44,21 +44,21 @@ export LC_ALL=en_US.UTF-8
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk-18.0.1.1.jdk/Contents/Home
 
 function fg() {
-    if [[ $# -eq 1 && $1 = - ]]; then
-        builtin fg %-
-    else
-        builtin fg %"$@"
-    fi
+	if [[ $# -eq 1 && $1 = - ]]; then
+		builtin fg %-
+	else
+		builtin fg %"$@"
+	fi
 }
 
 export EDITOR=nvim #yazi打开的默认编辑器
 function f() {
-    local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
-    yazi "$@" --cwd-file="$tmp"
-    if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-        builtin cd -- "$cwd"
-    fi
-    rm -f -- "$tmp"
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		builtin cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
 }
 # alias start
 alias e=nvim
@@ -95,17 +95,17 @@ alias s="spf"
 export LC_ALL=zh_CN.UTF-8
 export LANG=zh_CN.UTF-8
 fd1() {
-    local dir
-    dir=$(find ${1:-.} -path '*/\.*' -prune \
-        -o -type d -print 2>/dev/null | fzf +m) &&
-        cd "$dir"
+	local dir
+	dir=$(find ${1:-.} -path '*/\.*' -prune \
+		-o -type d -print 2>/dev/null | fzf +m) &&
+		cd "$dir"
 }
 
 # kitty start
 alias icat="kitty +kitten icat"
 alias d="kitty +kitten diff"
 alias ts=ts-node
-alias tr="ts-node-dev  -r tsconfig-paths/register  --respawn --transpile-only" #tsconfig-paths/register 是为了解决tsconfig-paths的问题
+# alias tr="ts-node-dev  -r tsconfig-paths/register  --respawn --transpile-only" #tsconfig-paths/register 是为了解决tsconfig-paths的问题
 alias pn="pnpm"
 alias ssh="TERM=xterm-256color ssh"
 # kitty end
@@ -118,7 +118,7 @@ export TZ='Asia/Bangkok'
 
 alias ts="ts-node-dev --respawn "
 if [[ -e $HOME/.zshrc_local ]]; then
-    source $HOME/.zshrc_local
+	source $HOME/.zshrc_local
 fi
 
 # zellij start
@@ -127,38 +127,93 @@ fi
 #
 #打开默认
 function zz() {
-    zellij attach -c default
+	zellij attach -c default
 }
 
 #会话列表
 function zl() {
-    zellij list-sessions
+	zellij list-sessions
 }
 
 #指定名字创建一个会话
 function zc() {
-    session_name=$1
-    if [ -z ${session_name} ]; then
-        echo "必须指定一个会话名字"
-        return
-    fi
-    zellij attach -c ${session_name}
+	session_name=$1
+	if [ -z ${session_name} ]; then
+		echo "必须指定一个会话名字"
+		return
+	fi
+	zellij attach -c ${session_name}
 }
 
 #链接一个现有的会话,大于2个选择，只有一个默认打开，一个都没有就打开default
 function za() {
-    zellij da -y
-    ZJ_SESSIONS=$(zellij list-sessions | sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]//g")
-    NO_SESSIONS=$(echo "${ZJ_SESSIONS}" | wc -l)
-    if [ "${NO_SESSIONS}" -ge 2 ]; then
-        zellij attach \
-            "$(echo "${ZJ_SESSIONS}" | sk | awk '{print $1}')"
-    elif [ "${NO_SESSIONS}" -eq 1 ]; then
-        zellij attach -c
-    else
-        zellij attach -c default
-    fi
+	# local 局部变量
+	local ZJ_SESSIONS NO_SESSIONS selected
+	# 脱离当前所有附着
+	zellij da -y
+
+	# 取出会话列表，去除ansi颜色码，过滤空行
+	ZJ_SESSIONS=$(zellij list-sessions | sed 's/\x1B\[[0-9;]*[mK]//g' | sed '/^$/d')
+
+	# 空列表时 echo | wc -l 会得到 1，需要单独判断为 0
+	if [[ -z "${ZJ_SESSIONS}" ]]; then
+		NO_SESSIONS=0
+	else
+		NO_SESSIONS=$(echo "${ZJ_SESSIONS}" | wc -l | command tr -d ' ')
+	fi
+
+	if [[ ${NO_SESSIONS} -ge 2 ]]; then
+		# skim选择会话，取第一列会话名
+		selected=$(echo "${ZJ_SESSIONS}" | sk | awk '{print $1}')
+		[[ -n "${selected}" ]] && zellij attach "${selected}"
+	elif [[ ${NO_SESSIONS} -eq 1 ]]; then
+		# 只有1个会话，直接attach它，不再执行裸 zellij（解决新建会话问题）
+		selected=$(echo "${ZJ_SESSIONS}" | awk '{print $1}')
+		zellij attach "${selected}"
+	else
+		# 无会话，创建并attach default
+		zellij attach -c default
+	fi
 }
+
+function zk() {
+	local ZJ_SESSIONS selected
+	ZJ_SESSIONS=$(zellij list-sessions | sed 's/\x1B\[[0-9;]*[mK]//g' | sed '/^$/d')
+
+	if [[ -z "${ZJ_SESSIONS}" ]]; then
+		echo "No zellij sessions found."
+		return 0
+	fi
+
+	selected=$(echo "${ZJ_SESSIONS}" | sk | awk '{print $1}')
+	if [[ -z "${selected}" ]]; then
+		echo "Canceled."
+		return 0
+	fi
+
+	read "?Confirm kill session [${selected}]? [y/N] " ans
+	if [[ "${ans}" =~ ^[Yy]$ ]]; then
+		zellij kill-session "${selected}"
+		echo "Session [${selected}] killed."
+	else
+		echo "Canceled."
+	fi
+}
+
+function zka() {
+	local ZJ_SESSIONS
+	ZJ_SESSIONS=$(zellij list-sessions | sed 's/\x1B\[[0-9;]*[mK]//g' | sed '/^$/d' | awk '{print $1}')
+	if [[ -z "${ZJ_SESSIONS}" ]]; then
+		echo "No sessions"
+		return
+	fi
+	read "?Kill ALL zellij sessions? [y/N] " ans
+	if [[ "${ans}" =~ ^[Yy]$ ]]; then
+		echo "${ZJ_SESSIONS}" | xargs -I{} zellij kill-session {}
+		echo "All sessions killed"
+	fi
+}
+
 # zellij end
 export useryy=12 #这是一个标识，表示只在本机
 
@@ -170,42 +225,42 @@ bindkey -e
 fastfetch
 
 function proxy_on() {
-    local port=7890
-    if [ $# -eq 1 ]; then
-        port=$1
-    fi
-    export all_proxy=socks5://0.0.0.0:$port
+	local port=7890
+	if [ $# -eq 1 ]; then
+		port=$1
+	fi
+	export all_proxy=socks5://0.0.0.0:$port
 }
 
 function proxy_http_on() {
-    local port=7890
-    if [ $# -eq 1 ]; then
-        port=$1
-    fi
-    export http_proxy=http://127.0.0.1:$port
-    export https_proxy=http://127.0.0.1:$port
+	local port=7890
+	if [ $# -eq 1 ]; then
+		port=$1
+	fi
+	export http_proxy=http://127.0.0.1:$port
+	export https_proxy=http://127.0.0.1:$port
 }
 
 function proxy_all_on() {
-    local port=7890
-    if [ $# -eq 1 ]; then
-        port=$1
-    fi
-    export http_proxy=http://127.0.0.1:$port
-    export https_proxy=http://127.0.0.1:$port
-    export all_proxy=socks5://127.0.0.1:$port
+	local port=7890
+	if [ $# -eq 1 ]; then
+		port=$1
+	fi
+	export http_proxy=http://127.0.0.1:$port
+	export https_proxy=http://127.0.0.1:$port
+	export all_proxy=socks5://127.0.0.1:$port
 }
 
 function proxy_off() {
-    unset http_proxy
-    unset https_proxy
-    unset all_proxy
+	unset http_proxy
+	unset https_proxy
+	unset all_proxy
 }
 
 function ip() {
-    curl ipinfo.io
+	curl ipinfo.io
 }
 
 function wk() {
-    ssh wk
+	ssh wk
 }

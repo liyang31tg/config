@@ -251,7 +251,9 @@ theme "nord"
 // The name of the default layout to load on startup
 // Default: "default"
 //
-default_layout "zjstatus"
+// default_layout "zjstatus"
+// default_layout "compact"
+default_layout "disable-status-bar"
 
 // Choose the base input mode of zellij.
 // Default: normal
@@ -507,3 +509,7 @@ show_release_notes false
 // can be useful for removing wrappers around commands
 // Note: be sure to escape backslashes and similar characters properly
 // post_command_discovery_hook "echo $RESURRECT_COMMAND | sed <your_regex_here>"
+
+attach_to_session true
+session_name "my-session"
+
