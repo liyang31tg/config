@@ -243,8 +243,8 @@ map("n", "<leader>gn", "<cmd>lua require 'gitsigns'.next_hunk()<cr>", "Next Hunk
 map("n", "<leader>gp", "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", "Prev Hunk")
 map("n", "]g", "<cmd>lua require 'gitsigns'.next_hunk()<cr>", "Next Hunk")
 map("n", "[g", "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", "Prev Hunk")
-map("n", "<leader>gl", "<cmdd>lua require 'gitsigns'.blame_line()<cr>", "提交信息")
-map("n", "<leader>gr", "<cmdd>lua require 'gitsigns'.reset_hunk()<cr>", "Reset Hunk")
+map("n", "<leader>gl", "<cmd>lua require 'gitsigns'.blame_line()<cr>", "提交信息")
+map("n", "<leader>gr", "<cmd>lua require 'gitsigns'.reset_hunk()<cr>", "Reset Hunk")
 map("n", "<leader>gR", "<cmd>lua require 'gitsigns'.reset_buffer()<cr>", "Reset Hunk in Buffer")
 
 --telescope 有功能交叉,区别在于telescope是一次性访问,会弹出一个弹窗.这个只会在旁边新开一个buffer来持久显示
