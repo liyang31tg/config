@@ -9,23 +9,42 @@
         "reserved": 10000
     },
     "mcp": {
-        "modao": {
-            "type": "local",
-            "command": ["npx", "-y", "@modao-mcp/modao-proto-mcp", "--token={env:MODAO_TOKEN}", "--url=https://modao.cc"],
-            "enabled": true,
-            "timeout": 30000
-        },
-        "gopls": {
-            "type": "local",
-            "command": ["gopls", "mcp"],
-            "enabled": true,
-            "timeout": 30000
-        },
-        "ts-mcp-server": {
-            "type": "local",
-            "command": ["npx", "ts-mcp-server"],
-            "enabled": true,
-            "timeout": 30000
+        "servers": {
+            "gopls": {
+                "type": "local",
+                "command": ["gopls", "mcp"]
+            },
+            "playwright": {
+                "type": "local",
+                "command": ["npx", "-y", "@playwright/mcp@latest"]
+            },
+            "context7": {
+                "type": "remote",
+                "url": "https://mcp.context7.com/mcp"
+            },
+            "pollinations": {
+                "type": "remote",
+                "url": "https://gen.pollinations.ai/mcp/pollinations",
+                "oauth": false,
+                "headers": {
+                    "Authorization": "Bearer {env:POLLINATIONS_API_KEY}"
+                }
+            },
+            // ===== Cocos Creator MCP（游戏引擎，编辑器插件形式）=====
+            // 这是「编辑器插件」，不是独立服务器，需在装了 Cocos Creator 的电脑上操作：
+            //   1) 装插件：git clone https://github.com/caravanglory/cocos-mcp-server.git
+            //      到 Cocos 项目的 extensions/cocos-mcp-server（或全局 ~/.CocosCreator/extensions/），
+            //      然后 cd extensions/cocos-mcp-server && npm install && npm run build
+            //   2) 启动：Cocos Creator → 扩展 → 扩展管理器 → 启用 cocos-mcp-server；
+            //      再 扩展 → Cocos MCP Server → 点「启动服务器」（默认 http://127.0.0.1:3000/mcp）
+            //   3) 连接：把下面 disabled 改成 false（或删掉）即可让 opencode 连上
+            //https://vberai.com/game-engines/cocos 这个是更好的解法
+            "cocos": {
+                "type": "remote",
+                "url": "http://127.0.0.1:3000/mcp",
+                "oauth": false,
+                "disabled": true
+            }
         }
     },
     "watcher": {
