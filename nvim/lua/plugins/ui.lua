@@ -48,6 +48,8 @@ return {
 			vim.g.barbar_auto_setup = false
 		end,
 		opts = {
+			-- 只有一个 buffer 时自动隐藏标签栏，避免启动时“空标签闪现后又消失”
+			auto_hide = 1,
 			-- lazy.nvim will automatically call setup for you. put your options here, anything missing will use the default:
 			-- animation = true,
 			-- insert_at_start = true,

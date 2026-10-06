@@ -103,8 +103,8 @@ opt.background = "dark"
 opt.shortmess = vim.o.shortmess .. "c"
 -- 补全最多显示10行
 opt.pumheight = 10
--- 永远显示 tabline
-opt.showtabline = 2
+-- 不强制显示原生 tabline，交给 barbar 用 auto_hide 控制（避免启动时标签栏闪现）
+opt.showtabline = 0
 opt.showcmd = true
 
 -- buffer
