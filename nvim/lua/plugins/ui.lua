@@ -1,10 +1,4 @@
 return {
-	{ --欢迎页面
-		"goolord/alpha-nvim",
-		config = function()
-			require("alpha").setup(require("alpha.themes.theta").config)
-		end,
-	},
 	-- { --顶部的buffer列表
 	-- 	"akinsho/bufferline.nvim",
 	-- 	version = "*",
