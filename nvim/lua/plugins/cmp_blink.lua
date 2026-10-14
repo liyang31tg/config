@@ -16,6 +16,39 @@ return {
 		-- 加载 friendly-snippets 的 vscode 风格代码段，否则 luasnip 引擎里是空的
 		require("luasnip.loaders.from_vscode").lazy_load()
 		require("blink.cmp").setup(opts)
+
+		-- ====== 修复：select 模式覆盖占位符时污染寄存器/系统剪贴板 ======
+		-- LuaSnip 用 select 模式选中占位符，输入字符覆盖时 Neovim 会把被删文本写进寄存器。
+		-- 正常应由 LuaSnip 的 <C-r>_（黑洞寄存器）兜底，但在 blink.cmp 的补全流程里会失效。
+		-- 注意：你 opt.lua 里配了 clipboard = "unnamed,unnamedplus"，此时被删文本是写进
+		-- "+"/"*"（系统剪贴板）而不是 ""，所以必须同时保存/恢复 ""、+、* 三个寄存器。
+		local saved_registers = nil
+		local function save_all_registers()
+			saved_registers = {}
+			for _, reg in ipairs({ '"', '+', '*' }) do
+				saved_registers[reg] = { vim.fn.getreg(reg), vim.fn.getregtype(reg) }
+			end
+		end
+		local function restore_all_registers()
+			if not saved_registers then
+				return
+			end
+			for _, reg in ipairs({ '"', '+', '*' }) do
+				vim.fn.setreg(reg, saved_registers[reg][1], saved_registers[reg][2])
+			end
+			saved_registers = nil
+		end
+		vim.api.nvim_create_augroup("BlinkCmpSelectRegister", { clear = true })
+		vim.api.nvim_create_autocmd("ModeChanged", {
+			group = "BlinkCmpSelectRegister",
+			pattern = "*:s", -- 进入 select 模式前保存
+			callback = save_all_registers,
+		})
+		vim.api.nvim_create_autocmd("ModeChanged", {
+			group = "BlinkCmpSelectRegister",
+			pattern = "s:*", -- 离开 select 模式后恢复
+			callback = restore_all_registers,
+		})
 	end,
 	opts = {
 
@@ -55,6 +88,9 @@ return {
 
 			trigger = {
 				show_on_insert_on_trigger_character = true,
+				-- 片段（snippet）激活期间不弹出补全菜单，避免菜单重新弹出时打断 LuaSnip
+				-- 的 select 模式 <C-r>_ 黑洞寄存器设置（这正是占位符被 yank 的诱因之一）
+				show_in_snippet = false,
 				-- show_on_blocked_trigger_characters = function(ctx)
 				-- 	local char_before = ctx.cursor_before:sub(-1)
 				-- 	-- 光标前是 ) 空格 \n \t，阻止自动弹出
