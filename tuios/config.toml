@@ -1,0 +1,32 @@
+[startup]
+tiled = true
+daemon = true
+[appearance]
+# 窗格之间空隙，最小 0（默认就是0）
+gap = 0
+# 共享边框：相邻窗格共用一条分隔线，消除双边框，省空间
+shared_borders = true
+# 焦点边框亮青色，非焦点浅灰
+border_focused_color = "#4cc9f0"
+border_unfocused_color = "#444444"
+# 弹窗/设置面板内部padding，最小值 1（范围1~6）
+panel_padding = 1
+# 边框样式，选细线：normal / ascii；不要 thick/double
+border_style = "normal"
+# 隐藏标题栏，进一步省纵向空间
+window_title_position = "hidden"
+# 顶部dock栏隐藏
+dockbar_position = "top"
+show_clock = true
+show_cpu = true
+show_ram = true
+theme = "nord"
+[appearance.sidebar]
+enabled = false
+
+
+[keybindings.terminal_mode]
+terminal_exit_mode = ["shift+esc", "alt+esc"]
+
+[keybindings.global]
+command_palette = ["ctrl+shift+p"]
