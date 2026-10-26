@@ -13,7 +13,7 @@ mouse-hide-while-typing = true
 
 # 隐藏顶部标题栏，保留圆角边框
 macos-titlebar-style = hidden
-window-decoration = none
+# window-decoration = none
 
 # 1个Tab隐藏标签栏，≥2个自动弹出标签栏
 window-show-tab-bar = auto
