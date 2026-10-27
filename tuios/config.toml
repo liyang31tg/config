@@ -1,6 +1,9 @@
 [startup]
 tiled = true
 daemon = true
+open_default_window = true
+layout = "bsp"
+start_in_terminal_mode = true
 [appearance]
 # 窗格之间空隙，最小 0（默认就是0）
 gap = 0
@@ -21,6 +24,8 @@ show_clock = true
 show_cpu = true
 show_ram = true
 theme = "nord"
+nvim_navigation = false
+zoom_size = 100
 [appearance.sidebar]
 enabled = false
 
@@ -30,3 +35,6 @@ terminal_exit_mode = ["shift+esc", "alt+esc"]
 
 [keybindings.global]
 command_palette = ["ctrl+shift+p"]
+split_vertical = ["super+d"]
+split_horizontal = ["super+shift+d"]
+
