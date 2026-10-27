@@ -38,3 +38,8 @@ command_palette = ["ctrl+shift+p"]
 split_vertical = ["super+d"]
 split_horizontal = ["super+shift+d"]
 
+[spotlight]
+enabled = false
+
+[dock]
+right = ["transfers", "notifications", "copy-help", "cpu", "ram", "clock", "session-controls", "session"]
