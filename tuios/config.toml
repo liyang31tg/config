@@ -26,8 +26,18 @@ show_ram = true
 theme = "nord"
 nvim_navigation = false
 zoom_size = 100
+global_session = true
 [appearance.sidebar]
-enabled = false
+enabled = true
+position = "left"
+width = 62
+row_style = "bar"
+header_style = "icon"
+density = "normal"
+show_numbers = false
+folder_click = "navigate"
+file_delete = "trash"
+tooltips = true
 
 
 [keybindings.terminal_mode]
@@ -51,9 +61,13 @@ workspace_prefix_switch_6 = ["super+6"]
 workspace_prefix_switch_7 = ["super+7"]
 workspace_prefix_switch_8 = ["super+8"]
 workspace_prefix_switch_9 = ["super+9"]
+prefix_explore = ["super+e"]
 
 [spotlight]
 enabled = false
 
 [dock]
 right = ["transfers", "notifications", "copy-help", "cpu", "ram", "clock", "session-controls", "session"]
+
+[appearance.sidebar.left]
+width = 30
