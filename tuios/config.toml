@@ -29,7 +29,7 @@ zoom_size = 100
 global_session = true
 [appearance.sidebar]
 enabled = true
-position = "left"
+position = "hidden"
 width = 62
 row_style = "bar"
 header_style = "icon"
@@ -38,6 +38,9 @@ show_numbers = false
 folder_click = "navigate"
 file_delete = "trash"
 tooltips = true
+
+[workspaces]
+new_window_when_empty = true
 
 
 [keybindings.terminal_mode]
