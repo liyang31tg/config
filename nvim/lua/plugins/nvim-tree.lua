@@ -129,6 +129,7 @@ local opt = {
 	-- 不显示 git 状态图标
 	git = {
 		enable = true,
+		ignore = false,
 	},
 	--project plugin 需要这样设置
 	update_focused_file = {

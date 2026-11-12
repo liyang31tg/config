@@ -265,3 +265,12 @@ function ip() {
 function wk() {
     ssh wk
 }
+
+function gost_http2socks_bg() {
+    local lport="${1:-8080}"
+    local upstream="${2:-socks5://localhost:2222}"
+    nohup gost -L=http://:${lport} -F="${upstream}" >~/gost.log 2>&1 &
+    echo "gost bg pid: $!"
+}
+
+alias gost-stop='pkill -f "gost -L=http://"'

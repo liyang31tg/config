@@ -180,7 +180,10 @@ end, "Previous Todo Comment in current buffer")
 
 map("n", "<c-p>", "<cmd>Telescope find_files<cr>", "检索文件")
 map("n", "<c-b>", "<cmd>Telescope buffers<cr>", "检索buffers")
-map("n", "<leader><space>", "<cmd>Telescope live_grep<cr>", "模糊的全局搜索")
+-- map("n", "<leader><space>", "<cmd>Telescope live_grep<cr>", "模糊的全局搜索")
+map("n", "<leader><space>", function()
+	require("telescope.builtin").live_grep({ additional_args = { "-i" } })
+end, "模糊的全局搜索")
 map({ "n", "v" }, "<c-s-8>", function() --<c-*>
 	require("telescope.builtin").grep_string()
 end, "检索光标下的单词,再过滤选择")
